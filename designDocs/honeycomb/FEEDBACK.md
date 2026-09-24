@@ -103,6 +103,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`balance_tests/`** | The two balance tests, Basic Bite and All the Crunch. Built session 53, checked session 54; the matrix needs a re-run on corrected profiles. | **6** | s54 |
 | **`vfx/`** | Card and combat visual effects. **B21 made hit feedback depend on this.** | **1** | never started |
 | **`desk/`** | The phone desk: Noodle's page for editing events, notes, drafts and image requests from his phone. Second round planned in eleven phases in its `FEEDBACK.md`. | **41** | 2026-09-23 (plan only) |
+| **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch; the open items are the decisions it waits on. | **8** | 2026-09-24 (design only) |
 | — | Cross-cutting, below | 1 | s41 |
 
 **97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still
