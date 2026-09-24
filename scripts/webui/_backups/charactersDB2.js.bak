@@ -1,0 +1,40 @@
+// ============================================================================
+//  charactersDB2 — the IMPORTED character database
+// ============================================================================
+//
+//  Same format as charactersDB.js, and deliberately a separate file.
+//
+//  charactersDB.js is hand-written and is the HIGHER AUTHORITY. This one is
+//  where a bulk import lands — animadex first, whatever comes after it later.
+//  When both files describe the same character, charactersDB wins outright and
+//  the entry here is skipped; `cleanupCharacterArray` reports how many were
+//  shadowed so an import that collides heavily is visible rather than silent.
+//
+//  Why separate rather than appended:
+//
+//    - An import could be a hundred entries or a hundred thousand. Keeping it
+//      apart means it can be regenerated, re-sorted, diffed or deleted whole
+//      without touching a line anybody wrote by hand.
+//    - A hand-written entry carries decisions — which outfit is `default`, what
+//      `penis` should expand to for her — that a scraped one cannot. Losing
+//      those to an import that happened to run later would be unrecoverable.
+//    - It gives the linter something to check an import against BEFORE it is
+//      trusted: `node scripts/webui/webui2-lint.js` reads both files.
+//
+//  Format, in one example — see charactersDB.js for the real thing:
+//
+//      .codename; canonical booru tag, trait, trait, trait
+//      penis; what `penis` should become for her
+//      *default; the outfit tags
+//
+//  A line ending in a bare `;` with nothing after it is a STUB, not an entry.
+//  The parser splits on "; " and a stub silently produces an unreachable
+//  outfit — charactersDB.js has 25 of them today. The linter flags them; do not
+//  let an import add more.
+//
+//  EMPTY ON PURPOSE. The animadex import is on hold pending a way to pull their
+//  text database without the image payload.
+// ============================================================================
+
+var characterArray2 = `
+`;

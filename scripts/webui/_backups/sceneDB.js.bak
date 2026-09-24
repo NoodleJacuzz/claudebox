@@ -1,0 +1,2186 @@
+var sceneKeywordArray = `
+Fullwear
+fully zipped
+fully buttoned
+undressing
+wardrobe malfunction
+nude
+completely nude
+mostly nude
+partially nude
+flashing
+flashing viewer
+flashing (bodypart)
+wet clothes
+clothed sex
+sex through clothes
+sex under clothes
+clothed masturbation
+masturbation through clothes
+masturbation under clothes
+clothed female nude male
+tucked money
+
+Headwear
+placeholder
+
+Foreheadwear
+placeholder
+
+Facewear
+obscured face
+eyes visible through veil
+
+Eyewear
+obscured eyes
+adjusting glasses
+
+Mouthwear
+obscured mouth
+
+Earwear
+placeholder
+
+Neckwear
+choker snap
+choker snapping
+snap my choking
+
+Shoulderwear
+placeholder
+
+Armwear
+placeholder
+
+Wristwear
+placeholder
+
+Handwear
+placeholder
+
+UpperwearOuter
+placeholder
+
+UpperwearMiddle
+placeholder
+
+UpperwearInner
+placeholder
+
+UpperwearUnder
+placeholder
+
+Upperwear
+strap slip
+upshirt
+downshirt
+downblouse
+erect nipples under clothes
+lactation through clothes
+breast suppress
+bursting breasts
+breasts out
+one nipple out
+areola slip
+nipple slip
+
+Nipplewear
+tugging nipple rings
+nipple ring grab
+nipple ring pulling
+
+Waistwear
+Tugging cuffs
+
+LowerwearOuter
+upskirt
+updress
+pelvic curtain lift
+penis lifting skirt
+erection lifting skirt
+penis under dress
+penis lifting dress
+erection lifting dress
+penis under clothes
+penis lifting clothes
+erection lifting clothes
+penis in panties
+balls in panties
+
+LowerwearInner
+panty line
+
+LowerwearUnder
+pantyshot
+panty shot
+small bulge
+huge bulge
+hyper bulge
+tenting
+erection under clothes
+covered penis
+penis outline
+balls outline
+squirting through clothes
+pussy juice through clothes
+precum through clothes
+cum through clothes
+ejaculation through clothes
+panty bulge
+
+Lowerwear
+erection lift
+penis lifting clothes
+
+LegwearUpper
+penis in thighhighs
+
+LegwearLower
+placeholder
+
+Footwear
+placeholder
+
+Race
+dirty
+horny
+lewd
+naughty
+pent-up
+sweat
+excessive sweat
+steaming body
+breath cloud
+heavy breathing
+panting
+after rape
+exhibitionism
+public indecency
+streaking
+masochism
+ryona
+lipstick mark
+lipstick marks
+kiss mark
+massage
+dripping
+soaked
+bondage
+bdsm
+bound
+fully bound
+stationary restraints
+chain
+chains
+shackle
+shackles
+shackled
+hanging
+dangling
+suspension
+expansion
+growth
+shrinking
+shrunk
+mechanization
+shortstackify
+shortstackification
+milfification
+lolification
+aged up
+aged down
+pervert
+perverted
+female pervert
+male pervert
+sleeping
+voyeur
+voyeurism
+peeping
+peeking
+watching
+watching porn
+sunbathing
+action pose
+dynamic
+lying
+spinning
+floating
+flying
+riding
+riding motorcycle
+riding bicycle
+riding bike
+driving
+on back
+on stomach
+on side
+facesitting
+missionary
+missionary position
+doggy
+doggystyle
+prone
+prone bone
+69
+69 position
+anvil position
+chair position
+lifted
+lifted by another
+lifted by penis
+suspended
+suspension
+suspended congress
+reverse suspended congress
+full nelson
+rubbing
+humping
+grinding
+table masturbation
+table humping
+humping (object)
+corner masturbation
+squirting
+hyper squirt
+squirt
+puddle
+splash
+peeing
+watersports
+urination
+public urination
+(color) aura
+light (color) aura
+dark (color) aura
+(color) outline
+light (color) outline
+dark (color) outline
+(color) energy
+light (color) energy
+dark (color) energy
+glowing
+(color) glow
+light (color) glow
+dark (color) glow
+creepy
+(color) fire
+(color) gradient
+silhouette
+
+Head
+facing forward
+facing forwards
+facing sideways
+facing to the side
+facing back
+facing behind
+facing viewer
+facing another
+facing away
+unconscious
+broken
+stargazing
+throat swabbing
+sword swallowing position
+
+Hair
+brushing hair
+brushing own hair
+haircut
+cutting hair
+cutting own hair
+
+Face
+shaded face
+shadowed face
+crazy
+fucked silly
+happy
+excited
+surprise
+joy
+aroused
+seductive
+sad
+sorry
+angry
+curious
+thinking
+confused
+shock
+worried
+nervous
+embarrassed
+panic
+scared
+terror
+shy
+afterglow
+aftermath
+exhausted
+awe
+penis awe
+love
+breathing is fun
+dead inside
+ahegao
+torogao
+ohogao
+blush
+(color) blush
+heavy blush
+face blush
+blush lines
+blush stickers
+(color) blush stickers
+full-faced blush
+pout
+pouting
+cheek puff
+cheek squish
+cheek bulge
+drool
+drooling
+sigh
+sighing
+saliva
+saliva trail
+eyes closed
+looking back
+ear sex
+ear penetration
+facial
+catty face
+genki
+skull face
+stupid
+vapid
+
+Orbital
+looking pleasured
+raised eyebrows
+eyebrows up
+one eyebrow raised
+one eyebrow up
+furrowed brow
+furrowed brows
+raised inner eyebrows
+v-shaped eyebrows
+determined
+tearing up
+crying
+crying with eyes open
+sobbing
+
+Eyes
+crazy eyes
+wide-eyed
+constricted pupils
+half-closed eyes
+one eye half-closed
+one eye closed
+wink
+narrowed eyes
+mesugaki
+kusogaki
+teasing
+naughty face
+squint
+squinting
+glare
+star pupils
+heart-shaped pupils
+spiral eyes
+empty eyes
+blank eyes
+blank stare
+cross-eyed
+eyes in different directions
+looking away
+looking at another
+looking up
+looking down
+looking at viewer
+looking at penis
+looking at own penis
+looking to the side
+looking at (object)
+eye contact
+rolling eyes
+cross-eyed
+
+Muzzle
+open mouth
+mouth open
+closed mouth
+mouth closed
+parted lips
+mouth wide open
+yawning
+wavy mouth
+smile
+smirk
+smug
+grin
+laughing
+frown
+annoyed
+grimace
+snarl
+yelling
+:o
+:>
+:<
+:3
+fang
+fangs
+after rimming
+after fellatio
+drinking
+drunk
+cum drinking
+gokkun
+blep
+mlem
+oral
+kissing
+kissing (object)
+waiting for kiss
+french kiss
+french kissing
+(bodypart) kissing
+kissing (bodypart)
+kissing own (bodypart)
+smooch
+smooching
+elongated lips
+blowjob face
+(bodypart) sucking
+(bodypart) worship
+suckling (bodypart)
+sucking (bodypart)
+cunnilingus
+anilingus
+rimjob
+deep rimming
+face in anus
+beast rimming
+fellatio
+cooperative fellatio
+deepthroat
+irrumatio
+throat bulge
+autofellatio
+pee drinking
+piss drinking
+
+Teeth
+teeth
+clenched teeth
+clenching teeth
+lick
+sticking out tongue
+nyeh
+licking
+licking (bodypart)
+licking (object)
+licking lips
+biting lip
+lip bite
+
+Torso
+asphyxia
+asphyxiation
+choking
+leaning
+leaning to the side
+leaning back
+reclining
+leaning forward
+bent over
+dancing
+twirl
+
+Back
+reclining
+
+Wings
+wingspan
+flapping wings
+
+Chest
+chest drum
+chestbump
+asymmetrical docking
+
+Breasts
+paizuri
+penis between breasts
+naizuri
+autopaizuri
+casual autopaizuri
+paizuri under clothes
+paizuri through clothes
+paizuri from above
+lactating through clothes
+breastfeeding
+reverse paizuri
+cooperative paizuri
+competitive paizuri
+cooperative naizuri
+competitive naizuri
+asymmetrical paizuri
+asymmetrical docking
+breast size difference
+breasts size difference
+breast size comparison
+breasts size comparison
+breast smother
+breasts smother
+breast smothering
+breasts smothering
+pectoral bulge
+
+Areolae
+placeholder
+
+Nipples
+lactation
+milk squirt
+
+Arms
+(arms) crossed
+(arms) outstretched
+(arms) at side
+(arms) at sides
+(arms) (armsto) (bodypart)
+(arms) up
+reaching down
+reaching back
+cuddling
+hugging
+hugging viewer
+flexing
+punching
+choping
+clapping
+patting
+reaching towards viewer
+elbow rest
+head rest
+arm support
+arms support
+v-shaped arms
+v arms
+stretching
+arms together
+fisting self
+
+Hands
+(object) lift
+lifting (object)
+v
+peace sign
+v over eye
+w
+double v
+v over eyes
+(hands) up
+(hands) outstretched
+(hands) (handsto) (bodypart)
+(hands) together
+covering privates
+covering self
+spreading own (bodypart)
+covering own (bodypart)
+fingering own (bodypart)
+finger in own (bodypart)
+groping own (bodypart)
+fisting own (bodypart)
+slapping own (bodypart)
+spanking own (bodypart)
+rubbing own (bodypart)
+grabbing own (bodypart)
+tugging own (bodypart)
+pulling own (bodypart)
+lifting own (bodypart)
+slapping own (bodypart)
+spanking own (bodypart)
+holding own (bodypart)
+twirling (bodypart)
+brushing (bodypart)
+brushing own (bodypart)
+poking own (bodypart)
+touching own (bodypart)
+caressing (bodypart)
+caressing own (bodypart)
+pinch
+pinching
+pinching self
+pinching own (bodypart)
+holding with both hands
+fishing
+waving with both hands
+waving
+waving at viewer
+hands together
+interlocked fingers
+praying
+handjob
+cooperative handjob
+two-handed handjob
+kabedon
+fingering self
+adjusting glasses
+shh
+shush
+shushing
+salute
+saluting
+saluting viewer
+
+Fingernails
+scratching
+scratching (bodypart)
+admiring nails
+painting nails
+painting fingernails
+
+Belly
+belly dancing
+
+Waist
+waist turn
+body turn
+thrusting
+thrusting hips
+air thrusts
+arched back
+back arching
+back arching orgasm
+hips cocked
+hip sway
+cumflation
+cum inflation
+cum expulsion
+cum excretion
+distension
+
+Penis
+erection
+flaccid
+flaccid penis
+erection lifting skirt
+erection lifting dress
+erection lifting clothes
+penis lifting skirt
+penis lifting dress
+penis lifting clothes
+imminent ejaculation
+hands-free
+hands-free ejaculation
+male masturbation
+futanari masturbation
+penile masturbation
+two-handed masturbation
+autofellatio
+
+Balls
+cbt
+ballbusting
+ball plapping
+plapping own balls
+
+Pussy
+female masturbation
+pussy juice
+excessive pussy juice
+pussy juice trail
+pussy juice string
+pussy juice puddle
+pussy juice stain
+pussy juice on (bodypart)
+pussy juice through clothes
+pussy plapping
+
+Clit
+clitoral stimulation
+
+Butt
+top-down bottom-up
+all fours
+ass-to-ass
+piggyback
+piggyback sex
+hotdogging
+buttjob
+cooperative buttjob
+twerking
+
+Anus
+anal juice
+excessive anal juice
+anal excretion
+anal expulsion
+
+Tail
+tail wag
+wagging tail
+tail raised
+straight tail
+tail curl
+
+Legs
+knee up
+one knee up
+knees up
+both knees up
+on knee
+on one knee
+on knees
+on both knees
+knee extended
+one knee extended
+knees extended
+both knees extended
+(legs) up
+(legs) extended
+(legs) crossed
+(legs) around (bodypart)
+(legs) behind (bodypart)
+legs spread
+spread legs
+legs apart
+bowlegged
+bowlegged stance
+kicking
+kick
+axe kick
+thigh fucking
+thigh sex
+legjob
+squatting
+deep squat
+full squat
+crouching
+sitting
+kneeling
+wariza
+m legs
+dogeza
+standing
+standing on one leg
+vertical split
+vertical splits
+standing split
+standing splits
+horizontal split
+horizontal splits
+leglock
+leglock orgasm
+legs crossed
+walking
+running
+jumping
+crawling
+straddling
+girl on top
+boy on top
+folded
+cowgirl position
+reverse cowgirl
+reverse cowgirl position
+squatting cowgirl position
+reverse squattng cowgirl position
+cowgirl sitting
+reverse cowgirl sitting
+standing sex
+crouching sex
+stacked
+stacked asses
+stacked ass
+stacked butts
+side-by-side
+
+Feet
+foot on own (bodypart)
+feet on own (bodypart)
+foot behind own (bodypart)
+feet behind own (bodypart)
+two-footed footjob
+tiptoes
+toe curl
+toe-curling orgasm
+toe scrunch
+m legs
+autofootjob
+skateboarding
+
+Toenails
+painting toenails
+
+count
+no humans
+item focus
+(object) focus
+object focus
+animal focus
+male focus
+female focus
+1girl
+1boy
+solo
+solo focus
+group
+group sex
+large group
+orgy
+duo
+trio
+duo focus
+trio focus
+threesome
+fff threesome
+ffm threesome
+mmf threesome
+mmm threesome
+2girls
+3girls
+4girls
+5girls
+6girls
+6+girls
+multiple girls
+2boys
+3boys
+4boys
+5boys
+6boys
+6+boys
+multiple boys
+
+countSolo
+1girl
+1boy
+solo
+solo focus
+
+countGroup
+group
+group sex
+large group
+orgy
+duo
+trio
+duo focus
+trio focus
+threesome
+fff threesome
+ffm threesome
+mmf threesome
+mmm threesome
+2girls
+3girls
+4girls
+5girls
+6girls
+6+girls
+multiple girls
+2boys
+3boys
+4boys
+5boys
+6boys
+6+boys
+multiple boys
+side-by-side
+ass-to-ass
+symmetrical
+symmetry
+voyeurism
+looking at another
+watching another
+
+internal
+cutaway
+cross-section
+x-ray
+internal
+internal (intercourse)
+internal cumshot
+prostate
+womb
+cervix
+fallopian tubes
+ovary
+ovaries
+penis in womb
+cervical penetration
+ovum
+insemination
+impregnation
+sperm
+sperm cells
+squirting inside
+peeing inside
+
+cum
+ejaculation
+after ejaculation
+cumshot
+unusual cum
+(color) cum
+glowing cum
+boiling cum
+precum
+excessive precum
+precum squirt
+precum string
+precum trail
+unusual precum
+(color) precum
+glowing precum
+hand on own penis
+hands on own penis
+cum
+excessive cum
+cum string
+cum bubble
+thick cum
+solid cum
+cum explosion
+cum everywhere
+too much cum
+cum on self
+cum through clothes
+cum on clothes
+cum on own clothes
+cum in clothes
+cum on (bodypart)
+cum on own (bodypart)
+cum in (bodypart)
+cum from (bodypart)
+cum on (clothing)
+cum in (clothing)
+cum on own (clothing)
+cum in own (clothing)
+overflow
+cum overflow
+cum pool
+cumdrip
+cum inside
+excretion
+expulsion
+facial
+
+fx
+magic
+spellcasting
+magic circle
+(color) magic circle
+corruption
+brainwashing
+hypnosis
+showering
+purification
+question mark
+exclamation point
+creepy
+spooky
+heart
+heart \\(symbol\\)
+star
+star \\(symbol\\)
+zzz
+zzz \\(symbol\\)
+exclamation point
+question mark
+twitching
+trembling
+throbbing
+throb lines
+orgasm
+intense orgasm
+shivering
+motion lines
+motion line
+motion blur
+action lines
+action line
+speed lines
+speed line
+afterimage
+impact lines
+notice lines
+electricity
+electrostimulation
+electrostim
+electrocution
+(color) electricity
+discarded (clothing)
+unworn (clothing)
+cum on (clothing)
+
+toys
+sex toy
+sex toys
+(intercourse) object insertion
+(color) beads
+(size) beads
+(intercourse) beads
+beads in (bodypart)
+anal beads in ass
+holding beads
+bead pull
+(intercourse) bead pull
+bead push
+bead insertion
+bead expulsion
+bead excretion
+nubbed beads
+nubbed (intercourse) beads
+spiked beads
+spiked (intercourse) beads
+(color) plug
+(size) plug
+(intercourse) plug
+(shape) plug
+plug in (bodypart)
+buttplug in ass
+plug pull
+(intercourse) plug pull
+plug push
+(intercourse) plug push
+plug insertion
+(intercourse) plug insertion
+plug expulsion
+(intercourse) plug expulsion
+plug excretion
+(intercourse) plug excretion
+redundant
+plug
+buttplug
+redundant
+anal tail
+fake tail
+tail plug
+(shape) plug
+dildo
+(color) dildo
+(size) dildo
+(intercourse) dildo
+dildo in (bodypart)
+holding dildo
+dildo pull
+dildo push
+dildo insertion
+(intercourse) dildo pull
+dildo excretion
+dildo expulsion
+long dildo
+double-ended dildo
+(species) dildo
+nubbed dildo
+planted dildo
+riding dildo
+hitachi magic wand
+vibrator
+vibrating
+vibrator to (bodypart)
+(bodypart) clamps
+(color) strap-on
+strap-on
+wearing strap-on
+
+partner
+interracial
+size difference
+(bodypart) size difference
+(bodypart) comparison
+(bodypart) size comparison
+breast envy
+penis envy
+humiliation
+netorare
+reverse netorare
+ntr
+cuckholding
+cheating
+cheating wife
+cheating girlfriend
+cheating husband
+hetero
+yaoi
+yuri
+futa on male
+futa with male
+male on futa
+male with futa
+futa on female
+futa with female
+female on futa
+female with futa
+futa on futa
+futa with futa
+siblings
+twins
+symmetry
+symmetrical
+age difference
+mother and son
+mother and daughter
+light-skinned male
+tan-skinned male
+dark-skinned male
+(color)-skinned male
+mostly offscreen male
+maledom
+dominant male
+malesub
+submissive male
+larger male
+taller male
+smaller male
+older male
+younger male
+younger boy
+light-skinned female
+tan-skinned female
+dark-skinned female
+(color)-skinned female
+mostly offscreen female
+femdom
+dominant female
+femsub
+submissive female
+larger female
+taller female
+smaller female
+older female
+younger female
+younger girl
+light-skinned futa
+tan-skinned futa
+dark-skinned futa
+(color)-skinned futa
+mostly offscreen futa
+nude male
+clothed male nude female
+nude female clothed male
+nude male clothed female
+clothed female nude male
+futadom
+dominant futa
+futasub
+submissive futa
+larger futa
+taller futa
+smaller futa
+older futa
+younger futa
+small dom big sub
+big sub small dom
+small sub big dom
+big dom small sub
+(color) horse
+feral horse
+(color) wolf
+feral wolf
+(color) dog
+feral dog
+(color) pig
+feral pig
+bestiality
+feral penetrating
+feral on female
+feral on male
+feral on futa
+human on anthro
+human on feral
+human penetrating
+female on feral
+male on feral
+futa on feral
+pov
+first person view
+crotch pov
+flaccid pov
+pov penis
+pov small penis
+pov balls
+pov pussy
+pov breasts
+male pov
+cute pov
+futa pov
+female pov
+taker pov
+anthro pov
+furry pov
+nude pov
+clothed pov
+pov only
+pov hand
+pov hands
+pov foot
+pov feet
+pov toes
+multiple penises
+penises touching
+frottage
+surrounded by penises
+disembodied humanoid penis
+disembodied equine penis
+disembodied canine penis
+disembodied cetacean penis
+disembodied porcine penis
+disembodied ovipositor
+large disembodied penis
+small disembodied penis
+disembodied balls
+disembodied hand
+disembodied hands
+disembodied foot
+disembodied feet
+disembodied tongue
+disembodied tongues
+disembodied mouth
+stepping on (bodypart)
+holding (object)
+(object) pull
+petting
+small insertion
+large insertion
+huge insertion
+hyper insertion
+impossible fit
+just the tip
+prodding
+deep insertion
+all the way through
+fingering
+fingering another
+group sex
+rough sex
+imminent
+imminent rape
+imminent gangbang
+rape
+gangbang
+spitroasting
+imminent masturbation
+masturbation
+implied masturbation
+hidden masturbation
+after masturbation
+imminent sex
+sex
+implied sex
+hidden sex
+after sex
+sex from behind
+begging for sex
+grabbed
+grabbed from behind
+groping
+groped from behind
+hug
+hugging
+hugged from behind
+monster
+monster sex
+monster on female
+monster on male
+(color) tentacle
+(color) tentacles
+tentacle sex
+tentacle in (bodypart)
+tentaclejob
+tentacle on female
+tentacle on male
+tentacle on futa
+tentacle sucking (bodypart)
+breastfeeding
+wurm
+worm
+aurm
+lurm
+(color) worm
+(color) worms
+multiple worms
+worm in (bodypart)
+worm on (bodypart)
+worm sucking (bodypart)
+infested (bodypart)
+squirming (bodypart)
+facehugger
+small facehugger
+(color) facehugger
+facehugger on (bodypart)
+facehugger riding (bodypart)
+facehugger riding front
+multiple facehuggers
+fly
+(color) fly
+multiple flies
+giant fly
+fly on (bodypart)
+fly riding (bodypart)
+fly riding front
+
+unsorted
+placeholder
+condom
+used condom
+torn condom
+loose condom
+(color\) condom
+filled condom
+tied condom
+condom wrapper
+cum in condom
+broken condom
+father and daughter
+age progression
+character age
+stated age
+pedophile
+onee-loli
+onee-shota
+erogaki
+drinking pee
+cum on upper body
+incest
+pee
+penis nursing
+sisters
+smegma
+stray pubic hair
+heartbeat
+pumping
+prolapse
+urethral bulge
+cooperative thighjob
+pull out
+injury
+slap mark on balls
+bruise on shoulder
+strangling
+punch marks on belly
+lube
+one breast out
+mating press
+pinned
+presenting
+prostitution
+pokephilia
+clothed male nude male
+penis milking
+:>=
+expressionless
+eating
+chewing
+popsicle in mouth
+spoken heart
+surprised
+sweatdrop
+after kiss
+after sucking
+ugly bastard
+molestation
+hand in pocket
+hands in pockets
+legs together
+split tentacle
+lipped worm
+telekinesis
+finger inserted
+single finger inserted
+1 finger inserted
+2 fingers inserted
+3 fingers inserted
+4 fingers inserted
+grabbing another's horns
+grabbing another's hair
+grabbing another's ear
+hand on another's shoulder
+fisted by another
+superdeep
+balls deep
+peeksex
+sleepy
+tears
+extra ears
+flaired tip
+egg laying
+egg
+under desk
+sneaking
+sitting on face
+human pov
+imminent penetration
+featureless chest
+sparkle
+flexible
+aiming
+autopaizuri under clothes
+wet spot
+small penis worship
+firing
+nose blush
+tied up
+bound wrists
+disembodied fist
+finger to tongue
+restrained
+struggling
+stuck
+head support
+emotionless
+kuudere
+unaware
+oblivious
+sensory deprivation
+tentacles
+tentacles in nipples
+reverse fellatio
+shadow
+cum out nose
+mouthfull of cum
+upside-down
+balls on face
+freezing
+jack-o-pose
+small beads
+covering
+tribadism
+swimming
+vore
+dildo riding
+ass visible through thighs
+face in pillow
+pillow grab
+slap mark
+spanked
+breast rest
+ok sign
+money gesture
+fellatio gesture
+nipples visible through clothing
+wading
+free use
+taped open
+aftersex
+puckered lips
+multiple futa
+larger futanari
+leg lock
+hand on another's thigh
+the pose
+foot on another's face
+smell
+smelling
+mommy kink
+grabbing
+deep skin
+breasts on head
+kung fu
+fighting stance
+between breasts
+v over mouth
+breasts squeezed together
+emphasis lines
+sitting on lap
+sitting on person
+unaligned breasts
+uterus
+after paizuri
+great ball
+raised eyebrow
+breath
+slurping
+leech
+tentacles under clothes
+heart hands
+ass support
+anal invitation
+spreading
+handsfree paizuri
+anthrofied
+asking for it
+pubic hair peek
+gameplay mechanics
+anthro on human
+human male
+queen of humans
+selfie
+bloom
+depth of field
+blurry foreground
+hand on own thigh
+zombie pose
+outstretched arms
+gluteal fold
+hugging object
+sperm cell
+reverse spitroast
+cum drool
+creature inside
+unbirthing
+parasite
+oyakodon \(sex\)
+ball busting
+family
+foreskin insertion
+foreskin play
+bukkake
+grabbing another's breast
+perpendicular paizuri
+ectoplasm
+ectoplasm bubble
+leash pull
+nose bubble
+bruise
+whip marks
+sexually suggestive
+smoking pipe
+recording
+bikini bottom aside
+bikini top lift
+inflation
+kiss
+standing on person
+lying on lap
+pointing
+unworn panties
+mixed-sex bathing
+same-sex bathing
+shared bathing
+double penetration
+plant monster
+smil
+larve breasts
+sweat pooling between breasts
+outdoors dirt road
+wide stand
+sweat puddle between breasts
+bright background
+messy dildo
+feral penetrated
+wide stance
+deep kiss
+riding chest
+cleavage peek
+revealing
+knees to chest
+nose to balls
+spoken question mark
+holding dildo with both hands
+holding reins
+head under skirt
+ball squirting
+pussy juice drip
+assisted exposure
+fake screenshot
+jack-o' challenge
+multiple others
+split
+convenient arm
+convenient censoring
+finger to own mouth
+bent-over
+chin rubbing
+bowlegged pose
+clitoral hold
+riding ass
+mounted
+slap marks
+anthropod
+extra arms
+4 arms
+ass cleavage
+guided penetration
+one eye half closed
+gagged
+self wedgie
+frontal wedgie
+mutual masturbation
+arm around shoulders
+ball fondling
+pussy wink
+take your pick
+rimming
+fanning self
+bored
+evil grin
+knotting
+cunnilingus gesture
+gesture
+oral invitation
+height difference
+undressing another
+bite mark
+animal sexualization
+condom on penis
+used condom
+blood
+male penetrated
+multiple penetration
+grabbing from behind
+carrying
+carrying person
+cum in own mouth
+reverse doggystyle
+symmetrical docking
+grinding over clothes
+buttjob over clothes
+stealth sex
+in box
+in container
+knees together feet apart
+mind control
+sexual coaching
+penis shadow
+pole dancing
+tail in ass
+tail insertion
+face to breasts
+penis under another's clothes
+girl sandwich
+sandwiched
+sleep sex
+on boat
+
+camera
+from front
+from side
+from behind
+from below
+from above
+angled view
+dutch angle
+dynamic
+close-up
+zoomed out
+full body
+cowboy shot
+profile
+feet out of frame
+upper body only
+lower body only
+(bodypart) only
+(bodypart) out of frame
+(bodypart) focus
+(bodypart) shot`;
+
+var complexBodypartsArray =`
+body; race
+fur; race
+skin; race
+head; head
+horn; head
+horns; head
+ear; head
+ears; head
+hair; hair
+face; face
+cheek; face
+eye; eyes
+eyes; eyes
+mouth; muzzle
+teeth; teeth
+tongue; teeth
+torso; torso
+throat; torso
+neck; torso
+back; torso
+chest; torso
+armpit; torso
+armpits; torso
+breast; breasts
+breasts; breasts
+areola; areolae
+areolas; areolae
+areolae; areolae
+nipple; nipples
+nipples; nipples
+belly; waist
+tummy; waist
+waist; waist
+stomach; waist
+arm; arms
+one arm; arms
+arms; arms
+both arms; arms
+hand; hands
+one hand; hands
+hands; hands
+both hands; hands
+fist; hands
+fists; hands
+finger; hands
+fingers; hands
+hip; waist
+hips; waist
+leg; legs
+legs; legs
+knee; legs
+knees; legs
+ankle; legs
+ankles; legs
+foot; feet
+feet; feet
+crotch; waist
+penis; penis
+glans; penis
+urethra; penis
+ball; balls
+balls; balls
+pussy; pussy
+clit; clit
+clitoris; clit
+ass; butt
+butt; butt
+anus; anus
+`
+var simpleBodypartsArray = `body
+fur
+skin
+head
+hair
+horn
+horns
+eye
+eyes
+ear
+ears
+face
+cheek
+mouth
+tongue
+throat
+neck
+torso
+back
+chest
+breast
+breasts
+nipple
+nipples
+belly
+womb
+stomach
+armpit
+armpits
+arm
+one arm
+arms
+both arms
+hand
+one hand
+hands
+both hands
+fist
+fists
+finger
+fingers
+hip
+hips
+waist
+stomach
+leg
+legs
+knee
+knees
+ankle
+ankles
+foot
+feet
+toe
+toes
+crotch
+penis
+glans
+urethra
+ball
+balls
+pussy
+clit
+clitoris
+ass
+butt
+anus
+tentacle`;
+var complexIntercourseArray = `
+oral; muzzle
+nipple; nipples
+anal; anus
+urethral; penis
+vaginal; pussy
+clitoral; clit
+womb; waist
+`;
+var simpleIntercourseArray = `oral
+nipple
+anal
+urethral
+vaginal
+clitoral`;
+var simpleObjectArray = `weapon
+fruit
+sign
+flower
+rose
+bouquet
+fruit
+vegetable
+berry
+berries
+mushroom
+flag
+banner
+bell
+feather
+gemstone
+skull
+animal skull
+cup
+mug
+vial
+beaker
+glass
+wineglass
+bottle
+plate
+tray
+bowl
+watch
+stopwatch
+rod
+fishing rod
+fishing pole
+fish
+net
+bug net
+bug
+worm
+tentacle
+basket
+fruit basket
+gift basket
+present
+cake
+happy birthday
+birthday cake
+lantern
+candle
+candelabra
+pick
+pickaxe
+shovel
+rubber duck
+crime prevention buzzer
+towel
+paper
+letter
+book
+tome
+grimoire
+journal
+bag
+ice bag
+phone
+smartphone
+ball
+crystal ball
+popsicle
+cum
+blanket
+pillow
+shovel
+pick
+sword
+knife
+shield
+axe
+mace
+pokeball
+broomstick
+controller
+parasol
+gem
+coin
+staff`;//To-do: Grab weapons from clothes array
+var simpleHandArray = `hand
+one hand
+hands
+both hands`;
+var simpleHandsTo = `to
+to own
+to another's
+on
+on own
+on another's
+over
+over own
+over another's
+in
+in own
+in another's
+around
+around own
+around another's
+behind
+behind own
+behind another's`;
+var simpleArmArray = `arm
+one arm
+arms
+both arms`;
+var simpleArmsTo = `behind
+across
+between
+under`;
+var simpleLegArray = `leg
+one leg
+legs
+both legs`;
+var clothingSceneActionsArray = `
+wet (clothing)
+(clothing) lift
+lifting own (clothing)
+(clothing) pull
+pulling own (clothing)
+(clothing) tug
+tugging own (clothing)
+(clothing) hold
+holding own (clothing)
+cum on (clothing)
+cum on own (clothing)
+exploding (clothing)
+adjusting (clothing)
+exploded (clothing)
+ineffective (clothing)
+revealing (clothing)
+tearing (clothing)
+tearing own (clothing)
+removing (clothing)
+removing own (clothing)
+flowing (clothing)
+(clothing) blow
+`;
+var bodySceneActionsArray = `
+cropped (bodypart)
+gaping (bodypart)
+veiny (bodypart)
+erect (bodypart)
+puffy (bodypart)
+(bodypart) torture
+overstuffed (bodypart)
+squeezing (bodypart)
+clenched (bodypart)
+clenching (bodypart)
+(bodypart) touching
+(bodypart) up
+(bodypart) blush
+(bodypart) fetish
+sweaty (bodypart)
+steaming (bodypart)
+throbbing (bodypart)
+(bodypart) press
+pressing (bodypart)
+pressing own (bodypart)
+glass press
+(bodypart) against glass
+(bodypart) squish
+squishing (bodypart)
+squishing own (bodypart)
+bouncing (bodypart)
+(bodypart) shake
+(bodypart) wiggle
+(bodypart) ripple
+(bodypart) clap
+presenting (bodypart)
+presenting own (bodypart)
+(bodypart) penetration
+(bodypart) bulge
+penis to (bodypart)
+penis over (bodypart)
+penis on (bodypart)
+penis close to (bodypart)
+penis in (bodypart)
+spread (bodypart)
+spreading (bodypart)
+covering (bodypart)
+fingering (bodypart)
+finger in (bodypart)
+(bodypart) grope
+(bodypart) groping
+groping (bodypart)
+fisting (bodypart)
+(bodypart) slap
+(bodypart) slapping
+(bodypart) spank
+(bodypart) spanking
+(bodypart) pinch
+(bodypart) pinching
+pinching own (bodypart)
+(bodypart) tweak
+tweaking (bodypart)
+tweaking own (bodypart)
+rubbing (bodypart)
+(bodypart) rub
+(bodypart) play
+(bodypart) grab
+grabbing (bodypart)
+(bodypart) tug
+tugging (bodypart)
+(bodypart) pull
+pulling (bodypart)
+(bodypart) lift
+lifting (bodypart)
+bruised (bodypart)
+scarred (bodypart)
+bruise on (bodypart)
+(bodypart) punch
+(bodypart) punching
+(bodypart) slap
+slapping (bodypart)
+(bodypart) spank
+spanking (bodypart)
+(bodypart) cover
+covering (bodypart)
+(bodypart) hold
+holding (bodypart)
+lipstick mark on (bodypart)
+lipstick marks on (bodypart)
+kiss mark on (bodypart)
+(bodypart) out
+(bodypart) exposed
+massaging (bodypart)
+(bodypart) massage
+wet (bodypart)
+bound (bodypart)
+(bodypart) bound
+(bodypart) tied
+hanging (bodypart)
+dangling (bodypart)
+adjusting (bodypart)
+(bodypart) expansion
+(bodypart) growth
+(bodypart) shrinking
+(bodypart) turn
+(bodypart) tilt
+(bodypart) back
+(bodypart) blush
+(bodypart) behind head
+poke
+(bodypart) poke
+poking
+poking (bodypart)
+poking (object)
+touching
+touching (bodypart)
+touching (object)
+spreading own (bodypart)
+covering own (bodypart)
+fingering own (bodypart)
+finger in own (bodypart)
+groping own (bodypart)
+fisting own (bodypart)
+slapping own (bodypart)
+spanking own (bodypart)
+rubbing own (bodypart)
+grabbing own (bodypart)
+tugging own (bodypart)
+pulling own (bodypart)
+lifting own (bodypart)
+slapping own (bodypart)
+spanking own (bodypart)
+holding own (bodypart)
+adjusting own (bodypart)
+twirling (bodypart)
+brushing (bodypart)
+brushing own (bodypart)
+poking own (bodypart)
+touching own (bodypart)
+(bodypart)pat
+(bodypart)pats
+(bodypart) patting
+patting (bodypart)
+(bodypart) pet
+(bodypart) petting
+(hands) (handsto) (bodypart)
+(arms) (armsto) (bodypart)
+scratching (bodypart)
+(legs) around (bodypart)
+(legs) behind (bodypart)
+foot on (bodypart)
+foot on own (bodypart)
+feet on (bodypart)
+feet on own (bodypart)
+foot behind (bodypart)
+foot behind own (bodypart)
+feet behind (bodypart)
+feet behind own (bodypart)
+stepping on (bodypart)
+precum on (bodypart)
+precum on own (bodypart)
+cum on (bodypart)
+cum on own (bodypart)
+cum in (bodypart)
+cum from (bodypart)
+kissing own (bodypart)
+(bodypart)job
+(bodypart) bulge
+beads in (bodypart)
+plug in (bodypart)
+dildo in (bodypart)
+vibrator to (bodypart)
+(bodypart) clamps
+tentacle in (bodypart)
+tentacle on (bodypart)
+tentacle sucking (bodypart)
+infested (bodypart)
+squirming (bodypart)
+(bodypart) size difference
+(bodypart) comparison
+(bodypart) size comparison
+(bodypart) docking
+(bodypart) only
+(bodypart) out of frame
+(bodypart) focus
+(bodypart) shot
+flashing (bodypart)
+panties around (bodypart)
+panties on (bodypart)`;
+var intercourseSceneActionsArray = `
+imminent (intercourse)
+forced (intercourse)
+double (intercourse)
+triple (intercourse)
+after (intercourse)
+stretching (intercourse)
+cooperative (intercourse)
+assisted (intercourse)
+cum from (intercourse)
+(intercourse)
+(intercourse) masturbation
+(intercourse) stimulation
+(intercourse) prodding
+(intercourse) fingering
+(intercourse) fisting
+(intercourse) sex
+(intercourse) penetration
+(intercourse) rape
+(intercourse) insertion
+(intercourse) tugging
+(intercourse) stretching
+(intercourse) prolapse
+(intercourse) wink
+(intercourse) knoting
+(intercourse) vore
+(intercourse) birth`;
+
+//word 'redundant' used to mark any tag sets I notice have heavy overlap
