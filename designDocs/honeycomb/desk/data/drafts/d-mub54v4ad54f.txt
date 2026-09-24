@@ -1,0 +1,23 @@
+title: Event - Jellyblob
+stage: idea
+created: 2026-09-21T11:07:13.162Z
+updated: 2026-09-21T11:15:28.594Z
+updatedBy: noodle
+---
+im jellyblob-start
+t Before you lies a great big glob of jelly. 
+leader block
+knight I wish I could use one of these guys as a pillow. What would it feel like?
+cinder I always wondered what these guys tasted like.
+vamp Revolting. I've sampled one of these before. The taste was, hm... How to describe it?
+secondary block
+necro Regret.
+t Floating inside are smaller, yet still tantalizing globs of treasure.
+t What will you do?
+> Take From the Jelly | Add a curse card to your deck, gain 50 gold.
+> Feed the Jelly | Remove a card from your deck. Something else might happen.
+
+im jellyblob-knight
+
+im jellyblob-girl
+

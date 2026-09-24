@@ -1,0 +1,536 @@
+{
+	"noteArray": [
+		{
+			"id": "n-in1",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Five previewed enemy designs were cut\n“It was bellhead-a, demikobold-c, feralbeast-b, spookytall-a, and tophatfairy-c. Those were the designs I showed off as upcoming previews because they were very cool, demo players will be expecting them.”",
+			"created": "2026-09-21T09:51:36.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-1 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:36.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "Investigated overnight. None of the five was cut. All five images are on disk in 'enemy inspo variants/assigned/', all five are named in ASSIGNED.md as the body for a specific enemy, and all five were DEFERRED by four separate decisions across sessions 45 and 50 - no one document said so in one place until now. Three of them are the same job: feralbeast-b and spookytall-a are the Act1-B and Act1-C elites that E11 is already open for, and tophatfairy-c is the obvious third. The other two, demikobold-c and bellhead-a, are the intruder-elite rework held back on purpose. Full table with where each one is: enemy_overhaul/FEEDBACK.md E13.",
+					"created": "2026-09-21T11:58:52.103Z"
+				}
+			],
+			"updated": "2026-09-21T11:58:52.103Z"
+		},
+		{
+			"id": "n-in2",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Missed enemies, and no recolours\n“He also missed several enemies to work on, and I don't want lazy-looking recolors, so I had him bench the scrap salvager.”",
+			"created": "2026-09-21T09:51:37.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-2 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:37.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "Measured instead of asking, since you did not list them. ELEVEN enemies still stand on a generated stand-in and were never flagged as owing art: Sporeling, Cap Brute, Gloom Wisp, Hollow Knight, Earthstar, Bracket Elder, Spore Alchemist, Bark Sentinel, Kobold Scavenger, The Matriarch, The Juggernaut. THREE enemies are literal recolours of another enemy, and you were right about which: the Scrap Salvager is the Kobold Scavenger hue-shifted. The other two are the Mold Leech (Gloom Wisp) and the Hollow Champion (Hollow Knight, defended on purpose - same faction, same armour). Full tables: art_pipeline/FEEDBACK.md B38.",
+					"created": "2026-09-21T11:58:52.173Z"
+				}
+			],
+			"updated": "2026-09-21T11:58:52.173Z"
+		},
+		{
+			"id": "n-in3",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Argent Fencer\n“for argent fencer's sprite we were supposed to save her for a two-enemy elite encounter with the other butterfly knight”",
+			"created": "2026-09-21T09:51:38.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-3 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:38.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "She was not saved. The Argent Fencer is in SIX encounters and none of them is a two-enemy elite. The pair fight half-exists: pollenFencers and pollenDeepRoad both field her with the Sable Fencer, but both are ordinary fights with a third enemy padding them out. The elite nodes on that route field the Kobold Scavenger instead, which is enemy_overhaul E11. A two-Fencer elite would close E11 for Act1-C and this at the same time. Table of all six: rework/enemies/FEEDBACK.md B36.",
+					"created": "2026-09-21T11:58:52.242Z"
+				}
+			],
+			"updated": "2026-09-21T11:58:52.242Z"
+		},
+		{
+			"id": "n-in4",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Soakcap\n“Soakcap's sprite is gigantic”",
+			"created": "2026-09-21T09:51:39.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-4 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:39.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "Cause found, and it is one number. Soakcap's presentation.scale is 1.45, the joint-highest of any ordinary enemy in the game (tied with the Bolete Hook; most normals are 1.00). Its drawing is also on a 1011x1300 canvas rather than the shared 832x1216, which widens it again. In pollenFencers it renders 443px wide and 73px of that is off the right of the screen at your 1878x804. Next to the Longwing, which is on a 650x1300 canvas, it is about half as wide again. What it should be instead is your call - the number is in the enemy's content entry. rework/enemies/FEEDBACK.md B37.",
+					"created": "2026-09-21T11:59:05.114Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:05.114Z"
+		},
+		{
+			"id": "n-in5",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "The Pale Dray\n“The Pale Dray doesn't fit on the dang screen”",
+			"created": "2026-09-21T09:51:40.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-5 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:40.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "Confirmed and measured: 108 pixels of the Pale Dray are above the top of the screen at 1878x804. But you caught the second-worst one. THE HEAD GARDENER IS 453 PIXELS OFF THE TOP - she is cut off at the neck, and she is the Act1-1 boss. Twelve sprites in all leave the screen. A bigger window makes it worse, not better: at 1920x1080 the Head Gardener is 606 off and the Pale Dray 145. Sprite size follows the viewport and the stage it stands on does not. New tool tools/audit-sprite-fit.js measures every encounter at any window shape. Full table: rework/enemies/FEEDBACK.md B37.",
+					"created": "2026-09-21T11:59:05.183Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:05.183Z"
+		},
+		{
+			"id": "n-in6",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Routes and bosses\n“I don't know how to trigger the three 1-a, 1-b, and 1-c routes and testing with the debug tools is so slow it takes forever to get to the boss and there's still only one?”",
+			"created": "2026-09-21T09:51:41.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-6 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:41.256Z"
+				},
+				{
+					"author": "claude",
+					"text": "All three parts answered. (1) THE ROUTE IS DECIDED BY WHICH ACT1-1 BOSS YOU BEAT: The Shroud leads to the Flooded Vault (1-A), The Head Gardener to the Thorn Arbor (1-B), The Matriarch to the Pollen Road (1-C). It is not picked on the map; it is decided a whole region earlier. (2) THERE ARE SIX ACT 1 BOSSES, not one - three at the end of Act1-1 and one at the end of each route. The Act1-1 boss is rolled fairly: over 90 generated maps it came out 33/29/28. You see one per run because there is one per run. (3) THE BUG: the boss node's tooltip reads 'Boss - 1 foe. The thing this place belongs to.' It never names the boss and never names the route. The tuning file's own comment says that tooltip IS the choice, but it was never written. That is why the routes feel untriggerable. Writing it is your text to approve. map/FEEDBACK.md B41.",
+					"created": "2026-09-21T11:59:05.253Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:05.253Z"
+		},
+		{
+			"id": "n-in7",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Event window styling\n“a number of shortcuts were taken with the event window styling”",
+			"created": "2026-09-21T09:51:42.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-7 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:42.256Z"
+				}
+			]
+		},
+		{
+			"id": "n-in8",
+			"kind": "issue",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Nonsense text\n“a mountain of absolutely nonsensical text is still left in the game.”",
+			"created": "2026-09-21T09:51:43.256Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Copied here from last night so you can add to it from your phone. It is also IN-8 in the FEEDBACK.md inbox. Not started.",
+					"created": "2026-09-21T09:51:43.256Z"
+				}
+			]
+		},
+		{
+			"id": "n-mub2q38h578e",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "line",
+				"beat": 0,
+				"line": 0,
+				"snapshot": "She holds the vial to the lamp.",
+				"event": "nettleSpecimen"
+			},
+			"text": "The edit mode is unusable due to my keyboard continually closing, something's making it very funky to use at all, even when I just want to backspace a bunch. I'm pretty sure it's some on-touch event.\n\nLine change to: An experiment. A simple one. The light should be burning with fire to match the constituent elements, but none she's seen before have burned this sort of pink.",
+			"created": "2026-09-21T09:59:44.610Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Found it and fixed it. Opening an event wrote a 'seen' mark, the page mistook its own write for a change on the computer, and reloaded the event every four seconds: scroll to top, keyboard closed, typing gone. The page now ignores its own writes, never redraws while the keyboard is up or a finger has just touched the screen, and keeps your scroll position when it does redraw. Reload the page once to get the fix. I also made your line change: beat 1 now opens with 'An experiment. A simple one...' in the game and in SCENES-01.md. A backup of the game file was taken first.",
+					"created": "2026-09-21T10:11:04.494Z"
+				}
+			],
+			"updated": "2026-09-21T10:11:04.494Z"
+		},
+		{
+			"id": "n-mub2qo1ad9bf",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "line",
+				"beat": 0,
+				"line": 1,
+				"snapshot": "Don't touch it. I haven't finished with it... And you won't enjoy what it does.",
+				"event": "nettleSpecimen"
+			},
+			"text": "Remind me to inpaint the skull companion into this scene's image.",
+			"created": "2026-09-21T10:00:11.566Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Noted and left open as your reminder: inpaint the skull companion into Nettle Specimen beat 1 (characters/necro/lust/v1-1). I will bring it up when we next work on her images.",
+					"created": "2026-09-21T10:11:04.564Z"
+				}
+			],
+			"updated": "2026-09-21T10:11:04.564Z"
+		},
+		{
+			"id": "n-mub45ysk3237",
+			"kind": "note",
+			"status": "done",
+			"author": "noodle",
+			"target": {
+				"kind": "event",
+				"event": "lustEventCleared"
+			},
+			"text": "What is this?",
+			"created": "2026-09-21T10:40:04.965Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "It is the end card you asked for yourself. A Lust Battle comes back to it when the event names no page for that outcome, won or lost. The code quotes you: 'The default case for both should be an event just saying Lust Event Cleared! which returns you to the teambuilding menu with the rank-up cleared.' It is tuning.lustEvents.defaultVictoryEvent and defaultDefeatEvent, both pointing at it. Closing this one since it is answered - reopen if you meant something else.",
+					"created": "2026-09-21T11:59:17.030Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:17.030Z"
+		},
+		{
+			"id": "n-mub4cebu6300",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "event",
+				"event": "theCampfire"
+			},
+			"text": "Image for this event is broken on my phone, likely because of the random select.",
+			"created": "2026-09-21T10:45:05.034Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Found it, and it is not the random select - theCampfire has no random select. It names one image and one background and NEITHER FILE EXISTS. There is no 'v13 spire images/events/' folder at all. Every other event in the game points into map/ where the files do exist. Of thirteen event image paths, exactly three are missing and two of them are the Campfire's; the third is theSealedDoor's, broken the same way and never reported. Where the random-select idea probably comes from: refsTests/2026-09-21/campfire/ holds three renders from that night named by party (rest-brienne-nettle-severine and two others), so a party-dependent campfire WAS being tested - but those are test renders in _source, nothing was staged, and the event still points at a path that never existed. One picture or one per party is your call. map/FEEDBACK.md B42.",
+					"created": "2026-09-21T11:59:17.103Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:17.103Z"
+		},
+		{
+			"id": "n-mub4gb9z7b74",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "event",
+				"event": "theQuietSpring"
+			},
+			"text": "What is the difference between `body` and `t` lines?\n\nAlso, replace this event with dynamicShortPool.",
+			"created": "2026-09-21T10:48:07.703Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "body vs t: 'body' is the event's own paragraph - the prose block at the top of the event window. There is one per beat and it writes the text: field. 't' is a narration line in the run of dialogue underneath, with no speaker, and you can have as many as you like. 't ...' on its own puts in a divider. A line starting with a name instead of t is that character speaking. On the second half: there is nothing called dynamicShortPool anywhere in the repo, so that one needs you to say what it should be before anything can replace theQuietSpring.",
+					"created": "2026-09-21T11:59:17.176Z"
+				}
+			],
+			"updated": "2026-09-21T11:59:17.176Z"
+		},
+		{
+			"id": "n-mub4yuct2a7a",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "line",
+				"beat": 0,
+				"line": 0,
+				"snapshot": "block",
+				"draft": "d-mub4sbdo4456"
+			},
+			"text": "Rather than specify every line that the line only plays if the character is in the front, a line like this could set it up for multiple cast members",
+			"created": "2026-09-21T11:02:32.237Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "Built, in the form you wrote it. A line saying 'leader block' starts the block, then one line per girl (knight, necro, vamp...). In the game each of those lines only plays when that girl is leading the party. 'second block' does the same for the girl behind her. The block ends at anything that is not a girl's line (narration, a button, a picture), or at a line saying 'end block'. In Edit there is now a 'leader block' button that types the whole block with all seven names ready. Your draft already parses correctly: six leader lines on the first beat. Anastasia has no line yet, so nothing plays when she leads.",
+					"created": "2026-09-23T17:13:04.883Z"
+				}
+			],
+			"updated": "2026-09-23T17:13:04.883Z"
+		},
+		{
+			"id": "n-mub52c99c6c6",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "draft",
+				"draft": "d-mub4sbdo4456"
+			},
+			"text": "Still learning how to format multi-path events. Ideally this would have a variant for every lead character.",
+			"created": "2026-09-21T11:05:15.405Z",
+			"replyArray": [
+				{
+					"author": "claude",
+					"text": "The variant for every lead character now works for pictures too. Write 'im {leader}/events/pool' and the game shows the leading girl's own picture (characters/necro/events/pool when Nettle leads). I changed your second beat's picture line to that, and made the seven bathing pictures, hair down. In Preview there is a row of all seven girls: tap one to see the scene as if she leads, with her picture and her line. A girl whose picture does not exist shows 'missing' in that row. In Edit, the 'picture per girl' button types 'im {leader}/events/'.",
+					"created": "2026-09-23T17:13:04.965Z"
+				},
+				{
+					"author": "claude",
+					"text": "Now in the game as 'A quiet pool' (event aQuietPool), replacing The Quiet Spring in its slot: it only appears while someone in the party is Broken, weight 55. Checked in the real game window with Nettle leading: your cave picture, only Nettle's line, then Nettle's own pool picture after bathing, and the party healed a tenth of their max health with Lust halved. Two small things I did: fixed 'woukd' to 'would' in Severine's line, and gave 'Move Right Along' the preview 'Nothing happens.' because the game requires every button to say what it does. Change either here.",
+					"created": "2026-09-24T02:00:18.050Z"
+				}
+			],
+			"updated": "2026-09-24T02:00:18.050Z"
+		},
+		{
+			"id": "n-mub5le7p1a28",
+			"kind": "note",
+			"status": "open",
+			"author": "noodle",
+			"target": {
+				"kind": "draft",
+				"draft": "d-mub54v4ad54f"
+			},
+			"text": "Every second time you trigger the event, she pounces you and forcibly gives you 2x slime curses in your deck.",
+			"created": "2026-09-21T11:20:04.405Z",
+			"replyArray": []
+		},
+		{
+			"id": "n-mub700d52d5f",
+			"kind": "note",
+			"status": "open",
+			"author": "claude",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Overnight session 51, 2026-09-21. You asked for the open issues that did not need you. Six of the eight inbox reports were answerable, plus three desk notes; all are replied to above. FOUR OF THE SIX TURNED OUT THE OPPOSITE WAY ROUND FROM THE REPORT: the five designs were never cut, the Argent Fencer was never held back, the campfire is not the random select, and the sprite clipping is four times worse on an enemy you have not mentioned (the Head Gardener, 453px off the top, cut off at the neck). Nothing in the game was changed - every item is measured and filed, and the calls that are yours are left as yours. Found unasked while measuring: re-running generate-placeholder-art.py would overwrite real art in 26 folders, and artOwed is stale on 23 enemies. Suite is 2444 passed 0 failed, same as when I started. IN-7 (event window shortcuts) and IN-8 (nonsense text) are still waiting on you - both need you to point at what you mean.",
+			"created": "2026-09-21T11:59:25.914Z",
+			"replyArray": []
+		},
+		{
+			"id": "n-mubp71ju8d0d",
+			"kind": "note",
+			"status": "open",
+			"author": "claude",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Voice matching, 2026-09-21. New folder !designDocs/voice_matching/ with four files: BASICS (what it is), TODO (Claude's queue), CATCH-UP (state of play) and FOR-NOODLE (everything that needs you, writing and image generation separated). Eight of the thirteen items are done. Two correction logs are now built and read before anything gets written: rewrites.md in the scenes skill and corrections.md in the images skill. The big finding: narration is 34% of the lines in your three Nettle scenes at about 15 words each, against 19% and one word in Syrup Town. The drafts had cut narration to almost nothing and the skill was telling them to. Corrected. Your spoken lines are 11.8 words in both games, which is the one thing the drafts already had right. The biggest thing on your list is three to five lines in each Honeycomb character's voice, about 20 minutes, because six of the seven have a description and no sound.",
+			"created": "2026-09-21T20:28:47.130Z",
+			"replyArray": []
+		},
+		{
+			"id": "n-mubqviv4a2ac",
+			"kind": "note",
+			"status": "open",
+			"author": "claude",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Nine drafts are waiting for you. Brienne venom 1-3 at stage sketch: your session-48 dialogue is untouched, I only added narration, because your own Nettle scenes turned out to run 34% narration and those sketches had almost none. Each one says at the top which lines are new. Cassadora's six at stage idea, three venom and three charm, written out from IDEAS-SCENES-01 so you do not have to open two documents on a phone. Two things I want your call on. Brienne venom 3 has no stammer anywhere, where you average about 1.8 per hundred words: I left it because her rank 3 is unwavering certainty and a stammer would undercut it, but say if that is wrong. And Cassadora's venom 2 and charm 2 are the same act twice, her watching futures and touching herself, so either that repetition is the point and they should rhyme, or one of them should move. Also built: desk-cli.js rewrites, which reads the backups this desk already takes and prints what you changed. It disproved one of my own log entries on its first run.",
+			"created": "2026-09-21T21:15:48.928Z",
+			"replyArray": []
+		},
+		{
+			"id": "n-mubsmaooa133",
+			"kind": "note",
+			"status": "open",
+			"author": "claude",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Image side, 2026-09-21. You were wrong about not having examples, in a good way. webui2-generate.js has been writing your typed-in combo line into every sidecar as 'Raw input', right next to the prompt that actually ran. 2003 images in the repo carry both. New tool: node scripts/webui/tools/webui2-handedits.js. It recompiles the raw input with the v2 engine and diffs it against what reached the model, so whatever is left over is what you typed into Forge by hand. Desktop command, no workflow change, nothing for you to remember to save. One warning built into it: recompiling old images with today's dictionaries measures the dictionaries, not you. PoseBreakdownB used to emit 'from side, blush, embarrassed, horny, pent-up' and now emits eight different tags, so every image in that batch looked like five hand edits that never happened. It now sorts by how many separate DAYS a tag turns up on instead of how many images. Read that column, not the count. The tags that survive that test: blush, male only, penis outline, solo, pussy juice, pussy juice puddle, impact lines, naughty face. They say the same thing the Nettle reading said, which is that the face and the fluids are what drafts leave out. Two questions for you are in voice_matching/FOR-NOODLE.md item 4 under images.",
+			"created": "2026-09-21T22:04:37.657Z",
+			"replyArray": []
+		},
+		{
+			"id": "n-mubxvg0w8aff",
+			"kind": "note",
+			"status": "open",
+			"author": "claude",
+			"target": {
+				"kind": "general"
+			},
+			"text": "Writing, 2026-09-21 evening. First, I corrected the image claim everywhere it had spread - corrections.md, the tool header, the TODO and the memory all now say a delta is a candidate, not a correction, with your three tiers written down: Nettle's fourteen had your full attention, the workbench was bulk and good enough, the rest unknown. The loop is the tool proposes and you confirm. Your six confirmed tags are now rules: blush, solo, pussy juice, pussy juice puddle, impact lines, naughty face. Then both remaining writing items. prose-check.py checks a document for the four shapes you told me to stop writing, and prints the first row of every table so your reread rule actually happens. It skips anything quoted, so your own words are never judged. It found six real faults in the four voice_matching documents I wrote this morning; they are fixed and all four pass now. And scene-metrics.py check now catches three of the four things the numbers used to miss: whether a draft softened, whether its narration explains instead of observes, and whether it contains any callback. Each flag prints its own evidence out of your corpus, so the softening check reports that you use pleasure 25 times and leaves it alone, and flags passion and ecstasy because you never use them. The callback check found its own proof: on the real sleeping nun scene it reports dumpster, which is the exact running bit the skill says a draft once missed. Nobody told it that. Everything that did not need you is now done. What is left is the character lines and the desk button question, both in FOR-NOODLE.md.",
+			"created": "2026-09-22T00:31:42.560Z",
+			"replyArray": []
+		}
+	],
+	"markMap": {
+		"line:event:nettleSpecimen:0:0": {
+			"signedOff": true,
+			"snapshot": "An experiment. A simple one. The light should be burning with fire to match the constituent elements, but none she's seen before have burned this sort of pink."
+		},
+		"event:lustEventCleared": {
+			"flag": true
+		},
+		"draft:d-mub4sbdo4456": {
+			"signedOff": true
+		}
+	},
+	"seenMap": {
+		"event:nettleMethodology": "f3764d71edf5",
+		"event:nettleSpecimen": "3ec5ce7ba057",
+		"event:lustEventCleared": "92bf1ca92315",
+		"event:nettleSynthesis": "6fbe1debea0c",
+		"draft:d-mub3399b2e35": "608c132f8ae4",
+		"event:theQuietSpring": "01beb87b7e39",
+		"event:theCampfire": "4edb1f26d54a",
+		"draft:d-mub4sbdo4456": "543f945d1988",
+		"draft:d-mub54v4ad54f": "0cd59d79b259",
+		"draft:d-mub5mgpxaa07": "f4b77fef7ea0",
+		"draft:d-mub2fwkq01bf": "5d15fd5c1c68",
+		"draft:d-mubqup355f64": "d7eb712b1cc0",
+		"draft:d-mubqup533402": "974bf8cfb8e1",
+		"event:wellOfWaxLight": "54029aee491a",
+		"event:theTollBench": "07712dde79ea",
+		"event:theSporeGarden": "61abf81d196f",
+		"event:theCardsharp": "4723fad9a7fd",
+		"event:theSealedDoor": "dcba82b406e1",
+		"event:theQuietShrine": "4fc9e6882753"
+	},
+	"imageRequestArray": [
+		{
+			"id": "i-mub48598e16f",
+			"created": "2026-09-21T10:41:46.652Z",
+			"status": "for Claude",
+			"detail": "Written to v13 spire png/map/event-well.png",
+			"target": {
+				"kind": "image",
+				"beat": 0,
+				"imagePath": "map/event-well",
+				"event": "theQuietSpring"
+			},
+			"imagePath": "map/event-well",
+			"character": "",
+			"positive": "underground, cave, spring, water, rocks,\nlandscape, scenery, background, no humans",
+			"negative": "",
+			"comments": "\"landscape, scenery, background, no humans\" is an extremely common set of keywords for human-free background shots. Idk how the skill works, but it's good to know",
+			"updated": "2026-09-21T10:44:23.897Z"
+		},
+		{
+			"id": "i-mub50yam6078",
+			"created": "2026-09-21T11:04:10.654Z",
+			"status": "done",
+			"detail": "Written to v13 spire png/characters/knight/events/pool.png",
+			"target": {
+				"kind": "image",
+				"beat": 1,
+				"imagePath": "characters/knight/events/pool",
+				"draft": "d-mub4sbdo4456"
+			},
+			"imagePath": "characters/knight/events/pool",
+			"character": "",
+			"positive": "brienne, nude, submerged, reclining, eyes closed, parted lips, steaming body, nipples, floating breasts, sigh, underground, water, hot spring.",
+			"negative": "",
+			"comments": "",
+			"updated": "2026-09-21T11:04:38.815Z"
+		},
+		{
+			"id": "i-mub53bxjea19",
+			"created": "2026-09-21T11:06:01.639Z",
+			"status": "done",
+			"detail": "Regenerated with hair down for all seven girls, from your own pool prompt: characters/<girl>/events/pool. Your first Brienne picture is kept at characters/knight/events/_archive/pool-2026-09-21.png. 'floating breasts' was dropped: the engine turns it into 'disembodied breasts'.",
+			"target": {
+				"kind": "image",
+				"beat": 1,
+				"imagePath": "characters/knight/events/pool",
+				"draft": "d-mub4sbdo4456"
+			},
+			"imagePath": "characters/knight/events/pool",
+			"character": "",
+			"positive": "",
+			"negative": "",
+			"comments": "Needs `hair down, !ponytail,`",
+			"updated": "2026-09-23T17:13:05.046Z"
+		},
+		{
+			"id": "i-mub5ig3w9229",
+			"created": "2026-09-21T11:17:46.892Z",
+			"status": "for Claude",
+			"detail": "",
+			"target": {
+				"kind": "image",
+				"beat": 2,
+				"imagePath": "jellyblob-girl",
+				"draft": "d-mub54v4ad54f"
+			},
+			"imagePath": "jellyblob-girl",
+			"character": "",
+			"positive": "",
+			"negative": "",
+			"comments": "A genuinely incredible feature here would be for the listed character to be a dropdown if charactersdb entries (and aliases) that was filtered as I typed. Here, it should certainly just be the ruinsSlime girl I made before for syrup town (the card would turn her into a girl).",
+			"updated": "2026-09-21T11:17:46.892Z"
+		},
+		{
+			"id": "i-mub5jws8750d",
+			"created": "2026-09-21T11:18:55.160Z",
+			"status": "for Claude",
+			"detail": "",
+			"target": {
+				"kind": "image",
+				"beat": 1,
+				"imagePath": "jellyblob-knight",
+				"draft": "d-mub54v4ad54f"
+			},
+			"imagePath": "jellyblob-knight",
+			"character": "",
+			"positive": "blue slime, sticky, goo, sweat, dripping, hands up, goo on face, goo on body, wet clothes.",
+			"negative": "",
+			"comments": "Add one for each character.",
+			"updated": "2026-09-21T11:18:55.160Z"
+		}
+	]
+}

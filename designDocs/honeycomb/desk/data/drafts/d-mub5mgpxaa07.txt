@@ -1,0 +1,15 @@
+title: Event - Mirror
+stage: idea
+created: 2026-09-21T11:20:54.309Z
+updated: 2026-09-21T11:24:30.936Z
+updatedBy: noodle
+---
+The Whispering Vanity Mirror
+​
+Before you is a heavily gilded full-length mirror, standing against a dungeon wall. 
+Your reflection isn't matching your movements—it’s posing suggestively, teasingly mouthing words you can't quite hear.
+> Copy the pose | Transform a card into a random one, gain lust
+> Shatter the Glass 
+Gain 30 gold, lose hp.
+
+im knightMirror

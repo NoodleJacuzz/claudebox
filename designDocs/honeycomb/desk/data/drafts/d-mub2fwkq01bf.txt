@@ -1,0 +1,31 @@
+title: How this desk works (read, then delete)
+stage: idea
+created: 2026-09-21T09:51:49.418Z
+updated: 2026-09-21T09:51:49.418Z
+updatedBy: claude
+---
+# Lines that start with # are comments. They never reach the game.
+# This is a draft, so nothing here is in the game. Delete it whenever you like.
+#
+# THE PINK + BUTTON is on every screen. It takes a note in two taps. Inside an event or a draft the
+# note attaches to it. Anywhere else it becomes an open issue about nothing in particular.
+#
+# TAP A LINE in "Read & mark" to bookmark it, flag it, sign it off, or leave a note on that line.
+# TAP A PICTURE to upload your own, write tags and comments for Claude, or send it to Forge.
+# "Ask Claude" puts a note at the top of Claude's list. Replies show up under your note.
+#
+# EDITING A LIVE EVENT: changed words, added or removed lines inside a beat, image paths and button
+# labels save straight into the game file, with a backup taken first. A whole new beat or a new
+# button is kept as a request for Claude, and nothing is written. "What would this change?" tells
+# you which one will happen before you save.
+#
+# Try it on this draft. Switch to Edit, type, then look at Preview.
+
+im nettle/lust/v1-1 [an example beat, using a picture that already exists]
+t Narration starts with t.
+necro Dialogue starts with the sprite name. Nettle is necro.
+t ...
+
+im 2 [im 2 means the second picture in the same folder]
+necro A blank line starts a new beat.
+> Continue

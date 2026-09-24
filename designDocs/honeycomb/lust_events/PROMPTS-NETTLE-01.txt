@@ -1,0 +1,47 @@
+//Nettle lust events
+[nostaff], !flaming skull, !floating skull, !black staff
+![pajamas], 'pajamas', black shirt, buttoned shirt, long sleeves
+
+nettle
+
+- v1-1  at her desk, vial up to the lamp, genuinely stumped
+default, upper body only, behind desk, holding vial, pink fluid, pink smoke, aphrodisiac, question mark
+- v1-2  from behind, legs going, a puddle under her
+default, from behind, facing away, pussy juice stain, pussy juice puddle, trembling legs, steaming body, Juice
+- v2-1  squatting over the open sack, digging through it
+bottomless, pussy, [pajamas], trembling, clenched teeth, holding sack, open sack, squatting, from side, night, sweat, horny, steaming body
+- v2-2  holding the vial up to the light, eyes lit
+bottomless, pussy, [pajamas], holding vial, pink fluid, pink smoke, looking at vial, from front, upper body only, 'green eyes', 'glowing eyes', blush, heavy breathing, sweat, night
+- v2-3  on her back on the bed, gone
+bottomless, pussy, [pajamas], on back, on bed, from above, squirting, head back, masturbation, vaginal fingering, spread toes, sweat, steaming body, night, Arched, Juice
+- v3-1  her own batch, composed and quietly pleased
+default, holding vial, pink fluid, looking at vial, behind desk, upper body only, smile
+- v3-2  bent over the desk after taking it
+default, bent over, behind desk, from side, trembling, sweat, steaming body, horny
+- v3-3  her face, close
+default, head shot, face, head only, close-up, fisheye lens, looking at viewer, despair, 'green eyes', 'glowing eyes', horny, steaming body
+
+inn, indoors, wooden walls, wooden floor, Semi-Wide
+
+
+// ---------------------------------------------------------------------------------------------
+// Eight variants: 1 (nettle) x 8 (scene lines) x 1 (suffix). No blank line inside the scene
+// lines, so nothing multiplies.
+//
+// `Semi-Wide` is in the suffix on purpose. A bare size id in the prompt sets the dropdown for the
+// job (webui.js, basicImageSizes -> 1152 x 896), so the aspect ratio does not have to be set by
+// hand and cannot be forgotten on one line. It reads as DROPPED in a tag verdict, which is correct
+// -- it is consumed before the prompt is built, the same way `default` is consumed as an outfit.
+//
+// Checked, session 48 (scripts/webui/tools/webui2-inspect.js):
+//   audit nettle --purpose scene  ->  0 problems.
+//   `behind desk` is safe ONLY because the suffix carries `indoors`. Without it, it injects
+//   `office`, which is out of setting. Never use it on a line that loses the suffix.
+//   `squatting` (was the typo `squating`) is worth three tags plus a negative.
+//   `L1` was dropped: it expands to `steaming body, sweat, horny, heart` normally, but to
+//   `blush, pussy juice` when `pussy` is on the line. The tags are written out instead.
+//   `standing` was removed from v1-1 and v3-1: `upper body only` culls it, correctly.
+//   Uncategorised and reaching the model raw: `behind desk`, `pink fluid`, `aphrodisiac`,
+//   `trembling legs`, `holding sack`, `open sack`. Noodle's own vocabulary; left alone by his
+//   instruction -- the render is the test.
+// ---------------------------------------------------------------------------------------------

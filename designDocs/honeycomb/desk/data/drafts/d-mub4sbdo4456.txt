@@ -1,0 +1,23 @@
+title: smallDynamicPool
+stage: idea
+created: 2026-09-21T10:57:27.708Z
+updated: 2026-09-24T01:16:53.776Z
+updatedBy: claude
+---
+name A quiet pool
+
+im events/well
+body It seems like water is flowing freely here, somehow.
+leader block
+knight Must be an aquifer, or something. Pretty warm down here though.
+necro Warm water, but no signs of life. Yet. No telling how long until the myconids find it.
+vamp Ooh~ I could use a bath. Nmm, but my lovlies woukd be heartbroken they can't clean me themselves.
+lancer Ooh, the perfect temperature too! Don't mind if I do~!
+seer Crystal clear, unlike our future if we linger here.
+priest Water? I suppose a clean slate is easier to stain.
+> Take a Break to Bathe | Restores 10% hp to the party, and halves their lust.
+> Move Right Along
+
+im events/pool/{leader}
+t You take a short break, soaking the warm water. It feels like the injuries you've carried in with you have faded.
+> Finish

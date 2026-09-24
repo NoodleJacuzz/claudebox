@@ -1,0 +1,73 @@
+//Nettle venom 3 -- WIN (Extraction). In the dungeon, she stays dressed.
+![nostaff], !flaming skull, !floating skull, !black staff
+
+nettle, default, [nostaff]
+
+- v3win-1  helping the tentacles along, vial ready, still in charge
+upper body only, from side, holding vial, empty vial, green tentacles, handjob, precum, unusual precum, pink precum, covered nipples
+- v3win-2  the vial overflowing, far more than it should give
+upper body only, close-up, holding vial, pink fluid, overflowing, green tentacles, handjob, cum in container, overflowing container, ejaculation, covered nipples, Awe, blush, sweat, heavy breathing
+- v3win-3  tentacle sex, her belly bulging, grinning
+cowboy shot, legs spread, pelvic curtain aside, pussy, vaginal, sex, green tentacles, stomach bulge, huge insertion, hand on own belly, covered nipples, blush, sweat, heavy breathing, Excited
+- v3win-4  climax
+cowboy shot, legs spread, pelvic curtain aside, pussy, vaginal, sex, green tentacles, stomach bulge, huge insertion, hand on own belly, covered nipples, 'head back', Ohogao, cumflation, pregnant, ejaculation, cum inside, cum in pussy, cum from pussy, overflow, pink cum, unusual cum, 'green eyes', 'glowing eyes', 'heart-shaped pupils', 'white pupils', 'glowing pupils'
+
+cave, vines, nature, Semi-Wide
+
+
+//Nettle venom 3 -- LOSS (Marked). Outdoors, nude, the skull is with her.
+nettle, flaming skull, floating skull, !black staff
+
+- v3loss-1  furious rather than distressed
+nude, nipples, small breasts, !flat chest, upper body only, from front, standing, pink cum, facial, unusual cum, angry, sweat
+- v3loss-2  full body, the pregnancy revealed
+nude, nipples, small breasts, !flat chest, full body, from below, standing, barefoot, trembling, pink cum, facial, unusual cum, hands on own belly, pregnant, blush, horny, angry, sweat
+
+outdoors, forest, grass, trees, daytime, sunlight, Semi-Wide
+
+
+// ---------------------------------------------------------------------------------------------
+// Six variants: 4 (win) + 2 (loss). Two SETS, because the two scenes are in different places and a
+// single suffix could not serve both. No blank line inside either set's scene lines, so nothing
+// multiplies: 1 x 4 x 1 = 4, then 1 x 2 x 1 = 2.
+//
+// Checked, session 49 (scripts/webui/tools/webui2-inspect.js):
+//
+//   `[act1-flora]` and `[forestDay]` in SCENES-01.md are PLACEHOLDERS, not shortcuts. The engine
+//   does not know either word and would have passed both to the model raw. Written out here as
+//   `cave, vines, nature` and `outdoors, forest, grass, trees, daytime, sunlight`. The same two
+//   placeholders appear in Brienne's V1 and Nettle's V1-V2 sketches and need the same treatment.
+//
+//   `daytime`, `bright` and `sunlight` sit in the universal NEGATIVE, so the loss set names two of
+//   them in the prompt on purpose. Confirmed by compile that naming them clears them from the
+//   negative; without that the forest reads as night.
+//
+//   `pelvic curtain aside` reads as CULLED if the whole scene's tags are tested on one line, purely
+//   because `upper body only` culls below-the-waist detail. In the two lines it actually lives in
+//   (both `cowboy shot`) it is KEPT. Not a finding.
+//
+//   `sex` aliases to `duo, motion lines`, and `duo` is in the universal negative. Compiled and
+//   checked: the prompt copy wins and `duo` is cleared from the negative, which is what the
+//   tentacle shots want.
+//
+//   `cum from pussy` aliases to `excessive cum, cum overflow`. Left as typed; the engine rewrites it.
+//
+//   `overlowing container` in the sketch was a typo and is `overflowing container` here.
+//
+//   Uncategorised and reaching the model raw: `empty vial`, `cum in container`,
+//   `overflowing container`, `overflowing`, `cumflation`, `green tentacles`, `pink precum`.
+//   Noodle's own vocabulary from the sketch, left alone by his standing instruction -- the render
+//   is the test.
+//
+//   `[nostaff]` is on the win set because both her hands are busy.
+//
+//   THE SKULL LIVES ON THE OUTFIT, NOT THE BODY. The loss lines name no outfit, because she is nude,
+//   and the first compile came back with no skull at all -- the sketch says it is there. So the loss
+//   set names `flaming skull, floating skull` by hand. Any future nude Nettle shot has the same hole.
+//
+//   AND A BLOCK IS GLOBAL ACROSS SETS. `[nostaff]` was first declared on by default, the way
+//   PROMPTS-NETTLE-01 declares it -- which is safe in a one-set file and wrong here, because it
+//   reached into the loss set and negated the skull that had just been added by hand. Declared
+//   `![nostaff]` (off by default) and switched on in the win set's own line instead. Two compiles
+//   apart; neither is visible in a finished prompt.
+// ---------------------------------------------------------------------------------------------
