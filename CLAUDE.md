@@ -2,15 +2,26 @@
 
 ## Standing instructions (from the owner)
 
-- **Projects stay on the owner's local machine.** Do not ask for, store, or
-  recreate project source code in this repository. Do not suggest moving
-  projects to GitHub or setting up git workflows for them.
-- This repository exists only to hold design and brainstorming documents
-  (Markdown) for cloud sessions.
-- Keep documentation lean. Move finished or outdated documents to `archive/`
-  rather than letting them accumulate.
+- **Projects live on the owner's local machine.** This repository is a
+  temporary reference copy for cloud sessions, not a home for the work. It
+  may be taken down at any time, so treat nothing here as the source of
+  truth and never propose moving development into it.
+- The owner may upload scripts and project files temporarily as reference.
+  Read them freely; do not build git workflows, CI, or tooling around them
+  unless asked.
+- The owner designs adult (H-game) titles and mostly needs help with design
+  and engine work. Adult content in these files is expected.
+- Keep documentation lean. Move finished or outdated documents to an archive
+  folder rather than letting them accumulate.
+
+## Project triggers
+
+- **"Honeycomb"** → read `designDocs/honeycomb/BASICS.md` first and follow it.
+  Paths in those docs are written as `!designDocs/...`; in this repository
+  the `!` is dropped (`designDocs/...`). Only part of the project is uploaded,
+  so some referenced files (images, `.claude/` tooling) may be missing.
 
 ## Layout
 
-- `designs/` — active design and brainstorming documents.
-- `archive/` — retired documents.
+- `designDocs/` — design documents, one folder per project.
+- `scripts/` — partial reference copy of the game's scripts.
