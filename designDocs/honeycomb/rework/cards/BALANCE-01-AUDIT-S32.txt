@@ -1,0 +1,41 @@
+BUDGET AUDIT -- 20 encounters x 3 parties x 8 seeds (baseline player, starter decks, no tree)
+targets from tuning.balance; marks: ✓ within ±25%  ▲ over  ▼ under. Net = health lost as % of party HP.
+
+encounter                  tier/kind    win   turns (tgt)    lineup HP (tgt)   gross/turn (tgt)  lust/turn (max)  net % (tgt)    self  heal  out/turn (tgt) 
+-------------------------  -----------  ----  -------------  ----------------  ----------------  ---------------  -------------  ----  ----  -------------- 
+A Lone Sporeling           early/normal 100%  3.5 (3-4) ✓    26 (42) ▼         2.9 (10) ▼        1.2 (6) ✓        1.8 (8) ▼      0     3     10.3 (12) ✓    
+Spore Pair                 early/normal 100%  7.8 (3-4) ▲    51 (42) ✓         4.7 (10) ▼        2 (6) ✓          7 (8) ✓        0     14    9.2 (12) ✓     
+Wisp Cluster               early/normal 100%  6 (3-4) ▲      36 (42) ✓         3.7 (10) ▼        3.1 (6) ✓        4.5 (8) ▼      0     8     8.8 (12) ▼     
+
+Brute and Spore            middle/normal 88%   9 (3-4) ▲      69 (53) ▲         10.9 (10) ✓       2.9 (6) ✓        33.9 (8) ▲     0     23    9.2 (15) ▼     
+Hollow Patrol              middle/normal 100%  7.5 (3-4) ▲    55 (53) ✓         9.6 (10) ✓        2.7 (6) ✓        22.7 (8) ▲     0     21    9.3 (15) ▼     
+Two Cap Brutes             middle/normal 58%   10.6 (3-4) ▲   86 (53) ▲         15.5 (10) ▲       4.6 (6) ✓        56.7 (8) ▲     0     32    8.1 (15) ▼     
+
+The Hollow Guard           late/normal  42%   11.3 (3-4) ▲   99 (63) ▲         19.9 (10) ▲       4.9 (6) ✓        70.9 (8) ▲     0     51    8.1 (18) ▼     
+Deep Swarm                 late/normal  63%   10.9 (3-4) ▲   78 (63) ✓         13.6 (10) ▲       4.3 (6) ✓        52.1 (8) ▲     0     36    8 (18) ▼       
+
+The Tended Garden          early/normal 100%  7.3 (3-4) ▲    47 (42) ✓         4.6 (10) ▼        1.7 (6) ✓        7.4 (8) ✓      0     13    9 (12) ✓       
+Two Gardeners              early/normal 100%  6.8 (3-4) ▲    43 (42) ✓         5.9 (10) ▼        1 (6) ✓          11.6 (8) ▲     0     13    9.1 (12) ✓     
+
+Sage and Wisps             middle/normal 100%  6.9 (3-4) ▲    47 (53) ✓         6.7 (10) ▼        1.3 (6) ✓        14.6 (8) ▲     0     19    8.6 (15) ▼     
+The Alchemist's Bench      middle/normal 100%  7.7 (3-4) ▲    49 (53) ✓         9.3 (10) ✓        0.8 (6) ✓        23.3 (8) ▲     0     18    9.1 (15) ▼     
+The Bark Wall              middle/normal 79%   14.3 (3-4) ▲   71 (53) ▲         10.7 (10) ✓       2.8 (6) ✓        46.6 (8) ▲     0     27    9.3 (15) ▼     
+
+The Sage Council           late/normal  96%   8 (3-4) ▲      59 (63) ✓         9 (10) ✓          0.8 (6) ✓        30 (8) ▲       0     19    9.4 (18) ▼     
+Lab Guard                  late/normal  67%   16.5 (3-4) ▲   72 (63) ✓         14.4 (10) ▲       3.3 (6) ✓        61.8 (8) ▲     0     37    8.2 (18) ▼     
+Bulwark Line               late/normal  4%    18.8 (3-4) ▲   112 (63) ▲        17.6 (10) ▲       4.6 (6) ✓        88 (8) ▲       0     44    6.8 (18) ▼     
+
+The Kobold Scavenger       middle/elite 100%  8.3 (6-7) ✓    65 (98) ▼         11.1 (11.4) ✓     1 (6.8) ✓        34.7 (20) ▲    0     22    9.6 (15) ▼     
+
+The Scavenger's Cache      late/elite   38%   13.4 (6-7) ▲   110 (117) ✓       18.5 (11.4) ▲     2.3 (6.8) ✓      80.9 (20) ▲    0     41    7.9 (18) ▼     
+
+The Matriarch's Lair       boss/boss    4%    11.9 (9-10) ✓  130 (171) ✓       18.5 (12.5) ▲     5.5 (7.5) ✓      81.2 (35) ▲    0     39    8 (18) ▼       
+The Juggernaut's Hollow    boss/boss    4%    12.6 (9-10) ▲  150 (228) ▼       30.6 (14.3) ▲     1.8 (8.6) ✓      92.5 (45) ▲    0     42    8.2 (24) ▼     
+
+VARIANCE BY TIER (min .. max of the encounters in it; rule: every encounter within ±25% of the tier target)
+  early/normal   n=5  lineup HP 26..51  gross/turn 2.9..5.9  net% 1.8..11.6  turns 3.5..7.8
+  middle/normal  n=6  lineup HP 47..86  gross/turn 6.7..15.5  net% 14.6..56.7  turns 6.9..14.3
+  late/normal    n=5  lineup HP 59..112  gross/turn 9..19.9  net% 30..88  turns 8..18.8
+  middle/elite   n=1  lineup HP 65..65  gross/turn 11.1..11.1  net% 34.7..34.7  turns 8.3..8.3
+  late/elite     n=1  lineup HP 110..110  gross/turn 18.5..18.5  net% 80.9..80.9  turns 13.4..13.4
+  boss/boss      n=2  lineup HP 130..150  gross/turn 18.5..30.6  net% 81.2..92.5  turns 11.9..12.6

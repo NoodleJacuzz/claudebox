@@ -1,0 +1,74 @@
+BUDGET AUDIT -- 38 rows x 4 parties x 4 seeds (lookahead player, fresh save, drafted decks)
+targets from tuning.balance; marks: ✓ within ±25%  ▲ over  ▼ under. Net = health lost as % of party HP. out = damage + Lust dealt.
+
+encounter                reg/tier/kind      deck  win   turns (tgt)    lineup HP (tgt)  gross/turn (tgt)  lust/turn (max)  net % (tgt)    self  heal  out/turn (tgt) 
+-----------------------  -----------------  ----  ----  -------------  ---------------  ----------------  ---------------  -------------  ----  ----  -------------- 
+A Lone Sporeling         R1 early/normal    23    100%  2.1 (3-4) ▼    26 (42) ▼        2.3 (10) ▼        1.8 (6) ✓        0.5 (8) ▼      0     1     13.6 (12) ✓    
+Spore Pair               R1 early/normal    23    100%  3.9 (3-4) ✓    51 (42) ✓        3.9 (10) ▼        2.3 (6) ✓        1.9 (8) ▼      1     4     15.6 (12) ▲    
+Wisp Cluster             R1 early/normal    23    100%  3.2 (3-4) ✓    36 (42) ✓        2.1 (10) ▼        2 (6) ✓          1.6 (8) ▼      1     2     13.8 (12) ✓    
+
+Brute and Spore          R1 middle/normal   26    100%  5.3 (3-4) ▲    69 (53) ▲        5.5 (10) ▼        2.8 (6) ✓        3.8 (8) ▼      1     8     16 (15) ✓      
+Hollow Patrol            R1 middle/normal   26    100%  4.5 (3-4) ✓    55 (53) ✓        6.1 (10) ▼        2.9 (6) ✓        6.7 (8) ✓      1     8     16.1 (15) ✓    
+Two Cap Brutes           R1 middle/normal   26    100%  6.6 (3-4) ▲    86 (53) ▲        10 (10) ✓         3.1 (6) ✓        15.9 (8) ▲     1     16    15.2 (15) ✓    
+
+The Hollow Guard         R1 late/normal     28    100%  7.1 (3-4) ▲    101 (63) ▲       11.3 (10) ✓       4.7 (6) ✓        21 (8) ▲       0     28    17.8 (18) ✓    
+Deep Swarm               R1 late/normal     28    100%  6.3 (3-4) ▲    79 (63) ▲        7.9 (10) ✓        3.6 (6) ✓        12.6 (8) ▲     0     12    15.4 (18) ✓    
+
+The Tended Garden        R1 early/normal    23    100%  3.9 (3-4) ✓    47 (42) ✓        3.7 (10) ▼        1.3 (6) ✓        2.1 (8) ▼      0     3     15.5 (12) ▲    
+Two Gardeners            R1 early/normal    23    100%  3.5 (3-4) ✓    44 (42) ✓        4.8 (10) ▼        0.9 (6) ✓        3.2 (8) ▼      0     4     14.7 (12) ✓    
+
+Sage and Wisps           R1 middle/normal   26    100%  4.5 (3-4) ✓    47 (53) ✓        3.5 (10) ▼        1.6 (6) ✓        3.9 (8) ▼      0     5     14.7 (15) ✓    
+The Alchemist's Bench    R1 middle/normal   26    100%  4.1 (3-4) ✓    49 (53) ✓        6.8 (10) ▼        0.9 (6) ✓        4.7 (8) ▼      1     8     15 (15) ✓      
+The Bark Wall            R1 middle/normal   26    100%  6.6 (3-4) ▲    71 (53) ▲        4.8 (10) ▼        1.8 (6) ✓        3.7 (8) ▼      1     9     15.5 (15) ✓    
+
+The Sage Council         R1 late/normal     28    100%  4.6 (3-4) ✓    59 (63) ✓        4.5 (10) ▼        0.8 (6) ✓        5.5 (8) ▼      0     9     14.4 (18) ✓    
+Lab Guard                R1 late/normal     28    100%  6.6 (3-4) ▲    73 (63) ✓        7.9 (10) ✓        1.1 (6) ✓        11.3 (8) ▲     0     14    14.3 (18) ✓    
+Bulwark Line             R1 late/normal     28    100%  11.1 (3-4) ▲   112 (63) ▲       9.8 (10) ✓        1.3 (6) ✓        24.7 (8) ▲     1     32    16.5 (18) ✓    
+
+The Kobold Scavenger     R1 middle/elite    26    100%  4.8 (6-7) ✓    65 (98) ▼        8.4 (11.4) ▼      1.1 (6.8) ✓      10.5 (20) ▼    0     7     15.2 (15) ✓    
+
+The Scavenger's Cache    R1 late/elite      28    100%  10.3 (6-7) ▲   110 (117) ✓      10.5 (11.4) ✓     1.2 (6.8) ✓      24 (20) ✓      0     27    14.2 (18) ✓    
+
+The Matriarch's Lair     R1 boss/boss       28    100%  9.4 (9-10) ✓   130 (171) ✓      10.7 (12.4) ✓     3.7 (7.4) ✓      32.4 (35) ✓    1     26    18.6 (18) ✓    
+
+A Lone Sporeling         R2 early/normal    31    100%  2.1 (4-5) ▼    26 (108) ▼       1.9 (11.4) ▼      2.2 (6.8) ✓      0.7 (14) ▼     0     0     16.1 (24) ▼    
+Spore Pair               R2 early/normal    31    100%  4.4 (4-5) ✓    51 (108) ▼       3.2 (11.4) ▼      2.3 (6.8) ✓      1.5 (14) ▼     0     4     15.5 (24) ▼    
+Wisp Cluster             R2 early/normal    31    100%  3.2 (4-5) ✓    36 (108) ▼       2.1 (11.4) ▼      3 (6.8) ✓        0.8 (14) ▼     0     2     16 (24) ▼      
+
+Brute and Spore          R2 middle/normal   33    100%  5.4 (4-5) ✓    69 (108) ▼       5.7 (11.4) ▼      2.4 (6.8) ✓      4.7 (14) ▼     1     10    16.2 (24) ▼    
+Hollow Patrol            R2 middle/normal   33    100%  4.3 (4-5) ✓    55 (108) ▼       7 (11.4) ▼        3.1 (6.8) ✓      7.3 (14) ▼     1     11    16 (24) ▼      
+Two Cap Brutes           R2 middle/normal   33    100%  6.3 (4-5) ▲    86 (108) ✓       8.7 (11.4) ✓      3.5 (6.8) ✓      15.3 (14) ✓    1     15    15.8 (24) ▼    
+
+The Hollow Guard         R2 late/normal     34    100%  7.2 (4-5) ▲    101 (108) ✓      11.1 (11.4) ✓     4.2 (6.8) ✓      16 (14) ✓      0     28    17.6 (24) ▼    
+Deep Swarm               R2 late/normal     34    100%  5.9 (4-5) ✓    79 (108) ▼       7.7 (11.4) ▼      3.3 (6.8) ✓      12 (14) ✓      0     11    15.7 (24) ▼    
+
+The Tended Garden        R2 early/normal    31    100%  4.2 (4-5) ✓    47 (108) ▼       3.4 (11.4) ▼      1.8 (6.8) ✓      2 (14) ▼       0     4     15.3 (24) ▼    
+Two Gardeners            R2 early/normal    31    100%  3.7 (4-5) ✓    44 (108) ▼       4.5 (11.4) ▼      1.3 (6.8) ✓      3 (14) ▼       0     5     15.8 (24) ▼    
+
+Sage and Wisps           R2 middle/normal   33    100%  3.6 (4-5) ✓    47 (108) ▼       4 (11.4) ▼        2.3 (6.8) ✓      4.6 (14) ▼     1     5     16.2 (24) ▼    
+The Alchemist's Bench    R2 middle/normal   33    100%  4.2 (4-5) ✓    49 (108) ▼       8.5 (11.4) ▼      0.8 (6.8) ✓      6.4 (14) ▼     1     10    15.8 (24) ▼    
+The Bark Wall            R2 middle/normal   33    100%  6.9 (4-5) ▲    71 (108) ▼       5.4 (11.4) ▼      1.3 (6.8) ✓      4.6 (14) ▼     1     11    15.8 (24) ▼    
+
+The Sage Council         R2 late/normal     34    100%  4.4 (4-5) ✓    59 (108) ▼       3.8 (11.4) ▼      0.8 (6.8) ✓      4.9 (14) ▼     0     6     14.8 (24) ▼    
+Lab Guard                R2 late/normal     34    100%  7.5 (4-5) ▲    73 (108) ▼       7.8 (11.4) ▼      1.1 (6.8) ✓      10.5 (14) ✓    0     17    13.9 (24) ▼    
+Bulwark Line             R2 late/normal     34    100%  11.6 (4-5) ▲   112 (108) ✓      9.9 (11.4) ✓      1 (6.8) ✓        25.5 (14) ▲    1     32    15.5 (24) ▼    
+
+The Kobold Scavenger     R2 middle/elite    33    100%  4.9 (6-7) ✓    65 (156) ▼       9.5 (14) ▼        1 (8.4) ✓        12.7 (30) ▼    0     11    16.3 (24) ▼    
+
+The Scavenger's Cache    R2 late/elite      34    100%  10.9 (6-7) ▲   110 (156) ▼      10.2 (14) ▼       1.1 (8.4) ✓      23.6 (30) ✓    0     24    15.1 (24) ▼    
+
+The Juggernaut's Hollow  R2 boss/boss       34    100%  9.8 (9-10) ✓   150 (228) ▼      18.3 (14.2) ▲     1.2 (8.5) ✓      53.4 (45) ✓    1     35    18 (24) ▼      
+
+SPREAD BY GROUP (rule: every encounter within ±25% of the group target)
+  R1 early/normal      n=5   lineup HP 26..51  gross/turn 2.1..4.8  net% 0.5..3.2  turns 2.1..3.9  out 13.6..15.6
+  R1 middle/normal     n=6   lineup HP 47..86  gross/turn 3.5..10  net% 3.7..15.9  turns 4.1..6.6  out 14.7..16.1
+  R1 late/normal       n=5   lineup HP 59..112  gross/turn 4.5..11.3  net% 5.5..24.7  turns 4.6..11.1  out 14.3..17.8
+  R1 middle/elite      n=1   lineup HP 65..65  gross/turn 8.4..8.4  net% 10.5..10.5  turns 4.8..4.8  out 15.2..15.2
+  R1 late/elite        n=1   lineup HP 110..110  gross/turn 10.5..10.5  net% 24..24  turns 10.3..10.3  out 14.2..14.2
+  R1 boss/boss         n=1   lineup HP 130..130  gross/turn 10.7..10.7  net% 32.4..32.4  turns 9.4..9.4  out 18.6..18.6
+  R2 early/normal      n=5   lineup HP 26..51  gross/turn 1.9..4.5  net% 0.7..3  turns 2.1..4.4  out 15.3..16.1
+  R2 middle/normal     n=6   lineup HP 47..86  gross/turn 4..8.7  net% 4.6..15.3  turns 3.6..6.9  out 15.8..16.2
+  R2 late/normal       n=5   lineup HP 59..112  gross/turn 3.8..11.1  net% 4.9..25.5  turns 4.4..11.6  out 13.9..17.6
+  R2 middle/elite      n=1   lineup HP 65..65  gross/turn 9.5..9.5  net% 12.7..12.7  turns 4.9..4.9  out 16.3..16.3
+  R2 late/elite        n=1   lineup HP 110..110  gross/turn 10.2..10.2  net% 23.6..23.6  turns 10.9..10.9  out 15.1..15.1
+  R2 boss/boss         n=1   lineup HP 150..150  gross/turn 18.3..18.3  net% 53.4..53.4  turns 9.8..9.8  out 18..18
