@@ -1,0 +1,5389 @@
+/* =====================================================================
+   Syrup Town - unified stylesheet  (style.css)
+   Single entry for desktop + mobile, switched by viewport width.
+
+   ARCHITECTURE — switched by viewport ORIENTATION:
+     - LANDSCAPE half (former index.css) = side-by-side layout:
+       monitors, tablets, landscape phones & non-rotating handhelds.
+     - PORTRAIT  half (former cordova.css) = stacked layout: portrait phones.
+   Redundancy between the halves is intentional for now; de-duplicating into a
+   shared base is a later, incremental phase (see CSS_REFACTOR_PLAN.md).
+
+   Keep JS in sync:  var mobile = matchMedia('(orientation: portrait)').matches
+   ===================================================================== */
+
+:root {
+	/* ---- Layout ---- */
+	--menu-width: 21%;            /* side-menu width; close button & JS toggle track this */
+
+	/* ---- Brand palette ---- */
+	--c-pink:    #de93ac;         /* primary pink */
+	--c-cream:   #fcebb5;         /* frame / border cream */
+	--c-mauve:   #ae8492;         /* muted mauve */
+	--c-cyan:    #5fe6ec;         /* cyan accent */
+	--c-blue:    #0593f8;         /* choice-text blue */
+	--c-blue-ui: #0095ff;         /* UI blue (menu arrows) */
+	--c-gold:    #c0a771;         /* gold / tan */
+
+	/* ---- Fonts ---- */
+	--font-title:   playtime;
+	--font-hand:    handmade;
+	--font-body:    railway, 'times new roman', sans-serif;
+	--font-display: norwester, 'times new roman', sans-serif;
+
+	/* ---- Radii ---- */
+	--radius-sm: 5px;
+	--radius-md: 15px;
+
+	/* ---- Type scale (RESPONSIVE) ----
+	   Sizes scale with the smaller viewport dimension (vmin), so text shrinks on a
+	   short landscape phone the way the logo already does. Form: clamp(floor, N*vmin, desktop-cap).
+	   These are STARTING VALUES to tune in-device. The "=" equivalents tell you which tier an
+	   existing declaration belongs to (e.g. if you see 1.5em, it's --fs-large). */
+	--fs-tiny:   clamp(9px,  2.7vmin, 12px);   /* ~12px  =  0.5em  0.7em  0.75em                  */
+	--fs-small:  clamp(12px, 3.2vmin, 16px);   /* ~16px  =  1em  1rem  1.1em  16px  17px          */
+	--fs-medium: clamp(15px, 3.8vmin, 20px);   /* ~20px  =  1.25rem  1.2em  1.3em  1.4em  20–22px  */
+	--fs-large:  clamp(17px, 4.4vmin, 24px);   /* ~24px  =  1.5em  1.5rem  1.875em                */
+	--fs-xlarge: clamp(20px, 5.2vmin, 32px);   /* ~32px  =  2em  2rem                             */
+	--fs-huge:   clamp(30px, 6vmin,   44px);   /* ~48px  =  2.5rem  3em  3rem  (arrows live above) */
+
+	/* ---- Spacing (RESPONSIVE) — padding/margins SHRINK on small screens so content fills more.
+	   Inverse intent of the type scale: clamp(small-screen floor, N*vmin, desktop cap). Tune freely. ---- */
+	--space-sm: clamp(4px,  2.5vmin, 16px);
+	--space-md: clamp(8px,  4vmin,   30px);
+	--space-lg: clamp(12px, 6vmin,   60px);
+
+	/* ---- Component vars that differ by ORIENTATION (defaults = landscape/desktop; the
+	   portrait block overrides them). JS reads them via var(--name, fallback), letting us
+	   delete if(mobile) branches. Add more here as we convert files. ---- */
+	--card-brightness: 80%;   /* collectable card brightness (portrait: 100%) */
+	--wardrobe-cols:   3;     /* wardrobe grid columns (portrait: 2) */
+	--collection-cols: 3;     /* collection gallery columns (portrait: 1) */
+	--ovl-h: 100%;            /* character overlay sprite height (portrait: 75%) */
+	--ovl-left: 55%;          /* overlay left anchor (portrait: auto) */
+	--ovl-right: auto;        /* overlay right anchor — location overlays (portrait: 60%) */
+	--ovl-enc-right: auto;    /* overlay right anchor — encounter overlay (portrait: 0%) */
+	--encounter-lh: 7;        /* wall-encounter button line-height (portrait: 1) */
+	--fetish-grid-min: 30%;   /* fetish grid minmax min-size (portrait: 90%) */
+	--title-btn-maxw: 40%;    /* title screen button max-width (portrait: none) */
+	--title-img-h: 500px;     /* title wardrobe-item image height (portrait: 300px) */
+	--title-btngrid-h: 130px; /* title button grid height (portrait: 300px) */
+	--title-grid-min: 175px;  /* title character grid minmax min (portrait: 110px) */
+	--foxf-btngrid-h: 130px;  /* foxf button grid height (portrait: 110px) */
+	--outfit-cols: 3;         /* outfit grid columns (portrait: 1) */
+	--outfit-cols-wide: 4;    /* wide outfit grid columns (portrait: 2) */
+	--foxf-brightness: 60%;   /* foxf card/final brightness (portrait: 80%) */
+	--inv-cols: repeat(auto-fill, 270px); /* inventory grid columns (portrait: 1fr) */
+	--grotto-btn-max: 30%;    /* grotto nav-button max-width cap (portrait: 45% so they aren't tiny) */
+}
+
+/* ---- Collectables category bar (shared / orientation-agnostic) ----
+   Responsive flowing button row for the collectables categories (Jiggies/Tarot/…) and their sub-set buttons.
+   Replaces the old per-button absolutely-positioned fixed-px 4-col grid + the --collectable-cat-mt margin hack. */
+.categoryButtons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-sm);
+	margin: var(--space-md) 0;
+}
+.categoryButtons .pictureButton,
+.categoryButtons .pictureButton:hover {
+	position: static;   /* base .pictureButton(:hover) is absolute (room-nav buttons); category buttons must stay IN FLOW
+	                       even on hover, or hovering flips them to absolute, drops them from the flex row, reflows, loses
+	                       the hover and snaps back -> the flicker/vanish bug. The :hover selector here (0,0,3) outranks
+	                       the base .pictureButton:hover (0,0,2). */
+	margin: 0;          /* spacing handled by the flex gap */
+	max-width: none;
+}
+
+/* ---- Clacks minigame (shared / orientation-agnostic) ----
+   The board is a fixed-resolution canvas (1 sim unit = 1 canvas pixel) that CSS scales to fit, so the
+   simulation is identical on every screen. width/height:auto + BOTH max constraints means the canvas
+   keeps its intrinsic ratio and shrinks to whichever of the two is tighter -- width-bound on desktop,
+   height-bound on a landscape phone -- with no JS resize handler anywhere.
+   --clacks-board-max-h is the one knob to tune in-device. */
+:root {
+	--clacks-board-max-h: 55vh;
+}
+#clacksSpace {
+	display: flex;
+	justify-content: center;
+	margin-bottom: var(--space-sm);
+}
+#clacksCanvas {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: var(--clacks-board-max-h);
+	/* deliberately no border-radius: the arena walls are DRAWN, and a CSS radius would shave their
+	   corners off at whatever size the canvas happens to be scaled to. Arena shape belongs to the
+	   canvas, not the stylesheet. */
+}
+#clacksReadout {
+	text-align: center;
+	font-family: var(--font-body);
+	line-height: 1.4;
+	margin: 0 0 var(--space-sm);
+	/* wrapperBG is a blurred screenshot of whatever's behind it, so its brightness is unpredictable.
+	   Everything here sits on a dark outline the way the engine's own buttons do. */
+	text-shadow: 2px 2px #00355A, -1px -1px 4px #000A;
+}
+#clacksReadout p {
+	margin: 0;
+}
+#clacksStatus {
+	font-size: var(--fs-medium);
+	color: var(--c-cyan);
+	font-family: var(--font-display);
+	letter-spacing: 0.04em;
+}
+#clacksStatus.clacksResult {
+	font-size: var(--fs-large);
+}
+#clacksStatus.won  { color: #7df07d; }
+#clacksStatus.lost { color: #ff8080; }
+#clacksStatus.draw { color: var(--c-gold); }
+#clacksScaling {
+	font-size: var(--fs-medium);
+	color: var(--c-cream);
+}
+#clacksVars {
+	font-size: var(--fs-small);
+	color: #e8d5dd;   /* --c-mauve is too dark to read against a bright wrapperBG */
+}
+#clacksSpeedBar,
+#clacksTestBar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-sm);
+}
+#clacksTestBar {
+	margin-top: var(--space-sm);
+	opacity: 0.75;   /* dev-only match starters; visibly secondary to the real controls above */
+	/* Dev matchups only ever get MORE numerous, and a wrapped second row is precisely what the vertical
+	   budget cannot afford (CLACKS_DESIGN.md section 10: ~15px spare on an 844x390 phone, and
+	   html{overflow-y:hidden} makes anything past the fold unreachable rather than just offscreen).
+	   So this row grows SIDEWAYS. Fixed height forever, however many test modes get added.
+	   "safe center" keeps it centred while it fits but falls back to flex-start once it overflows, so
+	   the leftmost buttons can't end up scrolled off with no way back; browsers without it just get the
+	   flex-start line above and drop this one. */
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	justify-content: flex-start;
+	justify-content: safe center;
+	scrollbar-width: none;   /* the strip is short and obvious; a scrollbar would cost a row of pixels */
+}
+#clacksTestBar::-webkit-scrollbar {
+	display: none;
+}
+/* Id-scoped ON PURPOSE. This block sits ABOVE the orientation halves, but the buttons carry
+   class="button clacksSpeedButton" and the .button rules live further down the file -- a bare
+   .clacksSpeedButton would tie on specificity and lose on source order. The id prefix settles it, and
+   .active likewise has to outrank .button:hover (0,2,0).
+   Both bars are listed because the test-bar buttons reuse the same class. Only the speed bar ever gets
+   .active, which is why clacksSetSpeed() queries "#clacksSpeedBar .clacksSpeedButton" specifically. */
+#clacksSpeedBar .clacksSpeedButton,
+#clacksTestBar .clacksSpeedButton {
+	/* base .button is --fs-xlarge with 15px padding AND 15px margin -- four of those wrap and eat the
+	   board on an 844x390 landscape phone. Trim it down; spacing comes from the flex gap instead. */
+	font-size: var(--fs-medium);
+	padding: var(--space-sm) calc(var(--space-sm) * 1.5);
+	margin: 0;
+	min-width: 3.5em;
+}
+#clacksSpeedBar .clacksSpeedButton.active {
+	background: rgba(50,50,50,0.75);
+	color: #ffffff;
+	border-bottom: 3px solid var(--c-cyan);
+}
+/* Dev scaffolding: smallest tier, tightest padding. Not player-facing UI, so it should never compete
+   with the board for space. MUST stay below the shared sizing rule above -- same specificity (1,1,0),
+   so this only wins on source order. */
+#clacksTestBar .clacksSpeedButton {
+	font-size: var(--fs-small);
+	padding: calc(var(--space-sm) * 0.5) var(--space-sm);
+	min-width: 0;
+	/* In a nowrap strip the default flex-shrink:1 would squeeze every label into an unreadable sliver
+	   rather than letting the row overflow and scroll, which is the whole point of the rule above. */
+	flex: 0 0 auto;
+	white-space: nowrap;
+}
+
+/* A landscape phone is the tightest case in the game: ~390px tall, with the board sharing it with a
+   status line, a readout, the speed row and the dev row. Without this the bottom row lands below the
+   fold, and html{overflow:hidden} means it can't be scrolled to -- it's simply gone, not just offscreen. */
+@media (orientation: landscape) and (max-height: 520px) {
+	:root {
+		--clacks-board-max-h: 46vh;
+	}
+}
+
+@media (orientation: landscape) {
+	/*Misc*/
+	html, body {
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+		margin: 0px;	
+	}
+	html {
+	    border-color: #cccccc; /* defined Root border-color: Off-white */
+	    overflow: hidden;
+	    /* preventing overflows like dimmed background-layer to generate scrollbars
+			Scrollbars are getting used on the individual containers like #output instead anyways
+	     */
+	    font-family: arial, sans-serif;
+	    font-size: 1rem; /* defined Root font-size (fixed base, NOT a responsive tier) */
+	    color: #cccccc; /* defined Root font-color: Off-white */
+	    line-height: 1.5em;
+	}
+	body{
+	    display: flex;
+	    /* Makes sure #output always fills the rest of the available space */
+	}
+	*{
+		box-sizing: border-box;
+		/*when specifying dimensions, it takes padding and borders into account*/
+	}
+	a, a:visited {
+		text-decoration: none;
+		color:#509cea;
+	}
+	.closeButton {
+		top: 38px;
+		left: var(--menu-width);
+		position: absolute;
+		font-size: clamp(2rem, 12vh, 100px);
+		color: var(--c-blue-ui);
+		cursor: pointer;
+		text-shadow: 5px 8px #000A, -1px -1px 5px #000A;
+		z-index: 0;
+		font-family: var(--font-title);
+	}
+	.openButton {
+		top:38px;
+		left: 20px;
+		position: absolute;
+		visibility: hidden;
+		font-size: clamp(2rem, 12vh, 100px);
+		color: var(--c-blue-ui);
+		cursor: pointer;
+		text-shadow: 5px 8px #000A, -1px -1px 5px #000A;
+		z-index: 0;
+		font-family: var(--font-title);
+	}
+	.jiggyButton {
+		font-size: clamp(2rem, 12vh, 100px); /* unified with the open/close menu arrows */
+		line-height: 1;
+		color: var(--c-blue-ui);
+		cursor: pointer;
+		text-shadow: 5px 8px #000A, -1px -1px 5px #000A;
+		z-index: 1;
+		font-family: var(--font-title);
+	}
+	#jiggyButtonHolders {
+		position: fixed;
+		top: clamp(110px, 20vh, 200px); /* sit below the open/close arrow at top:38px */
+		left: 20px;                     /* same left edge as the open button (folds with the menu) */
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+		z-index: 1;
+		transition: left 1s; /* slide in step with the side menu */
+	}
+	#jiggyButtonHolders.menuOpen {
+		left: var(--menu-width); /* menu folded out: sit alongside its right edge, like the close arrow */
+	}
+	.loader {
+	  border: 16px solid #f3f3f3; /* Light grey */
+	  border-top: 16px solid #3498db; /* Blue */
+	  border-radius: 50%;
+	  width: 120px;
+	  height: 120px;
+	  animation: spin 2s linear infinite;
+	}
+	hr {
+		border: 2px dashed white;
+		margin-bottom: 45px; 
+	}
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
+
+	/****Scroll bar****/
+	/* width */
+	::-webkit-scrollbar {
+	  width: 5px;
+	}
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #333333; 
+	}
+	 /* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #FFFFFF; 
+	  border-radius:3px;
+	}
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #DDDDDD; 
+	}
+
+	/**** Menu ****/
+	div#menu {
+	    width: var(--menu-width);
+	    height: 100%;
+	    flex:none;
+		text-align: center;
+		overflow-y: auto; /*only adds a scrollbar, when necessary*/
+		overflow-x: hidden;
+		/*resize: horizontal;  probably better to code the resizing of this container via JS. Something for later. */
+		scrollbar-width:none;
+		transition: 1s;
+		position: relative;
+	}
+	.title {
+		width: 60%;
+		padding-top: 10%;
+	}
+	.titleAuthor {
+		font-size: var(--fs-xlarge);
+		font-family: var(--font-hand);
+		text-decoration:underline;
+		color: var(--c-blue-ui);
+		font-weight: bold;
+		padding-bottom: 3%;
+		margin: 0px;
+	}
+	.menuBackground {
+		background-image: url('../../images-webp/system/ui/notepad.webp');
+		width: 100%;
+		min-height: 100vh;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		aspect-ratio: 270/890;
+	}
+	.menuButtonLarge {
+		width: 28%; 
+		cursor: pointer;
+	}
+	.menuButtonLarge:hover {
+		filter:brightness(70%);
+	}
+	.menuButtonSmall:hover {
+		filter:brightness(70%);
+	}
+	#buttonUpperGrid {
+		position: relative;
+	}
+	/* Side-menu money badge (landscape only; portrait hides it and the footer shows money instead).
+	   Migrated out of inline HTML. TODO(2d): height is still fixed px — make responsive/circular in the sizing pass. */
+	.moneyCircle {
+		background: green;
+		height: clamp(28px, 6vmin, 45px);   /* was a flat 45px — too big on small screens; ~45 desktop, ~28 mobile landscape */
+		position: absolute;
+		top: 0px;
+		left: 25%;
+		border-radius: 50%;
+		font-size: var(--fs-medium, 1.5em);
+		pointer-events: none;
+	}
+	.moneyCircle .playerMoney {
+		margin-top: clamp(5px, 1.5vmin, 10px);   /* scales the original 10px text nudge as the box shrinks */
+		font-weight: bold;
+		color: #FFFFFF;
+		font-family: var(--font-title);
+	}
+	.menuButtonSmall {
+		width: 32%;
+		cursor: pointer;
+	}
+	p#title {
+		font-size: var(--fs-large);
+	    margin-bottom: 15px;
+	}
+	p#author {
+		font-size: var(--fs-large);
+		cursor: pointer;
+	}
+
+	.flexbox{
+	    display: flex;
+	    flex-wrap: wrap;
+	}
+	.flexbox>*{
+		/*Only really used for the menu to ensure 2 items per row*/
+	    width: 42%;
+	    box-sizing: border-box;
+	    margin: 15px;
+	}
+	.playerImageFrame {
+		display: block;
+		object-fit: cover;
+	}
+	.museumImageFrame {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		padding-bottom: 200%;
+	}
+	/* Every drawn layer keeps the same 5px border so the whole stack lines up to the pixel, but
+	   only the closing playerImageEdge layer paints it. A layer resized in Full Control carries
+	   its border and shadow with it, which used to smear a second frame across the side menu. */
+	.playerImage {
+		position: absolute;
+		display: block;
+	    margin: auto;
+	  	border: 5px solid transparent;
+	  	border-radius: var(--radius-sm);
+		width:69%;
+		margin-left: 14%;
+		object-fit: cover;
+		object-position: 100% 0px;
+	}
+	.playerImage.playerImageEdge {
+		border-color: var(--c-cream);
+		box-shadow: 6px 6px #0005;
+	}
+	.titleCard {
+		background-image: url('../../images-webp/system/ui/titleLandscape.webp');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+
+	/**** Canvas ****/
+	.wrapper{
+	    background: none; /*To ensure WrapperBG shows, in case browser-native forces white background as default*/
+	    width: 100%;
+		height: 100%;
+		overflow-y: auto; /*only shows a scroll-bar, if necessary*/
+		overflow-x: hidden;
+		transition: 1s;
+	}
+	div#output {
+	    padding: var(--space-lg);
+		transition: 2s;
+	}
+	div#wrapperBG {
+		background-image: url('../../images-webp/system/ui/titleLandscape.webp');
+		/*Box covering entire canvas, used to add background-image via JS*/
+	    height: 100%;
+	    width: 100%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    background-size: 100% 100%;
+	    filter: blur(40px) contrast(80%);
+	    z-index: -2;
+	}
+	div#wrapperBG.Evening {
+		filter: blur(5px) contrast(80%) brightness(70%) saturate(80%) sepia(65%);
+	}
+	div#wrapperBG.Night {
+		filter: brightness(50%) blur(5px) contrast(80%) saturate(50%) grayscale(30%) sepia(50%) hue-rotate(-90deg);
+	}
+	div#wrapperBG::after {
+		/*dims the background */
+	    content: "";
+	    position: absolute;
+	    height: 100%;
+	    width: 100%;
+	    z-index: -1;
+	}
+	.backgroundPicture{
+		display: block;
+		width: 100%;
+		height: 100%;          /* fill the (now square) room; stretch keeps %-positioned buttons aligned */
+	}
+	.backgroundBorder{
+	    border: 5px solid var(--c-cream);
+	    border-radius: 30px;
+	    height: 100%;
+	    width: 100%;
+		margin: auto;
+		overflow: hidden;
+		position:relative;
+	}
+	.playerRoom {
+		position: relative;
+		width: 90%;
+		margin: auto;
+	}
+	.Evening {
+		filter: brightness(70%) contrast(120%) saturate(80%) sepia(65%);
+	}
+	.Night {
+		filter: brightness(50%) contrast(150%) saturate(50%) grayscale(30%) sepia(50%) hue-rotate(-90deg);
+	}
+	.pictureButton {
+		display: block;
+		position: absolute;
+		opacity: .5;
+		text-align: center;
+		cursor: pointer;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.pictureButton:hover {
+		display: block;
+		position: absolute;
+		background-color: black;
+		opacity: .8;
+		text-align: center;
+		cursor: pointer;
+	  	border: 4px solid white;
+	  	border-radius: var(--radius-sm);
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	img.bigPicture {
+		display: block;
+	    max-height: 70vh;
+	    margin: auto;
+	    border: 5px solid var(--c-cream);
+	    border-radius: 30px;
+	}
+	.gridPicture {
+		display: block;
+	    margin: auto;
+	    border: 5px solid var(--c-cream);
+	    border-radius: 30px;
+		filter: brightness(50%);
+		width:100%;
+		cursor:pointer;
+	}
+	.gridPicture:hover {
+		filter: brightness(100%);
+	}
+	.medPicture {
+		display: block;
+	    margin: auto;
+	    max-height: 500px;
+	  	padding: 20px, 1px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+
+	/**** Text ****/
+	h1,h2,h3,h4,h5,h6,p{
+		/*clear any user style agent defintions*/
+		margin:0;
+		padding:0;
+	}
+	h1 {
+		font-size: var(--fs-huge);
+	}
+	h2 {
+		font-size: var(--fs-xlarge);
+	}
+	h3 {
+		font-size: var(--fs-medium);
+	}
+	h3 {
+		font-size: var(--fs-medium);
+	}
+	.centeredText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		padding: 15px;
+		line-height: 1.3;
+		color: #FFFFFF;
+		text-shadow: 2px 2px #000000;
+	}
+	.tinyText {
+		color: #BBBBBB;
+		text-align:center;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		font-size: 70%;
+	}
+	p{margin: 15px 0;}
+
+	/* Textbox interactions */
+	.textContent p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.textContent p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+	/* text emphasis */
+	.textBox b {
+	    color: hsla(48, 69%, 75%, 1);
+	}
+	.textName {
+		font-size: var(--fs-medium);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	p.rawText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		padding: 15px;
+		line-height: 1.3;
+		text-shadow: 2px 2px #000000;
+	    color: #1ce01c;
+	}
+	.specialText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		padding: 15px;
+		line-height: 1.3;
+		text-shadow: 2px 2px #000000;
+	    color: #1ce01c;
+	
+	    font-weight: bold;
+	    text-align: center;
+	}
+
+	/*regular button*/
+	.button, .pictureButton, .choiceText, .shopItem, .logbookSwitch{
+		font-size: var(--fs-xlarge);
+	    background: #665533CC;
+	    padding: 15px;
+	    margin: 15px;
+	    border: none;
+	    border-radius: 25px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		border-bottom: 3px solid var(--c-gold);
+		color: var(--c-blue);
+		text-shadow: 2px 2px #00355A;
+	}
+	.button:hover, .pictureButton:hover, .choiceText:hover, .logbookSwitch:hover{
+	    background: rgba(50,50,50,0.75);
+	    color: #ffffff;
+	    border: none;
+	    border-bottom: 3px solid #FFFFFF;
+	}
+	.choiceText {
+		font-size: var(--fs-xlarge);
+		font-weight: bold;
+		display: block;
+		width: fit-content;
+		margin: 15px auto;
+		color: var(--c-blue);
+		font-family: var(--font-hand);
+		font-weight:bold; 
+	}
+	.pictureButton {
+		font-weight: bold;
+		display: block;
+		width: fit-content;
+		margin: 15px auto;
+		color: #FBEAB5;
+		font-family: var(--font-hand);
+		font-weight:bold; 
+	}
+	.pictureButton,.pictureButton:hover {
+		font-size: var(--fs-xlarge);
+	    background: none;
+	    padding: 3% 4%;
+	    opacity: 1;
+	    border: 0;
+		font-family: var(--font-hand);
+		font-weight:bold; 
+		line-height:1;
+		background-image: url("../../images-webp/system/ui/buttonBackboard.webp");
+		background-size: 100% 100%;
+	}
+	.pictureButton:hover {
+		filter:hue-rotate(-25deg);
+	}
+	.playerRoom {
+		position: relative;
+		aspect-ratio: 1 / 1;
+		/* 2f: square nav window (location art is square). Desktop-landscape size below;
+		   mobile-landscape override lives in the (max-height:520px) block; portrait is full-width. */
+		width: 50%;
+		max-width: 100%;
+		margin: 0 auto var(--space-lg);
+	}
+
+	/*Windows*/
+	.windowLeft {
+		height: 80%;
+		width: 30%;
+		float:left;
+		overflow: auto;
+	}
+	.windowRight {
+		height: 80%;
+		width: 70%;
+		float:right;
+		overflow: auto;
+	}
+	.popup{
+		position: absolute;
+		top: 10%;
+	    left: 10%;
+		width: 80vw;
+		height: 80vh;
+	    z-index: 1;
+	    overflow: scroll;
+	    border: 5px solid var(--c-cream);
+	    background: #320C;
+	  	border-radius: var(--radius-sm);
+	}
+	.popup::after {
+	    content: "";
+	    position: fixed;
+		width: 81vw;
+		height: 80vh;
+	    z-index: -1;
+		top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    pointer-events: none;
+	}
+	.windowTitle {
+		font-size: var(--fs-huge);
+	    width: 100%;
+	    text-align: center;
+	    border-bottom: 5px solid var(--c-cream);
+	    cursor: pointer;
+	    border-radius: var(--radius-sm);
+	    background: #320C;
+	    display: block;
+	    line-height: 2.5;
+	
+		font-family: var(--font-hand);
+		color: var(--c-cream);
+		font-weight: bold;
+		font-family: var(--font-hand);
+		text-shadow: 3px 3px #000A;
+	}
+	.windowBackdrop {
+		background: rgba(25,25,25,0.85);
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+		z-index: 4;
+	}
+	.playerSelf {
+		position: absolute;
+		height: inherit;
+		width: inherit;
+	
+	}
+	.overlayImage {
+		position: absolute;
+		height: 100%;
+		width: inherit;
+	
+	}
+	.thumbFull {
+		position: absolute;
+		width: inherit;
+	}
+
+	/*Inventory Menu*/
+	.item {
+	    background-color: #00000077;
+	    padding: 5%;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		position: relative;
+		font-family: var(--font-title);
+		color: #FFFFFF;
+		display:grid; 
+		grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+		height: 100%;
+		width: 100%;
+	}
+	.itemName {
+		font-size: var(--fs-large);
+		margin: 0px;
+		line-height: 1;
+	}
+	.itemQuantity {
+		font-size: var(--fs-xlarge);
+		position: absolute;
+		top: 50%;
+		left: 5%;
+	}
+	.itemImage {
+	    width: 100%;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		aspect-ratio:1;
+	}
+
+	/*Shop*/
+	.shopCategory {
+	    background-color: #00000077;
+	    padding: 15px 30px;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		position: relative;
+		font-family: var(--font-title);
+		color: #FFFFFF;
+		display:grid; 
+		grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+	}
+	.shopCategory:hover {
+	    background-color: #00000022;
+	    padding: 15px 30px;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		position: relative;
+		font-family: var(--font-title);
+		color: #FFFFFF;
+		display:grid; 
+		grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+	}
+	.shopCategoryName {
+		font-size: var(--fs-large);
+		margin: 0px;
+		line-height: 1;
+	}
+	.phoneSelectionMenu .shop {
+		margin: 0px; 
+		justify-content:initial; 
+		grid-template-columns: 
+		repeat(auto-fill, 300px);
+	}
+
+
+	.shopItem {
+		cursor: pointer;
+		position: block;
+		width: 100%;
+		background-color: #333333;
+		overflow: auto;
+	    height: unset;
+		display: flex;	
+	    align-items: center;
+	}
+	.shopName {
+		font-size: var(--fs-small);
+		pointer-events: none;
+		float: left;
+		color: white;
+		left: 30%;
+	    flex: 3 1 auto;
+	}
+	.shopDesc {
+		font-size: var(--fs-small);
+		pointer-events: none;
+		float: left;
+		margin-left: 15px;
+		color: white;
+		padding-top: -10px;
+		width: 40%;
+		left: 40%;
+		flex: 5 1 auto;
+	}
+	.shopPrice {
+		font-size: var(--fs-medium);
+		pointer-events: none;
+		float: left;
+		margin-left: 15px;
+		color: white;
+		left: 90%;
+		width: 5%;
+	    flex: 2 1 auto;
+	}
+	.shopImage {
+		pointer-events: none;
+		float: left;
+		height: 69px;
+		width: 69px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	    float: right;
+	    margin-right: 15px;
+	}
+	.shopItem>* {
+	    margin: 0 15px;
+	}
+
+	/**** Logbook ****/
+	div.popup, .save {
+	    display: flex;
+	    flex-wrap: wrap;
+		padding: 0px;
+		overflow: hidden;
+	}
+	div.inventory {
+	    display: grid;
+	}
+	.lb_Name{
+	color:var(--character-color);
+	}
+	.logbookLeft .button {
+		font-size: var(--fs-large);
+	}
+	.logbookRight {
+		left:20%;
+		height: 80%;
+		width: 80%;
+	    left: unset;
+	    padding: 15px;
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	}
+	.logbookLeft {
+		height: 80%;
+		width: 20%;
+	    top: unset;
+	    padding: 0;
+	   overflow-y: scroll;
+	    overflow-x: hidden;
+	}
+	#selfImage {
+		float: right;
+		width: 100%;
+	    max-width: 30%;
+		margin: 0 30px;
+		position: relative;
+	}
+	.selfSwitch {
+		display: inline;
+		cursor: pointer;
+	}
+	.selfSwitch:hover {
+		display: inline;
+		cursor: pointer;
+	}
+
+	/****Save menu****/
+	div#save {
+	    flex-flow: column;
+	}
+	.saveButton, .deleteButton, .loadButton, .saveFileButton, .loadFileButton {
+		font-size: var(--fs-small);
+	    color: #ffffff; 
+	    padding: 15px; 
+	    margin-left: 15px; 
+	    text-align: center;
+	    width: 120px;
+	    border: none; 
+	    border-bottom: 3px solid #ffffff;
+	    border-radius: var(--radius-sm); 
+	   	cursor: pointer; 
+
+	}
+	.saveSlot {
+	padding: 5px 0;
+	    height: unset;
+	    display: flex;
+	    margin: 15px 0;
+	    position: relative;
+	    background-color: rgba(255,255,255,0.25);
+	    flex-direction: row-reverse;
+	    justify-content: flex-end;
+	    padding-left: 105px;
+	    border-radius: var(--radius-sm);
+	}
+	.saveDate {
+		font-size: var(--fs-medium);
+	    flex: 5 1;
+	}
+	.saveList {
+	display: flex;
+	    flex-direction: column;
+	    overflow-y: scroll;
+	    width: 100%;
+		height: 80%;
+		word-wrap: break-word;
+	}
+	.deleteButton{
+		color:#FF0000;
+		border-color:#FF0000;
+	}
+	.saveName, .loadButton, .saveButton, .deleteButton, .loadFileButton, .saveFileButton {
+	    position: unset;
+	    flex: 1 1 auto;
+	    max-width: fit-content;
+	    max-height: fit-content;
+	    margin: var(--space-sm);
+
+	}
+	.saveName {
+		font-size: var(--fs-medium);
+	position: absolute;
+	    left: 30px;
+	    width: 75px;
+	    margin: auto;
+	    display: block;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+
+	/***Phone***/
+	.phoneTextBox {
+		position: relative;
+		display: block;
+		width: 98%;
+	  	min-height: 92px;
+		padding: 5px;
+		overflow: hidden;
+	  	background-color: #111122;
+	  	border: 5px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+	.phoneTextBox p {
+		margin: 0px;
+		padding: 0px;
+	}
+	.phoneTextThumb {
+		position: relative;
+	  	display: block;
+	    margin: auto;
+	  	padding: 1px;
+	 	height: 100px;
+		width: 100px;
+	  	float: left;
+		overflow: hidden;
+	  	margin: 0px 10px 0px 0px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+	.phoneTextName {
+		color: white;
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	.phonePicture {
+	    display: block;
+	    margin: auto;
+	    max-height: 100%;
+	    max-width: 100%;
+	      border: 3px solid;
+	      border-radius: var(--radius-sm);
+	}
+
+	/*** Mobile Ver Stuff ***/
+	/*Footer Hiding*/ /*Comment this out in mobile ver*/
+	.footer { 
+		height: 0%;
+		overflow: hidden;
+	}
+	.footer .switch {
+		font-size: 300%;
+		height: 100px;
+		width: 33%;
+		margin: auto;
+		margin-top: 50px;
+		text-align: center;
+		box-sizing: border-box;
+		float: left;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+	/*Other*/ /*Comment this out in dekstop ver*/
+	/*
+	.footerButton {
+		height: 10vh;
+		text-align: center;
+		box-sizing: border-box;
+		float: left;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	    background: rgba(0,0,0,0.75);
+	    margin: 15px;
+	    border: none;
+	    border-bottom: 3px solid grey;
+	    border-radius: var(--radius-sm);
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+	}
+	.footerButton:hover{
+	    background: rgba(50,50,50,0.75);
+	    color: #ffffff;
+	      border: none;
+	    border-bottom: 3px solid #FFFFFF;
+	}
+	img.bigPicture {
+	    max-height: 60vh;
+	    max-width: 90%;
+	}
+	div#menu {
+	    width: 0px;
+	    overflow: hidden;
+	    border-right: 0px;
+	}
+	div#wrapperBG {
+	    height: calc(100% + 0px);
+	    width: calc(100% + 0px);
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: 1;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    filter: blur(10px);
+	    z-index: -2;
+	}
+	div#wrapperBG::after {
+	    background: rgba(0,0,0,0.75);
+	    content: "";
+	    position: absolute;
+	    height: calc(100% + 0px);
+	    width: calc(100% + 0px);
+	    z-index: -1;
+	}
+	.pictureButton, .choiceText{
+		font-size: var(--fs-xlarge);
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 2px;
+	}
+	.choiceText {
+		font-size: var(--fs-xlarge);
+		width: 80%;
+		margin: auto;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.pictureButton,.pictureButton:hover {
+		font-size: var(--fs-xlarge);
+	    padding: 2px;
+		min-height: 10vh;
+	    opacity: 1;
+	    border: 0;
+	    border-bottom: 3px solid #FFFFFF;
+	}
+	.playerRoom {
+		height: 70vh;
+	    width: 90%;
+		margin: auto;
+	    margin-bottom:30px;
+	}
+	.button, .choiceText, .shopItem, .logbookSwitch{
+		margin-bottom: 15px;
+	}
+	.flexbox>*{
+	    width: 30%;
+	    margin: auto;
+		margin-top: 30px;
+	}
+	#restartButton {
+	    color: #FF0000;
+	    border-color:#FF0000;
+	    margin: auto;
+	    margin-top: 30px;
+	}
+	div#output {
+		padding: 5px;
+	}
+	*/
+
+	/*Basic Schema*/
+	.dialogueContainer.basic{
+		font-size: var(--fs-large);
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		background-color: rgba(0,0,0,0.5);
+		border-bottom: 5px solid;
+		/* border-color: var(--character-color); */
+		margin: 15px 0;
+		padding: 15px;
+		border-radius: var(--radius-md);
+		width: 100%;
+		overflow: hidden;
+		box-shadow: inset 0 0 20px #000;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 5px black;
+	}
+	img.thumbnailImage.basic{
+		width: 150px;
+		border-radius: var(--radius-md);
+		/* box-shadow: -5px 5px var( --character-color); */
+		flex: none;
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	p.textName.basic{
+		font-size: var(--fs-large);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+		text-shadow: 3px 3px black, 0px 0px 5px black;
+	}
+	.thumbnailBorder.basic {
+		height:150px;
+		width: 150px;
+		margin-right: 30px;
+	}
+
+	/*Lobotomy Schema*/
+	p.lobotomyText {
+		font-size: var(--fs-large);
+		margin: 30px 0px;
+		font-family: var(--font-body);
+		font-style: normal;
+	}
+	.dialogueContainer.lobotomy {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    background-color: rgba(0,0,0,0.9);
+		border: solid 5px;
+	    margin: 15px 0;
+	    padding: 0px;
+	    width: 100%;
+		overflow: hidden;
+		-moz-transform: skew(-5deg, 0deg);
+		-webkit-transform: skew(-5deg, 0deg);
+		-o-transform: skew(-5deg, 0deg);
+		-ms-transform: skew(-5deg, 0deg);
+		transform: skew(-5deg, 0deg);
+	}
+	.textName.lobotomy {
+		font-size: var(--fs-large);
+		font-weight: bold;
+	    text-align: center;
+		font-family: var(--font-display);
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+		margin-bottom: 0px;
+		color: black;
+		margin: 15px 0;
+		text-align: left;
+	}
+	img.thumbnailImage.lobotomy {
+	    width: 135px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		-moz-transform: scale(0.9) skew(5deg, 0deg);
+		-webkit-transform: scale(0.9) skew(5deg, 0deg);
+		-o-transform: scale(0.9) skew(5deg, 0deg);
+		-ms-transform: scale(0.9) skew(5deg, 0deg);
+		transform: scale(0.9) skew(5deg, 0deg);
+		margin-top: -1px;
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	.thumbnailBorder.lobotomy {
+		height:135px;
+	}
+	.textContainer.lobotomy {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+	}
+	.thumbnailContainer.lobotomy {
+	    display: inline-block;
+	    width: 130px;
+		margin-right: 40px;
+		margin-left: 30px;
+	}
+	.thumbnailContainer.lobotomyBorder {
+	    height: 127px;
+	    width: 135px;
+		background-color: #000000;
+	    margin-right: 30px;
+	    margin-left: 10px;
+		-moz-transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-o-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+	.choiceTextLobotomy {
+		font-size: var(--fs-xlarge);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceTextLobotomy:hover{
+	}
+	.choiceFrameLobotomy{
+		font-size: var(--fs-large);
+	    background: rgba(0,0,0,0.75);
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 30vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.choiceFrameLobotomy:hover{
+	    background: rgba(50,50,50,0.75);
+	    color: #ffffff;
+		border-color: rgba(50,50,50,0.75);
+	}
+
+	.dialogueContainer.lobotomy p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.lobotomy p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	/*Persona Schema*/
+	.dialogueContainer.persona {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    margin: 15px 0;
+	    padding: 0px;
+	    width: 100%;
+		overflow: hidden;
+	}
+	img.thumbnailImage.persona {
+	    width: 150px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	.textContainer.persona {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		margin-left: 60px;
+	}
+	.thumbnailContainer.persona {
+	    display: inline-block;
+	    width: 150px;
+		box-shadow: 0px 5px;
+	    border-radius: 15px/5%;
+		margin-bottom: 5px;
+		overflow: hidden;
+		background: #0003;
+		flex-shrink: 0;
+	}
+	.thumbnailBorder.persona {
+		width:150px;
+		height:150px;
+		position: relative; 
+	}
+	.nameContainer.persona {
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+		padding-bottom: 3px;
+	}
+	.nameContent.persona {
+		font-size: var(--fs-large);
+		-moz-transform: skew(-3deg, 0deg);
+		-webkit-transform: skew(-3deg, 0deg);
+		-o-transform: skew(-3deg, 0deg);
+		-ms-transform: skew(-3deg, 0deg);
+		transform: skew(-3deg, 0deg);
+		font-weight: bold;
+		font-family: var(--font-display);
+		z-index: 1;
+	}
+	.textNamePersonaBlack{
+		border:solid 44px #000;
+		position:absolute;
+		margin:-68px 0 0 115px;
+		transform: scaleX(3.8) scaleY(.5);
+		z-index: -1;
+	}
+	.textNamePersonaWhite{
+		border:solid 44px #fff;
+		position:absolute;
+		margin:-68px 0 0 115px;
+		transform: scaleX(3.9) scaleY(.6);
+		z-index: -2;
+	}
+	.personaNameArrow{
+		border:solid 32px transparent;
+		border-right-color:#000;
+		position:absolute;
+		margin:-26px 0 0 -88px;
+		transform: scaleX(2) scaleY(.5);
+	}
+	.personaNameArrowShadow{
+		border:solid 32px transparent;
+		border-right-color:#fff;
+		position:absolute;
+		margin:-26px 0 0 -90px;
+		transform: scaleX(2.2) scaleY(.7);
+		z-index:-2;
+	}
+	.textContent.persona {
+		border: 3px solid white;
+		background-color: #000;
+		padding-left: 19px;
+		padding-right: 19px;
+		margin-left: 3px;
+		margin-top: -9px;
+	}
+
+	.choiceTextPersona {
+		font-size: var(--fs-large);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceTextPersona:hover{
+	}
+	.choiceFramePersona{
+		font-size: var(--fs-large);
+	    background: #000000;
+	    color: #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 30vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.choiceFramePersona:hover{
+	    background: #ffffff;
+	    color: #000000;
+		border-color: #000000;
+	}
+
+	.dialogueContainer.persona p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.persona p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.personaMenuButton {
+		font-size: var(--fs-large);
+		letter-spacing: .2em;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+		border: solid 3px #ffffff;
+		border-radius: 0px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+	}
+	.personaMenuButton:hover{
+	    background: rgba(0,0,0);
+	    filter:invert(1);
+	}
+	.pictureButtonPersona{
+		font-size: var(--fs-large);
+		letter-spacing: .2em;
+		display: block;
+		position: absolute;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 15px auto;
+	    padding: 15px;
+	    margin: 15px;
+	    border: 3px solid;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+	}
+	.pictureButtonPersona:hover {
+	    padding: 15px;
+	    background: #ffffff;
+	    color: #000000;
+		border: solid 3px #000000;
+	}
+
+
+	#buttonMenu {
+		display:inline-block;
+	}
+	/*Royalty Schema*/
+	/*Royalty Schema*/
+	.dialogueContainer.royalty {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    margin: 5px 0;
+	    padding: 0px;
+	    width: 100%;
+		overflow: hidden;
+	}
+	img.thumbnailImage.royalty {
+	    width: 150px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;  
+		-webkit-filter:grayscale(0.9);
+		filter: grayscale(0.9);
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	.textContainer.royalty {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		margin-top: 5px;
+		width: 90%;
+	}
+	.thumbnailContainer.royalty {
+	    display: inline-block;
+	    width: 160px;
+		overflow: hidden;
+	}
+	.nameContainer.royalty {
+		width:150px;
+		background-color: #000C;
+		border: 3px solid;
+		border-radius: var(--radius-sm);
+		/*z-index:1;*/
+		position: absolute;
+		bottom: 0px;
+	}
+	.nameContent.royalty {
+		font-size: var(--fs-large);
+		font-family: marker, norwester, times new roman, sans-serif;
+		z-index: 1;
+		margin: auto;
+		text-align: center;
+	}
+	.textBorder.royalty {
+	    width: 100%;
+		border: 3px solid white;
+		border-radius: var(--radius-sm);
+		background-color: #000;
+		padding: 0px 15px;
+		min-height: 150px;
+	}
+	.thumbnailBorder.royalty {
+		width:150px;
+		height:150px;
+	}
+	.textContainer.royalty p {
+		font-size: var(--fs-large);
+		font-family: railway;
+		line-height: 1.2;
+		margin: 0px;
+	}
+
+	.choiceTextRoyalty {
+		font-size: var(--fs-large);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceTextRoyalty:hover{
+	}
+	.choiceFrameRoyalty{
+		font-size: var(--fs-large);
+	    background: #000000;
+	    color: #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 30vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.choiceFrameRoyalty:hover{
+	    background: #ffffff;
+	    color: #000000;
+		border-color: #000000;
+	}
+
+	.dialogueContainer.royalty p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.royalty p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.royaltyMenuButton {
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+		border: solid 3px #ffffff;
+		border-radius: 0px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+	}
+	.royaltyMenuButton:hover{
+	    background: #ffffff;
+	    color: #000000;
+		border: solid 3px #000000;
+	}
+	.pictureButtonRoyalty{
+		font-size: var(--fs-large);
+		display: block;
+		position: absolute;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 15px auto;
+	    padding: 15px;
+	    margin: 15px;
+	    border: 3px solid;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+	}
+	.pictureButtonRoyalty:hover {
+	    padding: 15px;
+	    background: #ffffff;
+	    color: #000000;
+		border: solid 3px #000000;
+	}
+
+	/*Syrup Schema*/
+	.dialogueContainer.syrup {
+		font-size: var(--fs-large);
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    background-color: rgba(50,30,0,0.8);
+		border: 5px solid var(--c-cream);
+		color: #FFFFFF;
+	    margin: 15px 0;
+	    border-radius: var(--radius-md);
+	    width: 100%;
+		overflow: hidden;
+		font-family: var(--font-hand);
+		box-shadow: 11px 11px #000A,
+					0 0 20px 2px #000A;
+		z-index: 0;
+	}
+	.textContainer.syrup {
+		/*added so in the case of ever having so much dialog that it would extend over the picture, it aligns neatly at the right to the picture as demosntrated in example1.jpg.*/
+	}
+	.syrup .switch {
+		font-size: var(--fs-small);
+	    color: var(--c-blue);
+		cursor: pointer;
+		text-shadow: 2px 2px #00355A;
+		-webkit-text-stroke: 1px #036A;
+		font-family: var(--font-title);
+		line-height: 1.2;
+		margin: 0px;
+	}
+	.syrup .switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+	.syrup .switch:hover {
+	    color: #ffffff;
+	}
+	.dialogueDivider.syrup {
+		height: 20px;
+		width: 300px;
+		margin-top: 5px;
+		margin-bottom: -5px;
+		filter: drop-shadow(3px 3px #000A);
+	}
+	.dialogueBackground.syrup {
+		height: 150px;
+		position: absolute;
+		width: 225px;
+		right: 15px;
+		top: 15px;
+		z-index: -1;
+	}
+	.thumbnailBorder.syrup {
+		width:150px;
+		height:150px;
+	}
+	img.thumbnailImage.syrup {
+	    width: 150px;
+	    border-radius: var(--radius-md);
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		object-fit: cover;
+		object-position: 100% 0px;
+		position:absolute;
+	}
+	.textContainer.syrup p {
+		font-size: var(--fs-xlarge);
+		font-family: var(--font-title);
+		line-height: 1.2;
+		margin: 0px;
+	}
+
+	p.textName.syrup {
+		font-size: var(--fs-huge);
+		color: var(--c-cream);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+		font-family: var(--font-hand);
+		text-shadow: 3px 3px #000A;
+		line-height: 1;
+	}
+
+	.textContainer.syrup .switch {
+		font-size: var(--fs-xlarge);
+	    /*font-size: var(--fs-small);*/
+	}
+	.textContainer.syrup .status {
+		font-size: var(--fs-xlarge);
+	}
+	p.rawTextSyrup {
+	    margin-bottom: 45px;
+		font-family: var(--font-hand);
+	}
+	.specialTextSyrup {
+		font-size: var(--fs-small);
+	    color: #1ce01c;
+	    font-weight: bold;
+	    margin-bottom: 45px;
+	    text-align: center;
+		font-family: var(--font-hand);
+	}
+	hr.syrup {
+		border: none;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+	.textDivider.syrup {
+		border: 5px solid var(--c-cream);
+		border-radius: 50%;
+	}
+
+	.titleCard {
+		width: 100vw;
+		height: 100vh;
+		position: absolute;
+		top: 0vh;
+		left: 0vw;
+	}
+	.titleBackboard {
+		position:absolute;
+		transition: top 2s;
+		transition-timing-function: ease;
+		top: -100%;
+		height:100vh;
+		width:100vw;
+		left:0%;
+	}
+	.titleButton {
+		position:absolute;
+		transition: top 2s;
+		transition-timing-function: ease;
+		left:38vw;
+		top: 200%;
+		cursor:pointer;
+		width: 20%;
+	}
+	.titleButton:hover {
+		filter:brightness(70%);
+	}
+	:root {
+		--scaleX: calc(100vw/1200);
+		--scaleY: calc(100vh/800);
+	}
+  
+	.titleLetter {
+		font-family: var(--font-hand);
+		color: var(--c-cream);
+		position:absolute;
+		top: 0vh;
+		left: 0vw;
+		rotate: 0deg;
+		transition: top 0.1s, rotate 0.1s;
+		transition-timing-function: linear;
+		font-size: 7vw;
+		font-weight:bold;
+		transform: scale((--scaleX), (--scaleY));
+	}
+
+	.cardImage {
+		position:absolute;
+		top: 15%;
+		left: 5%;
+		width: 90%;
+		height: 83%;
+		object-fit: fill;
+		object-position: 100% 0px;
+	}
+	.flip-card {
+	  background-color: transparent;
+	  width: 100%;
+	  height: 100%;
+	  perspective: 1000px;
+	  color:white;
+	}
+
+	.flip-card-inner {
+	  position: relative;
+	  width: 100%;
+	  height: 100%;
+	  text-align: center;
+	  transition: transform 0.6s;
+	  transform-style: preserve-3d;
+	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	}
+	.flipping .flip-card-inner {
+	  transform: rotateY(180deg);
+	}
+
+	.board .cardStatBlock {
+		font-size:2vw;
+	}
+
+	.cardStatBlock{
+		font-size:3vw;
+		position: absolute;
+		top:0px;
+		left:0px;
+		height:100%;
+		width:100%;
+		z-index: 1;
+		transition: transform 0.6s;
+		filter: drop-shadow(-2px 2px 0 black) drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black) drop-shadow(2px -2px 0 black);
+		-webkit-filter: drop-shadow(-2px 2px 0 black) drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black) drop-shadow(2px -2px 0 black);
+	}
+
+	.flipping .cardStatBlock {
+		transform: rotateY(180deg);
+	}
+
+	.flip-card-front, .flip-card-back {
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  -webkit-backface-visibility: hidden;
+	  backface-visibility: hidden;
+	}
+
+	.flip-card-front {
+		background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 9%, rgba(0,212,255,1) 100%); 
+	}
+
+	.flip-card-back { 
+		background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(121,9,9,1) 13%, rgba(255,119,119,1) 100%); 
+		transform: rotateY(180deg);
+	}
+
+	.shimmer {
+	  display:inline-block;
+	  -webkit-mask:linear-gradient(-60deg,#000 10%,#0005,#000 90%) right/1000% 100%;
+	  background-repeat: no-repeat;
+	  animation: shimmer 2.5s infinite;
+	  font-size: 50px;
+	}
+
+	@keyframes shimmer {
+	  100% {-webkit-mask-position:left}
+	}
+
+	.cardFrame {
+		position:absolute; 
+		top:0px; 
+		left:0px; 
+		width:100%;
+		height:100%;
+	}
+
+	.hand{
+		display:grid; 
+		grid-template-columns: repeat(auto-fill, 15vw);
+		gap: 1vw;
+	}
+	#logbookGridHolder .flip-card-inner{
+		height: 30vw;
+		width: 15vw;
+	}
+	/* Trophies (#achievements): responsive grid that SIZES CARDS TO AVAILABLE SPACE — 5 columns on desktop landscape,
+	   3 on mobile landscape (override in the small-landscape block). Overrides .hand's fixed repeat(auto-fill,15vw),
+	   which caused the "fits 5, leftover whitespace for a 6th" layout. Cards fill the cell and keep their 2:1 tall shape. */
+	#achievements { grid-template-columns: repeat(5, 1fr); }
+	#achievements .flip-card-inner { width: 100%; height: auto; aspect-ratio: 1 / 2; }
+	#achievements p {
+		position: relative;
+		z-index: 1;
+		width: 88%;
+		text-align: center;
+		font-family: var(--font-hand);
+		line-height: 1.3;
+		margin: auto;
+		margin-top: 10%;
+		color: #55ccee;
+		text-shadow: 3px 3px black;
+		background: #0007;
+	}
+	.achievementName {
+		font-size: var(--fs-huge);
+		border-radius: 60%;
+	}
+	.achievementText {
+		font-size: var(--fs-xlarge);
+		border-radius: 15%;
+	}
+
+	.buttonGrid {
+		display:grid;
+		grid-template-columns:auto auto auto auto auto;
+	}
+	.galleryGrid {
+		display:grid;
+		grid-template-columns:repeat(3, auto);
+	}
+	#galleryGrid {
+		display:grid;
+		grid-template-columns:repeat(3, 1fr);
+	}
+	.jiggyGrid {
+		display:grid;
+		grid-template-columns:repeat(3, auto);
+	}
+
+	.progressbar {
+	  background-color: black;
+	  border-radius: 13px;
+	  /* (height of inner div) / 2 + padding */
+	  padding: 3px;
+	}
+
+	.progressbar>div {
+	  background-color: orange;
+	  width: 40%;
+	  /* Adjust with JavaScript */
+	  height: 20px;
+	  border-radius: 10px;
+	}
+
+	.gridInventory {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(3, minmax(240px, .4fr));
+	}
+
+	.gridHolder {
+		overflow: auto;
+		height: 80%;
+	}
+
+	.phoneSelectionBox{
+		position: relative;
+		background-color: rgba(0,0,0,0.5);
+		border-bottom: 5px solid;
+		/* border-color: var(--character-color); */
+		margin: 15px 0;
+		padding: 15px;
+		border-radius: var(--radius-md);
+		width: 100%;
+		overflow: hidden;
+		box-shadow: inset 0 0 20px #000;
+	}
+
+	.phoneSelectionMenu {
+		display: grid;
+		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fill, 30%);
+		margin-top: 1.5rem;
+		justify-content: center;
+	}
+	.phoneSelectionMenu.logbook {
+		grid-template-columns: repeat(auto-fill, 200px);
+	}
+	.phoneSelectionMenu .textBox {
+		padding: 0px;
+		height: 320px;
+		display: block;
+		cursor: pointer;
+	  	border: 3px solid white;
+		border-radius: 25px;
+		position: relative;
+		overflow: hidden;
+	}
+	.phoneSelectionMenu .textBox:hover {
+		background: rgba(50,50,50,0.75);
+	    color: #ffffff;
+	    border-bottom: 3px solid #FFFFFF;
+		cursor: pointer;
+	}
+	.phoneSelectionMenu .phoneTextThumb {
+		position: relative;
+	  	display: block;
+	    margin: auto;
+	  	padding: 1px;
+		width: 100%;
+		height: 100%;
+	  	float: left;
+		overflow: hidden;
+	  	margin: 0px 10px 0px 0px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+		height: 200px;
+	}
+	.selectionMenuText {
+		font-size: var(--fs-medium);
+		margin: auto;
+		border: none;
+		font-weight: bold;
+		display: block;
+		width: fit-content;
+		text-align: center;
+	}
+	.phoneSelectionMenu .pictureButton, .phoneSelectionMenu .choiceText {
+		margin: auto;
+		border: none;
+	}
+	.phoneSelectionMenu .pictureButton {
+	    padding: 15px;
+	    border: 0;
+		opacity: 1;
+	}
+	/* Split off from the rule above, which stripped the border on hover and so took 3px of
+	   height out of every choiceText the moment the pointer touched it. Buttons jumped, and
+	   with transition: 0.25s on them the whole column slid around. Hover changes colour only:
+	   nothing here may alter padding, border width or margin. */
+	.choiceText:hover {
+	    padding: 15px;
+		opacity: 1;
+	}
+
+	#phoneGridHolder img.textThumb {
+		border-radius: 0px;
+		border: none;
+		border-bottom: 3px solid white;
+	}
+	#phoneGridHolder .phoneSelectionMenu .textBox {
+		color: black;
+		border-radius: var(--radius-md);
+		border-bottom: 3px solid white;
+	}
+
+	#logbookGridHolder .selectionMenuText {
+		font-size: var(--fs-xlarge);
+		transform: skew(-15deg, -15deg);
+		width: 145%;
+		margin-top: 230px;
+		margin-left: -40px;
+		background: #000000A0;
+		height: 40px;
+		line-height: 40px;
+		font-family: var(--font-hand);
+	}
+
+	#logbookGridHolder .phoneSelectionMenu img.textThumb {
+		margin-right: 0px;
+		margin-left: -15px;
+		width: 225px;
+		position: absolute;
+	}
+	p.selfDesc{
+		font-size: var(--fs-xlarge);
+		font-family: var(--font-title);
+		line-height: 1.2;
+		color: white;
+	}
+
+	.selectionMenuCrown {
+		font-size: var(--fs-huge);
+		color: #FFFFFF;
+		position: absolute;
+		bottom: 154px;
+		/* background: black; */
+		height: 39px;
+		padding-top: 9px;
+		border-radius: var(--radius-md);
+		font-weight: bold;
+		text-shadow: 2px 2px black;
+	}
+
+	.button3
+	{
+	  border-radius: 20px;
+	  padding: 10px 15px;
+	  color: #000;
+	  font-weight: bold;
+	  background: var(--c-mauve);
+	  background: -moz-linear-gradient(top,  var(--c-mauve) 0%, var(--c-pink) 70%, var(--c-mauve) 100%);
+	  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--c-mauve)), color-stop(70%,var(--c-pink)), color-stop(100%,var(--c-mauve)));
+	  background: -webkit-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: -o-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: -ms-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: linear-gradient(to bottom,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--c-mauve)', endColorstr='var(--c-mauve)',GradientType=0 );
+	}
+	.button3:active
+	{
+	  color: #000;
+	  background: var(--c-pink);
+	  background: -moz-linear-gradient(top,  var(--c-pink) 0%, var(--c-pink) 70%, var(--c-pink) 100%);
+	  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--c-pink)), color-stop(70%,var(--c-pink)), color-stop(100%,var(--c-pink)));
+	  background: -webkit-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: -o-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: -ms-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: linear-gradient(to bottom,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--c-pink)', endColorstr='var(--c-pink)',GradientType=0 );
+	}
+
+	.overlay {
+		position: absolute;
+		cursor: pointer; 
+		object-fit: cover;
+		object-position: 100% 0px;
+		filter:opacity(80%);
+	}
+	.overlay:hover {
+		filter:opacity(100%);
+	}
+	.ghost {
+		position: absolute;
+		cursor: pointer; 
+		aspect-ratio: 1;
+		object-fit: cover;
+		object-position: 100% 0px;
+		filter:opacity(60%);
+		transform: scale(1.3);
+	}
+	.ghost:hover {
+		filter:brightness(150%);
+	}
+
+	@-webkit-keyframes pulseBox {
+	  0% {-webkit-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-webkit-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@-moz-keyframes pulseBox {
+	  0% {-moz-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-moz-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@-o-keyframes pulseBox {
+	  0% {-o-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-o-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@keyframes pulseBox {
+	  0% {box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+
+	.pulseBox {
+	  -webkit-animation-name: pulseBox;
+	  -moz-animation-name: pulseBox;
+	  -o-animation-name: pulseBox;
+	  animation-name: pulseBox;
+	  -webkit-animation-duration: 1s;
+	  -moz-animation-duration: 1s;
+	  -o-animation-duration: 1s;
+	  animation-duration: 1s;
+	  -webkit-animation-iteration-count: infinite;
+	  -moz-animation-iteration-count: infinite;
+	  -o-animation-iteration-count: infinite;
+	  animation-iteration-count: infinite;
+	  -webkit-animation-direction: alternate;
+	  -moz-animation-direction: alternate;
+	  -o-animation-direction: alternate;
+	  animation-direction: alternate;
+	  -webkit-animation-timing-function: ease-in-out;
+	  -moz-animation-timing-function: ease-in-out;
+	  -o-animation-timing-function: ease-in-out;
+	  animation-timing-function: ease-in-out;
+	  border: 0px;
+	}
+
+	@-webkit-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@-moz-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@-o-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+
+	.pulseText {
+	  -webkit-animation-name: pulseText;
+	  -moz-animation-name: pulseText;
+	  -o-animation-name: pulseText;
+	  animation-name: pulseText;
+	  -webkit-animation-duration: 0.8s;
+	  -moz-animation-duration: 0.8s;
+	  -o-animation-duration: 0.8s;
+	  animation-duration: 0.8s;
+	  -webkit-animation-iteration-count: infinite;
+	  -moz-animation-iteration-count: infinite;
+	  -o-animation-iteration-count: infinite;
+	  animation-iteration-count: infinite;
+	  -webkit-animation-direction: alternate;
+	  -moz-animation-direction: alternate;
+	  -o-animation-direction: alternate;
+	  animation-direction: alternate;
+	  -webkit-animation-timing-function: ease-in-out;
+	  -moz-animation-timing-function: ease-in-out;
+	  -o-animation-timing-function: ease-in-out;
+	  animation-timing-function: ease-in-out;
+	  border: 0px;
+	}
+
+	#puzzle-container {
+		position: relative;
+		border: 2px solid #000;
+	}
+	.puzzle-piece {
+		position: absolute;
+		cursor: pointer;
+	}
+
+	.dungeonTile {
+		background-color: #000A;
+	}
+	.dungeonTile.red {
+		background-color: #A007;
+	}
+	.dungeonTile.green {
+		background-color: #0A07;
+	}
+	.dungeonTile.blue {
+		background-color: #00A7;
+	}
+	.dungeonTile.wild {
+		background-color: #ccc7;
+	}
+	.dungeonTile.shop {
+		background-color: #FFBF0077;
+	}
+	.dungeonTile.chest {
+		background-color: #FF00BF77;
+	}
+	.dungeonTile.random {
+		background-color: #7F00FF77;
+	}
+	.dungeonTile.boss {
+		background-color: #A00;
+	}
+	.accessoryTextBox {
+
+	}
+	.accessoryText {
+		font-size: var(--fs-xlarge);
+		position:absolute;
+		transform: skew(-15deg, -15deg);
+		width: 145%;
+		text-align: center;
+		margin-left: -40px;
+		margin-top: 400px;
+		z-index:1;
+		background: #000000A0;
+		height: 40px;
+		line-height: 40px;
+		font-family: var(--font-hand);
+	}
+
+	/*Webui stuff*/
+	/* Shared container for layout */
+	#resultArea {
+	  width: 55%;
+	  height: 80vh;
+	  overflow-y: auto;
+	  background: #111;
+	  padding: 10px;
+	  box-sizing: border-box;
+	  float:right;
+	}
+
+	/* Style for all prompt fields */
+	.mobilePromptInput {
+		font-size: var(--fs-medium);
+	  width: 40%;
+	  padding: 10px;
+	  margin-bottom: 10px;
+	  border: 2px solid #555;
+	  background: #222;
+	  color: white;
+	  box-sizing: border-box;
+	  resize: none;
+	  height: 30vh;
+	  float:left;
+	}
+
+	/* Keep the generate button touch-friendly */
+	.mobileGenerateButton {
+		font-size: var(--fs-medium);
+	  width: 100%;
+	  padding: 12px;
+	  background: limegreen;
+	  color: black;
+	  font-weight: bold;
+	  border: none;
+	  margin-top: 10px;
+	  border-radius: 10px;
+	}
+	.mobileResetButton {
+		font-size: var(--fs-medium);
+	  width: 24%;
+	  padding: 12px;
+	  background: red;
+	  color: black;
+	  font-weight: bold;
+	  border: none;
+	  margin-top: 10px;
+	  border-radius: 10px;
+	}
+
+	.mobileBatchSize {
+		width: 100%;
+		display: flex;
+		margin: auto;
+	}
+	.mobileSizeSelect {
+		width: 100%;
+		display: flex;
+		margin: auto;
+	}
+	.unselectable {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.newKeyword {
+		color: #9bffa8;
+	}
+	.removedKeyword {
+		color: #ff5227;
+	}
+
+	.modUploadWrapper{
+	    width:100%;
+	    display:flex;
+	    justify-content:center;
+	    margin-top:30px;
+	}
+
+	.modUploadZone{
+		font-size: var(--fs-medium);
+	    width:420px;
+	    height:160px;
+
+	    display:flex;
+	    align-items:center;
+	    justify-content:center;
+
+	    text-align:center;
+	    white-space:pre-line;
+
+	    font-weight:bold;
+
+	    background:#665533CC;
+	    border-radius:30px;
+	    border-bottom:4px solid var(--c-gold);
+
+	    color:var(--c-blue);
+	    text-shadow:2px 2px #00355A;
+
+	    cursor:pointer;
+	    transition:0.25s;
+
+	    outline:3px dashed var(--c-gold);
+	    outline-offset:-10px;
+	}
+
+	.modUploadZone:hover{
+	    transform:scale(1.05);
+	}
+
+	.modUploadZone.dragHover{
+	    background:#776644CC;
+	    outline:3px dashed var(--c-blue);
+	}
+
+	.search-results-dropdown {
+	    position: absolute;
+	    width: 100%;
+	    max-height: 200px;
+	    overflow-y: auto;
+	    background: #2a2a2a;
+	    border: 2px solid var(--c-cyan);
+	    z-index: 100;
+	}
+	.search-row {
+	    padding: 8px;
+	    cursor: pointer;
+	    border-bottom: 1px solid #444;
+	}
+	.search-row:hover {
+	    background: #3a3a3a;
+	    color: var(--c-cyan);
+	}
+	.item-insert-card h3 {
+		font-size: var(--fs-small);
+	    margin: 0 0 10px 0;
+	    color: #f1c40f;
+	}
+
+	/* Add this to your stylesheet */
+	.card-delete-btn {
+	    background: none;
+	    border: none;
+	    outline: none;
+	    transition: transform 0.1s ease;
+	}
+
+	.card-delete-btn:hover {
+	    transform: scale(1.2);
+	    color: #ff5f5f; /* Give it a little pop on hover */
+	}
+
+	/* Make the nested container slightly smaller than the parent */
+	.dialogueContainer.syrup .dialogueContainer.syrup {
+	    width: 95%;
+	    margin: 10px auto;
+	    background-color: rgba(30, 20, 0, 0.9); /* Slightly darker to create depth */
+	    box-shadow: 5px 5px #0008; /* Smaller shadow for the nested child */
+	}
+
+
+
+
+	/* The main workspace */
+	/* Container for the whole editor space */
+	.syrup-editor-space {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 20px;
+	    width: 100%;
+	    box-sizing: border-box;
+	}
+
+	/* Individual Scene/Event Window */
+	.syrup-window {
+	    background-color: rgba(50,30,0,0.8);
+	    border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-md);
+	    color: #FFFFFF;
+	    font-family: var(--font-hand);
+	    display: flex;
+	    flex-direction: column;
+	    overflow: hidden;
+	    box-shadow: 11px 11px #000A, 0 0 20px 2px #000A;
+		transition: max-height 0.3s ease;
+	}
+
+	/* Sticky Headers and Footers */
+	.syrup-header-upper, .syrup-footer-upper {
+	    position: sticky;
+	    z-index: 10;
+	    background-color: rgba(50,30,0,0.8);
+	    padding: 10px 15px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+	.syrup-header-upper { top: 0; border-bottom: 3px solid var(--c-cream); }
+	.syrup-footer-upper { bottom: 0; border-top: 3px solid var(--c-cream); justify-content: center; gap: 15px; }
+
+	/* Dynamic Content Areas */
+	.syrup-header-lower {
+	    background-color: rgba(255,255,255,0.1);
+	    padding: 10px 15px;
+	    border-bottom: 2px solid var(--c-cream);
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 10px;
+	}
+	.syrup-contents {
+	    padding: 15px;
+	    overflow-y: auto; /* Allows scrolling inside the buffer */
+	    flex-grow: 1;
+	}
+	.syrup-footer-lower {
+	    background-color: rgba(0,0,0,0.5);
+	    padding: 5px 15px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+
+	/* Inputs and Buttons */
+	.syrup-textarea {
+		font-size: var(--fs-large);
+	    width: 100%;
+	    min-height: 200px;
+	    background-color: rgba(50,30,0,0.8);
+	    color: var(--c-cream);
+	    border-radius: 8px;
+	    border: 2px solid #509cea;
+	    padding: 10px;
+	    box-sizing: border-box;
+	}
+	.syrup-btn {
+	    background-color: var(--c-cream);
+	    color: #503200;
+	    border: none;
+	    padding: 8px 15px;
+	    border-radius: 8px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    transition: 0.2s;
+	}
+	.syrup-btn:hover { background-color: #FFFFFF; }
+	.syrup-btn-danger { background-color: #ff6b6b; color: white; }
+
+	/* Collapse state */
+	.syrup-window.collapsed .syrup-contents, 
+	.syrup-window.collapsed .syrup-header-lower, 
+	.syrup-window.collapsed .syrup-footer-upper {
+	    display: none;
+	}
+
+	.syrup-editor-row {
+	    display: flex;
+	    align-items: flex-start;
+	    border-bottom: 1px solid #444;
+	    background: #222;
+	    padding: 2px 0;
+	}
+
+	.syrup-line-number {
+	    width: 30px;
+	    text-align: right;
+	    padding-right: 10px;
+	    color: #666;
+	    user-select: none;
+	    font-family: monospace;
+	}
+
+	.syrup-line-input {
+	    flex-grow: 1;
+	    color: #eee;
+	    font-family: monospace;
+	    outline: none;
+	    white-space: pre-wrap;
+	    word-break: break-all;
+	}
+
+	.syrup-line-input:focus {
+	    background: #333;
+	}
+
+	.syrup-line-req-btn {
+		font-size: var(--fs-tiny);
+	    opacity: 0.3;
+	    transition: opacity 0.2s;
+	    margin-left: 10px;
+	}
+
+	.syrup-editor-row:hover .syrup-line-req-btn {
+	    opacity: 1;
+	}
+
+	.syrup-editor-container {
+	    position: relative; /* Crucial so the overlay stays inside the editor */
+	}
+
+	.syrup-editor-overlay {
+	    position: absolute;
+	    top: 0; left: 0; right: 0; bottom: 0;
+	    background: rgba(0, 0, 0, 0.6);
+	    z-index: 100;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.syrup-req-modal {
+	    background: #2a2a2a;
+	    border: 1px solid #555;
+	    padding: 15px;
+	    border-radius: var(--radius-sm);
+	    min-width: 400px;
+	    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+	    z-index: 101;
+	}
+
+	.syrup-modal-buttons {
+	    display: flex;
+	    justify-content: flex-end;
+	    gap: 10px;
+	    margin-top: 15px;
+	    padding-top: 10px;
+	    border-top: 1px solid #444;
+	}
+
+	.syrup-line-input {
+	    position: relative;
+	    white-space: pre-wrap;
+	}
+
+	.grottoBtn {
+		opacity: 0.6;
+	}
+	.grottoBtn:hover {
+		opacity: 1;
+	}
+
+	/* font-sizes for elements whose rule lives only in the other orientation */
+	.footer .button { font-size: var(--fs-small); }
+	.dialogueContainer.basic { font-size: var(--fs-medium); }
+	.galleryGrid.textContainer { font-size: var(--fs-tiny); }
+	input { font-size: var(--fs-small); }
+
+	/* ---- Wardrobe clothing boxes (landscape) ----
+	   Worn boxes have to stand out in a full grid, and none of what marks them can move any
+	   of the boxes. outline and box-shadow are painted outside the box model so they take up
+	   no space at all, which is how the ring gets thicker without anything shifting, and
+	   border-radius only changes the shape. Border width stays the same on both states. */
+	.wardrobeBox {
+		border: 3px solid #55555580;
+	}
+	.wardrobeBoxWorn {
+		border: 3px solid #39FF14;
+		outline: 3px solid #39FF14;
+		outline-offset: -9px;
+		box-shadow: 0 0 10px 2px #39FF14A0;
+		border-radius: var(--radius-md);
+	}
+
+	/* Clothing name banner. Sized in percentages so it tracks the box, which is no longer a
+	   fixed pixel width in portrait. Flex centring means the text stays put whatever the
+	   font ends up as. Position and size here are the knobs worth tuning. */
+	.wardrobeLabel {
+		position: absolute;
+		left: -22%;
+		top: 36%;
+		width: 144%;
+		height: 18%;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 0 4%;
+		box-sizing: border-box;
+		transform: skew(-15deg, -15deg);
+		background: #000000C0;
+		font-family: var(--font-hand);
+		font-size: var(--fs-medium);
+		line-height: 1.05;
+		overflow-wrap: anywhere;
+		pointer-events: none;
+	}
+
+
+	/* ---- Scrapbook (landscape, three columns) ---- */
+	/* The popup is a fixed-height flex container with overflow:hidden, and its title is tall, so
+	   a holder sized in vh overflows the window with no way to reach the bottom of it. The
+	   scrapbook makes its own column instead, and the holder takes whatever is left over. */
+	.scrapbookWindow {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+	}
+	.scrapbookHolder {
+		flex: 1 1 auto;
+		/* Without this a flex child refuses to shrink below its content, so it would push out of
+		   the window instead of scrolling inside it. */
+		min-height: 0;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-y: auto;
+		/* The grid is rebuilt when coming back from one picture and its thumbnails reload as it
+		   goes. Scroll anchoring would nudge the restored offset as they land. */
+		overflow-anchor: none;
+		padding: 0 10px 10px 10px;
+	}
+	.scrapbookEmpty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		text-align: center;
+	}
+	.scrapbookGrid {
+		display: grid;
+		grid-template-columns: repeat(var(--scrapbook-cols, 3), 1fr);
+		gap: 10px;
+		/* Cells hug their own picture. Stretching them to the tallest in the row left a black
+		   panel under every shorter image. */
+		align-items: start;
+	}
+	.scrapbookCell {
+		position: relative;
+		border: 3px solid #FCEBB5;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		cursor: pointer;
+		/* No background: with the cell hugging its image there is nothing left to show through,
+		   and line-height keeps the inline image from leaving a gap under itself. */
+		line-height: 0;
+	}
+	.scrapbookThumb {
+		width: 100%;
+		display: block;
+	}
+	.scrapbookLarge {
+		width: 100%;
+		max-height: 50vh;
+		object-fit: contain;
+		border: 3px solid #FCEBB5;
+		border-radius: var(--radius-md);
+		display: block;
+		margin: 0 auto;
+	}
+	.scrapbookPath {
+		font-family: monospace;
+		font-size: var(--fs-small);
+		opacity: 0.75;
+		text-align: center;
+		word-break: break-all;
+		margin: 6px 0;
+	}
+	/* The notes run long enough to fill a screen on their own, so they scroll in their own box
+	   rather than pushing the delete button somewhere unreachable. */
+	.scrapbookInfo {
+		font-size: var(--fs-small);
+		white-space: pre-wrap;
+		word-break: break-word;
+		max-height: 30vh;
+		overflow-y: auto;
+		background: #00000060;
+		border-radius: var(--radius-md);
+		padding: 8px;
+		margin: 6px 0;
+	}
+	/* Absolutely positioned inside the picture, so showing it never moves anything and a long
+	   message cannot make the scene taller. Fades on its own, so there is no timer to cancel. */
+	.scrapbookToast {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 8px;
+		text-align: center;
+		background: #000000C0;
+		font-family: var(--font-hand);
+		font-size: var(--fs-medium);
+		pointer-events: none;
+		opacity: 0;
+	}
+	.scrapbookToast.scrapbookToastGood {
+		color: #5BFF6B;
+		font-weight: bold;
+	}
+	.scrapbookToast.scrapbookToastBad {
+		color: #FF6C6C;
+	}
+	.scrapbookToast.scrapbookToastShow {
+		animation: scrapbookToastFade 2.6s ease forwards;
+	}
+	@keyframes scrapbookToastFade {
+		0%   { opacity: 0; }
+		10%  { opacity: 1; }
+		75%  { opacity: 1; }
+		100% { opacity: 0; }
+	}
+
+
+	/* ---- Skintone mask ----
+	   One expression set is tinted at runtime instead of a whole set of face art per tone. The
+	   mask carries the same class as every other player layer so it lines up exactly, and this
+	   only takes the decoration back off: the layer classes paint a cream border and a shadow,
+	   and a multiply layer would tint both. The border is made transparent rather than removed,
+	   because removing it would change the box size and shift the mask off the face. */
+	.playerSkinMask {
+		mix-blend-mode: multiply;
+		border-color: transparent;
+		box-shadow: none;
+		pointer-events: none;
+	}
+
+}
+
+/* ===================== PORTRAIT  (tall screens: portrait phones) ===================== */
+@media (orientation: portrait) {
+	/* Portrait overrides of the orientation component vars (see :root). */
+	:root {
+		--card-brightness: 100%;
+		--wardrobe-cols:   2;
+		/* Clothing wardrobe boxes. Separate from --wardrobe-cols, which drives the card and
+		   gallery sheets. Three across is the most that stays legible on a phone. */
+		--wardrobe-clothes-cols: 3;
+		--collection-cols: 1;
+		--ovl-h: 75%;
+		--ovl-left: 55%;
+		--ovl-right: 60%;
+		--ovl-enc-right: 0%;
+		--encounter-lh: 1;
+		--fetish-grid-min: 90%;
+		--title-btn-maxw: none;
+		--title-img-h: 300px;
+		--title-btngrid-h: 300px;
+		--title-grid-min: 110px;
+		--foxf-btngrid-h: 110px;
+		--outfit-cols: 1;
+		--outfit-cols-wide: 2;
+		--foxf-brightness: 80%;
+		--inv-cols: 1fr;
+		--grotto-btn-max: 45%;
+	}
+	/* Unified: desktop-only title elements that are absolutely positioned for
+	   the desktop title screen and would otherwise float loose on mobile.
+	   Money shows on the footer INVENTORY button; version/changelog is desktop-only. */
+	.moneyCircle    { display: none; }
+	#versionTracker { display: none; }
+	/*Misc*/
+	html, body {
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+		margin: 0px;	
+		position: fixed;
+	}
+	html {
+	    border-color: #cccccc;
+	    overflow: hidden;
+	    font-family: arial, sans-serif;
+	    font-size: 1rem; /* defined Root font-size (fixed base, NOT a responsive tier) */
+	    color: #cccccc; /* defined Root font-color: Off-white */
+	    line-height: 1.5em;
+	}
+	body{
+	    display: flex;
+	    /* Makes sure #output always fills the rest of the available space */
+	}
+	*{
+		box-sizing: border-box;
+		/*when specifying dimensions, it takes padding and borders into account*/
+	}
+	a, a:visited {
+		text-decoration: none;
+		color:#509cea;
+	}
+	.closeButton {
+		top:-115px;
+		left: -340px;
+		position: absolute;
+		font-size: 50px;
+	  	border: 5px solid white;
+	  	border-radius: 20px;
+		color:white;
+	
+	}
+	.openButton {
+		top: -115px;
+		left: -120px;
+		position: absolute;
+		font-size: 50px;
+		visibility: hidden;
+	  	border: 5px solid white;
+	  	border-radius: 20px;
+		color:white;
+	}
+	.jiggyButton {
+		font-size: clamp(2rem, 12vh, 100px);
+		line-height: 1;
+		color: var(--c-blue-ui);
+		cursor: pointer;
+		text-shadow: 5px 8px #000A, -1px -1px 5px #000A;
+		z-index: 1;
+		font-family: var(--font-title);
+		opacity: 0.9;
+	}
+	#jiggyButtonHolders {
+		display: none; /* portrait uses the bottom writeHTML zoom/back buttons instead */
+	}
+	.ghost {
+		position: absolute;
+		cursor: pointer;
+	}
+	.overlay {
+		position: absolute;
+		cursor: pointer; 
+		object-fit: cover;
+		object-position: 100% 0px;
+	}
+	.loader {
+	  border: 16px solid #f3f3f3; /* Light grey */
+	  border-top: 16px solid #3498db; /* Blue */
+	  border-radius: 50%;
+	  width: 120px;
+	  height: 120px;
+	  animation: spin 2s linear infinite;
+	}
+	hr {
+		border: 2px dashed white;
+		margin-bottom: 45px; 
+	}
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
+	.titleCard {
+		background-image: url('../../images-webp/system/ui/titlePortrait.webp');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+
+	/****Scroll bar****/
+	/* width */
+	::-webkit-scrollbar {
+	  width: 5px;
+	}
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #333333; 
+	}
+	 /* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #FFFFFF; 
+	  border-radius:3px;
+	}
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #DDDDDD; 
+	}
+
+	/**** Menu ****/
+	div#menu {
+	    width: 400px;
+	    height: 100%;
+	    flex:none;
+	    border-right: 5px solid;
+	  	background-color: #111111;
+		text-align: center;
+		overflow-y: auto; /*only adds a scrollbar, when necessary*/
+		overflow-x: hidden;
+		/*resize: horizontal;  probably better to code the resizing of this container via JS. Something for later. */
+	}
+	p#title {
+		font-size: var(--fs-large);
+	    margin-bottom: 15px;
+	}
+	p#author {
+		font-size: var(--fs-large);
+	}
+
+	.flexbox{
+	    display: flex;
+	    flex-wrap: wrap;
+	}
+	.flexbox>*{
+		/*Only really used for the menu to ensure 2 items per row*/
+	    width: 42%;
+	    box-sizing: border-box;
+	    margin: 15px;
+	}
+	.playerImageFrame {
+		display: block;
+		object-fit: cover;
+		visibility: hidden;
+	}
+	.museumImageFrame {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		padding-bottom: 200%;
+	}
+	/* Border and shadow on the closing layer only, see the landscape block for why */
+	.playerImage {
+		position: absolute;
+		display: block;
+	    margin: auto;
+	  	border: 5px solid transparent;
+	  	border-radius: var(--radius-sm);
+		margin-left: 14%;
+		object-fit: cover;
+		object-position: 100% 0px;
+	}
+	.playerImage.playerImageEdge {
+		border-color: var(--c-cream);
+		box-shadow: 6px 6px #0005;
+	}
+
+	/**** Canvas ****/
+	.wrapper{
+	    background: none; /*To ensure WrapperBG shows, in case browser-native forces white background as default*/
+	    width: 100%;
+		height: 100%;
+		overflow-y: auto; /*only shows a scroll-bar, if necessary*/
+		overflow-x: hidden;
+	}
+	div#output {
+	    padding: 60px;
+	}
+	div#wrapperBG {
+		/*Box covering entire canvas, used to add background-image via JS*/
+	    height: 100%;
+	    width: 100%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    background-size: 100% 100%;
+	    filter: blur(15px) contrast(80%);
+	    z-index: -2;
+	}
+	div#wrapperBG.Evening {
+		filter: blur(15px) contrast(80%) brightness(70%) saturate(80%) sepia(65%);
+	}
+	div#wrapperBG.Night {
+		filter: brightness(50%) blur(15px) contrast(80%) saturate(50%) grayscale(30%) sepia(50%) hue-rotate(-90deg);
+	}
+	div#wrapperBG::after {
+		/*dims the background */
+	    content: "";
+	    position: absolute;
+	    height: 100%;
+	    width: 100%;
+	    z-index: -1;
+	}
+	.backgroundPicture{
+		display: block;
+		width: 100%;
+		height: 100%;          /* fill the (now square) room; stretch keeps %-positioned buttons aligned */
+	}
+	.backgroundBorder{
+	    border: 5px solid var(--c-cream);
+	    border-radius: 30px;
+	    height: 100%;
+	    width: 100%;
+		margin: auto;
+		overflow: hidden;
+		position:relative;
+	}
+	.playerRoom {
+		position: relative;
+		width: 90%;
+		margin: auto;
+	}
+	.Evening {
+		filter: brightness(70%) contrast(120%) saturate(80%) sepia(65%);
+	}
+	.Night {
+		filter: brightness(50%) contrast(150%) saturate(50%) grayscale(30%) sepia(50%) hue-rotate(-90deg);
+	}
+	.pictureButton {
+		display: block;
+		position: absolute;
+		background-color: #605533CC;
+		opacity: .5;
+		text-align: center;
+		cursor: pointer;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	img.bigPicture {
+		display: block;
+	    max-height: 90vh;
+	    max-width: 100%;
+	    margin: auto;
+		border: 3px solid white;
+	    border-radius: 30px;
+	}
+	.medPicture {
+		display: block;
+	    margin: auto;
+	    max-height: 500px;
+	  	padding: 20px, 1px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+
+	/**** Text ****/
+	h1,h2,h3,h4,h5,h6,p{
+		/*clear any user style agent defintions*/
+		margin:0;
+		padding:0;
+	}
+	h1 {
+		font-size: var(--fs-huge);
+	}
+	h2 {
+		font-size: var(--fs-xlarge);
+	}
+	h3 {
+		font-size: var(--fs-medium);
+	}
+	h3 {
+		font-size: var(--fs-medium);
+	}
+	.centeredText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		text-align:center;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		color: #FFFFFF;
+		text-shadow: 2px 2px #000000;
+		padding: 15px;
+		line-height: 1.3;
+	}
+	.tinyText {
+		color: #BBBBBB;
+		text-align:center;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		font-size: 70%;
+	}
+	p{margin: 15px 0;}
+
+	/* Textbox interactions */
+	.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+	/* Textbox interactions */
+	.textBox p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.textBox p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+	/* text emphasis */
+	.textBox b {
+	    color: hsla(48, 69%, 75%, 1);
+	}
+	.textName {
+		font-size: var(--fs-medium);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	p.rawText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		padding: 15px;
+		line-height: 1.3;
+		text-shadow: 2px 2px #000000;
+	    color: #1ce01c;
+	}
+	.specialText {
+		font-size: var(--fs-large);
+		font-family: var(--font-title);
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #00000077;
+		border-radius: 12px;
+		padding: 15px;
+		text-shadow: 2px 2px #000000;
+	    color: #1ce01c;
+	
+	    font-weight: bold;
+	    text-align: center;
+		line-height: 1.5;
+	}
+
+	/*regular button*/
+	.button, .pictureButton, .choiceText, .shopItem, .logbookSwitch{
+		font-size: var(--fs-xlarge);
+	    background: #665533CC;
+	    padding: 15px;
+	    border: none;
+	    border-radius: 25px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		border-bottom: 3px solid var(--c-gold);
+		color: var(--c-blue);
+		text-shadow: 2px 2px #00355A;
+	}
+	.logbookLeft .button{
+		margin: 0px;
+		margin-bottom:10px;
+		padding: 15px 0px;
+		line-height: 1.5;
+		font-size: var(--fs-small);   /* category column is only ~30% wide on portrait; xlarge overflowed long names */
+		overflow-wrap: break-word;    /* let a long single word ("Pocketmanz") wrap instead of overflowing + clipping */
+	}
+	.pictureButton, .choiceText {
+		font-size: var(--fs-xlarge);
+		font-weight: bold;
+		display: block;
+		width: fit-content;
+		margin: 15px auto;
+		color: var(--c-blue);
+		font-family: var(--font-hand);
+		font-weight:bold; 
+	}
+	.playerRoom {
+	    width: 100%;
+	    margin-bottom:60px;
+	}
+
+	/*Windows*/
+	.windowLeft {
+		height: 80%;
+		width: 30%;
+		float:left;
+		overflow: auto;
+	}
+	.windowRight {
+		height: 80%;
+		width: 70%;
+		float:right;
+		overflow: auto;
+	}
+	.popup{
+		position: absolute;
+		top: 50%;
+	    left: 50%;
+		width: 90vw;
+		height: 88vh;
+	    transform: translate(-50%, -53%);
+	    z-index: 1;
+	    overflow: visible;
+	    border: 5px solid var(--c-cream);
+	  	border-radius: var(--radius-sm);
+		  background: #320C;
+	}
+	.popup::after {
+	    content: "";
+	    position: fixed;
+		width: 90vw;
+		height: 88vh;
+	    z-index: -1;
+		top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -53%);
+	    pointer-events: none;
+	}
+	.windowTitle {
+		font-size: var(--fs-huge);
+	    width: 100%;
+	    text-align: center;
+	    border-bottom: 3px solid var(--c-cream);
+	    cursor: pointer;
+	    border-radius: var(--radius-sm);
+	    background: #320C;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    min-height: 1.8em;
+	    line-height: 1.2;
+	    padding: 0.15em 0.3em;
+
+		font-family: var(--font-hand);
+		color: var(--c-cream);
+		font-weight: bold;
+		font-family: var(--font-hand);
+		text-shadow: 3px 3px #000A;
+	}
+	.windowBackdrop {
+		background: rgba(25,25,25,0.85);
+		position: fixed;
+		z-index: 5;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+	}
+	/*Inventory Menu*/
+	.item {
+	    background-color: #00000077;
+	    padding: 5%;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		position: relative;
+		font-family: var(--font-title);
+		color: #FFFFFF;
+		display:grid; 
+		grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+		height: 100%;
+		width: 100%;
+	}
+	.itemName {
+		font-size: var(--fs-large);
+		margin: 0px;
+		line-height: 1;
+	}
+	.itemQuantity {
+		font-size: var(--fs-xlarge);
+		position: absolute;
+		top: 50%;
+		left: 5%;
+	}
+	.itemImage {
+	    width: 100%;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		aspect-ratio:1;
+	}
+	.playerSelf {
+		position: absolute;
+		height: inherit;
+		width: inherit;
+		max-width:100%;
+	
+	}
+	.overlayImage {
+		position: absolute;
+		height: 100%;
+		width: inherit;
+	}
+	.thumbFull {
+		position: absolute;
+		height: inherit;
+	}
+
+	/*Shop*/
+	.shopItem {
+		cursor: pointer;
+		position: block;
+		width: 100%;
+		background-color: #333333;
+		overflow: auto;
+	    height: unset;
+		display: flex;	
+	    align-items: center;
+	}
+	.shopName {
+		font-size: var(--fs-small);
+		pointer-events: none;
+		float: left;
+		color: white;
+		left: 30%;
+	    flex: 3 1 auto;
+	}
+	.shopDesc {
+		font-size: var(--fs-small);
+		pointer-events: none;
+		float: left;
+		color: white;
+		padding-top: -10px;
+		width: 40%;
+		left: 40%;
+		flex: 5 1 auto;
+	}
+	.shopPrice {
+		font-size: var(--fs-medium);
+		pointer-events: none;
+		float: left;
+		color: white;
+		left: 90%;
+		width: 5%;
+	    flex: 2 1 auto;
+	}
+	.shopImage {
+		pointer-events: none;
+		float: left;
+		height: 69px;
+		width: 69px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	    float: right;
+	    margin-right: 15px;
+	}
+	.shopItem>* {
+	    margin: 0 5px;
+		width:20%;
+	}
+
+	.shopCategory {
+	    background-color: #00000077;
+	    padding: 15px 5px;
+		border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-sm);
+		position: relative;
+		font-family: var(--font-title);
+		color: #FFFFFF;
+		display:grid; 
+		grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+	}
+	.shopCategoryName {
+		font-size: var(--fs-large);
+		margin: 0px;
+		line-height: 1;
+	}
+	
+
+	/**** Logbook ****/
+	div.popup, .save {
+	    display: flex;
+	    flex-wrap: wrap;
+		padding: 0px;
+		overflow: hidden;
+	}
+	div.inventory {
+	    display: grid;
+	}
+	.lb_Name{
+	color:var(--character-color);
+	}
+	.logbookRight {
+		left:30%;
+		height: 80%;
+		width: 70%;
+	    left: unset;
+	    padding: 15px;
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	}
+	.logbookLeft {
+		height: 80%;
+		width: 30%;
+	    top: unset;
+	    padding: 0;
+	   overflow-y: scroll;
+	    overflow-x: hidden;
+	}
+	#selfImage {
+	    height: 100%;
+		max-height:40vh;
+		margin: 0 30px;
+		position: relative;
+	}
+	.selfSwitch {
+		display: inline;
+		cursor: pointer;
+	}
+
+	/****Save menu****/
+	div#save {
+	    flex-flow: column;
+	}
+	.saveButton, .deleteButton, .loadButton, .saveFileButton, .loadFileButton {
+		font-size: var(--fs-small);
+	    color: #ffffff; 
+	    padding: 15px; 
+	    margin-left: 15px; 
+	    text-align: center;
+	    /*width: 120px;*/
+	    border: none; 
+	    border-bottom: 3px solid #ffffff;
+	    border-radius: var(--radius-sm); 
+	   	cursor: pointer; 
+
+	}
+	.saveSlot {
+	padding: 5px 0;
+	    height: unset;
+	    display: flex;
+	    margin: 15px 0;
+	    position: relative;
+	    background-color: rgba(255,255,255,0.25);
+	    flex-direction: column;
+	    justify-content: flex-end;
+	    padding-left: 65px;
+	    border-radius: var(--radius-sm);
+	}
+	.saveDate {
+		font-size: var(--fs-medium);
+	    flex: 5 1;
+	}
+	.saveList {
+	display: flex;
+	    flex-direction: column;
+	    overflow-y: scroll;
+	    width: 100%;
+		height: 80%;
+		word-wrap: break-word;
+	}
+	.deleteButton{
+		color:#FF0000;
+		border-color:#FF0000;
+	}
+	.saveName, .loadButton, .saveButton, .deleteButton, .loadFileButton, .saveFileButton {
+	    position: unset;
+	    flex: 1 1 auto;
+	    max-width: fit-content;
+	    max-height: fit-content;
+	    margin: 7px;
+
+	}
+	.saveName {
+		font-size: var(--fs-medium);
+	position: absolute;
+	    left: 10px;
+	    width: 55px;
+	    margin: auto;
+	    display: block;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+	.saveButtonsList {
+		display:flex;
+	}
+	/***Phone***/
+	.phoneTextBox {
+		position: relative;
+		display: block;
+		width: 98%;
+	  	min-height: 92px;
+		padding: 5px;
+		overflow: hidden;
+	  	background-color: #111122;
+	  	border: 5px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+	.phoneTextBox p {
+		margin: 0px;
+		padding: 0px;
+	}
+	.phoneTextThumb {
+		position: relative;
+	  	display: block;
+	    margin: auto;
+	  	padding: 1px;
+	 	height: 100px;
+		width: 100px;
+	  	float: left;
+		overflow: hidden;
+	  	margin: 0px 10px 0px 0px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+	.phoneTextName {
+		color: white;
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	.phonePicture {
+	    display: block;
+	    margin: auto;
+	    max-height: 100%;
+	    max-width: 100%;
+	      border: 3px solid;
+	      border-radius: var(--radius-sm);
+	}
+
+	/*** Mobile Ver Stuff ***/
+	/*Footer Hiding*/ /*Comment this out in mobile ver*/
+	.footer { 
+		/*height: 0%;
+		overflow: hidden;*/
+	}
+	.footer .switch {
+		font-size: 300%;
+		height: 100px;
+		width: 33%;
+		margin: auto;
+		margin-top: 50px;
+		text-align: center;
+		box-sizing: border-box;
+		float: left;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	}
+
+
+	/*Other*/ /*Comment this out in dekstop ver*/
+
+	.footerButton {
+		height: 10vh;
+		text-align: center;
+		box-sizing: border-box;
+		float: left;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+	    background: rgba(0,0,0,0.75);
+	    margin: 15px;
+	    border: none;
+	    border-bottom: 3px solid grey;
+	    border-radius: var(--radius-sm);
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+	}
+	.gridPicture {
+		display: block;
+	    margin: auto;
+	    border: 5px solid var(--c-cream);
+	    border-radius: 30px;
+		width:100%;
+		cursor:pointer;
+	}
+	div#menu {
+	    width: 0px;
+	    overflow: hidden;
+	    border-right: 0px;
+	}
+	div#wrapperBG {
+	    height: calc(100% + 0px);
+	    width: calc(100% + 0px);
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: 1;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    filter: blur(15px) contrast(80%);
+	    z-index: -2;
+	}
+	div#wrapperBG::after {
+	    content: "";
+	    position: absolute;
+	    height: calc(100% + 0px);
+	    width: calc(100% + 0px);
+	    z-index: -1;
+	}
+	.pictureButton, .choiceText{
+		font-size: var(--fs-xlarge);
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 2px;
+	}
+	.choiceText {
+		font-size: var(--fs-xlarge);
+		width: 80%;
+		margin: auto;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		line-height: 1;
+	}
+	.playerRoom {
+		position: relative;
+		aspect-ratio: 1 / 1;
+		/* 2f: full-width square nav window in portrait (height-capped so it can't overflow a near-square viewport). */
+		width: min(100%, 95vh);
+		max-width: 100%;
+		margin: 0 auto var(--space-lg);
+	}
+	.button, .choiceText, .shopItem, .logbookSwitch{
+	}
+	.flexbox>*{
+	    width: 30%;
+	    margin: auto;
+		margin-top: 30px;
+	}
+	#restartButton {
+	    color: #FF0000;
+	    border-color:#FF0000;
+	    margin: auto;
+	    margin-top: 30px;
+	}
+	div#output {
+		padding: 5px;
+	}
+	.footer .button {
+		font-size: var(--fs-small);
+		line-height: 1.5;
+		background: #00000077;
+	}
+
+	/*Basic Schema*/
+	.dialogueContainer.basic{
+		font-size: var(--fs-medium);
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		background-color: rgba(0,0,0,0.5);
+		border-bottom: 5px solid;
+		/* border-color: var(--character-color); */
+		margin: 15px 0;
+		padding: 15px;
+		border-radius: 40px;
+		width: 100%;
+		overflow: hidden;
+		box-shadow: inset 0 0 20px #000;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 5px black;
+	}
+	img.thumbnailImage.basic{
+		width: 125px;
+		border-radius: var(--radius-md);
+		/* box-shadow: -5px 5px var( --character-color); */
+		flex: none;
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	p.textName.basic{
+		font-size: var(--fs-large);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+		text-shadow: 3px 3px black, 0px 0px 5px black;
+	}
+	.thumbnailBorder.basic {
+		width: 125px;
+		margin-right: 0px;
+		height:125px;
+	}
+
+	/*Lobotomy Schema*/
+	p.lobotomyText {
+		font-size: var(--fs-large);
+		margin: 30px 0px;
+		font-family: var(--font-body);
+		font-style: normal;
+	}
+	.dialogueContainer.lobotomy {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    background-color: rgba(0,0,0,0.9);
+		border: solid 10px;
+	    margin: 15px 15px;
+	    padding: 0px;
+	    width: 95%;
+		overflow: hidden;
+		-moz-transform: skew(-5deg, 0deg);
+		-webkit-transform: skew(-5deg, 0deg);
+		-o-transform: skew(-5deg, 0deg);
+		-ms-transform: skew(-5deg, 0deg);
+		transform: skew(-5deg, 0deg);
+	}
+	.textName.lobotomy {
+		font-size: var(--fs-large);
+		font-weight: bold;
+	    text-align: center;
+		font-family: var(--font-display);
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+		margin-bottom: 0px;
+		color: black;
+		margin-top: 5px;
+		margin-bottom: -15px;
+		text-align: left;
+	}
+	img.thumbnailImage.lobotomy {
+	    width: 100px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		-moz-transform: scale(0.9) skew(5deg, 0deg);
+		-webkit-transform: scale(0.9) skew(5deg, 0deg);
+		-o-transform: scale(0.9) skew(5deg, 0deg);
+		-ms-transform: scale(0.9) skew(5deg, 0deg);
+		transform: scale(0.9) skew(5deg, 0deg);
+		object-fit: cover;
+		object-position: 100% 0;
+		margin-top: -10px;
+		position:absolute;
+	}
+	.thumbnailBorder.lobotomy {
+		height:125px;
+	}
+	.textContainer.lobotomy {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+	}
+	.thumbnailContainer.lobotomy {
+	    display: inline-block;
+		margin-right: 15px;
+		margin-left: 15px;
+		width: 95px;
+		flex-shrink: 0;
+	}
+	.thumbnailContainer.lobotomyBorder {
+	    height: 125px;
+	    width: 125px;
+		background-color: #000000;
+	    margin-right: 30px;
+	    margin-left: 10px;
+		-moz-transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-o-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		transform: scale(1.1);
+	}
+	.choiceTextLobotomy {
+		font-size: var(--fs-xlarge);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceFrameLobotomy{
+		font-size: var(--fs-large);
+	    background: rgba(0,0,0,0.75);
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 30vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.dialogueContainer.lobotomy p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.lobotomy p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	/*Persona Schema*/
+	.dialogueContainer.persona {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    margin: 15px 0;
+	    padding: 0px;
+	    width: 100%;
+		overflow: hidden;
+	}
+	img.thumbnailImage.persona {
+	    width: 125px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	.textContainer.persona {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		margin-left: 20px;
+	}
+	.thumbnailContainer.persona {
+	    display: inline-block;
+	    width: 125px;
+		box-shadow: 0px 5px;
+	    border-radius: 15px/5%;
+		margin-bottom: 5px;
+		overflow: hidden;
+		background: #0003;
+		flex-shrink: 0;
+	}
+	.thumbnailBorder.persona {
+		width:125px;
+		height:125px;
+		position:relative;
+	}
+	.nameContainer.persona {
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+		padding-bottom: 3px;
+	}
+	.nameContent.persona {
+		font-size: var(--fs-large);
+		-moz-transform: skew(-3deg, 0deg);
+		-webkit-transform: skew(-3deg, 0deg);
+		-o-transform: skew(-3deg, 0deg);
+		-ms-transform: skew(-3deg, 0deg);
+		transform: skew(-3deg, 0deg);
+		font-weight: bold;
+		font-family: var(--font-display);
+		z-index: 1;
+		margin-left: 15px;
+	}
+	.textNamePersonaBlack{
+		border:solid 44px #000;
+		position:absolute;
+		margin:-72px 0 0 119px;
+		transform: scaleX(3.8) scaleY(.5);
+		z-index: -1;
+	}
+	.textNamePersonaWhite{
+		border:solid 44px #fff;
+		position:absolute;
+		margin:-84px 0 0 119px;
+		transform: scaleX(3.9) scaleY(.6);
+		z-index: -2;
+	}
+	.personaNameArrow{
+		border:solid 32px transparent;
+		border-right-color:#000;
+		position:absolute;
+		margin:-42px 0 0 -82px;
+		transform: scaleX(1.7) scaleY(.4);
+	}
+	.personaNameArrowShadow{
+		border:solid 32px transparent;
+		border-right-color:#fff;
+		position:absolute;
+		margin:-42px 0 0 -85px;
+		transform: scaleX(1.9) scaleY(.6);
+		z-index:-2;
+	}
+	.textContent.persona {
+		border: 3px solid white;
+		background-color: #000;
+		padding-left: 5px;
+		padding-right: 5px;
+		margin-left: -20px;
+		margin-top: -8px;
+	}
+
+	.choiceTextPersona {
+		font-size: var(--fs-large);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceFramePersona{
+		font-size: var(--fs-large);
+	    background: #000000;
+	    color: #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 50vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.dialogueContainer.persona p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.persona p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.personaMenuButton {
+		font-size: var(--fs-large);
+		letter-spacing: .1em;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+		border: solid 3px #ffffff;
+		border-radius: 0px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(5deg, 0deg);
+		-webkit-transform: skew(5deg, 0deg);
+		-o-transform: skew(5deg, 0deg);
+		-ms-transform: skew(5deg, 0deg);
+		transform: skew(5deg, 0deg);
+	}
+	.pictureButtonPersona{
+		font-size: var(--fs-large);
+		letter-spacing: .1em;
+		display: block;
+		position: absolute;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 15px auto;
+	    padding: 15px;
+	    margin: 15px;
+	    border: 3px solid;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+	}
+
+
+	#buttonMenu {
+		display:inline-block;
+	}
+	/*Royalty Schema*/
+	/*Royalty Schema*/
+	.dialogueContainer.royalty {
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    margin: 5px 0;
+	    padding: 0px;
+	    width: 100%;
+		overflow: hidden;
+	}
+	img.thumbnailImage.royalty {
+	    width: 125px;
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;  
+		-webkit-filter:grayscale(0.9);
+		filter: grayscale(0.9);
+		object-fit: cover;
+		object-position: 100% 0;
+		position:absolute;
+	}
+	.textContainer.royalty {
+		font-size: var(--fs-large);
+		font-family: var(--font-body);
+		font-style: normal;
+		margin-top: 5px;
+		width: 90%;
+	}
+	.thumbnailContainer.royalty {
+	    display: inline-block;
+	    width: 125px;
+	}
+	.nameContainer.royalty {
+		width:125px;
+		background-color: #000C;
+		border: 3px solid;
+		border-radius: var(--radius-sm);
+		/*z-index:1;*/
+		position: absolute;
+		bottom: 0px;
+	}
+	.nameContent.royalty {
+		font-size: var(--fs-large);
+		font-family: marker, norwester, times new roman, sans-serif;
+		z-index: 1;
+		margin: auto;
+		text-align: center;
+		height:30px;
+	}
+	.textBorder.royalty {
+	    width: 100%;
+		border: 3px solid white;
+		border-radius: var(--radius-sm);
+		background-color: #000;
+		padding: 0px 15px;
+		min-height: 125px;
+	}
+	.thumbnailBorder.royalty {
+		width:125px;
+		height:125px;
+	}
+	.textContainer.royalty p {
+		font-size: var(--fs-large);
+		font-family: railway;
+		line-height: 1.2;
+		margin: 0px;
+	}
+
+	.choiceTextRoyalty {
+		font-size: var(--fs-large);
+		padding: 0px;
+		margin: 0px;
+		font-family: var(--font-body);
+		font-weight: normal;
+	}
+	.choiceFrameRoyalty{
+		font-size: var(--fs-large);
+	    background: #000000;
+	    color: #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    max-width: 30vw;
+	    margin: 15px auto;
+		border: solid 5px;
+	}
+
+	.dialogueContainer.royalty p.switch {
+	    color: var(--c-cyan);
+		cursor: pointer;
+	}
+	.dialogueContainer.royalty p.switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.royaltyMenuButton {
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+	    padding: 15px;
+	    margin: 15px;
+		border: solid 3px #ffffff;
+		border-radius: 0px;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+	}
+	.pictureButtonRoyalty{
+		font-size: var(--fs-large);
+		display: block;
+		position: absolute;
+	    background: #000000;
+	    color: #ffffff;
+		border: solid 3px #ffffff;
+		font-weight: bold;
+	    display: block;
+	    width: fit-content;
+	    margin: 15px auto;
+	    padding: 15px;
+	    margin: 15px;
+	    border: 3px solid;
+	    transition: 0.25s;
+	    text-align: center;
+		cursor: pointer;
+		-moz-transform: skew(3deg, 0deg);
+		-webkit-transform: skew(3deg, 0deg);
+		-o-transform: skew(3deg, 0deg);
+		-ms-transform: skew(3deg, 0deg);
+		transform: skew(3deg, 0deg);
+	}
+
+	/*Syrup Schema*/
+	.dialogueContainer.syrup {
+		font-size: var(--fs-large);
+		position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    background-color: rgba(50,30,0,0.8);
+		border: 5px solid var(--c-cream);
+		color: #FFFFFF;
+	    margin: 15px 0;
+	    border-radius: var(--radius-md);
+	    width: 100%;
+		overflow: hidden;
+		font-family: var(--font-hand);
+		box-shadow: 11px 11px #000A,
+					0 0 20px 2px #000A;
+		z-index: 0;
+	}
+	.textContainer.syrup {
+		/*added so in the case of ever having so much dialog that it would extend over the picture, it aligns neatly at the right to the picture as demosntrated in example1.jpg.*/
+	}
+	.syrup .switch {
+		font-size: var(--fs-small);
+	    color: var(--c-blue);
+		cursor: pointer;
+		text-shadow: 2px 2px #00355A;
+		-webkit-text-stroke: 1px #036A;
+		font-family: var(--font-title);
+		line-height: 1.2;
+		margin: 0px;
+	}
+	.syrup .switch::before {
+	    content: '\027A4';
+	    padding-right: 5px;
+		cursor: pointer;
+	}
+	.dialogueDivider.syrup {
+		height: 20px;
+		width: 300px;
+		margin-top: 5px;
+		margin-bottom: -5px;
+		filter: drop-shadow(3px 3px #000A);
+	}
+	.dialogueBackground.syrup {
+		height: 125px;
+		position: absolute;
+		width: 225px;
+		right: 15px;
+		top: 15px;
+		z-index: -1;
+	}
+	.thumbnailBorder.syrup {
+		width:125px;
+		height:125px;
+	}
+	img.thumbnailImage.syrup {
+	    width: 125px;
+	    border-radius: var(--radius-md);
+	    /*box-shadow: -5px 5px var( --character-color);*/
+	    flex: none;
+		object-fit: cover;
+		object-position: 100% 0px;
+		position:absolute;
+	}
+	.textContainer.syrup p {
+		font-size: var(--fs-xlarge);
+		font-family: var(--font-title);
+		line-height: 1.2;
+		margin: 0px;
+		margin-bottom: 15px;
+	}
+
+	p.textName.syrup {
+		font-size: var(--fs-huge);
+		color: var(--c-cream);
+		margin: 0px;
+		padding: 0px;
+		font-weight: bold;
+		font-family: var(--font-hand);
+		text-shadow: 3px 3px #000A;
+		line-height: 1;
+	}
+
+	.textContainer.syrup .switch {
+		font-size: var(--fs-xlarge);
+	}
+	.textContainer.syrup .status {
+		font-size: var(--fs-xlarge);
+	}
+	p.rawTextSyrup {
+	    margin-bottom: 45px;
+		font-family: var(--font-hand);
+	}
+	.specialTextSyrup {
+		font-size: var(--fs-small);
+	    color: #1ce01c;
+	    font-weight: bold;
+	    margin-bottom: 45px;
+	    text-align: center;
+		font-family: var(--font-hand);
+		line-height: 1.5;
+	}
+	hr.syrup {
+		border: none;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+	.textDivider.syrup {
+		border: 5px solid var(--c-cream);
+		border-radius: 50%;
+	}
+
+	.titleCard {
+		width: 100vw;
+		height: 100vh;
+		position: absolute;
+		top: 0vh;
+		left: 0vw;
+	}
+	.titleBackboard {
+		position:absolute;
+		transition: top 2s;
+		transition-timing-function: ease;
+		top: -100%;
+		width:100vw;
+		height: 50vh;
+		left:0%;
+	}
+	.titleButton {
+		position:absolute;
+		transition: top 2s;
+		transition-timing-function: ease;
+		top: 200%;
+		cursor:pointer;
+		width: 50%;
+	}
+	:root {
+		--scaleX: calc(100vw/1200);
+		--scaleY: calc(100vh/800);
+	}
+	.titleLetter {
+		font-family: var(--font-hand);
+		color: var(--c-cream);
+		position:absolute;
+		top: 0vh;
+		left: 0vw;
+		rotate: 0deg;
+		transition: top 0.1s, rotate 0.1s;
+		transition-timing-function: linear;
+		font-size: 27vw;
+		font-weight:bold;
+		transform: scale((--scaleX), (--scaleY));
+	}
+
+	.galleryGrid.textContainer {
+		font-size: var(--fs-tiny);
+	}
+
+	.flip-card {
+	  background-color: transparent;
+	  width: 100%;
+	  height: 100%;
+	  perspective: 1000px;
+	  color:white;
+	}
+
+	.flip-card-inner {
+	  position: relative;
+	  width: 100%;
+	  height: 100%;
+	  text-align: center;
+	  transition: transform 0.6s;
+	  transform-style: preserve-3d;
+	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	}
+	.flipping .flip-card-inner {
+	  transform: rotateY(180deg);
+	}
+
+	.board .cardStatBlock {
+		font-size:2vw;
+	}
+
+	.cardStatBlock{
+		font-size:3vw;
+		position: absolute;
+		top:0px;
+		left:0px;
+		height:100%;
+		width:100%;
+		z-index: 1;
+		transition: transform 0.6s;
+		filter: drop-shadow(-2px 2px 0 black) drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black) drop-shadow(2px -2px 0 black);
+		-webkit-filter: drop-shadow(-2px 2px 0 black) drop-shadow(2px 2px 0 black) drop-shadow(-2px -2px 0 black) drop-shadow(2px -2px 0 black);
+	}
+
+	.flipping .cardStatBlock {
+		transform: rotateY(180deg);
+	}
+
+	.flip-card-front, .flip-card-back {
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  -webkit-backface-visibility: hidden;
+	  backface-visibility: hidden;
+	}
+
+	.flip-card-front {
+		background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 9%, rgba(0,212,255,1) 100%); 
+	}
+
+	.flip-card-back { 
+		background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(121,9,9,1) 13%, rgba(255,119,119,1) 100%); 
+		transform: rotateY(180deg);
+	}
+
+	.shimmer {
+	  display:inline-block;
+	  -webkit-mask:linear-gradient(-60deg,#000 10%,#0005,#000 90%) right/1000% 100%;
+	  background-repeat: no-repeat;
+	  animation: shimmer 2.5s infinite;
+	  font-size: 50px;
+	}
+
+	@keyframes shimmer {
+	  100% {-webkit-mask-position:left}
+	}
+
+	.cardFrame {
+		position:absolute; 
+		top:0px; 
+		left:0px; 
+		width:100%;
+		height:100%;
+	}
+
+	.hand{
+		display:grid; 
+		grid-template-columns: repeat(auto-fill, 20vh);
+		height: 100%;
+		overflow: scroll;
+	}
+	#logbookGridHolder .flip-card-inner{
+		height: 40vh; 
+		width: 20vh;
+	}
+	#achievements p {
+		position: relative;
+		z-index: 1;
+		width: 88%;
+		text-align: center;
+		font-family: var(--font-hand);
+		line-height: 1.3;
+		margin: auto;
+		margin-top: 10%;
+		color: #55ccee;
+		text-shadow: 3px 3px black;
+		background: #0007;
+	}
+	.achievementName {
+		font-size: var(--fs-huge);
+		border-radius: 60%;
+	}
+	.achievementText {
+		font-size: var(--fs-xlarge);
+		border-radius: 15%;
+	}
+
+	.buttonGrid {
+		display:grid;
+		grid-template-columns:auto auto auto auto auto;
+	}
+	.galleryGrid {
+		display:grid;
+		grid-template-columns:repeat(1, auto);
+	}
+	.jiggyGrid {
+		display:grid;
+		grid-template-columns:repeat(1, auto);
+	}
+
+	.progressbar {
+	  background-color: black;
+	  border-radius: 13px;
+	  /* (height of inner div) / 2 + padding */
+	  padding: 3px;
+	}
+
+	.progressbar>div {
+	  background-color: orange;
+	  width: 40%;
+	  /* Adjust with JavaScript */
+	  height: 20px;
+	  border-radius: 10px;
+	}
+
+	.gridInventory {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(3, minmax(240px, .4fr));
+	}
+
+	.gridHolder {
+		height: 85%;
+		overflow: auto;
+	}
+
+	.phoneSelectionBox{
+		position: relative;
+		background-color: rgba(0,0,0,0.5);
+		border-bottom: 5px solid;
+		/* border-color: var(--character-color); */
+		margin: 15px 0;
+		padding: 15px;
+		border-radius: var(--radius-md);
+		width: 100%;
+		overflow: hidden;
+		box-shadow: inset 0 0 20px #000;
+	}
+
+	.phoneSelectionMenu {
+		display: grid;
+		grid-template-columns: 1fr;
+		/*gap: 1rem;
+		padding-top: 1.5rem;*/
+		justify-content: center;
+	}
+	.phoneSelectionMenu.logbook {
+		grid-template-columns: repeat(auto-fill, 30%);
+	}
+	.phoneSelectionMenu .shop {
+		margin: 0px; 
+		justify-content:initial; 
+		grid-template-columns: 
+		repeat(auto-fill, 125px);
+	}
+	.phoneSelectionMenu .textBox {
+		padding: 0px;
+		height: 200px;
+		display: block;
+		cursor: pointer;
+	  	border: 3px solid white;
+		border-radius: 25px;
+		position: relative;
+		overflow: hidden;
+	}
+	.phoneSelectionMenu .phoneTextThumb {
+		position: relative;
+	  	display: block;
+	    margin: auto;
+	  	padding: 1px;
+		width: 100%;
+		height: 100%;
+	  	float: left;
+		overflow: hidden;
+	  	margin: 0px 10px 0px 0px;
+	  	border: 3px solid white;
+	  	border-radius: var(--radius-sm);
+		height: 200px;
+	}
+	.selectionMenuText {
+		font-size: var(--fs-medium);
+		margin: auto;
+		border: none;
+		font-weight: bold;
+		display: block;
+		width: fit-content;
+		text-align: center;
+	}
+	.phoneSelectionMenu .pictureButton, .phoneSelectionMenu .choiceText {
+		margin: auto;
+		border: none;
+	}
+
+	#phoneGridHolder img.textThumb {
+		border-radius: 0px;
+		border: none;
+		border-bottom: 3px solid white;
+	}
+	#phoneGridHolder .phoneSelectionMenu .textBox {
+		color: black;
+		border-radius: var(--radius-md);
+		border-bottom: 3px solid white;
+	}
+
+	#logbookGridHolder .selectionMenuText {
+		font-size: var(--fs-xlarge);
+		transform: skew(-15deg, -15deg);
+		width: 145%;
+		margin-top: 125px;
+		margin-left: -25px;
+		background: #000000A0;
+		height: 40px;
+		line-height: 40px;
+		font-family: var(--font-hand);
+	}
+
+	#logbookGridHolder .phoneSelectionMenu img.textThumb {
+		margin-right: 0px;
+		margin-left: -15px;
+		width: 125px;
+		position: absolute;
+	}
+	.logbookLeft {
+		height: 100%;
+	    padding: 0;
+	}
+	.logbookRight {
+		height: 90%;
+	    padding: 0px;
+	}
+	p.selfDesc{
+		font-size: var(--fs-xlarge);
+		font-family: var(--font-title);
+		line-height: 1.2;
+		color: white;
+	}
+
+	.selectionMenuCrown {
+		font-size: var(--fs-huge);
+		color: #FFFFFF;
+		position: absolute;
+		bottom: 154px;
+		/* background: black; */
+		height: 39px;
+		padding-top: 9px;
+		border-radius: var(--radius-md);
+		font-weight: bold;
+		text-shadow: 2px 2px black;
+	}
+
+
+	.buttonGrid {
+		display:grid;
+		grid-template-columns:auto auto;
+	}
+
+	.button3
+	{
+	  border-radius: 20px;
+	  padding: 10px 15px;
+	  color: #000;
+	  font-weight: bold;
+	  background: var(--c-mauve);
+	  background: -moz-linear-gradient(top,  var(--c-mauve) 0%, var(--c-pink) 70%, var(--c-mauve) 100%);
+	  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--c-mauve)), color-stop(70%,var(--c-pink)), color-stop(100%,var(--c-mauve)));
+	  background: -webkit-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: -o-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: -ms-linear-gradient(top,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  background: linear-gradient(to bottom,  var(--c-mauve) 0%,var(--c-pink) 70%,var(--c-mauve) 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--c-mauve)', endColorstr='var(--c-mauve)',GradientType=0 );
+	}
+	.button3:active
+	{
+	  color: #000;
+	  background: var(--c-pink);
+	  background: -moz-linear-gradient(top,  var(--c-pink) 0%, var(--c-pink) 70%, var(--c-pink) 100%);
+	  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--c-pink)), color-stop(70%,var(--c-pink)), color-stop(100%,var(--c-pink)));
+	  background: -webkit-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: -o-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: -ms-linear-gradient(top,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  background: linear-gradient(to bottom,  var(--c-pink) 0%,var(--c-pink) 70%,var(--c-pink) 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='var(--c-pink)', endColorstr='var(--c-pink)',GradientType=0 );
+	}
+
+	@-webkit-keyframes pulseBox {
+	  0% {-webkit-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-webkit-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@-moz-keyframes pulseBox {
+	  0% {-moz-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-moz-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@-o-keyframes pulseBox {
+	  0% {-o-box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {-o-box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+	@keyframes pulseBox {
+	  0% {box-shadow: 0px 0px 10px 0px rgba(222, 147, 172, 0.6);}
+	  100% {box-shadow: 0px 0px 18px 0px rgba(222, 147, 172, 0.9);}
+	}
+
+	.pulseBox {
+	  -webkit-animation-name: pulseBox;
+	  -moz-animation-name: pulseBox;
+	  -o-animation-name: pulseBox;
+	  animation-name: pulseBox;
+	  -webkit-animation-duration: 1s;
+	  -moz-animation-duration: 1s;
+	  -o-animation-duration: 1s;
+	  animation-duration: 1s;
+	  -webkit-animation-iteration-count: infinite;
+	  -moz-animation-iteration-count: infinite;
+	  -o-animation-iteration-count: infinite;
+	  animation-iteration-count: infinite;
+	  -webkit-animation-direction: alternate;
+	  -moz-animation-direction: alternate;
+	  -o-animation-direction: alternate;
+	  animation-direction: alternate;
+	  -webkit-animation-timing-function: ease-in-out;
+	  -moz-animation-timing-function: ease-in-out;
+	  -o-animation-timing-function: ease-in-out;
+	  animation-timing-function: ease-in-out;
+	  border: 0px;
+	}
+
+	@-webkit-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@-moz-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@-o-keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+	@keyframes pulseText {
+	  0% {text-shadow: 0px 0px 8px rgba(222, 147, 172, 0.7);}
+	  100% {text-shadow: 0px 0px 22px rgba(222, 147, 172, 1);}
+	}
+
+	.pulseText {
+	  -webkit-animation-name: pulseText;
+	  -moz-animation-name: pulseText;
+	  -o-animation-name: pulseText;
+	  animation-name: pulseText;
+	  -webkit-animation-duration: 0.8s;
+	  -moz-animation-duration: 0.8s;
+	  -o-animation-duration: 0.8s;
+	  animation-duration: 0.8s;
+	  -webkit-animation-iteration-count: infinite;
+	  -moz-animation-iteration-count: infinite;
+	  -o-animation-iteration-count: infinite;
+	  animation-iteration-count: infinite;
+	  -webkit-animation-direction: alternate;
+	  -moz-animation-direction: alternate;
+	  -o-animation-direction: alternate;
+	  animation-direction: alternate;
+	  -webkit-animation-timing-function: ease-in-out;
+	  -moz-animation-timing-function: ease-in-out;
+	  -o-animation-timing-function: ease-in-out;
+	  animation-timing-function: ease-in-out;
+	  border: 0px;
+	}
+
+
+
+	.pictureButton,.pictureButton:hover {
+		font-size: var(--fs-xlarge);
+	    background: none;
+	    padding: 5% 5%;
+	    opacity: 1;
+	    border: none;
+	    border-bottom: none;
+		font-family: var(--font-hand);
+		font-weight:bold; 
+		line-height:1.5;
+		background-image: url("../../images-webp/system/ui/buttonBackboard.webp");
+		background-size: 100% 100%;
+	}
+	.pictureButton:hover {
+		filter:hue-rotate(-25deg);
+	}
+	br {
+		margin: 0.7em;
+		display:block;
+		content: ""
+	}
+
+	input {
+		font-size: var(--fs-small);
+		max-width: 25vw;
+	}
+	.accessoryText {
+		font-size: var(--fs-xlarge);
+		position:absolute;
+		transform: skew(-15deg, -15deg);
+		width: 145%;
+		text-align: center;
+		margin-left: -25px;
+		margin-top: 80px;
+		z-index:1;
+		background: #000000A0;
+		height: 40px;
+		line-height: 40px;
+		font-family: var(--font-hand);
+	}
+
+	/*Webui stuff*/
+	/* Shared container for layout */
+	#resultArea {
+	  height: 50vh;
+	  overflow-y: auto;
+	  background: #111;
+	  padding: 10px;
+	  box-sizing: border-box;
+	}
+
+	/* Style for all prompt fields */
+	.mobilePromptInput {
+		font-size: var(--fs-medium);
+	  width: 100%;
+	  padding: 10px;
+	  margin-bottom: 10px;
+	  border: 2px solid #555;
+	  background: #222;
+	  color: white;
+	  box-sizing: border-box;
+	  resize: none;
+	  height: 30vh;
+	}
+
+	/* Keep the generate button touch-friendly */
+	.mobileGenerateButton {
+		font-size: var(--fs-medium);
+	  width: 100%;
+	  padding: 12px;
+	  background: limegreen;
+	  color: black;
+	  font-weight: bold;
+	  border: none;
+	  margin-top: 10px;
+	  border-radius: 10px;
+	}
+	.mobileResetButton {
+		font-size: var(--fs-medium);
+	  width: 24%;
+	  padding: 12px;
+	  background: red;
+	  color: black;
+	  font-weight: bold;
+	  border: none;
+	  margin-top: 10px;
+	  border-radius: 10px;
+	}
+
+	.mobileBatchSize {
+		width: 100%;
+		display: flex;
+		margin: auto;
+	}
+	.mobileSizeSelect {
+		width: 100%;
+		display: flex;
+		margin: auto;
+	}
+
+	.unselectable {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.newKeyword {
+		color: #9bffa8;
+	}
+	.removedKeyword {
+		color: #ff5227;
+	}
+
+	.modUploadWrapper{
+	    width:100%;
+	    display:flex;
+	    justify-content:center;
+	    margin-top:30px;
+	}
+
+	.modUploadZone{
+		font-size: var(--fs-medium);
+	    width:420px;
+	    height:160px;
+
+	    display:flex;
+	    align-items:center;
+	    justify-content:center;
+
+	    text-align:center;
+	    white-space:pre-line;
+
+	    font-weight:bold;
+
+	    background:#665533CC;
+	    border-radius:30px;
+	    border-bottom:4px solid var(--c-gold);
+
+	    color:var(--c-blue);
+	    text-shadow:2px 2px #00355A;
+
+	    cursor:pointer;
+	    transition:0.25s;
+
+	    outline:3px dashed var(--c-gold);
+	    outline-offset:-10px;
+	}
+
+	.modUploadZone:hover{
+	    transform:scale(1.05);
+	}
+
+	.modUploadZone.dragHover{
+	    background:#776644CC;
+	    outline:3px dashed var(--c-blue);
+	}
+
+	.search-results-dropdown {
+	    position: absolute;
+	    width: 100%;
+	    max-height: 200px;
+	    overflow-y: auto;
+	    background: #2a2a2a;
+	    border: 2px solid var(--c-cyan);
+	    z-index: 100;
+	}
+	.search-row {
+	    padding: 8px;
+	    cursor: pointer;
+	    border-bottom: 1px solid #444;
+	}
+	.search-row:hover {
+	    background: #3a3a3a;
+	    color: var(--c-cyan);
+	}
+	.item-insert-card h3 {
+		font-size: var(--fs-small);
+	    margin: 0 0 10px 0;
+	    color: #f1c40f;
+	}
+
+	/* Add this to your stylesheet */
+	.card-delete-btn {
+	    background: none;
+	    border: none;
+	    outline: none;
+	    transition: transform 0.1s ease;
+	}
+
+	.card-delete-btn:hover {
+	    transform: scale(1.2);
+	    color: #ff5f5f; /* Give it a little pop on hover */
+	}
+
+	/* Make the nested container slightly smaller than the parent */
+	.dialogueContainer.syrup .dialogueContainer.syrup {
+	    width: 95%;
+	    margin: 10px auto;
+	    background-color: rgba(30, 20, 0, 0.9); /* Slightly darker to create depth */
+	    box-shadow: 5px 5px #0008; /* Smaller shadow for the nested child */
+	}
+
+
+
+
+	/* The main workspace */
+	/* Container for the whole editor space */
+	.syrup-editor-space {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 20px;
+	    width: 100%;
+	    box-sizing: border-box;
+	}
+
+	/* Individual Scene/Event Window */
+	.syrup-window {
+	    background-color: rgba(50,30,0,0.8);
+	    border: 5px solid var(--c-cream);
+	    border-radius: var(--radius-md);
+	    color: #FFFFFF;
+	    font-family: var(--font-hand);
+	    display: flex;
+	    flex-direction: column;
+	    overflow: hidden;
+	    box-shadow: 11px 11px #000A, 0 0 20px 2px #000A;
+		transition: max-height 0.3s ease;
+	}
+
+	/* Sticky Headers and Footers */
+	.syrup-header-upper, .syrup-footer-upper {
+	    position: sticky;
+	    z-index: 10;
+	    background-color: rgba(50,30,0,0.8);
+	    padding: 10px 15px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+	.syrup-header-upper { top: 0; border-bottom: 3px solid var(--c-cream); }
+	.syrup-footer-upper { bottom: 0; border-top: 3px solid var(--c-cream); justify-content: center; gap: 15px; }
+
+	/* Dynamic Content Areas */
+	.syrup-header-lower {
+	    background-color: rgba(255,255,255,0.1);
+	    padding: 10px 15px;
+	    border-bottom: 2px solid var(--c-cream);
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 10px;
+	}
+	.syrup-contents {
+	    padding: 15px;
+	    overflow-y: auto; /* Allows scrolling inside the buffer */
+	    flex-grow: 1;
+	}
+	.syrup-footer-lower {
+	    background-color: rgba(0,0,0,0.5);
+	    padding: 5px 15px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+
+	/* Inputs and Buttons */
+	.syrup-textarea {
+		font-size: var(--fs-large);
+	    width: 100%;
+	    min-height: 200px;
+	    background-color: rgba(50,30,0,0.8);
+	    color: var(--c-cream);
+	    border-radius: 8px;
+	    border: 2px solid #509cea;
+	    padding: 10px;
+	    box-sizing: border-box;
+	}
+	.syrup-btn {
+	    background-color: var(--c-cream);
+	    color: #503200;
+	    border: none;
+	    padding: 8px 15px;
+	    border-radius: 8px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    transition: 0.2s;
+	}
+	.syrup-btn:hover { background-color: #FFFFFF; }
+	.syrup-btn-danger { background-color: #ff6b6b; color: white; }
+
+	/* Collapse state */
+	.syrup-window.collapsed .syrup-contents, 
+	.syrup-window.collapsed .syrup-header-lower, 
+	.syrup-window.collapsed .syrup-footer-upper {
+	    display: none;
+	}
+
+	.syrup-editor-row {
+	    display: flex;
+	    align-items: flex-start;
+	    border-bottom: 1px solid #444;
+	    background: #222;
+	    padding: 2px 0;
+	}
+
+	.syrup-line-number {
+	    width: 30px;
+	    text-align: right;
+	    padding-right: 10px;
+	    color: #666;
+	    user-select: none;
+	    font-family: monospace;
+	}
+
+	.syrup-line-input {
+	    flex-grow: 1;
+	    color: #eee;
+	    font-family: monospace;
+	    outline: none;
+	    white-space: pre-wrap;
+	    word-break: break-all;
+	}
+
+	.syrup-line-input:focus {
+	    background: #333;
+	}
+
+	.syrup-line-req-btn {
+		font-size: var(--fs-tiny);
+	    opacity: 0.3;
+	    transition: opacity 0.2s;
+	    margin-left: 10px;
+	}
+
+	.syrup-editor-row:hover .syrup-line-req-btn {
+	    opacity: 1;
+	}
+
+	.syrup-editor-container {
+	    position: relative; /* Crucial so the overlay stays inside the editor */
+	}
+
+	.syrup-editor-overlay {
+	    position: absolute;
+	    top: 0; left: 0; right: 0; bottom: 0;
+	    background: rgba(0, 0, 0, 0.6);
+	    z-index: 100;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.syrup-req-modal {
+	    background: #2a2a2a;
+	    border: 1px solid #555;
+	    padding: 15px;
+	    border-radius: var(--radius-sm);
+	    min-width: 400px;
+	    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+	    z-index: 101;
+	}
+
+	.syrup-modal-buttons {
+	    display: flex;
+	    justify-content: flex-end;
+	    gap: 10px;
+	    margin-top: 15px;
+	    padding-top: 10px;
+	    border-top: 1px solid #444;
+	}
+
+	.syrup-line-input {
+	    position: relative;
+	    white-space: pre-wrap;
+	}
+
+	.grottoBtn {
+		opacity: 0.8;
+	}
+	.grottoBtn:hover {
+		opacity: 1;
+	}
+
+	/* font-sizes for elements whose rule lives only in the other orientation */
+	.titleAuthor { font-size: var(--fs-xlarge); }
+	.dialogueContainer.basic { font-size: var(--fs-large); }
+
+	/* ---- Wardrobe clothing boxes (portrait) ----
+	   Worn boxes have to stand out in a full grid, and none of what marks them can move any
+	   of the boxes. outline and box-shadow are painted outside the box model so they take up
+	   no space at all, which is how the ring gets thicker without anything shifting, and
+	   border-radius only changes the shape. Border width stays the same on both states. */
+	.wardrobeBox {
+		border: 3px solid #55555580;
+	}
+	.wardrobeBoxWorn {
+		border: 3px solid #39FF14;
+		outline: 3px solid #39FF14;
+		outline-offset: -9px;
+		box-shadow: 0 0 10px 2px #39FF14A0;
+		border-radius: var(--radius-md);
+	}
+
+	/* Clothing name banner. Sized in percentages so it tracks the box, which is no longer a
+	   fixed pixel width in portrait. Flex centring means the text stays put whatever the
+	   font ends up as. Position and size here are the knobs worth tuning. */
+	.wardrobeLabel {
+		position: absolute;
+		left: -22%;
+		top: 36%;
+		width: 144%;
+		height: 18%;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 0 4%;
+		box-sizing: border-box;
+		transform: skew(-15deg, -15deg);
+		background: #000000C0;
+		font-family: var(--font-hand);
+		font-size: var(--fs-medium);
+		line-height: 1.05;
+		overflow-wrap: anywhere;
+		pointer-events: none;
+	}
+
+	/* ---- Scrapbook (portrait, single column) ---- */
+	/* The popup is a fixed-height flex container with overflow:hidden, and its title is tall, so
+	   a holder sized in vh overflows the window with no way to reach the bottom of it. The
+	   scrapbook makes its own column instead, and the holder takes whatever is left over. */
+	.scrapbookWindow {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+	}
+	.scrapbookHolder {
+		flex: 1 1 auto;
+		/* Without this a flex child refuses to shrink below its content, so it would push out of
+		   the window instead of scrolling inside it. */
+		min-height: 0;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-y: auto;
+		/* The grid is rebuilt when coming back from one picture and its thumbnails reload as it
+		   goes. Scroll anchoring would nudge the restored offset as they land. */
+		overflow-anchor: none;
+		padding: 0 10px 10px 10px;
+	}
+	.scrapbookEmpty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		text-align: center;
+	}
+	.scrapbookGrid {
+		display: grid;
+		grid-template-columns: repeat(var(--scrapbook-cols, 1), 1fr);
+		gap: 10px;
+		/* Cells hug their own picture. Stretching them to the tallest in the row left a black
+		   panel under every shorter image. */
+		align-items: start;
+	}
+	.scrapbookCell {
+		position: relative;
+		border: 3px solid #FCEBB5;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		cursor: pointer;
+		/* No background: with the cell hugging its image there is nothing left to show through,
+		   and line-height keeps the inline image from leaving a gap under itself. */
+		line-height: 0;
+	}
+	.scrapbookThumb {
+		width: 100%;
+		display: block;
+	}
+	.scrapbookLarge {
+		width: 100%;
+		max-height: 50vh;
+		object-fit: contain;
+		border: 3px solid #FCEBB5;
+		border-radius: var(--radius-md);
+		display: block;
+		margin: 0 auto;
+	}
+	.scrapbookPath {
+		font-family: monospace;
+		font-size: var(--fs-small);
+		opacity: 0.75;
+		text-align: center;
+		word-break: break-all;
+		margin: 6px 0;
+	}
+	/* The notes run long enough to fill a screen on their own, so they scroll in their own box
+	   rather than pushing the delete button somewhere unreachable. */
+	.scrapbookInfo {
+		font-size: var(--fs-small);
+		white-space: pre-wrap;
+		word-break: break-word;
+		max-height: 30vh;
+		overflow-y: auto;
+		background: #00000060;
+		border-radius: var(--radius-md);
+		padding: 8px;
+		margin: 6px 0;
+	}
+	/* Absolutely positioned inside the picture, so showing it never moves anything and a long
+	   message cannot make the scene taller. Fades on its own, so there is no timer to cancel. */
+	.scrapbookToast {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 8px;
+		text-align: center;
+		background: #000000C0;
+		font-family: var(--font-hand);
+		font-size: var(--fs-medium);
+		pointer-events: none;
+		opacity: 0;
+	}
+	.scrapbookToast.scrapbookToastGood {
+		color: #5BFF6B;
+		font-weight: bold;
+	}
+	.scrapbookToast.scrapbookToastBad {
+		color: #FF6C6C;
+	}
+	.scrapbookToast.scrapbookToastShow {
+		animation: scrapbookToastFade 2.6s ease forwards;
+	}
+	@keyframes scrapbookToastFade {
+		0%   { opacity: 0; }
+		10%  { opacity: 1; }
+		75%  { opacity: 1; }
+		100% { opacity: 0; }
+	}
+
+
+	/* ---- Skintone mask ----
+	   One expression set is tinted at runtime instead of a whole set of face art per tone. The
+	   mask carries the same class as every other player layer so it lines up exactly, and this
+	   only takes the decoration back off: the layer classes paint a cream border and a shadow,
+	   and a multiply layer would tint both. The border is made transparent rather than removed,
+	   because removing it would change the box size and shift the mask off the face. */
+	.playerSkinMask {
+		mix-blend-mode: multiply;
+		border-color: transparent;
+		box-shadow: none;
+		pointer-events: none;
+	}
+
+}
+
+/* ===== SMALL LANDSCAPE (phones & handhelds, short height) — let popups fill more of the screen ===== */
+@media (orientation: landscape) and (max-height: 520px) {
+	/* Popups ran off the bottom: 94vh counts the area BEHIND the mobile browser bar, so the box exceeded the visible
+	   height. Use dvh (dynamic/visible viewport) with a vh fallback, and let the popup scroll so its bottom is reachable. */
+	.popup, .popup::after { width: 94vw; height: 94vh; height: 90dvh; top: 3vh; left: 3vw; }
+	div.popup { overflow-y: auto; }
+	/* Mobile landscape: bigger nav square than desktop's 40%, but height-capped so it never overflows the short screen. Tune the 55%. */
+	.playerRoom { width: min(55%, 88vh); }
+
+	/* --- Notable mobile-landscape fixes (short screens): shrink oversized grid content --- */
+	/* Inventory/shop items were 270x140 -> too big (one row + whitespace). Shrink item + grid columns together. */
+	:root { --inv-cols: repeat(auto-fill, 160px); }
+	.item { width: 100%; min-height: 25vh;}
+	/* Gallery: the elaborate syrup "tab" cards are unusable multi-up on a short screen -> ONE per row (full width).
+	   (Do NOT shrink .thumbnailImage globally — it's the same class used full-size in normal dialogue.) */
+	#galleryGrid { grid-template-columns: 1fr; }
+	.jiggyGrid {grid-template-columns: 1fr;	}
+	/* Trophies: 3 columns (vs 5 on desktop) so cards are ~2x bigger. Keep the TRUE 2:1 aspect — do NOT cap height while
+	   width fills the cell (that squished them). Cards are tall, so the popup scrolls (see dvh + overflow-y above). */
+	#achievements { grid-template-columns: repeat(3, 1fr); }
+	/* Windows ran off-screen (couldn't see the bottom): the landscape windowTitle is line-height:2.5 (~tall), which on a
+	   short popup pushed the body past the popup's overflow:hidden edge. Compact the title so the content fits. */
+	.windowTitle { line-height: 1.3; }
+
+}
