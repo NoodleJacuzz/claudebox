@@ -1,0 +1,52 @@
+{
+	"comment": "The cut list build-music-loops.py reads. Every time is in seconds of the SOURCE file. A track is one or more segments played in order; the last wraps onto the first. `tailSeconds` is how long the outgoing music keeps sounding (fading) under the next segment's entry. `rotateSeconds` starts the file that far BEFORE the wrap seam, so a first play hears a lead-in. Why each number is what it is: ../../audio/MUSIC.md.",
+	"sourceFolder": "honeycomb sound/music",
+	"outputFolder": "honeycomb sound/music/loop",
+	"sampleRate": 44100,
+	"bitrateKbps": 160,
+	"targetLufs": -19,
+	"peakCeilingDb": -1,
+	"postRollSeconds": 6,
+	"entryFadeSeconds": 0.005,
+	"endFadeSeconds": 0.05,
+	"trackArray": [
+		{
+			"index": "title",
+			"source": "title.mp3",
+			"beatsPerMinute": 81.05,
+			"rotateSeconds": 2.961,
+			"segmentArray": [
+				{ "from": 11.957, "to": 84.503, "tailSeconds": 0.03 }
+			]
+		},
+		{
+			"index": "combat",
+			"source": "combat.mp3",
+			"beatsPerMinute": 120,
+			"rotateSeconds": 0,
+			"segmentArray": [
+				{ "from": 0.07, "to": 48.07, "tailSeconds": 0.03 },
+				{ "from": 96.07, "to": 128.07, "tailSeconds": 0.02 }
+			]
+		},
+		{
+			"index": "combatShort",
+			"source": "combat.mp3",
+			"beatsPerMinute": 120,
+			"rotateSeconds": 0,
+			"segmentArray": [
+				{ "from": 0.07, "to": 48.07, "tailSeconds": 0.03 }
+			]
+		},
+		{
+			"index": "map",
+			"source": "map.mp3",
+			"beatsPerMinute": 82,
+			"rotateSeconds": 0,
+			"leveler": { "ratio": 0.5, "windowSeconds": 8, "maximumDb": 3 },
+			"segmentArray": [
+				{ "from": 23.46, "to": 140.533, "tailSeconds": 1.46 }
+			]
+		}
+	]
+}

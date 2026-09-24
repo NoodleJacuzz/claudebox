@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Honeycomb music audition</title>
+<!-- A listening bench for the looping music. It loads the game's REAL kernel, tuning and
+     honeycomb-music.js, so what is heard here is what the game does -- the same two-element changeover,
+     the same fades. Opens straight from disk (file://); no server needed.
+     The seam positions come from music-metrics.js, which build-music-loops.py writes. -->
+<style>
+	body { font: 15px/1.5 system-ui, sans-serif; background: #17131c; color: #e8e0f0; margin: 24px auto; max-width: 900px; padding: 0 16px; }
+	h1 { font-size: 20px; } h2 { font-size: 16px; margin: 22px 0 6px; color: #f0c674; }
+	p.note { color: #a99bb8; margin: 4px 0 10px; }
+	button { font: inherit; background: #2c2436; color: #e8e0f0; border: 1px solid #574a66; border-radius: 6px; padding: 6px 12px; margin: 3px 4px 3px 0; cursor: pointer; }
+	button:hover { background: #3a3047; } button.seam { border-color: #f0c674; }
+	#status { font-family: ui-monospace, Consolas, monospace; font-size: 13px; background: #0f0c13; border: 1px solid #3a3047; border-radius: 6px; padding: 10px; white-space: pre; min-height: 5.5em; }
+	.bar { height: 10px; background: #2c2436; border-radius: 5px; position: relative; margin: 8px 0 2px; }
+	.bar i { position: absolute; top: 0; bottom: 0; left: 0; background: #63d2a3; border-radius: 5px; }
+	.bar b { position: absolute; top: -3px; bottom: -3px; width: 2px; background: #f0c674; }
+</style>
+</head>
+<body>
+<h1>Honeycomb music audition</h1>
+<p class="note">Each gold button drops the track a few seconds before a join, which is the only place a loop can go wrong.
+A join that cannot be picked out by ear is a pass. The green bar is one lap; gold ticks are the joins.</p>
+
+<div id="tracks"></div>
+
+<h2>Game flow</h2>
+<p class="note">The cues the game fires, in order, with the game's own fades.</p>
+<button onclick="flow('title')">game start (title)</button>
+<button onclick="honeycomb.music.onEvent('combatBegan')">combat begins</button>
+<button onclick="honeycomb.music.onEvent('combatEnded')">victory / defeat (map)</button>
+<button onclick="stopAll()">stop</button>
+
+<h2>Now playing</h2>
+<div class="bar"><i id="fill"></i><span id="ticks"></span></div>
+<div id="status">nothing yet</div>
+
+<script src="../../../../scripts/misc/honeycomb.js"></script>
+<script src="../../../../scripts/misc/honeycomb/honeycomb-tuning.js"></script>
+<script src="../../../../scripts/misc/honeycomb/honeycomb-music.js"></script>
+<script src="music-metrics.js"></script>
+<script>
+	var music = honeycomb.tuning.audio.music;
+	music.folder = "../../../../" + music.folder;
+	var LEAD_SECONDS = 7;
+
+	//Every built file gets a row, including ones the game is not using (combatShort), by giving each a
+	//track entry of its own for the length of this page.
+	Object.keys(musicMetrics.trackMap).forEach(function (index) {
+		if (!music.trackArray.some(function (track) { return track.index == index; })) {
+			music.trackArray.push({ index: index, file: index, loopSeconds: musicMetrics.trackMap[index].loopSeconds, resume: false });
+		}
+	});
+
+	var holder = document.getElementById("tracks");
+	music.trackArray.forEach(function (track) {
+		var built = musicMetrics.trackMap[track.file];
+		var inUse = [music.defaultTrack].concat(Object.values(music.sceneCueMap), Object.values(music.eventCueMap)).indexOf(track.index) >= 0;
+		var html = "<h2>" + track.index + (inUse ? "" : " (built, not used by the game)") + "</h2><p class='note'>one lap " + built.loopSeconds.toFixed(1) +
+			"s, " + built.beats + " beats, " + built.lufs + " LUFS, " + Math.round(built.fileBytes / 1024) + " KB</p>" +
+			"<button onclick=\"playFrom('" + track.index + "', 0)\">from the top</button>";
+		built.seamSecondsArray.forEach(function (seam) {
+			//A join in the first few seconds of the file is the loop's own join: the file was started a
+			//little before it on purpose, so it is reached by way of the lap end.
+			var wrap = seam < LEAD_SECONDS;
+			var at = wrap ? built.loopSeconds : seam;
+			html += "<button class='seam' onclick=\"playFrom('" + track.index + "', " + (at - LEAD_SECONDS) + ")\">" +
+				(wrap ? "the loop point (lap end &rarr; lap start" + (seam > 0.01 ? "; the join itself lands " + seam.toFixed(1) + "s after" : "") + ")" : "the splice at " + at.toFixed(1) + "s") + "</button>";
+		});
+		var section = document.createElement("div");
+		section.innerHTML = html;
+		holder.appendChild(section);
+	});
+
+	function playFrom(trackIndex, seconds) {
+		stopAll();
+		honeycomb.music.begin();
+		honeycomb.music.cue(trackIndex);
+		var player = honeycomb.music.playerMap[trackIndex];
+		player.fadeMs = 150;
+		var element = honeycomb.music.elementOf(player, player.live);
+		//A seek asked of an element that has not loaded yet is dropped, and a server with no Range
+		//support (python's) cannot seek past what has downloaded. So the jump is asked again on every
+		//load event until it takes. The game itself never seeks far into a file, so it needs none of this.
+		var target = Math.max(0, seconds);
+		var jump = function () {
+			if (Math.abs(element.currentTime - target) < 1 || element.jumped == true) return;
+			element.currentTime = target;
+			if (Math.abs(element.currentTime - target) < 1) element.jumped = true;
+		};
+		["loadedmetadata", "canplay", "canplaythrough", "progress"].forEach(function (name) { element.addEventListener(name, jump); });
+		jump();
+		honeycomb.music.tick();
+	}
+	function flow(trackIndex) { stopAll(); honeycomb.music.begin(); honeycomb.music.cue(trackIndex); }
+	function stopAll() { honeycomb.music.end(); }
+
+	setInterval(function () {
+		var rows = honeycomb.music.report();
+		var current = rows.filter(function (row) { return row.current; })[0];
+		document.getElementById("status").textContent = rows.length == 0 ? "stopped" : rows.map(function (row) {
+			return (row.current ? "> " : "  ") + row.index.padEnd(12) + " " + (row.playing ? "playing" : "paused ") + "  file " + row.seconds.toFixed(2).padStart(7) +
+				"s  level " + row.gain.toFixed(2) + "  changeover: " + (row.handoff || "-") +
+				(row.lastAlignmentError == null ? "" : "  last changeover landed " + (row.lastAlignmentError * 1000).toFixed(1) + " ms off");
+		}).join("\n") + (honeycomb.music.blocked ? "\n(browser is waiting for a click before it will play)" : "");
+		if (current == null) return;
+		var built = musicMetrics.trackMap[current.index];
+		document.getElementById("fill").style.width = Math.min(100, 100 * (current.seconds % built.loopSeconds) / built.loopSeconds) + "%";
+		document.getElementById("ticks").innerHTML = built.seamSecondsArray.map(function (seam) { return "<b style='left:" + (100 * seam / built.loopSeconds) + "%'></b>"; }).join("");
+	}, 100);
+</script>
+</body>
+</html>

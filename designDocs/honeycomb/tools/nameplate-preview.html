@@ -1,0 +1,335 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nameplate — shapes and states preview</title>
+<!-- A dev tool for FEEDBACK-06 item 1. Composes the nameplate SVGs the way the game will (nine-slice for
+     the two frames) and draws the bar in every state it can be in, BEFORE any of it is wired into the
+     game. `plateMarkup` below is the reading the game's vitals builder will follow. Open through the dev
+     server: http://localhost:8000/!designDocs/honeycomb/tools/nameplate-preview.html -->
+<style>
+	body { margin: 0; padding: 20px 24px 60px; background: #000; color: #bbb; font: 14px system-ui, sans-serif; }
+	h1 { font-size: 18px; font-weight: 600; color: #ddd; margin: 0 0 4px; }
+	h2 { font-weight: 500; font-size: 15px; margin: 30px 0 10px; color: #999; }
+	p.lead { margin: 0 0 8px; color: #888; max-width: 900px; }
+	.grid { display: flex; flex-wrap: wrap; gap: 18px 28px; }
+	.card { display: flex; flex-direction: column; gap: 4px; }
+	.card .caption { font-size: 13px; color: #cfcfcf; }
+	.card .numbers { font-size: 12px; color: #777; font-family: ui-monospace, Consolas, monospace; }
+	.stage { position: relative; }
+	.mockup { position: absolute; inset: 0; background: url("../!imageStorage/mockups/mockup-7-health.webp") -160px -20px no-repeat; }
+	.overlay .plate { opacity: var(--overlay, 0.5); }
+	.key span { display: inline-block; width: 14px; height: 10px; margin: 0 4px 0 14px; vertical-align: middle; }
+
+	/* ---- One plate, in mockup pixels (units) scaled by --u. Frame top sits at 70 units. ---- */
+	.plate { position: absolute; left: 0; top: 0; width: calc(780 * var(--u)); height: calc(300 * var(--u)); }
+	.medallion {
+		position: absolute; left: calc(11 * var(--u)); top: calc(48 * var(--u));
+		width: calc(140 * var(--u)); height: calc(140 * var(--u)); border-radius: 50%; z-index: 3;
+		background: url("../../../v13 spire images/ui/nameplate/medallion.svg") center / 100% 100% no-repeat;
+	}
+	.medallion img { position: absolute; left: 18%; top: 18%; width: 64%; height: 64%; object-fit: contain; }
+	/* A usable ability: the ring glows and breathes. */
+	.plate.glow .medallion { box-shadow: 0 0 0 calc(5 * var(--u)) #f3d36b, 0 0 calc(26 * var(--u)) calc(6 * var(--u)) rgba(255, 214, 102, 0.75); animation: glowBreathe 1600ms ease-in-out infinite; }
+	@keyframes glowBreathe { 50% { box-shadow: 0 0 0 calc(5 * var(--u)) #fff0b0, 0 0 calc(40 * var(--u)) calc(10 * var(--u)) rgba(255, 214, 102, 0.95); } }
+
+	.barGroup { position: absolute; left: calc(70 * var(--u)); top: calc(70 * var(--u)); width: calc(619 * var(--u)); height: calc(82 * var(--u)); z-index: 1; }
+	.frame {
+		position: absolute; inset: 0; box-sizing: border-box; border-style: solid; border-color: transparent;
+		border-image: url("../../../v13 spire images/ui/nameplate/barFrame.svg") 16 58 20 8 fill / calc(16 * var(--u)) calc(58 * var(--u)) calc(20 * var(--u)) calc(8 * var(--u)) stretch;
+	}
+	/* The track runs from the medallion's edge to the chevron tip; every segment is a share of it. */
+	.track {
+		position: absolute; left: calc(80 * var(--u)); top: calc(16 * var(--u)); width: calc(504 * var(--u)); height: calc(46 * var(--u));
+		clip-path: polygon(0 0, calc(100% - (23 * var(--u))) 0, 100% 50%, calc(100% - (23 * var(--u))) 100%, 0 100%);
+		background: #06060b;
+	}
+	.segment { position: absolute; top: 0; bottom: 0; }
+	.health { background: linear-gradient(180deg, #cf4644 0%, #c03a39 60%, #a32f30 100%); }
+	.temporary { background: linear-gradient(180deg, #ffe9a0 0%, #f2c14e 55%, #c98f14 100%); animation: temporaryPulse 1200ms ease-in-out infinite; }
+	@keyframes temporaryPulse { 50% { filter: brightness(1.35) saturate(1.15); box-shadow: 0 0 calc(10 * var(--u)) rgba(255, 214, 102, 0.9); } }
+	/* The game's heart icons are red, which reads as health beside a red bar. Pushed round to pink. */
+	.pinkHeart { filter: hue-rotate(-32deg) saturate(1.25) brightness(1.2); }
+	.lust { background: linear-gradient(180deg, #ff8ad8 0%, #f45bbd 60%, #d0409c 100%); animation: lustPulse 1400ms ease-in-out infinite; }
+	@keyframes lustPulse { 50% { filter: brightness(1.28); } }
+	/* THE CATCH-UP GAP: health that lust has run past. A flat dark crimson read as ordinary health once the
+	   frame was tinted as well, so it is a DITHER now -- a texture, which no fill can be mistaken for, and
+	   not a stripe. The dither's pixel has a real-pixel floor, or at fighter size it melts into a flat
+	   colour and the point is lost. Three candidates, chosen by class. */
+	.gap { --dither: max(4px, calc(10 * var(--u))); image-rendering: pixelated; box-shadow: inset 0 calc(3 * var(--u)) calc(4 * var(--u)) rgba(0, 0, 0, 0.6); }
+	/* 1: pink and black, half and half. */
+	.gap.ditherChecker { background: repeating-conic-gradient(#f45bbd 0 25%, #0a0508 0 50%) 0 0 / var(--dither) var(--dither); }
+	/* 2: sparse pink on black, one pixel in four. */
+	.gap.ditherSparse { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='4' height='4' fill='%230a0508'/%3E%3Crect width='2' height='2' fill='%23f45bbd'/%3E%3C/svg%3E") 0 0 / var(--dither) var(--dither); }
+	/* 3: pink and crimson, half and half, lighter overall. */
+	.gap.ditherCrimson { background: repeating-conic-gradient(#f45bbd 0 25%, #5c1424 0 50%) 0 0 / var(--dither) var(--dither); }
+	/* A forecast: the share of the bar about to go, lighter and breathing, with a hairline where it stops. */
+	.forecast { background: #e98a80; animation: forecastBreathe 1100ms ease-in-out infinite; }
+	@keyframes forecastBreathe { 50% { opacity: 0.55; } }
+	.forecastEdge { position: absolute; top: 0; bottom: 0; width: calc(2 * var(--u)); margin-left: calc(-1 * var(--u)); background: rgba(255, 255, 255, 0.85); }
+	.trackShade { position: absolute; inset: 0; box-shadow: inset 0 calc(4 * var(--u)) calc(5 * var(--u)) rgba(0, 0, 0, 0.45); pointer-events: none; }
+
+	.tab {
+		position: absolute; left: calc(228 * var(--u)); top: calc(120 * var(--u)); width: calc(317 * var(--u)); height: calc(68 * var(--u));
+		box-sizing: border-box; border-style: solid; border-color: transparent; z-index: 2;
+		border-image: url("../../../v13 spire images/ui/nameplate/healthTab.svg") 34 24 34 24 fill / calc(34 * var(--u)) calc(24 * var(--u)) stretch;
+		display: flex; align-items: center; justify-content: center;
+		color: #fff; font: 700 calc(56 * var(--u))/1 "Trebuchet MS", system-ui, sans-serif;
+	}
+	.tab .max { opacity: 1; }
+
+	/* THE BROKEN TINT: a multiply layer over each frame, clipped to that frame's own silhouette. */
+	.tint { position: absolute; inset: 0; background: #ff8a84; mix-blend-mode: multiply; pointer-events: none; display: none; }
+	.plate.broken .tint { display: block; }
+	.frame + .tint { clip-path: polygon(0 0, calc(100% - (43 * var(--u))) 0, calc(100% - (3 * var(--u))) 50%, calc(100% - (43 * var(--u))) 100%, 0 100%); }
+	/* Border widths are zero on both frames: the image paints from border-image-width alone, so the box
+	   keeps no hidden 3px `medium` border and the tint's inset:0 is the whole frame. */
+	.frame, .tab { border-width: 0; }
+	.tab .tint { clip-path: polygon(calc(22 * var(--u)) 0, calc(100% - (22 * var(--u))) 0, 100% 50%, calc(100% - (22 * var(--u))) 100%, calc(22 * var(--u)) 100%, 0 50%); }
+	.medallion .tint { border-radius: 50%; }
+	/* Red on the tinted tab is low contrast at fighter size, so the word carries a dark outline and a glow. */
+	.plate.broken .tab { color: #ff3a4a; letter-spacing: 0.02em;
+		text-shadow: calc(2 * var(--u)) calc(2 * var(--u)) 0 #000, calc(-2 * var(--u)) calc(2 * var(--u)) 0 #000, calc(2 * var(--u)) calc(-2 * var(--u)) 0 #000, calc(-2 * var(--u)) calc(-2 * var(--u)) 0 #000, 0 0 calc(10 * var(--u)) rgba(255, 58, 74, 0.7); }
+	/* The tab's tint must sit under its text. */
+	.tabText { position: relative; z-index: 1; }
+
+	/* The floating numbers: lust above its own edge, temporary health past the bar's tip. */
+	.lustLabel {
+		position: absolute; top: calc(10 * var(--u)); z-index: 4; transform: translateX(calc(-22 * var(--u)));
+		display: flex; align-items: center; gap: calc(4 * var(--u));
+		color: #ff78c8; font: 500 calc(46 * var(--u))/1 "Trebuchet MS", system-ui, sans-serif; text-shadow: 0 0 calc(4 * var(--u)) #000;
+	}
+	.lustLabel img { width: calc(44 * var(--u)); height: calc(44 * var(--u)); }
+	.lustTick { position: absolute; top: calc(58 * var(--u)); height: calc(74 * var(--u)); width: calc(2.5 * var(--u)); margin-left: calc(-1.25 * var(--u)); background: #ff8ad8; z-index: 4; box-shadow: 0 0 calc(3 * var(--u)) #000; }
+	.temporaryLabel {
+		/* Centred on the chevron's tip line (frame top 70 + 41), so the number lines up with the point. */
+		position: absolute; left: calc(700 * var(--u)); top: calc(111 * var(--u)); transform: translateY(-50%); z-index: 4;
+		color: #ffd66b; font: 500 calc(52 * var(--u))/1 "Trebuchet MS", system-ui, sans-serif; text-shadow: 0 0 calc(4 * var(--u)) #000, 0 0 calc(10 * var(--u)) rgba(255, 214, 102, 0.6);
+	}
+	/* Past the tip the lightning takes the space by the point, so the number steps out beyond the bolts. */
+	.plate.overfull .temporaryLabel { left: calc(712 * var(--u)); }
+
+	/* THE SHATTER: the frame's tip clipped off along a jag, the crack drawn on the jag, lightning at the
+	   break in two alternating frames, and pieces of the frame drifting away. */
+	.plate.overfull .barGroup {
+		clip-path: polygon(0 0, calc(100% - (34 * var(--u))) 0, calc(100% - (40 * var(--u))) calc(12 * var(--u)), calc(100% - (32 * var(--u))) calc(22 * var(--u)),
+			calc(100% - (44 * var(--u))) calc(34 * var(--u)), calc(100% - (36 * var(--u))) calc(44 * var(--u)), calc(100% - (46 * var(--u))) calc(56 * var(--u)),
+			calc(100% - (38 * var(--u))) calc(68 * var(--u)), calc(100% - (48 * var(--u))) 100%, 0 100%);
+	}
+	.crack { position: absolute; left: calc(627 * var(--u)); top: calc(70 * var(--u)); width: calc(60 * var(--u)); height: calc(82 * var(--u)); z-index: 2; }
+	/* Half the old width. Four frames, one shown at a time; the ticker below picks which. */
+	.bolt { position: absolute; left: calc(640 * var(--u)); top: calc(46 * var(--u)); width: calc(65 * var(--u)); height: calc(130 * var(--u)); z-index: 3; visibility: hidden; }
+	.bolt.on { visibility: visible; }
+	/* Starts half as far from the break (649, 111) as it did, and drifts half as far, to match the narrower bolts. */
+	.chip { position: absolute; z-index: 3; left: calc(650.5 * var(--u)); top: calc(103.5 * var(--u)); opacity: 0;
+		animation: chipDrift var(--life) cubic-bezier(0.2, 0.6, 0.4, 1) var(--delay) infinite; }
+	@keyframes chipDrift {
+		0%   { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.6); }
+		12%  { opacity: 1; }
+		70%  { opacity: 1; }
+		100% { opacity: 0; transform: translate(calc(var(--dx) * var(--u)), calc(var(--dy) * var(--u))) rotate(var(--spin)) scale(1); }
+	}
+
+	.statuses { position: absolute; left: calc(96 * var(--u)); top: calc(178 * var(--u)); width: calc(520 * var(--u)); display: flex; flex-wrap: wrap; gap: calc(10 * var(--u)); z-index: 2; }
+	.status { position: relative; width: calc(104 * var(--u)); height: calc(104 * var(--u)); background: url("../../../v13 spire images/ui/nameplate/statusCircle.svg") center / 100% 100% no-repeat; }
+	.status img { position: absolute; left: 20%; top: 20%; width: 60%; height: 60%; object-fit: contain; }
+	.status b { position: absolute; right: calc(2 * var(--u)); bottom: calc(-2 * var(--u)); color: #fff; font: 700 calc(34 * var(--u))/1 "Trebuchet MS", system-ui, sans-serif; text-shadow: 0 0 calc(3 * var(--u)) #000, 0 0 calc(3 * var(--u)) #000; }
+</style>
+</head>
+<body>
+<h1>Nameplate preview — FEEDBACK-06 item 1</h1>
+<p class="lead">Placeholder icons: the knight class icon, a pink heart for broken, a shield for a status. The icons are files, not SVG; only the frames, the circles and the shatter pieces are drawn.</p>
+<div class="key">Bar key:
+	<span style="background:#c03a39"></span>health
+	<span style="background:#f45bbd"></span>lust
+	<span style="background:repeating-conic-gradient(#f45bbd 0 25%, #0a0508 0 50%) 0 0 / 4px 4px"></span>catch-up gap (broken)
+	<span style="background:#06060b;outline:1px solid #333"></span>missing health
+	<span style="background:#f2c14e"></span>temporary HP
+	<span style="background:#e98a80"></span>forecast loss
+</div>
+
+<h2>Catch-up gap candidates (broken at 20/68 HP, 44 lust) &nbsp;
+	<label>Use in the states below: <select id="gapPicker">
+		<option value="ditherChecker">1: pink/black checker</option>
+		<option value="ditherSparse">2: sparse pink on black</option>
+		<option value="ditherCrimson">3: pink/crimson checker</option>
+	</select></label></h2>
+<div class="grid" id="gapGrid"></div>
+<div class="grid" id="gapSmallGrid" style="margin-top: 10px"></div>
+
+<h2>States (at half the mockup's size)</h2>
+<div class="grid" id="stateGrid"></div>
+
+<h2>The same states at roughly in-game size</h2>
+<div class="grid" id="smallGrid"></div>
+
+<h2>The mockup's top bar, and the shapes laid over it &nbsp; <label><input type="range" min="0" max="1" step="0.05" value="0.5" oninput="document.getElementById('overlayStage').style.setProperty('--overlay', this.value)"> opacity</label></h2>
+<div class="stage overlay" id="overlayStage" style="--u: 1px; width: 700px; height: 160px; overflow: hidden"><div class="mockup"></div></div>
+
+<script>
+	var art = "../../../v13 spire images/";
+	var classIcon = art + "icons/knight.webp";
+	var brokenIcon = art + "icons/heart-glow-pink.webp";
+	var statusIcon = art + "icons/shield-plain.webp";
+	var boltFrameArray = ["A", "B", "C", "D"];
+	var gapStyle = "ditherChecker";
+
+	//THE READING. Everything is a share of maximum health along the track.
+	//  not broken   pink 0..lust over red 0..health; gold from health to health+tHP; black past that
+	//  broken       pink 0..(health+tHP); the catch-up gap from there to lust; black past that
+	//Broken is lust >= health + temporary HP, the engine's own test. Past maximum, the bar shatters.
+	function plateMarkup(state) {
+		var maximum = state.maximum;
+		var temporary = state.temporary || 0;
+		var lust = state.lust || 0;
+		var standing = state.health + temporary;
+		var broken = lust >= standing && lust > 0;
+		var overfull = standing > maximum;
+		var share = function (value) { return Math.max(0, Math.min(100, value / maximum * 100)); };
+		var segment = function (className, from, to) {
+			return to <= from ? "" : '<div class="segment ' + className + '" style="left:' + from.toFixed(2) + "%;width:" + (to - from).toFixed(2) + '%"></div>';
+		};
+
+		//THE GOLD THE LIGHTNING COMES FROM. Past maximum, the health fill stops short of the tip by at least
+		//this share and gold fills the rest, so a full bar that overflows still shows gold at the break --
+		//68/68 +11 reads exactly like 64/68 +11. The share is 64/68's own shortfall.
+		var overfullGoldShare = 100 - 64 / 68 * 100;
+		var healthShown = overfull ? Math.min(share(state.health), 100 - overfullGoldShare) : share(state.health);
+
+		var track = "";
+		if (broken == false) {
+			track += segment("health", 0, healthShown);
+			if (state.after != null && state.after < state.health) {
+				track += segment("forecast", Math.min(share(state.after), healthShown), healthShown);
+			}
+			track += segment("temporary", healthShown, share(standing));
+			track += segment("lust", 0, share(lust));
+			if (state.after != null && state.after < state.health) {
+				track += '<div class="forecastEdge" style="left:' + share(state.after).toFixed(2) + '%"></div>';
+			}
+		} else {
+			track += segment("lust", 0, share(standing));
+			track += segment("gap " + (state.gapStyle || gapStyle), share(standing), share(lust));
+		}
+		track += '<div class="trackShade"></div>';
+
+		//The track spans units 150..654 of the plate, so a share becomes a plate position.
+		var trackX = function (percent) { return 150 + 504 * percent / 100; };
+
+		var markup = '<div class="plate' + (broken ? " broken" : "") + (overfull ? " overfull" : "") + (state.glow && !broken ? " glow" : "") + '">';
+		markup += '<div class="medallion"><img src="' + (broken ? brokenIcon + '" class="pinkHeart' : classIcon) + '"><div class="tint"></div></div>';
+		markup += '<div class="barGroup"><div class="frame"></div><div class="tint"></div><div class="track">' + track + "</div></div>";
+		markup += '<div class="tab"><div class="tint"></div><span class="tabText">' +
+			(broken ? "BROKEN!" : Math.max(0, state.health) + "/" + maximum) + "</span></div>";
+		//BROKEN SHOWS NO NUMBERS AND NO TICK: every figure in that state comes from the tooltip.
+		if (lust > 0 && broken == false) {
+			var x = trackX(share(lust));
+			markup += '<div class="lustTick" style="left:calc(' + x + ' * var(--u))"></div>';
+			markup += '<div class="lustLabel" style="left:calc(' + x + ' * var(--u))"><img class="pinkHeart" src="' + art + 'icons/heart-red.webp">' + lust + "</div>";
+		}
+		if (temporary > 0 && broken == false) markup += '<div class="temporaryLabel' + (overfull ? "" : " inside") + '">+' + temporary + "</div>";
+		if (overfull) {
+			markup += '<img class="crack" src="' + art + 'ui/nameplate/shatterCrack.svg">';
+			boltFrameArray.forEach(function (frame, frameIndex) {
+				markup += '<img class="bolt' + (frameIndex === 0 ? " on" : "") + '" src="' + art + "ui/nameplate/shatterBolt" + frame + '.svg">';
+			});
+			var chipArray = [
+				{ file: "A", w: 44, h: 38, dx: 35, dy: -35, spin: "-80deg", life: "2600ms", delay: "0ms" },
+				{ file: "B", w: 30, h: 26, dx: 55, dy: -5, spin: "140deg", life: "2200ms", delay: "700ms" },
+				{ file: "C", w: 36, h: 22, dx: 30, dy: 25, spin: "-120deg", life: "2400ms", delay: "1300ms" },
+				{ file: "B", w: 24, h: 21, dx: 60, dy: 18, spin: "200deg", life: "2000ms", delay: "1800ms" },
+			];
+			chipArray.forEach(function (chip) {
+				markup += '<img class="chip" src="' + art + "ui/nameplate/shatterChip" + chip.file + '.svg" style="width:calc(' + chip.w +
+					" * var(--u));height:calc(" + chip.h + " * var(--u));--dx:" + chip.dx + ";--dy:" + chip.dy + ";--spin:" + chip.spin +
+					";--life:" + chip.life + ";--delay:" + chip.delay + '">';
+			});
+		}
+		if (state.statuses) {
+			markup += '<div class="statuses">';
+			for (var i = 0; i < state.statuses; i++) markup += '<div class="status"><img src="' + statusIcon + '"><b>' + (i + 3) + "</b></div>";
+			markup += "</div>";
+		}
+		return markup + "</div>";
+	}
+
+	var stateArray = [
+		{ caption: "At rest", maximum: 68, health: 68 },
+		{ caption: "Hurt: missing health is black", maximum: 68, health: 41 },
+		{ caption: "The mockup's middle bar: glow, lust, forecast, a status, excess health", maximum: 68, health: 68, lust: 16, after: 52, temporary: 6, glow: true, statuses: 1 },
+		{ caption: "Hurt, lust building, a forecast", maximum: 68, health: 44, lust: 18, after: 36 },
+		{ caption: "One hit from breaking", maximum: 68, health: 30, lust: 26 },
+		{ caption: "Temporary HP inside the bar", maximum: 68, health: 40, temporary: 12, lust: 10 },
+		{ caption: "Excess health on its own", maximum: 68, health: 64, temporary: 11 },
+		{ caption: "Excess health at full health: must look like the one before", maximum: 68, health: 68, temporary: 11 },
+		{ caption: "Broken: health missing, and the catch-up gap", maximum: 68, health: 20, lust: 38 },
+		{ caption: "Broken the instant lust meets health (no gap yet)", maximum: 68, health: 30, lust: 30 },
+		{ caption: "Broken, with temporary HP inside the pink", maximum: 68, health: 20, temporary: 6, lust: 40 },
+		{ caption: "Broken, lust past maximum: the gap runs to the end", maximum: 68, health: 12, lust: 80 },
+		{ caption: "The only all-pink bar: full health, full lust", maximum: 68, health: 68, lust: 68 },
+		{ caption: "Statuses wrap instead of running off", maximum: 68, health: 50, lust: 8, statuses: 7 },
+	];
+
+	function numbersLine(state) {
+		return state.health + "/" + state.maximum + " HP" + (state.temporary ? " · +" + state.temporary + " tHP" : "") +
+			(state.lust ? " · " + state.lust + " lust" : "") + (state.after != null ? " · forecast → " + state.after : "");
+	}
+
+	function fill(gridId, unit, withCaption, array) {
+		var grid = document.getElementById(gridId);
+		grid.innerHTML = "";
+		(array || stateArray).forEach(function (state) {
+			var card = document.createElement("div");
+			card.className = "card";
+			var height = state.statuses > 4 ? 420 : state.statuses ? 300 : 200;
+			card.innerHTML = (withCaption ? '<div class="caption">' + state.caption + '</div><div class="numbers">' + numbersLine(state) + "</div>" : "") +
+				'<div class="stage" style="--u:' + unit + "px;width:calc(800 * var(--u));height:calc(" + height + ' * var(--u))">' + plateMarkup(state) + "</div>";
+			grid.appendChild(card);
+		});
+	}
+	function fillAll() {
+		fill("stateGrid", 0.5, true);
+		fill("smallGrid", 0.22, false);
+	}
+	fillAll();
+
+	//THE GAP CANDIDATES side by side, on the same two broken bars, at both sizes.
+	var gapCandidateArray = [];
+	[["ditherChecker", "1: pink/black checker"], ["ditherSparse", "2: sparse pink on black"], ["ditherCrimson", "3: pink/crimson checker"]].forEach(function (pair) {
+		gapCandidateArray.push({ caption: pair[1], maximum: 68, health: 20, lust: 44, gapStyle: pair[0] });
+	});
+	fill("gapGrid", 0.5, true, gapCandidateArray);
+	var gapSmallArray = gapCandidateArray.map(function (state) { return Object.assign({}, state, { caption: "" }); });
+	fill("gapSmallGrid", 0.22, false, gapSmallArray);
+	document.getElementById("gapPicker").onchange = function () { gapStyle = this.value; fillAll(); };
+
+	//THE CRACKLE. Each bolt picks its next frame from the OTHER three, never repeating, in an order that
+	//looks random but is a hash of (plate, tick) -- no Math.random and no game RNG stream, so determinism
+	//is untouched and a repaint cannot change anything but which picture is showing.
+	var boltTick = 0;
+	function hash(a, b) {
+		var h = (a * 374761393 + b * 668265263) | 0;
+		h = Math.imul(h ^ (h >>> 13), 1274126177);
+		return (h ^ (h >>> 16)) >>> 0;
+	}
+	setInterval(function () {
+		boltTick++;
+		document.querySelectorAll(".plate.overfull").forEach(function (plate, plateIndex) {
+			var boltArray = plate.querySelectorAll(".bolt");
+			var current = 0;
+			boltArray.forEach(function (bolt, index) { if (bolt.classList.contains("on")) current = index; });
+			var next = (current + 1 + hash(plateIndex + 1, boltTick) % (boltArray.length - 1)) % boltArray.length;
+			boltArray[current].classList.remove("on");
+			boltArray[next].classList.add("on");
+		});
+	}, 90);
+
+	//The overlay: the top bar, shifted so its frame lands where the mockup's does (mockup frame top 54, crop top 20).
+	var overlayStage = document.getElementById("overlayStage");
+	var holder = document.createElement("div");
+	holder.style.cssText = "position:absolute;left:0;top:-36px";
+	holder.innerHTML = plateMarkup({ maximum: 68, health: 68 });
+	overlayStage.appendChild(holder);
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sound library — measured</title>
+<!-- THE MEASURING BENCH for honeycomb sound/sfx.
+
+     Loudness needs a decoder, and Node has none, so this page is where sfx-metrics.json comes from:
+     it decodes every file through the Web Audio API and reports what a filename cannot say -- how
+     long each one actually SOUNDS for, and how loud it is against the rest.
+
+     Open through the dev server:  http://localhost:8000/!designDocs/honeycomb/tools/sfx-report.html
+     Press "Copy sfx-metrics.json" and paste the result over !designDocs/honeycomb/tools/sfx-metrics.json.
+     Then run `node "!designDocs/honeycomb/tools/sfx-report.js"` for the audit, and `--trims` for the
+     fileVolumeScaleMap block.
+
+     Re-run this whenever a sound file is added or replaced; sfx-report.js reports when the metrics
+     and the files on disk have drifted apart.
+
+     WHAT IS MEASURED
+       fileSeconds     the whole file, padding included
+       audibleSeconds  first to last sample above 2% of peak -- the length a player hears. Several
+                       files are padded to a fixed length (weaponThrust is 8.04s of file, 0.45s of
+                       sound), so this is the only number a length limit can be written against.
+       loudnessDb      the loudest 300ms window, which is what a one-shot sounds like. Whole-file RMS
+                       would score a padded file as quiet no matter how hard it hits.
+-->
+<style>
+	body { margin: 0; padding: 22px 26px 60px; background: #0b0812; color: #cfc7dd; font: 14px system-ui, sans-serif; }
+	h1 { font-size: 18px; margin: 0 0 4px; color: #eee; }
+	p.lead { margin: 0 0 16px; color: #8d85a0; max-width: 900px; }
+	button { font: inherit; padding: 7px 14px; border-radius: 7px; border: 1px solid #5a4a78;
+		background: #1d1630; color: #e6dcc2; cursor: pointer; margin-right: 10px; }
+	button:hover { background: #2a2044; }
+	table { border-collapse: collapse; margin-top: 18px; font-size: 13px; }
+	th, td { padding: 4px 12px 4px 0; text-align: right; white-space: nowrap; }
+	th { color: #8d85a0; font-weight: 500; border-bottom: 1px solid #2e2442; }
+	td.stem, th.stem { text-align: left; font-family: ui-monospace, Consolas, monospace; color: #e6dcc2; }
+	tr.long td { color: #ff9a7a; }
+	tr.quiet td { color: #8fb7ff; }
+	#status { margin-top: 12px; color: #8d85a0; }
+	textarea { width: 100%; height: 190px; margin-top: 16px; background: #120e1d; color: #cfc7dd;
+		border: 1px solid #2e2442; border-radius: 7px; font: 12px ui-monospace, Consolas, monospace; padding: 10px; }
+	.legend { margin-top: 14px; font-size: 12px; color: #7a7290; max-width: 900px; }
+</style>
+</head>
+<body>
+<h1>Sound library — measured</h1>
+<p class="lead">Every file in <code>honeycomb sound/sfx</code>, decoded and measured. Orange rows sound
+for longer than three and a half seconds, which is more than a card play can carry; blue rows are quiet
+enough at source that no trim can bring them up to the target, and want re-rendering louder.</p>
+
+<button id="measure">Measure</button>
+<button id="copy">Copy sfx-metrics.json</button>
+<span id="status">idle.</span>
+
+<table id="table"></table>
+<textarea id="out" spellcheck="false" placeholder="the generated sfx-metrics.json appears here"></textarea>
+<p class="legend">Target loudness is written into the JSON as <code>targetLoudnessDb</code>;
+<code>sfx-report.js</code> reads it and derives each stem's trim from it. The measurement window and
+the 2% audibility floor are in this page's source.</p>
+
+<script>
+//The audibility floor, as a share of the file's own peak: below this is the tail, not the sound.
+var AUDIBLE_FLOOR = 0.02;
+//The window a one-shot's loudness is judged over. Long enough to cover an impact and its body,
+//short enough that trailing silence cannot flatter a quiet file.
+var LOUDNESS_WINDOW_SECONDS = 0.3;
+//What every stem is trimmed toward. Also written into the JSON, so the report and this page agree.
+var TARGET_LOUDNESS_DB = -19;
+//Longer than this and a stem cannot sit on a card play; mirrors tuning.audio.momentArray's cardPlay.
+var LONG_SECONDS = 3.5;
+//A stem this far under the target cannot be lifted to it by a trim inside the shipped range.
+var QUIET_DB = -25;
+
+//Three levels up since session 41 moved this page into tools/; two was the honeycomb root.
+var LIBRARY = "../../../honeycomb sound/sfx/";
+
+//Every file in the library. Kept here rather than listed from disk: a page cannot read a directory.
+//Adding a sound means adding its stem here and re-measuring.
+var STEM_ARRAY = [
+	"!broken", "!heartbeat", "!outfitChange", "!torn", "!victoryBattle", "!victoryFull",
+	"buffParty", "buffSingle", "debuffParty", "debuffSingle", "healSmall",
+	"itemKey", "itemPotionGeneric", "itemPotionGood",
+	"lewdSlap", "lewdSplort", "lewdSquish", "lewdSwallowing",
+	"magicCharge", "magicDarkGeneric", "magicDarkWail", "magicEarth", "magicFireball",
+	"magicHolyChoir", "magicHolyLight", "magicIce", "magicSlash", "magicWater", "magicWeird",
+	"miscCreak", "miscDoor", "miscSnap", "miscWalkingWood", "miscWind",
+	"newCharacter", "newOutfit", "newProgression",
+	"stingerBoss", "stingerDanger", "stingerSpooky",
+	"weaponBrutal", "weaponClang", "weaponKaboom", "weaponSlash", "weaponThrust",
+];
+
+function measureBuffer(buffer) {
+	var samples = buffer.getChannelData(0);
+	var rate = buffer.sampleRate;
+	var peak = 0;
+	for (var scanIndex = 0; scanIndex < samples.length; scanIndex++) {
+		var value = Math.abs(samples[scanIndex]);
+		if (value > peak) peak = value;
+	}
+	var floor = peak * AUDIBLE_FLOOR;
+	var first = samples.length;
+	var last = 0;
+	for (var headIndex = 0; headIndex < samples.length; headIndex++) {
+		if (Math.abs(samples[headIndex]) > floor) { first = headIndex; break; }
+	}
+	for (var tailIndex = samples.length - 1; tailIndex >= 0; tailIndex--) {
+		if (Math.abs(samples[tailIndex]) > floor) { last = tailIndex; break; }
+	}
+	//A sliding sum, so the loudest window costs one pass rather than one pass per window.
+	var window = Math.round(LOUDNESS_WINDOW_SECONDS * rate);
+	var running = 0;
+	var loudest = 0;
+	for (var windowIndex = 0; windowIndex < samples.length; windowIndex++) {
+		running += samples[windowIndex] * samples[windowIndex];
+		if (windowIndex >= window) running -= samples[windowIndex - window] * samples[windowIndex - window];
+		if (windowIndex >= window && running / window > loudest) loudest = running / window;
+	}
+	return {
+		fileSeconds: Number(buffer.duration.toFixed(2)),
+		audibleSeconds: Number(((last - first) / rate).toFixed(2)),
+		leadInSeconds: Number((first / rate).toFixed(2)),
+		peak: Number(peak.toFixed(3)),
+		loudnessDb: Number((20 * Math.log10(Math.sqrt(loudest) || 1e-9)).toFixed(1)),
+	};
+}
+
+var measuredMap = {};
+
+function render() {
+	var markup = "<tr><th class='stem'>stem</th><th>file</th><th>audible</th><th>lead-in</th>" +
+		"<th>peak</th><th>loud dB</th></tr>";
+	for (var stemIndex = 0; stemIndex < STEM_ARRAY.length; stemIndex++) {
+		var stem = STEM_ARRAY[stemIndex];
+		var row = measuredMap[stem];
+		if (row == null) continue;
+		var className = row.audibleSeconds > LONG_SECONDS ? "long" : (row.loudnessDb < QUIET_DB ? "quiet" : "");
+		markup += "<tr class='" + className + "'><td class='stem'>" + stem + "</td><td>" + row.fileSeconds +
+			"s</td><td>" + row.audibleSeconds + "s</td><td>" + row.leadInSeconds + "s</td><td>" +
+			row.peak + "</td><td>" + row.loudnessDb + "</td></tr>";
+	}
+	document.getElementById("table").innerHTML = markup;
+}
+
+function buildJson() {
+	var keyArray = Object.keys(measuredMap).sort();
+	var lineArray = [];
+	for (var keyIndex = 0; keyIndex < keyArray.length; keyIndex++) {
+		lineArray.push("    " + JSON.stringify(keyArray[keyIndex]) + ": " + JSON.stringify(measuredMap[keyArray[keyIndex]]));
+	}
+	return "{\n" +
+		"  \"_comment\": \"MEASURED, NOT GUESSED. Generated by sfx-report.html (open it through the dev " +
+		"server and press Copy). Every stem in honeycomb sound/sfx, decoded in a browser: audibleSeconds " +
+		"is where the signal rises above and falls below 2% of peak, loudnessDb is the loudest 300ms " +
+		"window, which is what a one-shot actually sounds like. test-honeycomb.js [79] holds this to the " +
+		"files on disk and holds every sound assignment to the length its moment allows.\",\n" +
+		"  \"targetLoudnessDb\": " + TARGET_LOUDNESS_DB + ",\n" +
+		"  \"stemMap\": {\n" + lineArray.join(",\n") + "\n  }\n}\n";
+}
+
+document.getElementById("measure").addEventListener("click", async function () {
+	var status = document.getElementById("status");
+	var context = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(1, 44100, 44100);
+	measuredMap = {};
+	for (var stemIndex = 0; stemIndex < STEM_ARRAY.length; stemIndex++) {
+		var stem = STEM_ARRAY[stemIndex];
+		status.textContent = "measuring " + (stemIndex + 1) + " / " + STEM_ARRAY.length + "  (" + stem + ")";
+		try {
+			var response = await fetch(LIBRARY + encodeURIComponent(stem) + ".mp3");
+			if (response.ok != true) { status.textContent = "MISSING: " + stem + ".mp3"; continue; }
+			measuredMap[stem] = measureBuffer(await context.decodeAudioData(await response.arrayBuffer()));
+		} catch (decodeError) {
+			status.textContent = "could not decode " + stem + ": " + decodeError;
+		}
+		render();
+	}
+	document.getElementById("out").value = buildJson();
+	status.textContent = Object.keys(measuredMap).length + " of " + STEM_ARRAY.length +
+		" measured. Paste the box below over sfx-metrics.json.";
+});
+
+document.getElementById("copy").addEventListener("click", function () {
+	var box = document.getElementById("out");
+	if (box.value === "") { document.getElementById("status").textContent = "measure first."; return; }
+	box.select();
+	document.execCommand("copy");
+	document.getElementById("status").textContent = "copied.";
+});
+</script>
+</body>
+</html>

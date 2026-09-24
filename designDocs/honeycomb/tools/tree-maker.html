@@ -1,0 +1,798 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Honeycomb — progression tree maker</title>
+<style>
+	@font-face { font-family: norwester; src: url("../../scripts/fonts/norwester.otf"); }
+	:root {
+		--bg: #0b0812; --panel: #14101f; --panel2: #1c1628; --edge: #2a2138; --edge2: #3a3148;
+		--ink: #bbb; --ink2: #888; --dim: #666; --cream: #efe4cf; --gold: #c9a961; --gold2: #f0d89a;
+		--good: #7fc99a; --warn: #e0b45a; --bad: #ff8a7a; --blue: #8fd8ff;
+	}
+	* { box-sizing: border-box; }
+	body { margin: 0; padding: 16px 18px 90px; background: var(--bg); color: var(--ink);
+		font: 13px system-ui, sans-serif; }
+	h1 { font-size: 17px; font-weight: 600; color: #ddd; margin: 0 0 2px; }
+	p.lead { margin: 0 0 12px; color: var(--ink2); max-width: 1100px; }
+	h2 { font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
+		margin: 0 0 8px; color: #cfc4a8; border-bottom: 1px solid var(--edge); padding-bottom: 5px; }
+	button { background: var(--panel2); color: #cfc4a8; border: 1px solid var(--edge2);
+		border-radius: 5px; padding: 4px 9px; cursor: pointer; font: inherit; }
+	button:hover { background: var(--edge2); color: #fff8e0; }
+	button.on { background: var(--edge2); color: #fff8e0; }
+	button.danger { border-color: #5a2a2a; color: #d98a7a; }
+	input, select, textarea { background: #100c18; color: var(--cream); border: 1px solid var(--edge2);
+		border-radius: 4px; padding: 4px 6px; font: 12px ui-monospace, Consolas, monospace; width: 100%; }
+	textarea { resize: vertical; }
+	label.field { display: block; margin: 7px 0; }
+	label.field > span { display: block; color: var(--dim); font-size: 11px; margin-bottom: 3px; }
+	.row { display: flex; gap: 6px; align-items: center; }
+	.wrap { display: flex; gap: 18px; align-items: flex-start; }
+	.col { flex: 1 1 0; min-width: 0; }
+	.col.side { flex: 0 0 300px; }
+	.panel { background: var(--panel); border: 1px solid var(--edge); border-radius: 10px;
+		padding: 12px 14px; margin-bottom: 14px; }
+	.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+	.chips button { padding: 3px 7px; font-size: 12px; }
+	/* The game column: fixed width, height driven by the authored tree, exactly as the tab draws it. */
+	.stage { position: relative; background: #0d0a16; border: 1px solid var(--edge); border-radius: 10px;
+		overflow: hidden; margin: 0 auto; }
+	svg.tree { display: block; cursor: default; touch-action: none; }
+	.tree .axis { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 5 6; opacity: .22; }
+	.tree .grid { stroke: var(--edge2); stroke-width: 1; opacity: .35; }
+	.tree .laneGuide { stroke: var(--edge2); stroke-width: 1; opacity: .18; }
+	.tree .edge { fill: none; stroke: var(--edge2); stroke-width: 2.5; }
+	.tree .edge.hot { stroke: var(--gold); }
+	.tree .nodePad { fill: var(--panel2); stroke: var(--edge2); stroke-width: 2.5; cursor: grab; }
+	.tree .node.sel .nodePad { fill: #3a2c14; stroke: var(--gold2); stroke-width: 3.5; }
+	.tree .node.role-root .nodePad { stroke: var(--gold); }
+	.tree .node.role-ability1 .nodePad, .tree .node.role-ability2 .nodePad { stroke: var(--blue); }
+	.tree .node.bad .nodePad { stroke: var(--bad); stroke-dasharray: 4 3; }
+	.tree .nodeName { fill: var(--cream); font-family: norwester, sans-serif; font-size: 12.5px;
+		text-anchor: middle; pointer-events: none; }
+	.tree .nodeCost { fill: var(--dim); font-size: 11px; text-anchor: middle; pointer-events: none; }
+	.tree .roleTag { fill: var(--dim); font-size: 9px; text-anchor: middle; pointer-events: none;
+		text-transform: uppercase; letter-spacing: .06em; }
+	.report { font: 12px ui-monospace, Consolas, monospace; white-space: pre-wrap; }
+	.report .h { color: var(--bad); }
+	.report .s { color: var(--warn); }
+	.report .ok { color: var(--good); }
+	.report div { margin: 2px 0; }
+	.muted { color: var(--dim); }
+	.hint { color: var(--dim); font-size: 11px; margin-top: 6px; }
+	#exportBox { height: 190px; white-space: pre; }
+	.badge { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 11px; margin-left: 6px; }
+	.badge.ok { background: #1d3a26; color: var(--good); }
+	.badge.bad { background: #3a1d1d; color: var(--bad); }
+	.badge.warn { background: #3a321d; color: var(--warn); }
+	.stat { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink2);
+		padding: 2px 0; border-bottom: 1px dotted var(--edge); }
+</style>
+</head>
+<body>
+
+<h1>Honeycomb — progression tree maker</h1>
+<p class="lead">An offline editor for the six progression trees. It draws with the same mapping the game tab uses
+(fixed width, height driven by the tree), snaps to the lane/depth grid, checks the hard and soft rules from
+<code>rework/TREE-DESIGN.md</code>, and exports paste-ready <code>nodeArray</code> text.</p>
+
+<div class="wrap">
+	<!-- ============================ LEFT ============================ -->
+	<div class="col side">
+		<div class="panel">
+			<h2>Tree</h2>
+			<label class="field"><span>Reference</span>
+				<select id="characterSelect">
+					<option value="">— blank —</option>
+					<option value="brienne">Brienne — the Wall</option>
+					<option value="nettle">Nettle — the Root</option>
+					<option value="severine">Severine — the Orbit</option>
+					<option value="cinder">Cinder — the Ladder</option>
+					<option value="clemence">Clemence — the Spiral</option>
+					<option value="cassadora">Cassadora — the Constellation</option>
+				</select>
+			</label>
+			<div class="row" style="margin-top:8px">
+				<button id="autoSpaceBtn" title="Re-space every node on the selected node's row onto symmetric lanes">Auto-space row</button>
+				<button id="tidyBtn" title="Snap every node to the nearest grid position">Snap all</button>
+			</div>
+			<div class="hint">Drag a node to move it. Hold <b>Alt</b> to ignore snapping. Click to select.</div>
+		</div>
+
+		<div class="panel">
+			<h2>Add node</h2>
+			<div class="chips" id="roleChips"></div>
+		</div>
+
+		<div class="panel">
+			<h2>Selected node <span id="selBadge" class="badge"></span></h2>
+			<div id="inspector" class="muted">Nothing selected.</div>
+			<div class="row" style="margin-top:10px">
+				<button id="deleteBtn" class="danger">Delete node</button>
+				<button id="dupBtn">Duplicate</button>
+			</div>
+		</div>
+
+		<div class="panel">
+			<h2>Advanced</h2>
+			<label class="field"><span>Requires (comma-separated node indices, or index:rank)</span>
+				<input id="requiresInput" placeholder="briStart, briGuard:2">
+			</label>
+			<label class="field"><span>Effect fields (raw JS object, merged into the node)</span>
+				<textarea id="extraInput" rows="5" placeholder='{ healthModifier: 5, starterUpgradeArray: [{ card: "brienneCleave", addEffectArray: [{ index: "temporaryHealth", amount: 2 }] }] }'></textarea>
+			</label>
+			<button id="applyAdvancedBtn">Apply</button>
+		</div>
+	</div>
+
+	<!-- ============================ CENTER ============================ -->
+	<div class="col">
+		<div class="panel">
+			<h2>Preview <span id="previewBadge" class="badge"></span></h2>
+			<div class="stage" id="stage">
+				<svg class="tree" id="treeSvg"></svg>
+			</div>
+			<div class="hint" id="renderHint"></div>
+		</div>
+		<div class="panel">
+			<h2>Export <span id="exportBadge" class="badge"></span></h2>
+			<div class="row" style="margin-bottom:6px">
+				<label class="row" style="gap:4px"><input type="checkbox" id="autoFillToggle" checked style="width:auto"> Auto-fill role defaults</label>
+				<button id="copyBtn">Copy</button>
+				<button id="downloadBtn">Download .js</button>
+			</div>
+			<textarea id="exportBox" spellcheck="false"></textarea>
+			<div class="hint">Paste under <code>nodeArray: [</code>. Fields you left blank are filled from the role when Auto-fill is on; tags show which.</div>
+		</div>
+	</div>
+
+	<!-- ============================ RIGHT ============================ -->
+	<div class="col side">
+		<div class="panel">
+			<h2>Stats</h2>
+			<div id="stats"></div>
+		</div>
+		<div class="panel">
+			<h2>Rules</h2>
+			<div class="report" id="report"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+"use strict";
+
+//===================================================================================================
+//RENDER CONTRACT. Mirrors rework/TREE-DESIGN.md §2.2 and tuning.progression.treeView. If the game's
+//values change, change them here too (the maker is a design aid, not the source of truth for tuning).
+//===================================================================================================
+const COLUMN = {
+	width: 340, minimumHeight: 620,
+	sideMargin: 42, topMargin: 34, bottomMargin: 54,
+	nodeRadius: 20, labelOffset: 14, depthStep: 100,
+	minLaneGap: 12, rowStep: 1,
+};
+const LANES = {
+	1: [50], 2: [37, 63], 3: [24, 50, 76], 4: [11, 37, 63, 89],
+};
+const ROLE_DEFAULT = {
+	root:      { cost: 20,  glyph: "star" },
+	ability1:  { cost: 20,  glyph: "spark" },
+	ability2:  { cost: 110, glyph: "crown" },
+	replace:   { cost: 60,  glyph: "swap" },
+	economy:   { cost: 40,  glyph: "coin" },
+	agg:       { cost: 40,  glyph: "sword" },
+	def:       { cost: 40,  glyph: "shield" },
+	wheel:     { cost: 140, glyph: "gear" },
+	outfit:    { cost: 20,  glyph: "shirt" },
+	normal:    { cost: 40,  glyph: "star" },
+};
+const TERMINAL_ROLES = ["ability2", "wheel", "outfit"];
+
+//===================================================================================================
+//The six shipped trees, as they stand today: the reference shapes. Hooks and other functions are
+//omitted; these are for shape work, not a mirror of the content table. Load one, bend it, export.
+//===================================================================================================
+const REFERENCES = {
+	brienne: [
+		{ role: "root", index: "briStart", name: "Trained", description: "+5 Max HP per rank.", x: 0, y: 50, cost: 20, rankMaximum: 3, healthModifier: 5 },
+		{ role: "def", index: "briGuard", name: "Set Stance", description: "+8 Max HP. Shuts off Keen Edge.", x: 1, y: 26, cost: 40, requiresArray: ["briStart"], exclusiveGroup: "briPath", healthModifier: 8 },
+		{ role: "normal", index: "briThorns", name: "Thorn Armour", description: "Adds Thorn Armour to the deck.", x: 2, y: 16, cost: 60, requiresArray: ["briGuard"], cardAdditionArray: [{ index: "brienneThornArmour", count: 1 }] },
+		{ role: "ability2", index: "briWall", name: "Aegis", description: "Grants the Aegis ability.", x: 2, y: 38, cost: 60, requiresArray: ["briGuard"], abilityAdditionArray: [{ index: "brienneAegis" }] },
+		{ role: "agg", index: "briEdge", name: "Keen Edge", description: "Sword Strike becomes Riposte.", x: 1, y: 74, cost: 40, requiresArray: ["briStart"], exclusiveGroup: "briPath", cardReplacementArray: [{ from: "brienneStrike", to: "brienneRiposte", count: 1 }], tagAdditionArray: ["striker"] },
+		{ role: "normal", index: "briRally", name: "Rally", description: "Adds Rally to the deck.", x: 2, y: 84, cost: 60, requiresArray: ["briEdge"], cardAdditionArray: [{ index: "brienneRally", count: 1 }] },
+		{ role: "normal", index: "briBulwark", name: "Second Bulwark", description: "Adds a second Bulwark.", x: 2, y: 62, cost: 60, requiresArray: ["briEdge"], cardAdditionArray: [{ index: "brienneBulwark", count: 1 }] },
+		{ role: "ability2", index: "briParagon", name: "Paragon", description: "+15 Max HP. Temporary HP gained is increased by 2.", x: 3, y: 50, cost: 120, requiresArray: ["briGuard", "briEdge"], healthModifier: 15, temporaryBonus: 2 },
+	],
+	nettle: [
+		{ role: "root", index: "netStart", name: "Patient", description: "+5 Max HP.", x: 0, y: 50, cost: 20, healthModifier: 5 },
+		{ role: "agg", index: "netRot", name: "Deep Rot", description: "Adds a second Miasma.", x: 1, y: 28, cost: 40, requiresArray: ["netStart"], cardAdditionArray: [{ index: "nettleMiasma", count: 1 }] },
+		{ role: "normal", index: "netHarvest", name: "Soul Harvest", description: "Adds Soul Harvest to the deck.", x: 1, y: 72, cost: 40, requiresArray: ["netStart"], cardAdditionArray: [{ index: "nettleSoulHarvest", count: 1 }] },
+		{ role: "normal", index: "netVirulence", name: "Virulence", description: "Poison damage is increased by 1.", x: 2, y: 20, cost: 70, requiresArray: ["netRot"], poisonBonus: 1 },
+		{ role: "ability2", index: "netWard", name: "Graveward", description: "Grants the Graveward ability.", x: 2, y: 80, cost: 70, requiresArray: ["netHarvest"], abilityAdditionArray: [{ index: "nettleGraveward" }] },
+		{ role: "ability2", index: "netUndeath", name: "Half Dead", description: "+10 Max HP. Counts as Undead.", x: 3, y: 50, cost: 110, requiresArray: ["netRot", "netHarvest"], healthModifier: 10, tagAdditionArray: ["undead"] },
+	],
+	severine: [
+		{ role: "root", index: "severineStart", name: "Hungry", description: "+5 Max HP.", x: 0, y: 50, cost: 20, healthModifier: 5 },
+		{ role: "agg", index: "severineExsang", name: "Exsanguinate", description: "Adds Exsanguinate to the deck.", x: 1, y: 30, cost: 40, requiresArray: ["severineStart"], cardAdditionArray: [{ index: "severineExsanguinate", count: 1 }] },
+		{ role: "ability2", index: "severineQuick", name: "Quicken", description: "Grants the Quicken ability.", x: 1, y: 70, cost: 40, requiresArray: ["severineStart"], abilityAdditionArray: [{ index: "severineQuicken" }] },
+		{ role: "normal", index: "severineThirst", name: "Deep Thirst", description: "+2 damage dealt while below half health.", x: 2, y: 22, cost: 70, requiresArray: ["severineExsang"] },
+		{ role: "normal", index: "severinePact", name: "Second Pact", description: "Adds a second Blood Pact.", x: 2, y: 78, cost: 70, requiresArray: ["severineQuick"], cardAdditionArray: [{ index: "severineBloodPact", count: 1 }] },
+		{ role: "ability2", index: "severineNight", name: "Nightfall", description: "Adds Nightfall to the deck.", x: 3, y: 50, cost: 110, requiresArray: ["severineThirst", "severinePact"], cardAdditionArray: [{ index: "severineNightfall", count: 1 }] },
+	],
+	cinder: [
+		{ role: "root", index: "cinStart", name: "Light on her Feet", description: "+5 Max HP.", x: 0, y: 50, cost: 20, healthModifier: 5 },
+		{ role: "agg", index: "cinComet", name: "Long Road", description: "Adds Longspear to the deck.", x: 1, y: 30, cost: 40, requiresArray: ["cinStart"], exclusiveGroup: "cinPath", cardAdditionArray: [{ index: "cinderLongspear", count: 1 }] },
+		{ role: "normal", index: "cinLine", name: "Drillmaster", description: "Adds Point of the Spear to the deck.", x: 1, y: 70, cost: 40, requiresArray: ["cinStart"], exclusiveGroup: "cinPath", cardAdditionArray: [{ index: "cinderPointOfSpear", count: 1 }] },
+		{ role: "ability2", index: "cinFlame", name: "Kindled", description: "+10 Max HP. Adds Trailfire to the deck.", x: 2, y: 50, cost: 110, requiresArray: ["cinComet", "cinLine"], healthModifier: 10, cardAdditionArray: [{ index: "cinderEmberwake", count: 1 }] },
+	],
+	clemence: [
+		{ role: "root", index: "clmStart", name: "Patient Ear", description: "+5 Max HP.", x: 0, y: 50, cost: 20, healthModifier: 5 },
+		{ role: "agg", index: "clmZeal", name: "Zeal", description: "Adds Yearning to the deck.", x: 1, y: 30, cost: 40, requiresArray: ["clmStart"], exclusiveGroup: "clmPath", cardAdditionArray: [{ index: "clemenceYearning", count: 1 }] },
+		{ role: "normal", index: "clmMercy", name: "Mercy", description: "Adds Fallen Vigil to the deck.", x: 1, y: 70, cost: 40, requiresArray: ["clmStart"], exclusiveGroup: "clmPath", cardAdditionArray: [{ index: "clemenceFallenVigil", count: 1 }] },
+		{ role: "ability2", index: "clmGrace", name: "State of Grace", description: "+10 Max HP. Adds a fourth Offering.", x: 2, y: 50, cost: 110, requiresArray: ["clmZeal", "clmMercy"], healthModifier: 10, cardAdditionArray: [{ index: "clemenceOffering", count: 1 }] },
+	],
+	cassadora: [
+		{ role: "root", index: "casStart", name: "Second Sight", description: "+5 Max HP.", x: 0, y: 50, cost: 20, healthModifier: 5 },
+		{ role: "agg", index: "casStill", name: "Stillness", description: "Adds a second Crystal Gaze to the deck.", x: 1, y: 30, cost: 40, requiresArray: ["casStart"], exclusiveGroup: "casPath", cardAdditionArray: [{ index: "cassadoraCrystalGaze", count: 1 }] },
+		{ role: "normal", index: "casMirror", name: "Mirrorwork", description: "Adds Mirror Fate to the deck.", x: 1, y: 70, cost: 40, requiresArray: ["casStart"], exclusiveGroup: "casPath", cardAdditionArray: [{ index: "cassadoraMirrorFate", count: 1 }] },
+		{ role: "ability2", index: "casFate", name: "Fatebinder", description: "+10 Max HP. Adds Jinx to the deck.", x: 2, y: 50, cost: 110, requiresArray: ["casStill", "casMirror"], healthModifier: 10, cardAdditionArray: [{ index: "cassadoraJinx", count: 1 }] },
+	],
+};
+
+//===================================================================================================
+//State
+//===================================================================================================
+const state = {
+	character: "",
+	nodes: [],
+	selected: null,
+	autoFill: true,
+};
+
+let nextId = 1;
+function freshId(role) {
+	return (state.character || "new") + "Node" + (nextId++);
+}
+
+//===================================================================================================
+//Coordinate math (TREE-DESIGN §2.2)
+//===================================================================================================
+function bounds() {
+	if (state.nodes.length === 0) return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
+	let xMin = Infinity, xMax = -Infinity, yMin = Infinity, yMax = -Infinity;
+	for (const n of state.nodes) {
+		xMin = Math.min(xMin, n.x); xMax = Math.max(xMax, n.x);
+		yMin = Math.min(yMin, n.y); yMax = Math.max(yMax, n.y);
+	}
+	return { xMin, xMax, yMin, yMax };
+}
+function treeHeight() {
+	const b = bounds();
+	return Math.max(COLUMN.minimumHeight,
+		COLUMN.topMargin + (b.xMax - b.xMin) * COLUMN.depthStep + COLUMN.bottomMargin);
+}
+function screenX(y) {
+	const usable = COLUMN.width - 2 * COLUMN.sideMargin;
+	return COLUMN.sideMargin + (Math.max(0, Math.min(100, y)) / 100) * usable;
+}
+function screenY(x) {
+	const b = bounds();
+	return COLUMN.topMargin + (x - b.xMin) * COLUMN.depthStep;
+}
+//Inverse for dragging.
+function gameY(px) {
+	const usable = COLUMN.width - 2 * COLUMN.sideMargin;
+	return Math.max(0, Math.min(100, ((px - COLUMN.sideMargin) / usable) * 100));
+}
+function gameX(py) {
+	const b = bounds();
+	return Math.max(0, b.xMin + (py - COLUMN.topMargin) / COLUMN.depthStep);
+}
+function snapY(y) {
+	let best = y, bestD = Infinity;
+	for (const lane of [0, 11, 24, 37, 50, 63, 76, 89, 100]) {
+		const d = Math.abs(lane - y);
+		if (d < bestD) { bestD = d; best = lane; }
+	}
+	return bestD <= 5 ? best : Math.round(y);
+}
+function snapX(x) { return Math.round(x * 2) / 2; }
+function fmtNum(v) { return Number.isInteger(Number(v)) ? String(Number(v)) : String(Number(v)); }
+
+//===================================================================================================
+//Constraint checking (TREE-DESIGN §4)
+//===================================================================================================
+function childrenOf(index) {
+	return state.nodes.filter((n) => (n.requiresArray || []).indexOf(index) >= 0);
+}
+function depthMap() {
+	const byId = {}; for (const n of state.nodes) byId[n.index] = n;
+	const depth = {}; const visiting = {};
+	function solve(index) {
+		if (depth[index] != null) return depth[index];
+		if (visiting[index]) return 0; // cycle; H6 reports it
+		visiting[index] = true;
+		const node = byId[index];
+		const reqs = node == null ? [] : (node.requiresArray || []);
+		let d = 0;
+		for (const r of reqs) d = Math.max(d, 1 + solve(typeof r === "object" ? r.index : r));
+		visiting[index] = false;
+		depth[index] = d;
+		return d;
+	}
+	for (const n of state.nodes) solve(n.index);
+	return depth;
+}
+function reachableSet() {
+	const byId = {}; for (const n of state.nodes) byId[n.index] = n;
+	const roots = state.nodes.filter((n) => (n.requiresArray || []).length === 0);
+	const seen = {}; const stack = roots.slice();
+	while (stack.length) {
+		const node = stack.pop();
+		if (node == null || seen[node.index]) continue;
+		seen[node.index] = true;
+		for (const child of childrenOf(node.index)) stack.push(child);
+	}
+	return seen;
+}
+function edgeSegments() {
+	const segs = [];
+	for (const n of state.nodes) {
+		for (const r of n.requiresArray || []) {
+			const from = typeof r === "object" ? r.index : r;
+			const p = state.nodes.find((x) => x.index === from);
+			if (p == null) continue;
+			segs.push({ from: from, to: n.index, ax: screenX(p.y), ay: screenY(p.x), bx: screenX(n.y), by: screenY(n.x) });
+		}
+	}
+	return segs;
+}
+function segmentsCross(a, b) {
+	if (a.from === b.from || a.from === b.to || a.to === b.from || a.to === b.to) return false;
+	function ccw(ax, ay, bx, by, cx, cy) { return (cy - ay) * (bx - ax) - (by - ay) * (cx - ax); }
+	const d1 = ccw(a.ax, a.ay, a.bx, a.by, b.ax, b.ay);
+	const d2 = ccw(a.ax, a.ay, a.bx, a.by, b.bx, b.by);
+	const d3 = ccw(b.ax, b.ay, b.bx, b.by, a.ax, a.ay);
+	const d4 = ccw(b.ax, b.ay, b.bx, b.by, a.bx, a.by);
+	return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
+}
+function check() {
+	const hard = [], soft = [];
+	const ids = state.nodes.map((n) => n.index);
+	//H1
+	const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+	if (dupes.length) hard.push("H1 duplicate index: " + [...new Set(dupes)].join(", "));
+	//H2
+	const roots = state.nodes.filter((n) => (n.requiresArray || []).length === 0);
+	if (roots.length === 0) hard.push("H2 no root node");
+	if (roots.length > 1) hard.push("H2 " + roots.length + " roots (want exactly one): " + roots.map((n) => n.index).join(", "));
+	//H3/H7/H9/H10/H11
+	for (const n of state.nodes) {
+		for (const r of n.requiresArray || []) {
+			const from = typeof r === "object" ? r.index : r;
+			if (ids.indexOf(from) < 0) hard.push("H3 " + n.index + " requires unknown " + from);
+			if (from === n.index) hard.push("H6 " + n.index + " requires itself");
+		}
+		if (!n.name) hard.push("H7 " + n.index + " missing name");
+		if (!n.description) hard.push("H7 " + n.index + " missing description");
+		if (n.cost == null && (n.costArray == null || n.costArray.length === 0) && !state.autoFill) {
+			hard.push("H9 " + n.index + " has no cost");
+		}
+	}
+	//H4 / H10 / H11
+	for (const n of state.nodes) {
+		if (n.x < 0 || n.x > 100) hard.push("H4 " + n.index + " has a negative or absurd depth (x must be a row >= 0)");
+		if (n.y < 0 || n.y > 100) hard.push("H4 " + n.index + " lane y is outside 0-100");
+		const twin = state.nodes.find((m) => m !== n && m.x === n.x && m.y === n.y);
+		if (twin != null && ids.indexOf(n.index) < ids.indexOf(twin.index)) hard.push("H10 " + n.index + " and " + twin.index + " share a spot");
+		for (const m of state.nodes) {
+			if (m === n || m.x !== n.x) continue;
+			if (Math.abs(m.y - n.y) < COLUMN.minLaneGap && ids.indexOf(n.index) < ids.indexOf(m.index)) {
+				hard.push("H11 " + n.index + " and " + m.index + " crowd lane " + n.x);
+			}
+		}
+	}
+	//H5 reachability
+	const seen = reachableSet();
+	for (const n of state.nodes) if (!seen[n.index]) hard.push("H5 " + n.index + " is not reachable from the root");
+	//H8 is content-level: the maker cannot resolve game card ids, so it only flags empty arrays.
+	for (const n of state.nodes) {
+		for (const key of ["cardAdditionArray", "abilityAdditionArray"]) {
+			for (const a of n[key] || []) if (!a.index) hard.push("H8 " + n.index + " " + key + " entry has no index");
+		}
+	}
+
+	//--- Soft ---
+	//S1 symmetry
+	if (state.nodes.length > 1) {
+		let total = 0, paired = 0, unpaired = 0;
+		for (const n of state.nodes) {
+			let best = Infinity;
+			for (const m of state.nodes) {
+				if (m === n) continue;
+				best = Math.min(best, Math.abs(m.x - n.x) + Math.abs(m.y - (100 - n.y)) / 3);
+			}
+			if (best === Infinity) { unpaired += 1; continue; }
+			total += best; paired += 1;
+		}
+		const score = paired === 0 ? 0 : total / paired;
+		soft.push({ text: "S1 symmetry score " + score.toFixed(1) + (unpaired ? " (" + unpaired + " solo nodes)" : ""), level: score > 9 ? "warn" : "ok" });
+	}
+	//S2 dead ends
+	for (const n of state.nodes) {
+		if (childrenOf(n.index).length > 0) continue;
+		if (TERMINAL_ROLES.indexOf(n.role) >= 0) continue;
+		soft.push({ text: "S2 dead end: " + n.index + " (" + (n.role || "normal") + ") has no children", level: "warn" });
+	}
+	//S3 crossings
+	const segs = edgeSegments();
+	let crossings = 0;
+	for (let i = 0; i < segs.length; i++) {
+		for (let j = i + 1; j < segs.length; j++) if (segmentsCross(segs[i], segs[j])) crossings += 1;
+	}
+	soft.push({ text: "S3 edge crossings: " + crossings, level: crossings > 0 ? "warn" : "ok" });
+	//S4 fork timing
+	const groups = {};
+	for (const n of state.nodes) if (n.exclusiveGroup) (groups[n.exclusiveGroup] = groups[n.exclusiveGroup] || []).push(n);
+	for (const group of Object.keys(groups)) {
+		const members = groups[group];
+		const parentSets = members.map((n) => (n.requiresArray || []).map((r) => String(typeof r === "object" ? r.index : r)).sort().join("|"));
+		const differs = parentSets.some((p) => p !== parentSets[0]);
+		if (differs) soft.push({ text: "S4 " + group + ": members hang off different parents", level: "warn" });
+		else {
+			const parentId = (members[0].requiresArray || [])[0];
+			const parent = state.nodes.find((n) => n.index === (typeof parentId === "object" ? parentId.index : parentId));
+			if (parent != null) {
+				const gap = Math.min.apply(null, members.map((n) => n.x)) - parent.x;
+				if (gap > COLUMN.rowStep * 2 + 0.01) soft.push({ text: "S4 " + group + " forks " + gap.toFixed(0) + " down from " + parent.index + " (want <= " + (COLUMN.rowStep * 2) + ")", level: "warn" });
+			}
+		}
+	}
+	//S5 row width
+	const rows = {};
+	for (const n of state.nodes) (rows[n.x] = rows[n.x] || []).push(n);
+	for (const x of Object.keys(rows)) if (rows[x].length > 4) soft.push({ text: "S5 row x=" + x + " has " + rows[x].length + " nodes (max 4)", level: "warn" });
+	//S7 cost curve / S9 edge length
+	const depth = depthMap();
+	for (const n of state.nodes) {
+		for (const r of n.requiresArray || []) {
+			const from = typeof r === "object" ? r.index : r;
+			const p = state.nodes.find((q) => q.index === from);
+			if (p == null) continue;
+			if (depth[n.index] - depth[p.index] > 3) soft.push({ text: "S9 long edge " + p.index + " -> " + n.index, level: "warn" });
+			if (n.cost != null && p.cost != null && n.cost < p.cost) soft.push({ text: "S7 " + n.index + " costs less than its parent " + p.index, level: "warn" });
+		}
+	}
+	return { hard, soft };
+}
+
+//===================================================================================================
+//Rendering
+//===================================================================================================
+function svgEl(name, attrs) {
+	const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+	for (const key of Object.keys(attrs || {})) el.setAttribute(key, attrs[key]);
+	return el;
+}
+function render() {
+	const svg = document.getElementById("treeSvg");
+	const b = bounds();
+	const height = treeHeight();
+	svg.setAttribute("width", COLUMN.width);
+	svg.setAttribute("height", height);
+	svg.setAttribute("viewBox", "0 0 " + COLUMN.width + " " + height);
+	svg.innerHTML = "";
+	const report = check();
+	const badNodes = new Set();
+	for (const h of report.hard) { const m = h.match(/^(H\d+) ([^ ]+)/); if (m) badNodes.add(m[2]); }
+
+	//Grid rows
+	if (state.nodes.length) {
+		const startRow = Math.floor(b.xMin / COLUMN.rowStep) * COLUMN.rowStep;
+		for (let x = startRow; x <= b.xMax + COLUMN.rowStep; x += COLUMN.rowStep) {
+			const py = screenY(x);
+			svg.appendChild(svgEl("line", { class: "grid", x1: 0, y1: py, x2: COLUMN.width, y2: py }));
+		}
+	}
+	//Lane guides
+	for (const lane of [11, 24, 37, 50, 63, 76, 89]) {
+		const px = screenX(lane);
+		svg.appendChild(svgEl("line", { class: lane === 50 ? "axis" : "laneGuide", x1: px, y1: 0, x2: px, y2: height }));
+	}
+	//Edges
+	const edgeGroup = svgEl("g", {});
+	svg.appendChild(edgeGroup);
+	for (const seg of edgeSegments()) {
+		const midY = (seg.ay + seg.by) / 2;
+		const path = svgEl("path", {
+			class: "edge" + (state.selected === seg.to ? " hot" : ""),
+			d: "M " + seg.ax.toFixed(1) + " " + seg.ay.toFixed(1) + " C " + seg.ax.toFixed(1) + " " + midY.toFixed(1) +
+				", " + seg.bx.toFixed(1) + " " + midY.toFixed(1) + ", " + seg.bx.toFixed(1) + " " + seg.by.toFixed(1),
+		});
+		edgeGroup.appendChild(path);
+	}
+	//Nodes
+	for (const n of state.nodes) {
+		const cx = screenX(n.y), cy = screenY(n.x);
+		const g = svgEl("g", { class: "node role-" + (n.role || "normal") + (state.selected === n.index ? " sel" : "") + (badNodes.has(n.index) ? " bad" : ""), "data-id": n.index });
+		g.appendChild(svgEl("circle", { class: "nodePad", cx: cx, cy: cy, r: COLUMN.nodeRadius }));
+		const label = svgEl("text", { class: "nodeName", x: cx, y: cy + COLUMN.nodeRadius + COLUMN.labelOffset });
+		label.textContent = n.name || n.index;
+		g.appendChild(label);
+		const cost = svgEl("text", { class: "nodeCost", x: cx, y: cy + 4 });
+		cost.textContent = n.rankMaximum > 1 ? "x" + n.rankMaximum : (n.cost == null ? "—" : n.cost);
+		g.appendChild(cost);
+		const tag = svgEl("text", { class: "roleTag", x: cx, y: cy - COLUMN.nodeRadius - 5 });
+		tag.textContent = n.role && n.role !== "normal" ? n.role : "";
+		g.appendChild(tag);
+		svg.appendChild(g);
+	}
+	svg.__nodes = state.nodes;
+	//Report + stats + inspector + export
+	renderReport(report);
+	renderStats(report);
+	renderInspector();
+	renderExport(report);
+	document.getElementById("renderHint").textContent =
+		"Game column " + COLUMN.width + "px wide, drawn height " + Math.round(height) + "px (depthStep " +
+		COLUMN.depthStep + ", min " + COLUMN.minimumHeight + "). The window scrolls, not the box.";
+}
+
+function renderReport(report) {
+	const el = document.getElementById("report");
+	let html = "";
+	if (report.hard.length === 0) html += '<div class="ok">Hard rules: all pass.</div>';
+	for (const h of report.hard) html += '<div class="h">✗ ' + esc(h) + "</div>";
+	for (const s of report.soft) html += '<div class="' + (s.level === "warn" ? "s" : "ok") + '">' + (s.level === "warn" ? "! " : "· ") + esc(s.text) + "</div>";
+	el.innerHTML = html;
+	const badge = document.getElementById("previewBadge");
+	badge.className = "badge " + (report.hard.length ? "bad" : "ok");
+	badge.textContent = report.hard.length ? report.hard.length + " hard" : "sound";
+}
+function renderStats() {
+	const b = bounds();
+	const depth = depthMap();
+	let maxDepth = 0; for (const k of Object.keys(depth)) maxDepth = Math.max(maxDepth, depth[k]);
+	const rows = new Set(state.nodes.map((n) => n.x));
+	const el = document.getElementById("stats");
+	el.innerHTML = [
+		["nodes", state.nodes.length],
+		["rows", rows.size],
+		["max depth", maxDepth],
+		["x span", (b.xMax - b.xMin)],
+		["y span", (b.yMin - b.yMax)],
+		["exclusive groups", new Set(state.nodes.filter((n) => n.exclusiveGroup).map((n) => n.exclusiveGroup)).size],
+	].map((pair) => '<div class="stat"><span>' + pair[0] + "</span><b>" + pair[1] + "</b></div>").join("");
+}
+function renderInspector() {
+	const holder = document.getElementById("inspector");
+	const badge = document.getElementById("selBadge");
+	const n = state.nodes.find((x) => x.index === state.selected);
+	if (n == null) { holder.innerHTML = '<span class="muted">Nothing selected.</span>'; badge.textContent = ""; return; }
+	badge.className = "badge ok";
+	badge.textContent = n.role || "normal";
+	const field = (key, label, type) =>
+		'<label class="field"><span>' + label + '</span><input data-k="' + key + '" type="' + (type || "text") + '" value="' + esc(String(n[key] == null ? "" : n[key])) + '"></label>';
+	holder.innerHTML =
+		field("index", "index") +
+		field("name", "name") +
+		'<label class="field"><span>description</span><textarea data-k="description" rows="3">' + esc(n.description || "") + "</textarea></label>" +
+		'<label class="field"><span>role</span><select data-k="role">' +
+			["root", "ability1", "ability2", "replace", "economy", "agg", "def", "wheel", "outfit", "normal"]
+				.map((r) => '<option value="' + r + '"' + (n.role === r ? " selected" : "") + ">" + r + "</option>").join("") +
+		"</select></label>" +
+		'<div class="row">' + field("x", "x (depth)") + field("y", "y (lane)") + "</div>" +
+		'<div class="row">' + field("cost", "cost") + field("rankMaximum", "rankMaximum") + "</div>" +
+		field("exclusiveGroup", "exclusiveGroup") +
+		field("glyph", "glyph");
+	holder.querySelectorAll("[data-k]").forEach((input) => {
+		input.addEventListener("input", () => {
+			const key = input.dataset.k;
+			let value = input.value;
+			if (["x", "y", "cost", "rankMaximum"].indexOf(key) >= 0) value = value === "" ? null : Number(value);
+			n[key] = value;
+			render();
+		});
+	});
+}
+function renderExport() {
+	const text = state.nodes.map((n) => serializeNode(n)).join("\n");
+	document.getElementById("exportBox").value = text;
+	const badge = document.getElementById("exportBadge");
+	const report = check();
+	badge.className = "badge " + (report.hard.length ? "bad" : "ok");
+	badge.textContent = report.hard.length ? "fix " + report.hard.length + " hard rule(s)" : "ready";
+}
+function effective(n, key) {
+	if (n[key] != null && n[key] !== "") return n[key];
+	if (!state.autoFill) return null;
+	const def = ROLE_DEFAULT[n.role] || ROLE_DEFAULT.normal;
+	return def[key] == null ? null : def[key];
+}
+function serializeNode(n) {
+	const lines = [];
+	const lit = (v) => JSON.stringify(v);
+	lines.push("index: " + lit(n.index) + ",");
+	lines.push("name: " + lit(n.name || "") + ",");
+	lines.push("description: " + lit(n.description || "") + ",");
+	if (n.role) lines.push("role: " + lit(n.role) + ",");
+	lines.push("x: " + fmtNum(n.x) + ", y: " + fmtNum(n.y) + ", cost: " + (effective(n, "cost") == null ? 40 : effective(n, "cost")) + ",");
+	if (n.rankMaximum != null && n.rankMaximum > 1) lines.push("rankMaximum: " + n.rankMaximum + ",");
+	if (n.exclusiveGroup) lines.push("exclusiveGroup: " + lit(n.exclusiveGroup) + ",");
+	if (n.glyph) lines.push("glyph: " + lit(n.glyph) + ",");
+	if (n.requiresArray && n.requiresArray.length) {
+		lines.push("requiresArray: [" + n.requiresArray.map((r) => {
+			if (typeof r === "object") return "{ index: " + lit(r.index) + ", rank: " + (r.rank || 1) + " }";
+			return lit(r);
+		}).join(", ") + "],");
+	}
+	for (const key of Object.keys(n)) {
+		if (["index", "name", "description", "role", "x", "y", "cost", "costArray", "rankMaximum", "exclusiveGroup", "glyph", "requiresArray"].indexOf(key) >= 0) continue;
+		const v = n[key];
+		if (v == null) continue;
+		lines.push(key + ": " + JSON.stringify(v) + ",");
+	}
+	return "\t{ " + lines.join(" ") + " },";
+}
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+//===================================================================================================
+//Interaction
+//===================================================================================================
+function attachNodeHandlers(svg) {
+	let drag = null;
+	svg.addEventListener("pointerdown", (event) => {
+		const g = event.target.closest(".node");
+		if (g == null) { state.selected = null; render(); return; }
+		const node = state.nodes.find((n) => n.index === g.dataset.id);
+		if (node == null) return;
+		state.selected = node.index;
+		drag = { node: node, moved: false };
+		svg.setPointerCapture(event.pointerId);
+		render();
+	});
+	svg.addEventListener("pointermove", (event) => {
+		if (drag == null) return;
+		const rect = svg.getBoundingClientRect();
+		const px = event.clientX - rect.left;
+		const py = event.clientY - rect.top;
+		drag.moved = true;
+		if (event.altKey) { drag.node.y = Math.round(gameY(px)); drag.node.x = Math.round(gameX(py)); }
+		else { drag.node.y = snapY(gameY(px)); drag.node.x = snapX(gameX(py)); }
+		render();
+	});
+	svg.addEventListener("pointerup", (event) => {
+		if (drag != null) svg.releasePointerCapture(event.pointerId);
+		drag = null;
+	});
+}
+
+function addNode(role) {
+	const b = bounds();
+	const node = templateNode(role);
+	node.x = state.nodes.length ? (b.xMax === b.xMin ? b.xMin + COLUMN.rowStep : b.xMax + COLUMN.rowStep) : 10;
+	node.y = snapY(50);
+	node.index = freshId(role);
+	state.nodes.push(node);
+	state.selected = node.index;
+	render();
+}
+function templateNode(role) {
+	const def = ROLE_DEFAULT[role] || ROLE_DEFAULT.normal;
+	const names = { root: "Root", ability1: "Ability 1", ability2: "Ability 2", replace: "Replace Basic", economy: "Economy", agg: "Aggressive", def: "Defensive", wheel: "Training Wheel", outfit: "Outfit Cards", normal: "Node" };
+	return {
+		role: role, index: "", name: names[role] || "Node", description: "Describe the effect.",
+		x: 0, y: 50, cost: def.cost, exclusiveGroup: null, requiresArray: [],
+	};
+}
+function autoSpaceRow() {
+	const sel = state.nodes.find((n) => n.index === state.selected);
+	if (sel == null) return;
+	const row = state.nodes.filter((n) => Math.abs(n.x - sel.x) < 0.01).sort((a, b) => a.y - b.y);
+	const lanes = LANES[Math.min(row.length, 4)] || LANES[4];
+	row.forEach((n, i) => { n.y = lanes[i % lanes.length]; });
+	render();
+}
+function snapAll() {
+	for (const n of state.nodes) { n.x = snapX(n.x); n.y = snapY(n.y); }
+	render();
+}
+function loadReference(key) {
+	if (!key) { state.nodes = []; state.selected = null; render(); return; }
+	state.character = key;
+	state.nodes = JSON.parse(JSON.stringify(REFERENCES[key] || []));
+	state.nodes.forEach((n) => { if (!n.role) n.role = "normal"; });
+	state.selected = null;
+	nextId = 1;
+	render();
+}
+function parseRequires(text) {
+	const out = [];
+	for (const part of String(text).split(",")) {
+		const t = part.trim();
+		if (!t) continue;
+		const [id, rank] = t.split(":");
+		if (rank != null && Number(rank) > 1) out.push({ index: id.trim(), rank: Number(rank) });
+		else out.push(id.trim());
+	}
+	return out;
+}
+
+//===================================================================================================
+//Boot
+//===================================================================================================
+function boot() {
+	const roleChips = document.getElementById("roleChips");
+	for (const role of Object.keys(ROLE_DEFAULT)) {
+		const btn = document.createElement("button");
+		btn.textContent = role;
+		btn.addEventListener("click", () => addNode(role));
+		roleChips.appendChild(btn);
+	}
+	document.getElementById("characterSelect").addEventListener("change", (e) => loadReference(e.target.value));
+	document.getElementById("autoSpaceBtn").addEventListener("click", autoSpaceRow);
+	document.getElementById("tidyBtn").addEventListener("click", snapAll);
+	document.getElementById("deleteBtn").addEventListener("click", () => {
+		if (state.selected == null) return;
+		state.nodes = state.nodes.filter((n) => n.index !== state.selected);
+		for (const n of state.nodes) n.requiresArray = (n.requiresArray || []).filter((r) => (typeof r === "object" ? r.index : r) !== state.selected);
+		state.selected = null;
+		render();
+	});
+	document.getElementById("dupBtn").addEventListener("click", () => {
+		const n = state.nodes.find((x) => x.index === state.selected);
+		if (n == null) return;
+		const copy = JSON.parse(JSON.stringify(n));
+		copy.index = freshId(n.role);
+		copy.name = n.name + " II";
+		copy.y = Math.min(100, n.y + COLUMN.minLaneGap);
+		state.nodes.push(copy);
+		state.selected = copy.index;
+		render();
+	});
+	document.getElementById("applyAdvancedBtn").addEventListener("click", () => {
+		const n = state.nodes.find((x) => x.index === state.selected);
+		if (n == null) return;
+		n.requiresArray = parseRequires(document.getElementById("requiresInput").value);
+		const raw = document.getElementById("extraInput").value.trim();
+		if (raw) {
+			try {
+				const extra = new Function("return (" + raw + ");")();
+				Object.assign(n, extra);
+			} catch (err) { alert("Effect fields did not parse: " + err.message); return; }
+		}
+		render();
+	});
+	document.getElementById("autoFillToggle").addEventListener("change", (e) => { state.autoFill = e.target.checked; render(); });
+	document.getElementById("copyBtn").addEventListener("click", () => {
+		const box = document.getElementById("exportBox");
+		box.select(); document.execCommand("copy");
+	});
+	document.getElementById("downloadBtn").addEventListener("click", () => {
+		const blob = new Blob([document.getElementById("exportBox").value], { type: "text/javascript" });
+		const a = document.createElement("a");
+		a.href = URL.createObjectURL(blob);
+		a.download = (state.character || "tree") + "-nodeArray.js";
+		a.click();
+	});
+	//Keep the inspector's requires box in sync with the selection.
+	const baseRender = render;
+	render = function () {
+		baseRender();
+		const n = state.nodes.find((x) => x.index === state.selected);
+		const reqBox = document.getElementById("requiresInput");
+		if (n != null && document.activeElement !== reqBox) {
+			reqBox.value = (n.requiresArray || []).map((r) => (typeof r === "object" ? r.index + ":" + r.rank : r)).join(", ");
+		}
+		if (n == null) reqBox.value = "";
+	};
+	const svg = document.getElementById("treeSvg");
+	attachNodeHandlers(svg);
+	render();
+}
+boot();
+</script>
+</body>
+</html>

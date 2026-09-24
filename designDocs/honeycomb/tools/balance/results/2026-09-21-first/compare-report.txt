@@ -1,0 +1,121 @@
+BALANCE TEST: ALL THE CRUNCH
+
+Explore batch: 400 runs where every decision is made at random. Then 100 runs each of four bots on the same seeds and parties.
+
+The thin-deck bot and the learned bot are not clearly different (2 of 100 runs won (2%, somewhere between 0.6% and 7%) against 6 of 100 runs won (6%, somewhere between 2.8% and 12.5%)). There is no difference this test can see.
+
+THE BOTS, ON THE SAME 100 SEEDS AND PARTIES
+  The learned bot
+    6 of 100 runs won (6%, somewhere between 2.8% and 12.5%). Fights won per run: 8.3. Cards taken per run: 6.8. Cards removed per run: 2.4.
+  The thin-deck bot (takes no cards, removes at every chance)
+    2 of 100 runs won (2%, somewhere between 0.6% and 7%). Fights won per run: 16.9. Cards taken per run: 0. Cards removed per run: 2.1.
+  The take-everything bot (never removes)
+    8 of 100 runs won (8%, somewhere between 4.1% and 15%). Fights won per run: 8.1. Cards taken per run: 10.8. Cards removed per run: 0.
+  The random bot (the explore batch's rule)
+    1 of 100 runs won (1%, somewhere between 0.2% and 5.4%). Fights won per run: 7. Cards taken per run: 5.9. Cards removed per run: 1.9.
+
+WHERE THE LEARNED BOT'S RUNS END (the encounters that finish the most runs)
+  tallyLedger                 9 runs
+  moldGarden                  6 runs
+  hollowPatrol                4 runs
+  bruteAndSpore               4 runs
+  gardenerGrove               4 runs
+  championAlone               4 runs
+  eelShallows                 4 runs
+  toadPond                    3 runs
+  sageAndWisps                3 runs
+  mothLight                   3 runs
+
+THE RULES THE BOT USED
+  Which stop to walk to: every stop is scored by its type, and a path is the sum of its stops. The weights are:
+    combat   base 1
+    elite    base 1.5; 2.5 extra while the party is at 70% health or more, -4 when it is below
+    event    base 0.6
+    treasure base 2
+    rest     base 0.3; 8 for each whole party's-worth of missing health
+    shop     base 0.3; 2.5 extra with 90 gold or more
+    boss     base 0
+  What to take, buy, remove or choose: the learned bot takes the option with the best value it has measured, if that value is above zero,
+  and decides 15% of everything at random so its values keep updating. An option seen fewer than 12 times has no trusted value and is decided at random.
+  A run is judged by how many more fights it won after the decision, plus 6 for finishing the run.
+
+WHEN THE BOT STOPS PICKING CARDS (the learned bot, by stage of the run; R0 is the first region, R1 the second, .0 to .2 is early to late in it)
+  stage  card offers  cards taken  share taken  deck size  removals paid for
+  R0.0   309          226          73.1%        22         48
+  R0.1   244          184          75.4%        24         76
+  R0.2   188          139          73.9%        26         53
+  R1.0   56           47           83.9%        27         21
+  R1.1   24           19           79.2%        28         28
+  R1.2   8            5            62.5%        27         11
+  Deckbuilding does not end early: in the last third of a run the learned bot still takes a card at 73.5% of the offers.
+
+WHAT THE LEARNED BOT FOUND (only options seen at least 12 times taken and 12 times passed over)
+
+  Card rewards, best first:
+    cinderHotPursuit               at stage R0.0: runs that took it won 2.02 more fights afterwards than runs that were offered it and did not (taken 12 times, offered and passed over 16)
+    severineCoupDeGrace            at stage R0.0: runs that took it won 1.69 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 21)
+    clemenceMendingWord            at stage R0.0: runs that took it won 1.13 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 22)
+    brienneRansom                  at stage R0.0: runs that took it won 0.89 more fights afterwards than runs that were offered it and did not (taken 12 times, offered and passed over 19)
+    severineHeartsblood            at stage R0.0: runs that took it won 0.26 more fights afterwards than runs that were offered it and did not (taken 15 times, offered and passed over 19)
+    severineBleedTogether          at stage R0.0: runs that took it won 0.2 more fights afterwards than runs that were offered it and did not (taken 14 times, offered and passed over 19)
+    cinderPointOfSpear             at stage R0.0: runs that took it won 0.09 more fights afterwards than runs that were offered it and did not (taken 12 times, offered and passed over 17)
+  Card rewards, worst first:
+    cassadoraSleightOfHand         at stage R0.0: runs that took it won 0.43 FEWER fights afterwards (taken 13 times, offered and passed over 18)
+
+  Shop purchases (cards and relics), best first:
+    (nothing has enough samples yet)
+  Shop purchases (cards and relics), worst first:
+    (nothing has enough samples yet)
+
+  Cards paid to remove at a shop, best first:
+    severineQuaff                  at stage R0.1: runs that took it won 0.8 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 182)
+    nettleVenomTouch               at stage R0.2: runs that took it won 0.45 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 139)
+  Cards paid to remove at a shop, worst first:
+    clemenceTempt                  at stage R0.2: runs that took it won 1.23 FEWER fights afterwards (taken 14 times, offered and passed over 107)
+
+  Event choices, best first:
+    theQuietShrine#Make an offering. (30 gold) at stage R0.0: runs that took it won 3.12 more fights afterwards than runs that were offered it and did not (taken 23 times, offered and passed over 31)
+    wellOfWaxLight#Climb down and take the light. at stage R0.0: runs that took it won 1.75 more fights afterwards than runs that were offered it and did not (taken 28 times, offered and passed over 38)
+    theSporeGarden#Add to the tally and leave. at stage R0.1: runs that took it won 1.22 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 33)
+    wellOfWaxLight#Leave it alone. at stage R0.1: runs that took it won 1.2 more fights afterwards than runs that were offered it and did not (taken 17 times, offered and passed over 45)
+    theTollBench#Pay the toll. (50 gold) at stage R0.1: runs that took it won 0.93 more fights afterwards than runs that were offered it and did not (taken 15 times, offered and passed over 31)
+    theSporeGarden#Burn the garden. at stage R0.0: runs that took it won 0.85 more fights afterwards than runs that were offered it and did not (taken 13 times, offered and passed over 42)
+    theSealedDoor#Draw the bolts.  at stage R0.2: runs that took it won 0.75 more fights afterwards than runs that were offered it and did not (taken 24 times, offered and passed over 16)
+    theTollBench#Sit without paying. at stage R0.1: runs that took it won 0.5 more fights afterwards than runs that were offered it and did not (taken 23 times, offered and passed over 29)
+    theSealedDoor#Leave it bolted. at stage R0.1: runs that took it won 0.42 more fights afterwards than runs that were offered it and did not (taken 36 times, offered and passed over 32)
+    theSealedDoor#Leave it bolted. at stage R0.0: runs that took it won 0.38 more fights afterwards than runs that were offered it and did not (taken 39 times, offered and passed over 32)
+  Event choices, worst first:
+    theQuietShrine#Take from the bowl. at stage R0.0: runs that took it won 3.14 FEWER fights afterwards (taken 35 times, offered and passed over 23)
+    theTollBench#Walk around it.   at stage R0.1: runs that took it won 1.73 FEWER fights afterwards (taken 14 times, offered and passed over 38)
+    theTollBench#Sit without paying. at stage R0.2: runs that took it won 1.49 FEWER fights afterwards (taken 12 times, offered and passed over 17)
+    wellOfWaxLight#Leave it alone. at stage R0.0: runs that took it won 1.36 FEWER fights afterwards (taken 16 times, offered and passed over 50)
+    theSporeGarden#Burn the garden. at stage R0.1: runs that took it won 0.87 FEWER fights afterwards (taken 15 times, offered and passed over 31)
+    wellOfWaxLight#Cut the ladder and move on. at stage R0.0: runs that took it won 0.8 FEWER fights afterwards (taken 22 times, offered and passed over 44)
+    theSealedDoor#Leave it bolted. at stage R0.2: runs that took it won 0.75 FEWER fights afterwards (taken 16 times, offered and passed over 24)
+    wellOfWaxLight#Climb down and take the light. at stage R0.1: runs that took it won 0.69 FEWER fights afterwards (taken 23 times, offered and passed over 39)
+    theSporeGarden#Add to the tally and leave. at stage R0.0: runs that took it won 0.49 FEWER fights afterwards (taken 18 times, offered and passed over 37)
+    theSealedDoor#Draw the bolts.  at stage R0.1: runs that took it won 0.42 FEWER fights afterwards (taken 32 times, offered and passed over 36)
+
+  Rest-site choices, best first:
+    theCampfire#Sleep              at stage R0.1: runs that took it won 0.63 more fights afterwards than runs that were offered it and did not (taken 51 times, offered and passed over 167)
+    theCampfire#Sleep              at stage R0.2: runs that took it won 0.54 more fights afterwards than runs that were offered it and did not (taken 83 times, offered and passed over 199)
+    theCampfire#Sharpen a card     at stage R0.0: runs that took it won 0.36 more fights afterwards than runs that were offered it and did not (taken 54 times, offered and passed over 170)
+    theCampfire#Move on            at stage R0.1: runs that took it won 0.33 more fights afterwards than runs that were offered it and did not (taken 59 times, offered and passed over 159)
+    theCampfire#Move on            at stage R0.2: runs that took it won 0.06 more fights afterwards than runs that were offered it and did not (taken 72 times, offered and passed over 210)
+  Rest-site choices, worst first:
+    theCampfire#Leave a card behind at stage R0.1: runs that took it won 0.7 FEWER fights afterwards (taken 57 times, offered and passed over 161)
+    theCampfire#Leave a card behind at stage R0.2: runs that took it won 0.38 FEWER fights afterwards (taken 63 times, offered and passed over 219)
+    theCampfire#Sharpen a card     at stage R0.2: runs that took it won 0.33 FEWER fights afterwards (taken 64 times, offered and passed over 218)
+    theCampfire#Move on            at stage R0.0: runs that took it won 0.25 FEWER fights afterwards (taken 51 times, offered and passed over 173)
+    theCampfire#Sharpen a card     at stage R0.1: runs that took it won 0.24 FEWER fights afterwards (taken 51 times, offered and passed over 167)
+    theCampfire#Sleep              at stage R0.0: runs that took it won 0.12 FEWER fights afterwards (taken 50 times, offered and passed over 174)
+    theCampfire#Leave a card behind at stage R0.0: runs that took it won 0 FEWER fights afterwards (taken 69 times, offered and passed over 155)
+
+  Cards that go from worth taking to not worth taking (or back) as the run goes on: none with enough samples.
+  Cards passed over most often in the explore batch: severineAnswerInKind, severineBloodthirst, severineTransfusion, severineScentOfBlood, severineArc, clemenceOrdeal, severineCoupDeGrace, severineHemomancy, cinderBlaze, cinderAshenCloak.
+
+WHAT THIS REPORT CANNOT SEE
+  Each card is valued on its own. A deck that needs three specific cards together before it does anything is undervalued.
+  The bot is not a person. Comparisons between the bots above can be trusted; the absolute win rates cannot until Noodle has checked the bot against his own play.
+
+Results and the learned values are in !designDocs\honeycomb\tools\balance\results\2026-09-21-first.

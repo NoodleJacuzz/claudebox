@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#15121a">
+<link rel="manifest" href="/manifest.json">
+<title>Honeycomb Desk</title>
+<style>
+:root { --bg:#15121a; --panel:#211c29; --panel2:#2b2535; --line:#3a3246; --text:#ece6f2; --dim:#a79db5; --accent:#f0a64a; --pink:#ee6fa3; --green:#6fce8b; --red:#ef6b6b; --blue:#73aef5; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { margin:0; background:var(--bg); color:var(--text); font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+body { padding-bottom:calc(64px + env(safe-area-inset-bottom)); }
+button,input,select,textarea { font:inherit; color:inherit; }
+button { background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:10px 14px; min-height:44px; }
+button.primary { background:var(--accent); color:#201505; border-color:var(--accent); font-weight:600; }
+button.ghost { background:transparent; }
+button.on { background:var(--accent); color:#201505; border-color:var(--accent); }
+button.small { min-height:36px; padding:6px 10px; font-size:14px; }
+input,select,textarea { width:100%; background:#120f17; border:1px solid var(--line); border-radius:10px; padding:10px; }
+textarea { resize:vertical; }
+header { position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--line); padding:8px 12px; padding-top:calc(8px + env(safe-area-inset-top)); display:flex; align-items:center; gap:8px; }
+header h1 { font-size:17px; margin:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+main { padding:12px; max-width:760px; margin:0 auto; }
+nav { position:fixed; left:0; right:0; bottom:0; z-index:6; display:flex; background:var(--panel); border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom); }
+nav button { flex:1; border:0; border-radius:0; background:transparent; min-height:60px; font-size:13px; color:var(--dim); }
+nav button.on { color:var(--accent); background:transparent; }
+nav .count { display:inline-block; min-width:18px; padding:0 5px; border-radius:9px; background:var(--pink); color:#fff; font-size:11px; margin-left:3px; }
+.row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.chips { display:flex; gap:6px; overflow-x:auto; padding:4px 0 10px; }
+.chips button { white-space:nowrap; border-radius:20px; min-height:36px; padding:6px 12px; font-size:14px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px; margin-bottom:10px; }
+.card.unread { border-color:var(--pink); box-shadow:inset 3px 0 0 var(--pink); }
+.eventCard { display:flex; gap:12px; }
+.thumb { width:72px; height:72px; border-radius:10px; object-fit:cover; background:#0d0b11; flex:none; }
+.title { font-weight:600; }
+.dim { color:var(--dim); font-size:13px; }
+.tag { display:inline-block; font-size:11px; padding:1px 7px; border-radius:9px; background:var(--panel2); color:var(--dim); margin-right:4px; }
+.tag.new { background:var(--pink); color:#fff; } .tag.pending { background:var(--blue); color:#06162c; } .tag.ok { background:var(--green); color:#062010; } .tag.flag { background:var(--red); color:#fff; } .tag.claude { background:var(--accent); color:#201505; }
+.beat { background:var(--panel); border:1px solid var(--line); border-radius:14px; margin-bottom:12px; overflow:hidden; }
+.beat img.art { width:100%; display:block; max-height:46vh; object-fit:contain; background:#0d0b11; }
+.noart { padding:18px; text-align:center; color:var(--dim); background:#0d0b11; }
+.lineRow { padding:10px 12px; border-top:1px solid var(--line); display:flex; gap:8px; }
+.lineRow .who { color:var(--accent); font-weight:600; font-size:13px; }
+.lineRow .body { flex:1; }
+.lineRow .marks { font-size:13px; white-space:nowrap; color:var(--dim); }
+.lineRow.narration .body { font-style:italic; color:#d6cde2; }
+.lineRow.divider .body { text-align:center; color:var(--dim); letter-spacing:4px; }
+.lineRow.flagged { background:rgba(239,107,107,.10); } .lineRow.signed { background:rgba(111,206,139,.08); }
+.choiceRow { padding:8px 12px; border-top:1px solid var(--line); color:var(--blue); font-size:14px; }
+/* 16px and no smaller: an iPhone zooms the whole page when a field with smaller text takes the keyboard. */
+.editor { font:16px/1.5 ui-monospace,Consolas,monospace; min-height:52vh; white-space:pre-wrap; }
+.toolbar { display:flex; gap:6px; overflow-x:auto; padding:8px 0; }
+.toolbar button { white-space:nowrap; min-height:38px; padding:6px 10px; font:14px ui-monospace,Consolas,monospace; }
+.banner { border-radius:12px; padding:10px 12px; margin-bottom:10px; font-size:14px; background:#2a2440; border:1px solid var(--blue); }
+.banner.warn { border-color:var(--accent); background:#33270f; } .banner.bad { border-color:var(--red); background:#341919; } .banner.good { border-color:var(--green); background:#16301f; }
+.note { border-left:3px solid var(--accent); padding:8px 10px; margin:8px 0; background:var(--panel2); border-radius:0 10px 10px 0; white-space:pre-wrap; }
+.note.done { opacity:.55; border-left-color:var(--green); } .note.request { border-left-color:var(--pink); } .note.issue { border-left-color:var(--red); }
+.reply { margin:6px 0 0 10px; padding:6px 8px; border-left:2px solid var(--line); font-size:14px; white-space:pre-wrap; } .reply.claude { border-left-color:var(--accent); }
+.fab { position:fixed; right:16px; bottom:calc(76px + env(safe-area-inset-bottom)); z-index:7; width:58px; height:58px; border-radius:29px; font-size:30px; line-height:1; padding:0; background:var(--pink); border:0; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,.5); }
+.sheetBack { position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:20; display:flex; align-items:flex-end; }
+.sheet { background:var(--panel); width:100%; max-height:88vh; overflow:auto; border-radius:18px 18px 0 0; padding:14px 14px calc(18px + env(safe-area-inset-bottom)); max-width:760px; margin:0 auto; }
+.sheet h2 { font-size:16px; margin:0 0 10px; }
+.toast { position:fixed; left:12px; right:12px; bottom:calc(80px + env(safe-area-inset-bottom)); z-index:30; background:#000; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
+.stage { background:#000; border-radius:14px; overflow:hidden; }
+.castStrip { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:8px; }
+.castPick { flex:0 0 auto; width:68px; padding:3px; font-size:11px; border-radius:10px; }
+.castPick img, .castMissing { width:60px; height:84px; object-fit:cover; border-radius:6px; display:block; margin:0 auto 2px; }
+.castMissing { display:flex; align-items:center; justify-content:center; background:#2a1f2f; color:#e88; font-size:10px; }
+.castPick.on { outline:2px solid var(--accent); }
+.stage img { width:100%; display:block; max-height:50vh; object-fit:contain; }
+.say { margin:8px; padding:10px 12px; border-radius:12px; background:rgba(33,28,41,.95); border:1px solid var(--line); }
+.say .plate { display:inline-block; background:var(--accent); color:#201505; font-weight:700; font-size:13px; padding:1px 9px; border-radius:8px; margin-bottom:4px; }
+.narr { margin:8px; padding:6px 12px; font-style:italic; color:#d6cde2; text-align:center; }
+.rule { margin:12px 30px; border:0; border-top:1px solid var(--dim); }
+label { display:block; font-size:13px; color:var(--dim); margin:10px 0 4px; }
+.seg { display:flex; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:10px; }
+.seg button { flex:1; border:0; border-radius:0; background:transparent; } .seg button.on { background:var(--accent); color:#201505; }
+</style>
+</head>
+<body>
+<header id="header"></header>
+<main id="main"></main>
+<button class="fab" id="fab" aria-label="Quick note">+</button>
+<nav id="nav"></nav>
+<div id="overlay"></div>
+<script>
+"use strict";
+//---------------------------------------------------------------------------------------------------
+//State
+var S = { state:null, tab:"events", filter:"all", search:"", noteFilter:"open", doc:null, mode:"lines", version:null, toastTimer:null };
+var $ = function (id) { return document.getElementById(id); };
+function esc(text) { return String(text == null ? "" : text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+//The game's own rule for event prose: escape everything, then let <i>, <b> and <br> back through.
+function rich(text) { return esc(text).replace(/&lt;(\/?)(i|b)&gt;/g,"<$1$2>").replace(/&lt;br\s*\/?&gt;/g,"<br>"); }
+function api(method, url, body, raw) {
+	var options = { method:method, headers:{} };
+	if (raw) options.body = body; else if (body != null) { options.body = JSON.stringify(body); options.headers["Content-Type"] = "application/json"; }
+	//A WRITE FROM THIS PHONE IS NOT A CHANGE ON THE COMPUTER. Every write moves the server's version. The
+	//first build let the poll see that as somebody else's change and reload the open event, which scrolled
+	//to the top, closed the keyboard and threw away the typing -- and because opening an event writes a
+	//"seen" mark, it did so every four seconds for ever. After any write the new version is taken as this
+	//phone's own, and the poll stands aside while a write is in flight.
+	var writing = method !== "GET" && url !== "/api/parse" && url.indexOf("/plan") < 0;
+	if (writing) S.writing = (S.writing || 0) + 1;
+	var settle = function () { if (!writing) return; return fetch("/api/version").then(function (r) { return r.json(); }).then(function (d) { S.version = d.version; }).catch(function () {}).then(function () { S.writing--; }); };
+	return fetch(url, options).then(function (response) { return response.json().then(function (data) { data._status = response.status; return Promise.resolve(settle()).then(function () { return data; }); }); }, function (error) { if (writing) S.writing--; throw error; });
+}
+function toast(text) { var old = document.querySelector(".toast"); if (old) old.remove(); var box = document.createElement("div"); box.className = "toast"; box.textContent = text; document.body.appendChild(box); clearTimeout(S.toastTimer); S.toastTimer = setTimeout(function () { box.remove(); }, 2600); }
+function when(iso) { if (!iso) return ""; var d = new Date(iso), now = new Date(); var same = d.toDateString() === now.toDateString(); return (same ? "" : d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " ") + d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}); }
+function local(key, value) { try { if (value === undefined) return localStorage.getItem(key); if (value === null) localStorage.removeItem(key); else localStorage.setItem(key, value); } catch (e) {} return null; }
+
+//---------------------------------------------------------------------------------------------------
+//Loading and polling
+function refresh() {
+	return api("GET","/api/state").then(function (state) { S.state = state; S.version = state.version; flushQueue(); draw(); });
+}
+//A CHANGE ON THE COMPUTER NEVER INTERRUPTS. While a field has the keyboard, a sheet is open, or a finger
+//touched or scrolled the page in the last few seconds, the new data is held and nothing is redrawn. It is
+//applied the moment the phone is idle, and even then the page keeps its scroll position and its mode.
+function busy() {
+	var a = document.activeElement;
+	if (a && (a.tagName === "TEXTAREA" || a.tagName === "INPUT" || a.tagName === "SELECT")) return true;
+	if ($("overlay").innerHTML !== "") return true;
+	return Date.now() - (S.lastTouch || 0) < 3000;
+}
+["touchstart","touchmove","scroll","keydown","pointerdown"].forEach(function (name) { window.addEventListener(name, function () { S.lastTouch = Date.now(); }, { passive:true, capture:true }); });
+function poll() {
+	if (document.hidden || S.writing > 0) return;
+	if (S.stale) return applyRemote();
+	fetch("/api/version").then(function (r) { return r.json(); }).then(function (data) {
+		if (data.version === S.version || S.writing > 0) return;
+		S.version = data.version; S.stale = true; applyRemote();
+	}).catch(function () {});
+}
+function applyRemote() {
+	if (busy()) return;
+	S.stale = false;
+	api("GET","/api/state").then(function (state) {
+		S.state = state;
+		if (busy()) { S.stale = true; return; }
+		var doc = S.doc;
+		if (!doc) return draw();
+		var list = doc.kind === "event" ? state.eventArray : state.draftArray, id = doc.kind === "event" ? "index" : "id";
+		var now = list.filter(function (one) { return one[id] === doc.id; })[0];
+		if (!now || now.hash === doc.hash) return draw();
+		if (doc.dirty) { doc.changedElsewhere = true; return draw(); }
+		quietReload("This was changed on the computer just now. You are looking at the new version.");
+	});
+}
+//Brings the open event or draft up to date without leaving the screen: same mode, same scroll position.
+function quietReload(bannerText) {
+	var doc = S.doc; if (!doc) return;
+	api("GET", (doc.kind === "event" ? "/api/event/" : "/api/draft/") + encodeURIComponent(doc.id)).then(function (data) {
+		if (data._status !== 200 || S.doc !== doc || doc.dirty) return;
+		doc.text = data.text; doc.hash = data.hash;
+		if (doc.kind === "event") { doc.meta = data.model; doc.pendingText = data.pendingText; } else { doc.meta = data; doc.title = data.title; }
+		doc.editText = doc.pendingText != null ? doc.pendingText : doc.text;
+		if (bannerText) doc.banner = { kind:"good", text:bannerText };
+		setSeen(docKey(doc), doc.hash);
+		parseDoc().then(function () { if (!busy() || bannerText == null) draw(); else S.stale = true; });
+	});
+}
+setInterval(poll, 4000);
+setInterval(function () { if (S.stale && !busy() && !(S.writing > 0)) applyRemote(); }, 1000);
+document.addEventListener("visibilitychange", poll);
+
+//Notes typed while the computer cannot be reached wait here and are sent on the next refresh.
+function queueNote(body) { var q = JSON.parse(local("deskQueue") || "[]"); q.push(body); local("deskQueue", JSON.stringify(q)); }
+function flushQueue() { var q = JSON.parse(local("deskQueue") || "[]"); if (!q.length) return; local("deskQueue", null); q.forEach(function (body) { api("POST","/api/note",body).catch(function () { queueNote(body); }); }); setTimeout(refresh, 600); }
+
+//---------------------------------------------------------------------------------------------------
+//Keys, marks, notes
+function docKey(doc) { return doc.kind + ":" + doc.id; }
+function lineKey(doc, beat, line) { return "line:" + doc.kind + ":" + doc.id + ":" + beat + ":" + line; }
+function mark(key) { return (S.state.markMap || {})[key] || {}; }
+function setMark(key, name, snapshot) { var current = mark(key); var set = {}; set[name] = !current[name]; return api("POST","/api/mark",{ key:key, set:set, snapshot:snapshot }).then(function (result) { S.state.markMap[key] = result; draw(); }); }
+function markIcons(m) { return (m.bookmark ? "★" : "") + (m.flag ? "⚑" : "") + (m.signedOff ? "✔" : ""); }
+function notesFor(test) { return S.state.noteArray.filter(test); }
+function docNotes(doc) { return notesFor(function (n) { return n.target && ((doc.kind === "event" && n.target.event === doc.id) || (doc.kind === "draft" && n.target.draft === doc.id)); }); }
+function lineNotes(doc, beat, line, text) {
+	return docNotes(doc).filter(function (n) { if (n.target.kind !== "line") return false; if (n.target.snapshot != null && n.target.snapshot === text) return true; return n.target.beat === beat && n.target.line === line && !snapshotExists(doc, n.target.snapshot); });
+}
+function snapshotExists(doc, snapshot) { if (snapshot == null || !doc.parsed) return false; return doc.parsed.beatArray.some(function (b) { return b.lineArray.some(function (l) { return lineText(l) === snapshot; }); }); }
+function lineText(l) { return l.divider ? "..." : (l.text || ""); }
+function unreadState(key, hash) { var seen = (S.state.seenMap || {})[key]; if (seen == null) return "new"; return seen === hash ? "" : "changed"; }
+function setSeen(key, hash) {
+	//Nothing is sent when the mark already says this. An unconditional write here is what fed the reload loop.
+	if ((S.state.seenMap[key] == null ? null : S.state.seenMap[key]) === (hash == null ? null : hash)) return Promise.resolve();
+	S.state.seenMap[key] = hash; if (hash == null) delete S.state.seenMap[key];
+	return api("POST","/api/seen",{ key:key, hash:hash });
+}
+function displayName(name, character) { var c = character ? character.charAt(0).toUpperCase() + character.slice(1) : "…"; return String(name || "").replace(/\{name\}/g, c); }
+
+//---------------------------------------------------------------------------------------------------
+//Drawing
+//A REDRAW KEEPS WHAT THE PERSON HAS. The screen is rebuilt from state, so before rebuilding it the scroll
+//position and the contents of every note box are taken, and put back afterwards. The scene editor is not
+//in that list because its text already lives in state (doc.editText) from the first keystroke. A screen
+//that SHOULD start at the top says so itself, after drawing.
+function draw() {
+	if (!S.state) { $("main").innerHTML = '<div class="card">Loading…</div>'; return; }
+	var scrollY = window.scrollY, screen = (S.doc ? docKey(S.doc) + "/" + S.mode : S.tab), kept = {};
+	document.querySelectorAll("#main textarea[id], #main input[id]").forEach(function (field) { if (field.id !== "editor" && field.id !== "search" && field.type !== "file") kept[field.id] = field.value; });
+	drawNav();
+	drawScreen();
+	if (screen === S.lastScreen) {
+		Object.keys(kept).forEach(function (id) { var field = $(id); if (field && field.value === "" && kept[id] !== "") field.value = kept[id]; });
+		window.scrollTo(0, scrollY);
+	}
+	S.lastScreen = screen;
+}
+function drawScreen() {
+	if (S.doc) return drawDoc();
+	$("fab").style.display = "";
+	if (S.tab === "events") return drawEvents();
+	if (S.tab === "drafts") return drawDrafts();
+	if (S.tab === "notes") return drawNotes();
+	return drawImages();
+}
+function drawNav() {
+	var open = S.state.noteArray.filter(function (n) { return n.status === "open"; }).length;
+	var unread = S.state.eventArray.filter(function (e) { return unreadState("event:" + e.index, e.hash); }).length + S.state.draftArray.filter(function (d) { return unreadState("draft:" + d.id, d.hash); }).length;
+	var tabs = [["events","Events", unread],["drafts","Ideas & drafts",0],["notes","Notes",open],["images","Images",0]];
+	$("nav").innerHTML = tabs.map(function (t) { return '<button data-tab="' + t[0] + '" class="' + (S.tab === t[0] && !S.doc ? "on" : "") + '">' + t[1] + (t[2] ? '<span class="count">' + t[2] + "</span>" : "") + "</button>"; }).join("");
+}
+$("nav").onclick = function (e) { var b = e.target.closest("button"); if (!b) return; leaveDoc(function () { S.tab = b.dataset.tab; S.doc = null; draw(); window.scrollTo(0,0); }); };
+
+function drawEvents(listOnly) {
+	$("header").innerHTML = "<h1>Honeycomb Desk</h1>";
+	var filters = [["all","All"],["unread","Unread"],["flag","Flagged ⚑"],["bookmark","Bookmarked ★"],["unsigned","Not signed off"],["pending","Waiting on Claude"]];
+	var head = '<input id="search" placeholder="Search events" value="' + esc(S.search) + '"><div class="chips">' + filters.map(function (f) { return '<button data-filter="' + f[0] + '" class="' + (S.filter === f[0] ? "on" : "") + '">' + f[1] + "</button>"; }).join("") + "</div>";
+	var html = "";
+	var list = S.state.eventArray.filter(function (e) {
+		var m = mark("event:" + e.index), u = unreadState("event:" + e.index, e.hash);
+		if (S.search && (e.index + " " + e.name + " " + e.character + " " + e.tag).toLowerCase().indexOf(S.search.toLowerCase()) < 0) return false;
+		if (S.filter === "unread") return !!u; if (S.filter === "flag") return !!m.flag; if (S.filter === "bookmark") return !!m.bookmark; if (S.filter === "unsigned") return !m.signedOff; if (S.filter === "pending") return e.pending;
+		return true;
+	});
+	["lust","map"].forEach(function (kind) {
+		var group = list.filter(function (e) { return e.kind === kind; });
+		if (!group.length) return;
+		html += '<div class="dim" style="margin:8px 2px">' + (kind === "lust" ? "LUST EVENTS" : "MAP EVENTS") + "</div>";
+		group.forEach(function (e) {
+			var m = mark("event:" + e.index), u = unreadState("event:" + e.index, e.hash), notes = S.state.noteArray.filter(function (n) { return n.target && n.target.event === e.index && n.status === "open"; }).length;
+			html += '<div class="card eventCard ' + (u ? "unread" : "") + '" data-open="event:' + esc(e.index) + '">' + (e.image ? '<img class="thumb" loading="lazy" src="/img/' + encodeURI(e.image) + '">' : '<div class="thumb"></div>') +
+				'<div style="flex:1;min-width:0"><div class="title">' + esc(displayName(e.name, e.character)) + '</div><div class="dim">' + esc(e.index) + " · " + e.beatCount + " beats · " + e.lineCount + " lines</div><div>" +
+				(u === "new" ? '<span class="tag new">NEW</span>' : u === "changed" ? '<span class="tag new">CHANGED</span>' : "") + (e.pending ? '<span class="tag pending">waiting on Claude</span>' : "") + (m.signedOff ? '<span class="tag ok">✔ signed off</span>' : "") + (m.flag ? '<span class="tag flag">⚑</span>' : "") + (m.bookmark ? '<span class="tag">★</span>' : "") +
+				(e.tag ? '<span class="tag">' + esc(e.character + " · " + e.tag + " " + e.rank) + "</span>" : "") + (notes ? '<span class="tag">' + notes + " note" + (notes > 1 ? "s" : "") + "</span>" : "") + "</div></div></div>";
+		});
+	});
+	if (!list.length) html += '<div class="card dim">Nothing matches.</div>';
+	//Typing in the search field redraws the LIST and leaves the field alone, so the keyboard stays up.
+	if (listOnly === true && $("eventList")) { $("eventList").innerHTML = html; return; }
+	$("main").innerHTML = head + '<div id="eventList">' + html + "</div>";
+	$("search").oninput = function () { S.search = this.value; drawEvents(true); };
+}
+function drawDrafts() {
+	$("header").innerHTML = '<h1>Ideas & drafts</h1><button class="primary small" id="newDraft">+ New</button>';
+	var html = '<div class="dim" style="margin-bottom:10px">Scene ideas, sketches and drafts. Each one is a text file on the computer that Claude can read, fill out and move into the game.</div>';
+	S.state.draftArray.slice().sort(function (a, b) { return String(b.updated).localeCompare(String(a.updated)); }).forEach(function (d) {
+		var u = unreadState("draft:" + d.id, d.hash), m = mark("draft:" + d.id);
+		html += '<div class="card eventCard ' + (u ? "unread" : "") + '" data-open="draft:' + esc(d.id) + '">' + (d.image ? '<img class="thumb" loading="lazy" src="/img/' + encodeURI(d.image) + '">' : '<div class="thumb"></div>') + '<div style="flex:1;min-width:0"><div class="title">' + esc(d.title || "Untitled") + '</div><div class="dim">' + esc(d.excerpt || "empty") + "</div><div>" +
+			'<span class="tag">' + esc(d.stage) + "</span>" + (d.character ? '<span class="tag">' + esc(d.character) + "</span>" : "") + (u && d.updatedBy === "claude" ? '<span class="tag claude">Claude edited</span>' : u ? '<span class="tag new">' + (u === "new" ? "NEW" : "CHANGED") + "</span>" : "") + (m.flag ? '<span class="tag flag">⚑</span>' : "") + (m.signedOff ? '<span class="tag ok">✔</span>' : "") + '<span class="dim"> ' + when(d.updated) + "</span></div></div></div>";
+	});
+	if (!S.state.draftArray.length) html += '<div class="card dim">Nothing yet. Tap + New to jot down a scene idea.</div>';
+	$("main").innerHTML = html;
+	$("newDraft").onclick = function () { api("POST","/api/draft",{ title:"New idea", stage:"idea", text:"" }).then(function (d) { refresh().then(function () { openDoc("draft", d.id, "edit"); }); }); };
+}
+function targetLabel(n) { var t = n.target || {}; if (t.kind === "general" || !t.kind) return "Open issue"; var where = t.event ? "event " + t.event : t.draft ? "draft" : ""; if (t.kind === "line") return where + " · line: “" + String(t.snapshot || "").slice(0, 40) + "”"; if (t.kind === "image") return where + " · image " + (t.imagePath || ""); return where; }
+function noteHtml(n, withTarget) {
+	return '<div class="note ' + esc(n.kind) + " " + (n.status === "done" ? "done" : "") + '" data-note="' + n.id + '">' + (withTarget ? '<div class="dim" data-goto="' + esc(n.target && (n.target.event ? "event:" + n.target.event : n.target.draft ? "draft:" + n.target.draft : "")) + '">' + esc(targetLabel(n)) + "</div>" : "") +
+		"<div>" + esc(n.text) + '</div><div class="dim">' + esc(n.author) + " · " + esc(n.kind) + " · " + when(n.created) + "</div>" + (n.replyArray || []).map(function (r) { return '<div class="reply ' + esc(r.author) + '"><b>' + esc(r.author) + ":</b> " + esc(r.text) + ' <span class="dim">' + when(r.created) + "</span></div>"; }).join("") +
+		'<div class="row" style="margin-top:6px"><button class="small" data-act="reply">Reply</button><button class="small" data-act="done">' + (n.status === "done" ? "Reopen" : "Done") + '</button><button class="small ghost" data-act="kind">' + (n.kind === "request" ? "Make it a note" : "Ask Claude") + '</button><button class="small ghost" data-act="remove">Delete</button></div></div>';
+}
+function drawNotes() {
+	$("header").innerHTML = "<h1>Notes & open issues</h1>";
+	var filters = [["open","Open"],["request","For Claude"],["done","Done"],["all","All"]];
+	var html = '<div class="card"><textarea id="quick" rows="3" placeholder="Jot anything down. It does not have to be about an event."></textarea><div class="row" style="margin-top:8px"><button class="primary" data-quick="note">Save note</button><button data-quick="issue">Open issue</button><button data-quick="request">Ask Claude</button></div></div>';
+	html += '<div class="chips">' + filters.map(function (f) { return '<button data-nfilter="' + f[0] + '" class="' + (S.noteFilter === f[0] ? "on" : "") + '">' + f[1] + "</button>"; }).join("") + "</div>";
+	var list = S.state.noteArray.filter(function (n) { if (S.noteFilter === "open") return n.status === "open"; if (S.noteFilter === "done") return n.status === "done"; if (S.noteFilter === "request") return n.kind === "request" && n.status === "open"; return true; }).slice().reverse();
+	html += list.map(function (n) { return noteHtml(n, true); }).join("") || '<div class="card dim">Nothing here.</div>';
+	$("main").innerHTML = html;
+}
+function drawImages() {
+	$("header").innerHTML = "<h1>Image requests</h1>";
+	var html = '<div class="dim" style="margin-bottom:10px">Every picture you uploaded, asked Forge for, or left tags and notes on. Open an event or a draft and tap its picture to add one.</div>';
+	html += S.state.imageRequestArray.slice().reverse().map(function (r) {
+		return '<div class="card eventCard" data-imagereq="' + r.id + '">' + (r.imagePath ? '<img class="thumb" loading="lazy" src="/img/' + encodeURI(r.imagePath) + "?v=" + encodeURIComponent(r.updated || "") + '" onerror="this.style.visibility=\'hidden\'">' : '<div class="thumb"></div>') + '<div style="flex:1;min-width:0"><div class="title">' + esc(r.imagePath || "(no path yet)") + '</div><div class="dim">' + esc((r.positive || "").slice(0, 90)) + '</div><div><span class="tag ' + (r.status === "done" ? "ok" : r.status === "failed" ? "flag" : r.status === "generating" ? "pending" : "claude") + '">' + esc(r.status) + '</span><span class="dim">' + when(r.updated) + "</span></div>" + (r.comments ? '<div class="dim">“' + esc(r.comments.slice(0, 100)) + "”</div>" : "") + "</div></div>";
+	}).join("") || '<div class="card dim">No image requests yet.</div>';
+	$("main").innerHTML = html;
+}
+
+//---------------------------------------------------------------------------------------------------
+//A document: a live event or a draft. Both are sketch text, so they share one screen.
+function openDoc(kind, id, mode) {
+	var url = kind === "event" ? "/api/event/" + encodeURIComponent(id) : "/api/draft/" + encodeURIComponent(id);
+	api("GET", url).then(function (data) {
+		if (data._status !== 200) { toast(data.error || "Could not open that."); return; }
+		var doc = { kind:kind, id:id, dirty:false, changedElsewhere:false, banner:null };
+		if (kind === "event") { doc.text = data.text; doc.hash = data.hash; doc.meta = data.model; doc.pendingText = data.pendingText; doc.title = displayName(data.model.name, (data.model.rowArray[0] || { value:{} }).value.character); }
+		else { doc.text = data.text; doc.hash = data.hash; doc.meta = data; doc.title = data.title; }
+		var stash = local("deskStash:" + docKey(doc));
+		doc.editText = doc.pendingText != null ? doc.pendingText : doc.text;
+		if (stash != null && stash !== doc.editText) { doc.editText = stash; doc.dirty = true; doc.banner = { kind:"warn", text:"Your unsaved typing from earlier was brought back." }; }
+		S.doc = doc; S.mode = mode || "lines";
+		setSeen(docKey(doc), doc.hash);
+		parseDoc().then(function () { draw(); window.scrollTo(0,0); });
+	});
+}
+function reloadDoc(quiet) { if (!S.doc) return; var mode = S.mode; openDoc(S.doc.kind, S.doc.id, mode); if (!quiet) toast("Reloaded"); }
+function parseDoc() { var doc = S.doc; return api("POST","/api/parse",{ text:doc.editText, event:doc.kind === "event" ? doc.id : null }).then(function (parsed) { doc.parsed = parsed; }); }
+function leaveDoc(then) { if (S.doc && S.doc.dirty && S.doc.kind === "event" && !confirm("This event has typing that is not saved yet. It is kept on this phone and will be here when you come back. Leave?")) return; then(); }
+
+function drawDoc() {
+	var doc = S.doc, m = mark(docKey(doc));
+	$("fab").style.display = "";
+	$("header").innerHTML = '<button class="small ghost" id="back">‹ Back</button><h1>' + esc(doc.title || "Untitled") + '</h1><button class="small ' + (m.bookmark ? "on" : "") + '" data-docmark="bookmark">★</button><button class="small ' + (m.flag ? "on" : "") + '" data-docmark="flag">⚑</button><button class="small ' + (m.signedOff ? "on" : "") + '" data-docmark="signedOff">✔</button>';
+	var html = '<div class="seg"><button data-mode="lines" class="' + (S.mode === "lines" ? "on" : "") + '">Read & mark</button><button data-mode="edit" class="' + (S.mode === "edit" ? "on" : "") + '">Edit' + (doc.dirty ? " •" : "") + '</button><button data-mode="preview" class="' + (S.mode === "preview" ? "on" : "") + '">Preview</button></div>';
+	if (doc.banner) html += '<div class="banner ' + doc.banner.kind + '">' + esc(doc.banner.text).replace(/\n/g,"<br>") + "</div>";
+	if (doc.changedElsewhere) html += '<div class="banner warn">This changed on the computer while you were typing. <button class="small" id="reloadDoc">Load the new version</button> (your typing stays saved on this phone)</div>';
+	if (doc.kind === "event" && doc.pendingText != null && !doc.dirty) html += '<div class="banner">You are looking at <b>your edit</b>, which is waiting for Claude to put it in the game. <button class="small" id="dropPending">Show the game\'s version</button></div>';
+	if (S.mode === "lines") html += linesHtml(doc); else if (S.mode === "edit") html += editHtml(doc); else html += previewHtml(doc);
+	$("main").innerHTML = html;
+	$("back").onclick = function () { leaveDoc(function () { S.doc = null; draw(); }); };
+	if ($("reloadDoc")) $("reloadDoc").onclick = function () { local("deskStash:" + docKey(doc), null); reloadDoc(); };
+	if ($("dropPending")) $("dropPending").onclick = function () { doc.pendingText = null; doc.editText = doc.text; parseDoc().then(draw); };
+	if (S.mode === "edit") wireEditor(doc);
+}
+function linesHtml(doc) {
+	var html = "";
+	if (doc.kind === "draft") html += '<div class="card"><span class="tag">' + esc(doc.meta.stage) + "</span>" + (doc.meta.character ? '<span class="tag">' + esc(doc.meta.character) + "</span>" : "") + '<span class="dim"> last changed by ' + esc(doc.meta.updatedBy || "you") + " " + when(doc.meta.updated) + "</span></div>";
+	var header = doc.parsed.header;
+	if (doc.kind === "event" && header.character) html += '<div class="card dim">Plays for <b>' + esc(header.character) + "</b>" + (header.tag ? " when <b>" + esc(header.tag) + "</b> reaches rank <b>" + esc(header.rank) + "</b>" : "") + (header.requiresArray.length ? "<br>Also requires: " + esc(header.requiresArray.join("; ")) : "") + "</div>";
+	doc.parsed.beatArray.forEach(function (beat, b) {
+		html += '<div class="beat">' + (beat.imagePath ? '<img class="art" loading="lazy" data-image="' + b + '" src="/img/' + encodeURI(beat.imagePath) + '" onerror="this.outerHTML=\'<div class=noart data-image=' + b + '>No picture at ' + esc(beat.imagePath) + ' yet. Tap to add one.</div>\'">' : '<div class="noart" data-image="' + b + '">No picture. Tap to add one.</div>');
+		if (beat.imageNote && /[\[(]/.test(beat.imageNote)) html += '<div class="choiceRow dim">' + esc(beat.imageNote) + "</div>";
+		if (beat.body) html += '<div class="lineRow narration"><div class="body">' + rich(beat.body) + "</div></div>";
+		beat.lineArray.forEach(function (line, l) {
+			var text = lineText(line), mk = mark(lineKey(doc, b, l)), count = lineNotes(doc, b, l, text).filter(function (n) { return n.status === "open"; }).length;
+			html += '<div class="lineRow ' + (line.divider ? "divider" : line.speaker ? "" : "narration") + (mk.flag ? " flagged" : "") + (mk.signedOff ? " signed" : "") + '" data-line="' + b + ":" + l + '"><div class="body">' + (line.speaker ? '<div class="who">' + esc(line.speaker) + (line.slot != null ? ' <span class="tag">only if she ' + PLACE_WORDS[line.slot] + "</span>" : "") + "</div>" : "") + (line.divider ? "· · ·" : rich(line.text)) + '</div><div class="marks">' + markIcons(mk) + (count ? " 💬" + count : "") + "</div></div>";
+		});
+		beat.choiceArray.forEach(function (c) { html += '<div class="choiceRow">▸ ' + esc(c.text) + (c.previewText ? ' <span class="dim">(' + esc(c.previewText) + ")</span>" : "") + (c.resultText ? '<div class="dim">→ ' + esc(c.resultText) + "</div>" : "") + "</div>"; });
+		html += "</div>";
+	});
+	if (!doc.parsed.beatArray.length) html += '<div class="card dim">Nothing written yet. Switch to Edit.</div>';
+	var general = docNotes(doc).filter(function (n) { return n.target.kind !== "line" || (!snapshotExists(doc, n.target.snapshot) && !lineStillThere(doc, n)); });
+	html += '<div class="card"><div class="title">Notes on this ' + (doc.kind === "event" ? "event" : "draft") + "</div>" + (general.map(function (n) { return noteHtml(n, n.target.kind === "line"); }).join("") || '<div class="dim">None yet.</div>') + '<textarea id="docNote" rows="2" placeholder="Add a note or a comment" style="margin-top:8px"></textarea><div class="row" style="margin-top:8px"><button class="primary" data-docnote="note">Save note</button><button data-docnote="request">Ask Claude</button></div></div>';
+	html += '<div class="row"><button id="toggleRead">Mark as unread</button>' + (doc.kind === "draft" ? '<button id="removeDraft" class="ghost">Delete this draft</button>' : '<a href="/game/index.html" target="_blank"><button class="ghost">Open the real game</button></a>') + "</div>";
+	return html;
+}
+function lineStillThere(doc, n) { var beat = doc.parsed.beatArray[n.target.beat]; return !!(beat && beat.lineArray[n.target.line]); }
+function editHtml(doc) {
+	//Each button is [label, what it types]. The last two are for cast scenes: a leader block with a line
+	//ready for every girl, and a picture path that becomes each girl's own picture.
+	var tokens = ["t ","t ...","im ","> "].concat(S.state.characterArray.map(function (c) { return c.token + " "; })).map(function (t) { return [t.trim() || t, t]; });
+	tokens.push(["leader block", "leader block\n" + S.state.characterArray.map(function (c) { return c.token + " "; }).join("\n")]);
+	tokens.push(["picture per girl", "im events/scene-name/{leader}"]);
+	var html = "";
+	if (doc.kind === "draft") html += '<label>Title</label><input id="dTitle" value="' + esc(doc.meta.title) + '"><div class="row"><div style="flex:1"><label>Stage</label><select id="dStage">' + ["idea","sketch","draft","ready for the game"].map(function (s) { return "<option" + (doc.meta.stage === s ? " selected" : "") + ">" + s + "</option>"; }).join("") + '</select></div><div style="flex:1"><label>Character</label><select id="dChar"><option value="">(none)</option>' + S.state.characterArray.map(function (c) { return '<option value="' + esc(c.token) + '"' + (doc.meta.character === c.token ? " selected" : "") + ">" + esc(c.name) + " (" + esc(c.token) + ")</option>"; }).join("") + "</select></div></div>";
+	html += '<div class="toolbar">' + tokens.map(function (t) { return '<button data-insert="' + esc(t[1]) + '">' + esc(t[0]) + "</button>"; }).join("") + '</div><textarea id="editor" class="editor" spellcheck="true" autocapitalize="sentences">' + esc(doc.editText) + "</textarea>";
+	html += '<div class="row" style="margin-top:10px"><button class="primary" id="save">' + (doc.kind === "event" ? "Save to the game" : "Save") + '</button>' + (doc.kind === "event" ? '<button id="check">What would this change?</button>' : "") + '<button class="ghost" id="revert">Undo my typing</button></div>';
+	html += '<div class="dim" style="margin-top:10px">One beat per picture, blank line between beats. <b>im</b> path [what it shows] (tags) · <b>necro</b> dialogue · <b>t</b> narration · <b>t ...</b> time passes · <b>&gt;</b> button label | preview<br><b>leader block</b> then one line per girl: only the girl leading the party says hers (<b>second block</b> for the one behind her, <b>end block</b> to go back to lines everyone hears) · <b>im events/scene-name/{leader}</b> a picture per girl (events/scene-name/knight, /necro...), the leader\'s shows' + (doc.kind === "event" ? "<br>Changed words, lines, image paths and button labels save straight into the game. A new beat or a new button is kept as a request for Claude instead, and nothing is written." : "<br>Drafts save by themselves as you type.") + "</div>";
+	return html;
+}
+function wireEditor(doc) {
+	var editor = $("editor"), timer = null;
+	var touched = function () {
+		doc.editText = editor.value; doc.dirty = doc.editText !== (doc.pendingText != null ? doc.pendingText : doc.text);
+		local("deskStash:" + docKey(doc), doc.dirty ? doc.editText : null);
+		if (doc.kind === "draft") { clearTimeout(timer); timer = setTimeout(function () { saveDoc(true); }, 1500); }
+	};
+	editor.oninput = touched;
+	if (doc.jumpTo != null) { var at = editor.value.indexOf(doc.jumpTo); if (at >= 0) { editor.focus(); editor.setSelectionRange(at, at + doc.jumpTo.length); } doc.jumpTo = null; }
+	document.querySelectorAll("[data-insert]").forEach(function (b) { b.onclick = function () { var start = editor.selectionStart, value = editor.value, atLineStart = start === 0 || value[start - 1] === "\n"; var piece = (atLineStart ? "" : "\n") + b.dataset.insert; editor.value = value.slice(0, start) + piece + value.slice(editor.selectionEnd); editor.focus(); editor.setSelectionRange(start + piece.length, start + piece.length); touched(); }; });
+	$("save").onclick = function () { saveDoc(false); };
+	if ($("check")) $("check").onclick = function () { api("POST","/api/event/" + encodeURIComponent(doc.id) + "/plan",{ text:editor.value }).then(function (r) { doc.banner = r.blockArray.length ? { kind:"warn", text:"This would be kept as a request for Claude, and nothing would be written to the game, because:\n" + r.blockArray.join("\n") } : { kind:"good", text:r.editCount ? "This would write " + r.editCount + " change" + (r.editCount > 1 ? "s" : "") + " straight into the game." : "Nothing to change." }; draw(); }); };
+	$("revert").onclick = function () { if (!confirm("Throw away what you typed since the last save?")) return; local("deskStash:" + docKey(doc), null); reloadDoc(); };
+	["dTitle","dStage","dChar"].forEach(function (id) { if ($(id)) $(id).onchange = function () { doc.meta.title = $("dTitle").value; doc.meta.stage = $("dStage").value; doc.meta.character = $("dChar").value; doc.title = doc.meta.title; saveDoc(true); }; });
+}
+function saveDoc(quiet) {
+	var doc = S.doc; if (!doc) return;
+	if (doc.kind === "draft") {
+		return api("POST","/api/draft/" + encodeURIComponent(doc.id),{ title:doc.meta.title, stage:doc.meta.stage, character:doc.meta.character, text:doc.editText, baseHash:doc.hash }).then(function (r) {
+			if (r._status === 409) { doc.changedElsewhere = true; draw(); return; }
+			doc.hash = r.hash; doc.text = r.text; doc.dirty = false; doc.meta.updated = r.updated; doc.meta.updatedBy = r.updatedBy; local("deskStash:" + docKey(doc), null); setSeen(docKey(doc), r.hash); S.version = null;
+			if (!quiet) { toast("Saved"); parseDoc().then(draw); }
+		}).catch(function () { if (!quiet) toast("Could not reach the computer. Your typing is kept on this phone."); });
+	}
+	api("POST","/api/event/" + encodeURIComponent(doc.id) + "/save",{ text:doc.editText, baseHash:doc.hash }).then(function (r) {
+		if (r._status === 409) { doc.changedElsewhere = true; draw(); return; }
+		if (r._status !== 200 && !r.reasonArray) { doc.banner = { kind:"bad", text:r.error || "The save failed." }; draw(); return; }
+		local("deskStash:" + docKey(doc), null);
+		var detail = r.detail; doc.text = detail.text; doc.hash = detail.hash; doc.pendingText = detail.pendingText; doc.meta = detail.model; doc.dirty = false; doc.editText = doc.pendingText != null ? doc.pendingText : doc.text;
+		setSeen(docKey(doc), doc.hash); S.version = null;
+		doc.banner = r.written ? { kind:"good", text:r.changeCount ? "Saved into the game: " + r.changeCount + " change" + (r.changeCount > 1 ? "s" : "") + ". A backup of the file was taken first." : "Nothing had changed." }
+			: { kind:r.ok ? "warn" : "bad", text:(r.ok ? "Kept as a request for Claude. Nothing was written to the game, because:\n" : "") + r.reasonArray.join("\n") };
+		parseDoc().then(function () { refresh(); });
+	}).catch(function () { toast("Could not reach the computer. Your typing is kept on this phone."); });
+}
+//CAST SCENES. A picture path may name a party place (`{leader}`), and lines may be spoken only by whoever
+//stands in one (`leader block`). The game fills both from the real party; the preview lets the phone pick
+//who is leading, shows that girl's picture and her line, and shows every girl's picture in a strip so a
+//missing one is obvious.
+var PLACE_WORDS = ["leads", "is second", "is third", "is fourth", "is fifth"];
+function hasPartyToken(path) { return /\{[a-z]+\}/.test(path || ""); }
+function fillParty(path, token) { return String(path || "").replace(/\{[a-z]+\}/g, token); }
+function docUsesCast(doc) { return doc.parsed.beatArray.some(function (b) { return hasPartyToken(b.imagePath) || b.lineArray.some(function (l) { return l.slot != null; }); }); }
+function castStripHtml(doc, beat) {
+	var html = '<div class="dim" style="margin-bottom:4px">Who is leading? ' + (hasPartyToken(beat.imagePath) ? "Every girl's version of this picture:" : "") + '</div><div class="castStrip">';
+	S.state.characterArray.forEach(function (c) {
+		var on = doc.previewLeader === c.token ? " on" : "";
+		var thumb = hasPartyToken(beat.imagePath) ? '<img loading="lazy" src="/img/' + encodeURI(fillParty(beat.imagePath, c.token)) + '" onerror="this.outerHTML=\'<div class=castMissing>missing</div>\'">' : "";
+		html += '<button class="castPick' + on + '" data-leader="' + esc(c.token) + '">' + thumb + "<div>" + esc(c.name) + "</div></button>";
+	});
+	return html + "</div>";
+}
+function previewHtml(doc) {
+	if (doc.previewBeat == null || doc.previewBeat >= doc.parsed.beatArray.length) doc.previewBeat = 0;
+	var beat = doc.parsed.beatArray[doc.previewBeat];
+	if (!beat) return '<div class="card dim">Nothing to preview yet.</div>';
+	var character = doc.kind === "event" ? doc.parsed.header.character : doc.meta.character;
+	var cast = docUsesCast(doc);
+	if (doc.previewLeader == null && S.state.characterArray.length) doc.previewLeader = S.state.characterArray[0].token;
+	var leaderName = (S.state.characterArray.filter(function (c) { return c.token === doc.previewLeader; })[0] || {}).name;
+	var imagePath = fillParty(beat.imagePath, doc.previewLeader);
+	var html = '<div class="dim" style="margin-bottom:6px">Beat ' + (doc.previewBeat + 1) + " of " + doc.parsed.beatArray.length + (doc.dirty ? " · showing your unsaved typing" : "") + "</div>";
+	if (cast) html += castStripHtml(doc, beat);
+	html += '<div class="stage">' + (beat.imagePath ? '<img src="/img/' + encodeURI(imagePath) + '" onerror="this.outerHTML=\'<div class=noart>No picture at ' + esc(imagePath) + ' yet.</div>\'">' : "");
+	if (beat.body) html += '<div class="narr">' + rich(displayName(beat.body, character)) + "</div>";
+	beat.lineArray.forEach(function (line) {
+		//A leader line shows only for the girl picked above. Lines for later places show for everyone,
+		//labelled, because the phone does not pick a second or a third.
+		if (line.slot === 0 && line.speaker !== leaderName) return;
+		var place = line.slot != null && line.slot > 0 ? ' <span class="dim">(if she ' + PLACE_WORDS[line.slot] + ")</span>" : "";
+		html += line.divider ? '<hr class="rule">' : line.speaker ? '<div class="say"><div class="plate">' + esc(displayName(line.speaker, character)) + "</div>" + place + "<div>" + rich(displayName(line.text, character)) + "</div></div>" : '<div class="narr">' + rich(displayName(line.text, character)) + "</div>";
+	});
+	html += '<div style="padding:8px">';
+	var buttons = beat.choiceArray.length ? beat.choiceArray : [{ text:doc.previewBeat + 1 < doc.parsed.beatArray.length ? "Continue" : "End" }];
+	buttons.forEach(function (c) { html += '<button class="primary" style="width:100%;margin-top:6px" data-next="1">' + esc(c.text) + "</button>"; });
+	return html + '</div></div><div class="row" style="margin-top:10px"><button data-prev="1">‹ Previous beat</button><button data-restart="1">Start over</button></div>';
+}
+
+//---------------------------------------------------------------------------------------------------
+//Sheets
+function sheet(html) { $("overlay").innerHTML = '<div class="sheetBack" id="sheetBack"><div class="sheet">' + html + "</div></div>"; $("sheetBack").onclick = function (e) { if (e.target.id === "sheetBack") closeSheet(); }; }
+function closeSheet() { $("overlay").innerHTML = ""; }
+function noteSheet(target, title) {
+	sheet("<h2>" + esc(title) + '</h2><textarea id="sheetNote" rows="5" placeholder="Type anything"></textarea><div class="row" style="margin-top:10px"><button class="primary" data-sheetnote="note">Save note</button><button data-sheetnote="issue">Open issue</button><button data-sheetnote="request">Ask Claude</button><button class="ghost" id="sheetClose">Cancel</button></div>');
+	var box = $("sheetNote"); box.focus();
+	$("sheetClose").onclick = closeSheet;
+	document.querySelectorAll("[data-sheetnote]").forEach(function (b) { b.onclick = function () { if (!box.value.trim()) return; addNote(target, b.dataset.sheetnote, box.value.trim()); closeSheet(); }; });
+}
+function addNote(target, kind, text) {
+	var body = { target:target, kind:kind, text:text };
+	api("POST","/api/note",body).then(function () { toast(kind === "request" ? "Sent to Claude's list" : "Noted"); refresh(); }).catch(function () { queueNote(body); toast("Kept on this phone. It will send when the computer is reachable."); });
+}
+function lineSheet(b, l) {
+	var doc = S.doc, line = doc.parsed.beatArray[b].lineArray[l], text = lineText(line), key = lineKey(doc, b, l), m = mark(key);
+	var target = { kind:"line", beat:b, line:l, snapshot:text }; target[doc.kind === "event" ? "event" : "draft"] = doc.id;
+	var notes = lineNotes(doc, b, l, text);
+	sheet('<h2>' + (line.speaker ? esc(line.speaker) + ": " : "") + "“" + esc(text.slice(0, 120)) + '”</h2><div class="row"><button data-linemark="bookmark" class="' + (m.bookmark ? "on" : "") + '">★ Bookmark</button><button data-linemark="flag" class="' + (m.flag ? "on" : "") + '">⚑ Flag</button><button data-linemark="signedOff" class="' + (m.signedOff ? "on" : "") + '">✔ Sign off</button><button id="editLine">Edit this line</button></div>' + notes.map(function (n) { return noteHtml(n, false); }).join("") + '<textarea id="sheetNote" rows="3" placeholder="Note or comment on this line" style="margin-top:10px"></textarea><div class="row" style="margin-top:8px"><button class="primary" data-sheetnote="note">Save note</button><button data-sheetnote="request">Ask Claude</button><button class="ghost" id="sheetClose">Close</button></div>');
+	$("sheetClose").onclick = closeSheet;
+	$("editLine").onclick = function () { closeSheet(); doc.jumpTo = line.divider ? "t ..." : text; S.mode = "edit"; draw(); };
+	document.querySelectorAll("[data-linemark]").forEach(function (btn) { btn.onclick = function () { setMark(key, btn.dataset.linemark, text).then(function () { lineSheet(b, l); }); }; });
+	document.querySelectorAll("[data-sheetnote]").forEach(function (btn) { btn.onclick = function () { var box = $("sheetNote"); if (!box.value.trim()) return; addNote(target, btn.dataset.sheetnote, box.value.trim()); closeSheet(); }; });
+}
+function imageSheet(imagePath, target, existing) {
+	var doc = S.doc, r = existing || S.state.imageRequestArray.filter(function (one) { return one.imagePath === imagePath && one.status !== "done"; }).pop() || {};
+	var character = r.character || (doc ? (doc.kind === "event" ? doc.parsed.header.character : doc.meta.character) : "") || "";
+	var hint = "";
+	if (doc && target && target.beat != null) { var note = (doc.parsed.beatArray[target.beat] || {}).imageNote || ""; var tags = /\(([^)]*)\)\s*$/.exec(note); hint = tags ? tags[1] : ""; }
+	sheet('<h2>Edit image</h2><div class="dim">' + esc(imagePath || "no path") + '</div><img id="imgNow" src="/img/' + encodeURI(imagePath) + "?v=" + Date.now() + '" style="width:100%;max-height:34vh;object-fit:contain;border-radius:10px;background:#0d0b11;margin-top:8px" onerror="this.style.display=\'none\'">' +
+		(r.status ? '<div class="banner ' + (r.status === "failed" ? "bad" : r.status === "done" ? "good" : "") + '" style="margin-top:8px"><b>' + esc(r.status) + "</b> " + esc(r.detail || "").replace(/\n/g,"<br>") + "</div>" : "") +
+		'<label>Upload your own (it is turned into a PNG, sized for the game, and put in the v13 spire png folder)</label><input type="file" id="imgFile" accept="image/*">' +
+		'<label>Image path</label><input id="imgPath" value="' + esc(imagePath) + '"><label>Character (for the prompt)</label><input id="imgChar" value="' + esc(character) + '">' +
+		'<label>Positive tags</label><textarea id="imgPos" rows="4">' + esc(r.positive != null ? r.positive : hint) + '</textarea><label>Negative tags</label><textarea id="imgNeg" rows="2">' + esc(r.negative || "") + '</textarea><label>Comments for Claude</label><textarea id="imgCom" rows="3" placeholder="What is wrong with the current one, what you want instead, anything">' + esc(r.comments || "") + "</textarea>" +
+		'<div class="row" style="margin-top:12px"><button class="primary" id="imgSave">Save for Claude</button><button id="imgGen">Generate with Forge now</button><button class="ghost" id="sheetClose">Close</button></div><div class="dim" style="margin-top:8px">Save for Claude keeps the tags and comments without generating anything. Generate sends them to Forge on the beef PC and writes the result into the png folder.</div>');
+	$("sheetClose").onclick = closeSheet;
+	var body = function (extra) { return Object.assign({ id:r.id, target:target || r.target || { kind:"general" }, imagePath:$("imgPath").value.trim(), character:$("imgChar").value.trim(), positive:$("imgPos").value, negative:$("imgNeg").value, comments:$("imgCom").value }, extra || {}); };
+	$("imgSave").onclick = function () { api("POST","/api/imageRequest", body({ status:"for Claude" })).then(function () { toast("Saved for Claude"); closeSheet(); refresh(); }); };
+	$("imgGen").onclick = function () { if (!$("imgPos").value.trim()) { toast("Add some positive tags first."); return; } api("POST","/api/imageRequest", body({ generate:true })).then(function (saved) { toast("Sent. Watch the Images tab."); closeSheet(); refresh(); }); };
+	$("imgFile").onchange = function () {
+		var file = this.files[0]; if (!file) return; var path = $("imgPath").value.trim(); if (!path) { toast("Give it an image path first."); return; }
+		toast("Converting…");
+		var image = new Image();
+		image.onload = function () {
+			var limit = 2304, scale = Math.min(1, limit / Math.max(image.naturalWidth, image.naturalHeight));
+			var canvas = document.createElement("canvas"); canvas.width = Math.round(image.naturalWidth * scale); canvas.height = Math.round(image.naturalHeight * scale);
+			canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+			canvas.toBlob(function (blob) {
+				api("POST","/api/image/upload?path=" + encodeURIComponent(path), blob, true).then(function (result) {
+					if (result._status !== 200) { toast(result.error || "Upload failed"); return; }
+					api("POST","/api/imageRequest", body({ status:"uploaded", comments:$("imgCom").value })).then(function () {
+						if (doc && doc.kind === "draft" && !doc.meta.image) { api("POST","/api/draft/" + encodeURIComponent(doc.id),{ image:path }).then(function () { toast("Uploaded: " + result.written); closeSheet(); reloadDoc(true); refresh(); }); }
+						else { toast("Uploaded: " + result.written); closeSheet(); refresh(); }
+					});
+				});
+			}, "image/png");
+		};
+		image.onerror = function () { toast("That picture could not be read."); };
+		image.src = URL.createObjectURL(file);
+	};
+}
+
+//---------------------------------------------------------------------------------------------------
+//Taps
+$("fab").onclick = function () {
+	var doc = S.doc, target = { kind:"general" }, title = "Quick note (not about any event)";
+	if (doc) { target = { kind:doc.kind }; target[doc.kind === "event" ? "event" : "draft"] = doc.id; title = "Note on: " + doc.title; }
+	noteSheet(target, title);
+};
+$("main").onclick = function (e) {
+	var t = e.target, el;
+	if ((el = t.closest("[data-filter]"))) { S.filter = el.dataset.filter; return draw(); }
+	if ((el = t.closest("[data-nfilter]"))) { S.noteFilter = el.dataset.nfilter; return draw(); }
+	if ((el = t.closest("[data-mode]"))) { var next = el.dataset.mode; if (S.doc && S.mode === "edit" && next !== "edit") { return parseDoc().then(function () { S.mode = next; draw(); }); } S.mode = next; return draw(); }
+	//The box is emptied as the note is sent, because a redraw puts back whatever a note box still holds.
+	if ((el = t.closest("[data-quick]"))) { var box = $("quick"), quickText = box.value.trim(); if (!quickText) return; box.value = ""; box.blur(); return addNote({ kind:"general" }, el.dataset.quick, quickText); }
+	if ((el = t.closest("[data-docnote]"))) { var nb = $("docNote"), docText = nb.value.trim(); if (!docText) return; nb.value = ""; nb.blur(); var target = { kind:S.doc.kind }; target[S.doc.kind === "event" ? "event" : "draft"] = S.doc.id; return addNote(target, el.dataset.docnote, docText); }
+	if ((el = t.closest("[data-act]"))) return noteAction(el.closest("[data-note]").dataset.note, el.dataset.act);
+	if ((el = t.closest("[data-goto]")) && el.dataset.goto) { var parts = el.dataset.goto.split(":"); return openDoc(parts[0], parts.slice(1).join(":")); }
+	if ((el = t.closest("[data-image]"))) { var b = Number(el.dataset.image), beat = S.doc.parsed.beatArray[b], tg = { kind:"image", beat:b, imagePath:beat.imagePath }; tg[S.doc.kind === "event" ? "event" : "draft"] = S.doc.id; return imageSheet(beat.imagePath || (S.doc.kind === "draft" ? "desk/" + S.doc.id + "-" + (b + 1) : ""), tg); }
+	if ((el = t.closest("[data-line]"))) { var p = el.dataset.line.split(":"); return lineSheet(Number(p[0]), Number(p[1])); }
+	if ((el = t.closest("[data-imagereq]"))) { var req = S.state.imageRequestArray.find(function (r) { return r.id === el.dataset.imagereq; }); return imageSheet(req.imagePath || "", req.target, req); }
+	if ((el = t.closest("[data-open]"))) { var o = el.dataset.open.split(":"); return openDoc(o[0], o.slice(1).join(":")); }
+	if ((el = t.closest("[data-leader]"))) { S.doc.previewLeader = el.dataset.leader; return draw(); }
+	if (t.closest("[data-next]")) { S.doc.previewBeat = Math.min(S.doc.previewBeat + 1, S.doc.parsed.beatArray.length - 1); draw(); return window.scrollTo(0,0); }
+	if (t.closest("[data-prev]")) { S.doc.previewBeat = Math.max(0, S.doc.previewBeat - 1); return draw(); }
+	if (t.closest("[data-restart]")) { S.doc.previewBeat = 0; return draw(); }
+	if (t.id === "toggleRead") { setSeen(docKey(S.doc), null).then(function () { toast("Marked as unread"); S.doc = null; draw(); }); return; }
+	if (t.id === "removeDraft") { if (!confirm("Delete this draft? A copy is kept in the backups folder on the computer.")) return; api("POST","/api/draft/" + encodeURIComponent(S.doc.id),{ remove:true }).then(function () { S.doc = null; refresh(); }); }
+};
+$("header").onclick = function (e) { var el = e.target.closest("[data-docmark]"); if (el && S.doc) setMark(docKey(S.doc), el.dataset.docmark); };
+$("overlay").addEventListener("click", function (e) { var el = e.target.closest("[data-act]"); if (el) { noteAction(el.closest("[data-note]").dataset.note, el.dataset.act); closeSheet(); } });
+function noteAction(id, act) {
+	var note = S.state.noteArray.find(function (n) { return n.id === id; }); if (!note) return;
+	var body = null;
+	if (act === "done") body = { status:note.status === "done" ? "open" : "done" };
+	if (act === "kind") body = { kind:note.kind === "request" ? "note" : "request" };
+	if (act === "remove") { if (!confirm("Delete this note?")) return; body = { remove:true }; }
+	if (act === "reply") { var text = prompt("Reply:"); if (!text) return; body = { reply:text }; }
+	api("POST","/api/note/" + id, body).then(refresh);
+}
+refresh().catch(function () { $("main").innerHTML = '<div class="card">The computer could not be reached. Is the desk running?</div>'; });
+</script>
+</body>
+</html>

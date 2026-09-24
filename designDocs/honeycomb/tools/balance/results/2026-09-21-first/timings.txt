@@ -1,0 +1,4 @@
+compare: 1293 s
+career: 3002 s
+matrix: 2751 s
+done

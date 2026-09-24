@@ -1,0 +1,925 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Card redesign — composer, broken look, filter lab</title>
+<style>
+	@font-face { font-family: norwester; src: url("../../../scripts/fonts/norwester.otf"); }
+	@font-face { font-family: railway; src: url("../../../scripts/fonts/railway.otf"); }
+	body { margin: 0; padding: 20px 24px 80px; background: #0b0812; color: #bbb; font: 14px system-ui, sans-serif; }
+	h1 { font-size: 18px; font-weight: 600; color: #ddd; margin: 0 0 4px; }
+	h2 { font-weight: 500; font-size: 15px; margin: 34px 0 10px; color: #cfc4a8; border-bottom: 1px solid #2a2138; padding-bottom: 6px; }
+	p.lead { margin: 0 0 8px; color: #888; max-width: 980px; }
+	.note { font-size: 12px; color: #777; max-width: 980px; }
+	.grid { display: flex; flex-wrap: wrap; gap: 22px 30px; align-items: flex-start; }
+	.caption { font-size: 13px; color: #cfcfcf; margin-top: 6px; }
+	.numbers { font-size: 12px; color: #7f8f7f; font-family: ui-monospace, Consolas, monospace; white-space: pre; }
+	.panel { background: #14101f; border: 1px solid #2a2138; border-radius: 10px; padding: 12px 14px; }
+	/* Keep the composer pinned left with the controls beside it. Without an explicit flex basis the
+	   controls size to their content, so adding a control (e.g. the supertype selects) can widen them
+	   past the space left of the card and wrap them below it. min-width:0 lets them shrink instead. */
+	.panel.controls { flex: 1 1 0; min-width: 0; }
+	.controls label { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #aaa; margin: 7px 0; flex-wrap: wrap; }
+	.problems { margin-top: 10px; font-size: 12px; font-family: ui-monospace, Consolas, monospace; white-space: pre-line; }
+	.problems.bad { color: #ff9a7a; }
+	.problems.good { color: #7fc99a; }
+	.controls input[type=range] { width: 220px; }
+	.controls .value { width: 58px; font-family: ui-monospace, Consolas, monospace; color: #d8cfa8; text-align: right; }
+	.toggle { display: flex; gap: 14px; font-size: 12px; color: #aaa; margin-top: 6px; flex-wrap: wrap; }
+	.toggle label { display: flex; align-items: center; gap: 5px; }
+	.sizeRow { display: flex; gap: 8px; margin: 8px 0; }
+	.sizeRow button, .viewRow button { background: #1c1628; color: #cfc4a8; border: 1px solid #3a3148; padding: 4px 10px; cursor: pointer; }
+	.sizeRow button.on, .viewRow button.on { background: #3a3148; color: #fff8e0; }
+
+	.cardStage {
+		position: relative;
+		width: var(--cardWidth, 300px);
+		aspect-ratio: 1176 / 1500;
+		--cardU: calc(var(--cardWidth, 300px) / 127);
+		background: #120c18;
+		overflow: hidden;
+	}
+	.cardStage.magenta { background: #ff00ff; }
+	.cardStage .layer { position: absolute; inset: 0; pointer-events: none; }
+	.cardStage .layer > img.full { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: fill; }
+	/* BAKED SUPERTYPE TINTS. Each recolourable piece is a stack of baked type variants
+	   (`cardsGrok/tint/<type>/<piece>.png`). The diagonal mask is applied to a WRAPPER span, NOT to the
+	   `<img>` (masking a replaced element drew hard boxes). Copy 0 = primary type; later copies are
+	   masked 135° so a multi-type card shades type-to-type. */
+	/* !important: `.cardStage .layer > img.full { display:block }` out-specifies a plain hide rule,
+	   so the source icon (etc.) was leaking through in new-chrome mode and the new pieces leaked into
+	   source mode. */
+	.cardStage .newPiece { display: none !important; }
+	.cardStage.new-chrome .srcPiece { display: none !important; }
+	.cardStage.new-chrome .newPiece { display: block !important; }
+	.tintWrap { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+		-webkit-mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-repeat: no-repeat; mask-size: 100% 100%; }
+	.tintWrap > img { width: 100%; height: 100%; display: block; object-fit: fill; }
+	.tintWrap.ring > img { object-fit: contain; }
+	/* The loose coins keep their shadow on the un-masked gold front piece only. */
+	.cardCost .tintWrap img, .cardOwner .tintWrap img { filter: none; }
+	/* The new winged icon is wider/taller than the old medallion (56% vs 47% wide, top 84.9% vs
+	   86.7%) and its top reaches into the tag band (83.2-87.4%). The rules text ends at ~82.5%, so the
+	   tag cannot move up without colliding; scale the icon back to the old footprint instead. */
+	.cardIcon .newPiece { transform: scale(0.85); transform-origin: 50% 100%; }
+	.cardArt {
+		position: absolute; overflow: hidden; z-index: 1;
+	}
+	.cardArt img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+	.cardBg { z-index: 0; }
+	.cardWash {
+		display: none; position: absolute; left: 0; right: 0; bottom: 0; height: 52%; z-index: 1;
+		pointer-events: none;
+		background: linear-gradient(180deg, transparent 0%, rgba(8, 6, 14, 0.42) 40%, rgba(8, 6, 14, 0.78) 100%);
+	}
+	.cardStage[data-layout="vertical"] .cardWash { display: block; }
+	.cardStage[data-layout="vertical"] .cardBg { display: none; }
+	.cardBorder { z-index: 2; }
+	.cardFrame { z-index: 3; }
+	.cardRibbon { z-index: 4; }
+	.cardRibbon img.full {
+		filter: drop-shadow(0 calc(2.4 * var(--cardU)) calc(1.4 * var(--cardU)) rgba(0, 0, 0, 0.62));
+	}
+	.cardTypes { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+	.cardTypes .glyph {
+		position: absolute;
+		transform-origin: center center;
+	}
+	.cardTypes .glyph img {
+		height: calc(13.8 * var(--cardU));
+		width: auto;
+		display: block;
+		object-fit: contain;
+		filter: drop-shadow(0 calc(1.2 * var(--cardU)) 0 #000);
+	}
+	.ribbonSvg {
+		position: absolute; inset: 0; z-index: 6; pointer-events: none; overflow: visible;
+	}
+	.ribbonSvg text {
+		fill: #fff8e0;
+		font-family: norwester, sans-serif;
+		font-size: 64px;
+		letter-spacing: 16px;
+		paint-order: stroke;
+		stroke: #000;
+		stroke-width: 7px;
+		dominant-baseline: middle;
+	}
+	.cardTags {
+		position: absolute; left: 8%; right: 8%; top: 83.2%; height: 4.2%; z-index: 9;
+		display: flex; align-items: center; justify-content: center;
+		font-family: norwester, sans-serif;
+		font-size: calc(8.6 * var(--cardU));
+		letter-spacing: 0.1em; text-transform: uppercase;
+		pointer-events: none;
+	}
+	.cardTags span {
+		display: inline-block;
+		padding: 0.02em 0.5em 0.05em;
+		color: #f2d0dc;
+		background: #5a3344;
+		clip-path: polygon(0.38em 0, calc(100% - 0.38em) 0, 100% 50%, calc(100% - 0.38em) 100%, 0.38em 100%, 0 50%);
+		text-shadow: none;
+	}
+	.cardTypeBig {
+		display: none; position: absolute; left: 12%; right: 12%; top: 48%; bottom: 10%;
+		z-index: 11; align-items: center; justify-content: center; gap: 10%;
+	}
+	.cardTypeBig img {
+		height: 42%; width: auto; object-fit: contain;
+		filter:
+			drop-shadow(0 0 calc(1.2 * var(--cardU)) #000)
+			drop-shadow(0 0 calc(2.4 * var(--cardU)) #000)
+			drop-shadow(0 calc(1.5 * var(--cardU)) calc(1 * var(--cardU)) #000);
+	}
+	.cardGem { z-index: 7; }
+	.cardGem img.full {
+		transform: scale(0.56);
+		transform-origin: 49.95% 11.95%;
+	}
+	.cardCost {
+		position: absolute; z-index: 8;
+		display: flex; align-items: center; justify-content: center;
+		font-family: norwester, sans-serif;
+		font-size: calc(21.6 * var(--cardU));
+		color: #f0d89a; text-shadow: 0.08em 0.08em 0 #000, 0 0 0.12em #000;
+	}
+	.cardCost img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+		filter: drop-shadow(0 calc(2.2 * var(--cardU)) calc(1.2 * var(--cardU)) rgba(0, 0, 0, 0.55)); }
+	.cardCost .num { position: relative; z-index: 1; }
+	.cardOwner { position: absolute; z-index: 9; }
+	.cardOwner .ring { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+		filter: drop-shadow(0 calc(2.2 * var(--cardU)) calc(1.2 * var(--cardU)) rgba(0, 0, 0, 0.55)); }
+	/* The portrait is clipped to ring_owner's INNER HOLE (gold inner radius 62.3% of the image,
+	   centre 49.9% / 51.7%), so it never paints over the front gold ring or spills outside it. */
+	.cardOwner .portrait {
+		position: absolute; left: 49.9%; top: 51.7%; width: 62.3%; height: 62.3%;
+		transform: translate(-50%, -50%);
+		border-radius: 50%; overflow: hidden;
+	}
+	.cardOwner .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+	.cardIcon { z-index: 10; }
+	.cardIcon img.full {
+		filter: drop-shadow(0 calc(2.6 * var(--cardU)) calc(1.6 * var(--cardU)) rgba(0, 0, 0, 0.6));
+	}
+	.cardName {
+		position: absolute; z-index: 11; display: flex; align-items: center; justify-content: center;
+		overflow: hidden; text-align: center; white-space: nowrap;
+		font-family: norwester, sans-serif;
+		font-size: calc(13.95 * var(--cardU) * var(--hcLineScale, 1));
+		letter-spacing: 0.02em; color: #efe4cf; text-shadow: 0.08em 0.08em 0 #000, 0 0 0.12em #000; line-height: 1;
+	}
+	.cardText {
+		position: absolute; z-index: 11; overflow: hidden; text-align: center;
+		font-family: railway, "Segoe UI", sans-serif;
+		font-size: calc(12 * var(--cardU) * var(--hcLineScale, 1));
+		line-height: 1.15; color: #f3ecdd; text-shadow: 0.08em 0.08em 0 #000, 0 0 0.12em #000;
+		white-space: normal; padding: 0 0.4em; box-sizing: border-box;
+	}
+	.cardText.over { outline: 1px solid #ff7a6a; }
+	.cardStage[data-size="small"] .cardOwner,
+	.cardStage[data-size="small"] .cardGem,
+	.cardStage[data-size="small"] .cardIcon,
+	.cardStage[data-size="small"] .cardRibbon,
+	.cardStage[data-size="small"] .cardTypes,
+	.cardStage[data-size="small"] .ribbonSvg,
+	.cardStage[data-size="small"] .cardTags,
+	.cardStage[data-size="small"] .cardText { display: none; }
+	.cardStage[data-size="small"] .cardTypeBig { display: flex; }
+	.cardStage[data-size="medium"] .ribbonSvg { display: none; }
+	.cardStage[data-size="medium"] .cardTypes .glyph img { height: calc(18 * var(--cardU)); }
+
+	.cardRef {
+		position: absolute; inset: 0; z-index: 20; pointer-events: none; display: none;
+	}
+	.cardRef img { width: 100%; height: 100%; object-fit: fill; display: block; }
+	.cardStage.view-b .cardRef { display: block; }
+	.cardStage.view-b .cardArt,
+	.cardStage.view-b .cardBg,
+	.cardStage.view-b .cardWash,
+	.cardStage.view-b .cardBorder,
+	.cardStage.view-b .cardFrame,
+	.cardStage.view-b .cardRibbon,
+	.cardStage.view-b .cardTypes,
+	.cardStage.view-b .cardGem,
+	.cardStage.view-b .cardCost,
+	.cardStage.view-b .cardOwner,
+	.cardStage.view-b .cardIcon,
+	.cardStage.view-b .cardName,
+	.cardStage.view-b .cardText { opacity: 0; }
+	.cardStage.view-50 .cardRef { display: block; opacity: 0.5; }
+	.cardStage.view-diff .cardRef { display: block; mix-blend-mode: difference; }
+
+	.demoCard { width: 127px; --cardWidth: 127px; overflow: hidden; }
+	.demoCard .tint { position: absolute; inset: 0; background: #ff4d86; mix-blend-mode: multiply; opacity: 0.18; z-index: 12; pointer-events: none; }
+	.shipped { box-shadow: 0 0 0 2px rgba(255, 59, 107, 0.55), 0 0 16px rgba(255, 59, 107, 0.35); }
+	.shipped::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 60%; z-index: 13; pointer-events: none;
+		background: linear-gradient(100deg, transparent, rgba(255, 120, 180, 0.32), transparent); animation: sheen 3200ms ease-in-out infinite; }
+	@keyframes sheen { 0% { transform: translateX(0); } 55% { transform: translateX(280%); } 100% { transform: translateX(280%); } }
+	.cracked::before { content: ""; position: absolute; inset: 0; z-index: 13; pointer-events: none;
+		background:
+			linear-gradient(58deg, transparent 49.4%, rgba(255, 235, 245, 0.85) 49.7%, transparent 50%),
+			linear-gradient(-32deg, transparent 49.4%, rgba(255, 235, 245, 0.65) 49.8%, transparent 50%),
+			linear-gradient(14deg, transparent 49.5%, rgba(255, 235, 245, 0.5) 49.9%, transparent 50%);
+		mix-blend-mode: screen; animation: crackPulse 2400ms steps(2, end) infinite; }
+	@keyframes crackPulse { 50% { opacity: 0.45; } }
+	.foil .cardBorder img,
+	.foil .cardFrame img { animation: foilHue 6000ms linear infinite; }
+	@keyframes foilHue { 0% { filter: hue-rotate(0deg) saturate(1.4) brightness(1.1); } 100% { filter: hue-rotate(360deg) saturate(1.4) brightness(1.1); } }
+	.ember { animation: emberRim 1800ms ease-in-out infinite; }
+	@keyframes emberRim {
+		0%, 100% { box-shadow: 0 0 0 2px rgba(255, 90, 60, 0.55), 0 0 12px rgba(255, 90, 60, 0.35); }
+		50% { box-shadow: 0 0 0 3px rgba(255, 150, 90, 0.8), 0 0 26px rgba(255, 120, 60, 0.6); }
+	}
+	.wrong .tint { background: #4be3ff; opacity: 0.28; }
+	.scanlines::before { content: ""; position: absolute; inset: 0; z-index: 13; pointer-events: none; opacity: 0.35;
+		background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 0, 0, 0.45) 3px 4px); animation: scanDrift 5000ms linear infinite; }
+	@keyframes scanDrift { 100% { transform: translateY(8px); } }
+	body.reduced .shipped::after, body.reduced .cracked::before,
+	body.reduced .foil .cardBorder img, body.reduced .foil .cardFrame img,
+	body.reduced .ember, body.reduced .scanlines::before { animation: none; }
+
+	.filterStage { width: 300px; --cardWidth: 300px; }
+	.filterRow { display: flex; gap: 18px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- SUPERTYPE TINTS. A duotone (luminance -> dark..light ramp of the target) so every asset lands on
+     the same supertype colour regardless of its own base hue. Support keeps the default asset. -->
+<svg id="tintDefs" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;left:0;top:0;pointer-events:none">
+	<filter id="tintDamage" color-interpolation-filters="sRGB">
+		<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+		<feComponentTransfer><feFuncR type="table" tableValues="0.20 1"/><feFuncG type="table" tableValues="0.02 0.24"/><feFuncB type="table" tableValues="0.02 0.19"/></feComponentTransfer>
+	</filter>
+	<filter id="tintNegative" color-interpolation-filters="sRGB">
+		<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+		<feComponentTransfer><feFuncR type="table" tableValues="0.078 0.659"/><feFuncG type="table" tableValues="0.027 0.467"/><feFuncB type="table" tableValues="0.122 0.839"/></feComponentTransfer>
+	</filter>
+	<filter id="tintLewd" color-interpolation-filters="sRGB">
+		<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+		<feComponentTransfer>
+			<feFuncR type="table" tableValues="0.30 0.72 0.88 1"/>
+			<feFuncG type="table" tableValues="0.05 0.32 0.52 0.72"/>
+			<feFuncB type="table" tableValues="0.24 0.54 0.74 0.94"/>
+		</feComponentTransfer>
+	</filter>
+	<filter id="tintPassive" color-interpolation-filters="sRGB">
+		<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+		<feComponentTransfer><feFuncR type="table" tableValues="0.039 0.498"/><feFuncG type="table" tableValues="0.180 0.847"/><feFuncB type="table" tableValues="0.071 0.541"/></feComponentTransfer>
+	</filter>
+	<filter id="tintRandom" color-interpolation-filters="sRGB">
+		<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"/>
+		<feComponentTransfer><feFuncR type="table" tableValues="0.141 0.918"/><feFuncG type="table" tableValues="0.141 0.918"/><feFuncB type="table" tableValues="0.173 0.937"/></feComponentTransfer>
+	</filter>
+</svg>
+
+<h1>Card redesign — composer, broken look, filter lab</h1>
+<p class="lead">A bench, not part of the game. Source pieces in <code>!designDocs/honeycomb/!imageStorage/_source/cards/</code>
+(pre-spaced 1176×1500 plus loose rings/types). Live honeycomb still draws placeholder frames.
+Quality target: <strong>horizontal priest</strong>. Vertical is a basic placeholder.</p>
+
+<h2>1 · The composer</h2>
+<p class="lead">Existing rasters, art in the back. Overlay the chrome-only snapshot (<code>card_redesign/overlays/step5/chrome-only.png</code>) for chrome-slot registration.
+The art window follows <code>frame_gold_horizontal.png</code>.</p>
+<div class="grid">
+	<div class="cardStage" id="composer" data-size="large" data-layout="horizontal"></div>
+	<div class="panel controls" id="controls">
+		<div class="numbers" id="readout"></div>
+		<div class="sizeRow">
+			<button type="button" data-size="small">small 108</button>
+			<button type="button" data-size="medium">medium 127</button>
+			<button type="button" data-size="large" class="on">large 300</button>
+		</div>
+		<div class="viewRow sizeRow">
+			<button type="button" data-view="a" class="on">A</button>
+			<button type="button" data-view="b">B ref</button>
+			<button type="button" data-view="50">50%</button>
+			<button type="button" data-view="diff">difference</button>
+		</div>
+		<label>layout
+			<select id="layoutSel">
+				<option value="horizontal" selected>horizontal</option>
+				<option value="vertical">vertical (placeholder)</option>
+			</select>
+		</label>
+		<label>types
+			<select id="typeMode">
+				<option value="single">single — DAMAGE</option>
+				<option value="multi" selected>multi — icons only</option>
+			</select>
+		</label>
+		<label>window left <input type="range" id="winLeft" min="0" max="40" step="0.1"><span class="value" id="winLeftV"></span></label>
+		<label>window top <input type="range" id="winTop" min="0" max="40" step="0.1"><span class="value" id="winTopV"></span></label>
+		<label>window width <input type="range" id="winWidth" min="40" max="100" step="0.1"><span class="value" id="winWidthV"></span></label>
+		<label>window height <input type="range" id="winHeight" min="20" max="90" step="0.1"><span class="value" id="winHeightV"></span></label>
+		<label>ribbon top <input type="range" id="ribbonTop" min="40" max="85" step="0.1"><span class="value" id="ribbonTopV"></span></label>
+		<label>text top <input type="range" id="textTop" min="50" max="92" step="0.1"><span class="value" id="textTopV"></span></label>
+		<label>text height <input type="range" id="textHeight" min="6" max="30" step="0.1"><span class="value" id="textHeightV"></span></label>
+		<div class="toggle">
+			<label><input type="checkbox" id="showArt" checked> art</label>
+			<label><input type="checkbox" id="showBg" checked> bg</label>
+			<label><input type="checkbox" id="showBorder" checked> border</label>
+			<label><input type="checkbox" id="showFrame" checked> frame</label>
+			<label><input type="checkbox" id="showRibbon" checked> ribbon</label>
+			<label><input type="checkbox" id="showTypes" checked> types</label>
+			<label><input type="checkbox" id="showGem" checked> gem</label>
+			<label><input type="checkbox" id="showCost" checked> cost</label>
+			<label><input type="checkbox" id="showOwner" checked> owner ring</label>
+			<label><input type="checkbox" id="showIcon" checked> class icon</label>
+			<label><input type="checkbox" id="showText" checked> text</label>
+			<label><input type="checkbox" id="showName" checked> name</label>
+			<label><input type="checkbox" id="newChrome"> new split chrome</label>
+			<label>supertypes
+				<select id="supertypeSel">
+					<option value="damage" selected>Damage</option>
+					<option value="negative">Negative</option>
+					<option value="lewd">Lewd</option>
+					<option value="support">Support</option>
+					<option value="passive">Passive</option>
+					<option value="random">Random</option>
+				</select>
+				<select id="supertype2Sel">
+					<option value="">+ none</option>
+					<option value="damage">Damage</option>
+					<option value="negative">Negative</option>
+					<option value="lewd" selected>Lewd</option>
+					<option value="support">Support</option>
+					<option value="passive">Passive</option>
+					<option value="random">Random</option>
+				</select>
+				<select id="supertype3Sel">
+					<option value="">+ none</option>
+					<option value="damage">Damage</option>
+					<option value="negative">Negative</option>
+					<option value="lewd">Lewd</option>
+					<option value="support">Support</option>
+					<option value="passive">Passive</option>
+					<option value="random">Random</option>
+				</select>
+			</label>
+			<label><input type="checkbox" id="magentaPlate"> magenta</label>
+			<label><input type="checkbox" id="reducedFx"> reduced effects</label>
+		</div>
+		<div class="problems" id="problems"></div>
+		<p class="note">Sizes are live honeycomb pixels at 1:1 (small = deck 108, medium = hand at reference 127, large = 300).
+		Pre-spaced pieces fill the card. Fonts are norwester / railway at live card-unit sizes (width / 127).</p>
+	</div>
+</div>
+
+<h2>2 · The broken look</h2>
+<p class="lead">Shipped rose rim + sheen, then four candidates, on the step-3 assembly. Intent only; step 7 rebuilds them.</p>
+<div class="grid" id="brokenGrid"></div>
+
+<h2>3 · The filter lab</h2>
+<p class="lead">SVG filters on the gold horizontal frame. Session-22 damage-crack luminance fix kept.</p>
+<svg width="0" height="0" style="position:absolute">
+	<filter id="gild" x="-20%" y="-20%" width="140%" height="140%">
+		<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+		<feSpecularLighting in="blur" surfaceScale="6" specularConstant="1.1" specularExponent="18" lighting-color="#ffe9a8" result="spec">
+			<fePointLight x="180" y="-60" z="220"/>
+		</feSpecularLighting>
+		<feComposite in="spec" in2="SourceAlpha" operator="in" result="specClip"/>
+		<feComposite in="SourceGraphic" in2="specClip" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+	</filter>
+	<filter id="roughen" x="-20%" y="-20%" width="140%" height="140%">
+		<feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="7" result="noise"/>
+		<feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+	</filter>
+	<filter id="damageCrack" x="-10%" y="-10%" width="120%" height="120%">
+		<feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="3" result="speckle"/>
+		<feColorMatrix in="speckle" type="luminanceToAlpha" result="speckleAlpha"/>
+		<feComponentTransfer in="speckleAlpha" result="hard">
+			<feFuncA type="discrete" tableValues="1 1 1 0"/>
+		</feComponentTransfer>
+		<feComposite in="SourceGraphic" in2="hard" operator="in" result="eaten"/>
+		<feDropShadow in="eaten" dx="1" dy="1" stdDeviation="0.6" flood-color="#ffb0c8" flood-opacity="0.8"/>
+	</filter>
+</svg>
+<div class="filterRow">
+	<div><div class="cardStage filterStage" id="filterGild" data-size="large"></div><div class="caption">Gilded (specular lighting)</div></div>
+	<div><div class="cardStage filterStage" id="filterRough" data-size="large"></div><div class="caption">Roughened (turbulence displacement)</div></div>
+	<div><div class="cardStage filterStage" id="filterCrack" data-size="large"></div><div class="caption">Damage (speckle erase + glow)</div></div>
+</div>
+<p class="note">Nothing here is wired into live honeycomb.</p>
+
+<script>
+	var SRC = "../!imageStorage/_source/cards/";
+	//New split rasters (back/front pieces) in cardsGrok/. Colour is the card's SUPERTYPE colour, not
+	//the owner: the live type filter is applied to the cloth/well back-pieces.
+	var GROK = "../!imageStorage/_source/cardsGrok/";
+	//Duotone tints (tintDefs) so every asset hits the same supertype colour. Support keeps the default
+	//asset. Noodle's spec: Damage red, Support blue (default), Negative dark purple, Lewd pink,
+	//Passive green, Random white/grey.
+	var SUPERTYPE = {
+		damage: { color: "#d6463a", filter: "url(#tintDamage)" },
+		support: { color: "#3f8fd8", filter: "none" },
+		negative: { color: "#4a2a6b", filter: "url(#tintNegative)" },
+		lewd: { color: "#ff99ff", filter: "url(#tintLewd)" },
+		passive: { color: "#5fc06f", filter: "url(#tintPassive)" },
+		random: { color: "#b8b8c0", filter: "url(#tintRandom)" }
+	};
+	var ART_COMPOSER = "../!imageStorage/_source/refsPNG/characters/vamp1V-basic-a.png";
+	var ART_LAB = "../../../v13 spire images/cards/art/clemence-martyr.webp";
+	var PORTRAIT = "../../../v13 spire images/characters/priest/default/0-portrait.webp";
+	//The overlay reference is a chrome-only snapshot of THIS bench (no art), not assembledParts.png.
+	//Regenerate with `card_redesign/overlays/step3/make-chrome-only.js --out <file>` whenever the
+	//face changes. Step 3's frozen reference stays at backups/chrome-only.png for the step-4 backup.
+	var REF = "../card_redesign/overlays/step5/chrome-only.png";
+	var RIBBON_NATIVE_TOP = 51.4;
+
+	var WINDOW = {
+		horizontal: { left: 7.5, top: 12.9, width: 84.9, height: 40.2 },
+		vertical: { left: 7.5, top: 12.9, width: 84.9, height: 81.5 }
+	};
+	var BY_LAYOUT = {
+		horizontal: { ribbonTop: 50.0, textTop: 61.2, textHeight: 21.2 },
+		//Vertical placeholder: raise the band and rules so three lines still clear the Vampiric tag
+		//at 83.2%. Text bottom lands at 82.5%.
+		vertical: { ribbonTop: 52.0, textTop: 63.0, textHeight: 19.5 }
+	};
+	var LAYOUT = {
+		layout: "horizontal",
+		aspect: [1176, 1500],
+		window: { left: 7.5, top: 12.9, width: 84.9, height: 40.2 },
+		ribbon: { left: 19.5, top: 50.0, width: 61.1, height: 10.9 },
+		text: { left: 6.5, top: 61.2, width: 87, height: 21.2 },
+		name: { left: 26, top: 2.7, width: 52, height: 7.6 },
+		cost: { left: 1.4, top: 0.9, width: 26.4 },
+		owner: { right: 3, top: 2, width: 17 },
+		gem: { left: 45.0, top: 7.6, width: 9.9, height: 8.7 },
+		icon: { left: 27.1, top: 86.7, width: 47.4, height: 13.3 },
+		typeMode: "multi"
+	};
+	var SIZE = { small: 108, medium: 127, large: 300 };
+	var RULES = "Deal 8 damage to ALL enemies.<br>Apply 2 Weak to ALL enemies.<br>Heal 6 HP.";
+	var pathSeq = 0;
+
+	function pct(box) {
+		return "left:" + box.left + "%;top:" + box.top + "%;width:" + box.width + "%;" +
+			(box.height != null ? "height:" + box.height + "%;" : "");
+	}
+
+	function ribbonLift() { return RIBBON_NATIVE_TOP - LAYOUT.ribbon.top; }
+
+	var RIBBON_TOP = [
+		[24, 53.33], [26, 52.87], [28, 52.53], [30, 52.27], [32, 52.07],
+		[34, 52.00], [36, 51.80], [38, 51.73], [40, 51.67], [42, 51.53],
+		[44, 51.53], [46, 51.47], [48, 51.47], [50, 51.47], [52, 51.47],
+		[54, 51.47], [56, 51.53], [58, 51.53], [60, 51.67], [62, 51.73],
+		[64, 51.80], [66, 51.93], [68, 52.07], [70, 52.27], [72, 52.47],
+		[74, 52.80], [76, 53.27]
+	];
+	var FACE_INSET = 4.95;
+	var TEXT_DY = 28;
+
+	function lerpRibbonTop(xPct) {
+		if (xPct <= RIBBON_TOP[0][0]) return RIBBON_TOP[0][1];
+		for (var i = 1; i < RIBBON_TOP.length; i++) {
+			if (xPct <= RIBBON_TOP[i][0]) {
+				var a = RIBBON_TOP[i - 1], b = RIBBON_TOP[i];
+				var t = (xPct - a[0]) / (b[0] - a[0]);
+				return a[1] + t * (b[1] - a[1]);
+			}
+		}
+		return RIBBON_TOP[RIBBON_TOP.length - 1][1];
+	}
+
+	function ribbonMidY(xPct) {
+		return lerpRibbonTop(xPct) + FACE_INSET - ribbonLift();
+	}
+
+	function ribbonDeg(xPct) {
+		var dY = (ribbonMidY(xPct + 1) - ribbonMidY(xPct - 1)) / 100 * 1500;
+		var dX = 2 / 100 * 1176;
+		return Math.atan(dY / dX) * 180 / Math.PI;
+	}
+
+	function ribbonPathD() {
+		var pts = [];
+		for (var x = 24; x <= 76; x += 2) {
+			pts.push((1176 * x / 100).toFixed(1) + " " + (1500 * ribbonMidY(x) / 100 + TEXT_DY).toFixed(1));
+		}
+		return "M " + pts.join(" L ");
+	}
+
+	function placeIcon(container, src, xPct) {
+		var el = document.createElement("div");
+		el.className = "glyph";
+		var im = document.createElement("img");
+		im.src = src;
+		im.alt = "";
+		el.appendChild(im);
+		el.style.left = xPct + "%";
+		el.style.top = ribbonMidY(xPct) + "%";
+		el.style.transform = "translate(-50%, -50%) rotate(" + ribbonDeg(xPct).toFixed(2) + "deg)";
+		container.appendChild(el);
+	}
+
+	function placeTypes(stage) {
+		if (!stage) return;
+		var container = stage.querySelector(".cardTypes");
+		var svg = stage.querySelector(".ribbonSvg");
+		var path = stage.querySelector(".ribbonSvg path");
+		var label = stage.querySelector(".ribbonLabel");
+		var big = stage.querySelector(".cardTypeBig");
+		if (path) path.setAttribute("d", ribbonPathD());
+		if (container) container.innerHTML = "";
+		if (big) {
+			big.innerHTML = "";
+			var srcs = [SRC + "type_attack.png"];
+			if ((LAYOUT.typeMode || "multi") === "multi") srcs.push(SRC + "type_lewd.png");
+			srcs.forEach(function (src) {
+				var im = document.createElement("img");
+				im.src = src;
+				im.alt = "";
+				big.appendChild(im);
+			});
+		}
+		var size = stage.dataset.size || "large";
+		var mode = LAYOUT.typeMode || "multi";
+		if (size === "small") {
+			if (label) label.style.display = "none";
+			return;
+		}
+		if (mode === "single" && size === "large") {
+			placeIcon(container, SRC + "type_attack.png", 31.5);
+			if (label) {
+				label.style.display = "";
+				var tp = label.querySelector("textPath");
+				if (tp) tp.setAttribute("startOffset", "58%");
+			}
+		} else {
+			if (label) label.style.display = "none";
+			if (mode === "multi") {
+				placeIcon(container, SRC + "type_attack.png", 40);
+				placeIcon(container, SRC + "type_lewd.png", 60);
+			} else {
+				placeIcon(container, SRC + "type_attack.png", 50);
+			}
+		}
+	}
+
+
+	function fitText(el) {
+		if (!el) return;
+		el.style.setProperty("--hcLineScale", 1);
+		var scale = 1;
+		var min = 0.5;
+		var guard = 0;
+		while (el.scrollHeight > el.clientHeight + 1 && scale > min && guard < 30) {
+			scale = Math.max(min, scale - 0.04);
+			el.style.setProperty("--hcLineScale", String(scale.toFixed(3)));
+			guard += 1;
+		}
+	}
+
+	//A stack of baked type variants for one recolourable piece. The mask goes on the WRAPPER span, not
+	//the img (masking a replaced element drew hard boxes). Copy 0 = primary; later copies masked 135°.
+	function tintStack(piece, wrapClass) {
+		var out = "";
+		for (var i = 0; i < 3; i++) {
+			out += '<span class="tintWrap ' + wrapClass + '" data-piece="' + piece + '" data-copy="' + i + '"><img alt=""></span>';
+		}
+		return out;
+	}
+
+	function stackHTML(opts) {
+		opts = opts || {};
+		var frameFile = (opts.layout || LAYOUT.layout) === "vertical" ? "frame_gold_vertical.png" : "frame_gold_horizontal.png";
+		var win = WINDOW[opts.layout || LAYOUT.layout];
+		var art = opts.art || ART_LAB;
+		var editable = opts.edit ? ' contenteditable="true" spellcheck="false"' : "";
+		pathSeq += 1;
+		var pid = "rp" + pathSeq;
+		return "" +
+			'<div class="cardArt" style="' + pct(win) + '"><img src="' + art + '" alt=""></div>' +
+			'<div class="layer cardBg"><img class="full srcPiece" src="' + SRC + 'bg_priest_blue.png" alt="">' + tintStack("bg", "full newPiece") + "</div>" +
+			'<div class="cardWash"></div>' +
+			'<div class="layer cardBorder"><img class="full srcPiece" src="' + SRC + 'border_blue.png" alt="">' + tintStack("border", "full newPiece") + "</div>" +
+			'<div class="layer cardFrame"><img class="full" src="' + SRC + frameFile + '" alt=""></div>' +
+			'<div class="layer cardRibbon"><img class="full srcPiece" src="' + SRC + 'ribbon_blue.png" alt="">' +
+				tintStack("ribbonBack", "full newPiece") +
+				'<img class="full newPiece newFront" src="' + GROK + 'newribbon_front.png" alt=""></div>' +
+			'<div class="cardTypes" id="' + (opts.typesId || "") + '"></div>' +
+			'<svg class="ribbonSvg" viewBox="0 0 1176 1500" preserveAspectRatio="none">' +
+				'<defs><path id="' + pid + '" fill="none"></path></defs>' +
+				'<text class="ribbonLabel" dominant-baseline="middle"><textPath href="#' + pid + '" startOffset="56%" text-anchor="middle">DAMAGE</textPath></text>' +
+			"</svg>" +
+			'<div class="layer cardGem"><img class="full" src="' + SRC + 'rarity_gold.png" alt=""></div>' +
+			'<div class="cardCost" style="' + pct(LAYOUT.cost) + 'aspect-ratio:1"><img class="srcPiece" src="' + SRC + 'ring_cost.png" alt="">' +
+				tintStack("costBack", "ring newPiece") +
+				'<img class="ring newPiece newFront" src="' + GROK + 'newring_cost_front.png" alt=""><span class="num">2</span></div>' +
+			'<div class="cardOwner" style="right:' + LAYOUT.owner.right + '%;top:' + LAYOUT.owner.top + '%;width:' + LAYOUT.owner.width + '%;aspect-ratio:1">' +
+				'<img class="ring srcPiece" src="' + SRC + 'ring_owner.png" alt="">' +
+				tintStack("ownerBack", "ring newPiece") +
+				'<div class="portrait"><img src="' + PORTRAIT + '" alt=""></div>' +
+				'<img class="ring newPiece newFront" src="' + GROK + 'newring_owner_front.png" alt=""></div>' +
+			'<div class="layer cardIcon"><img class="full srcPiece" src="' + SRC + 'icon_priest.png" alt="">' +
+				tintStack("iconBack", "full newPiece") +
+				'<img class="full newPiece newFront" src="' + GROK + 'newicon_front.png" alt="">' +
+				'<img class="full newPiece" src="' + GROK + 'newicon_priest.png" alt=""></div>' +
+			'<div class="cardTags"><span>VAMPIRIC</span></div>' +
+			'<div class="cardTypeBig"></div>' +
+			'<div class="cardName" id="' + (opts.nameId || "") + '" style="' + pct(LAYOUT.name) + '"' + editable + ">NIGHTFALL</div>" +
+			'<div class="cardText" id="' + (opts.textId || "") + '" style="' + pct(LAYOUT.text) + '"' + editable + ">" + RULES + "</div>" +
+			(opts.tint ? '<div class="tint"></div>' : "") +
+			(opts.ref ? '<div class="cardRef"><img src="' + REF + '" alt=""></div>' : "");
+	}
+
+	document.getElementById("composer").innerHTML = stackHTML({
+		typesId: "typeRow", nameId: "nameBand", textId: "textPanel", ref: true, edit: true, art: ART_COMPOSER
+	});
+
+	var broken = [
+		{ cls: "shipped", cap: "Shipped: rose rim + sheen", cost: "transform-only · reduced-effects safe" },
+		{ cls: "cracked", cap: "Cracked: glass split lines", cost: "two gradients · cheap, static" },
+		{ cls: "foil", cap: "Foil: hue-cycling frame", cost: "filter animation · paint every frame" },
+		{ cls: "ember", cap: "Ember: breathing rim", cost: "box-shadow animation · paint cost" },
+		{ cls: "wrong scanlines", cap: "Wrong: cold wash + scan", cost: "linear wash · scanline transform" }
+	];
+	document.getElementById("brokenGrid").innerHTML = broken.map(function (item) {
+		return '<div><div class="cardStage demoCard ' + item.cls + '" data-size="medium">' + stackHTML({ tint: true }) +
+			'</div><div class="caption">' + item.cap + '<br><span class="numbers">' + item.cost + "</span></div></div>";
+	}).join("");
+
+	document.getElementById("filterGild").innerHTML = stackHTML({ art: ART_LAB });
+	document.getElementById("filterRough").innerHTML = stackHTML({ art: ART_LAB });
+	document.getElementById("filterCrack").innerHTML = stackHTML({ art: ART_LAB });
+	document.getElementById("filterGild").style.filter = "url(#gild)";
+	document.getElementById("filterRough").style.filter = "url(#roughen)";
+	document.getElementById("filterCrack").style.filter = "url(#damageCrack)";
+
+	var fields = [
+		{ input: "winLeft", output: "winLeftV", key: "window.left" },
+		{ input: "winTop", output: "winTopV", key: "window.top" },
+		{ input: "winWidth", output: "winWidthV", key: "window.width" },
+		{ input: "winHeight", output: "winHeightV", key: "window.height" },
+		{ input: "ribbonTop", output: "ribbonTopV", key: "ribbon.top" },
+		{ input: "textTop", output: "textTopV", key: "text.top" },
+		{ input: "textHeight", output: "textHeightV", key: "text.height" }
+	];
+
+	function setSlider(id, value) {
+		var el = document.getElementById(id);
+		el.value = value;
+		document.getElementById(id + "V").textContent = Number(value).toFixed(1);
+	}
+
+	function loadSliders() {
+		setSlider("winLeft", LAYOUT.window.left);
+		setSlider("winTop", LAYOUT.window.top);
+		setSlider("winWidth", LAYOUT.window.width);
+		setSlider("winHeight", LAYOUT.window.height);
+		setSlider("ribbonTop", LAYOUT.ribbon.top);
+		setSlider("textTop", LAYOUT.text.top);
+		setSlider("textHeight", LAYOUT.text.height);
+	}
+
+	function boxOf(el) { return el.getBoundingClientRect(); }
+
+	function report() {
+		var stage = document.getElementById("composer");
+		var text = document.getElementById("textPanel");
+		if (!text) return;
+		var stageBox = boxOf(stage);
+		var textBox = boxOf(text);
+		var lineArray = [];
+		var ribbonBottom = LAYOUT.ribbon.top + LAYOUT.ribbon.height;
+		if (document.getElementById("showRibbon").checked && document.getElementById("showText").checked &&
+			LAYOUT.text.top < ribbonBottom) {
+			lineArray.push("OVERLAP  text top " + LAYOUT.text.top.toFixed(1) + "% is above ribbon bottom " +
+				ribbonBottom.toFixed(1) + "%.");
+		}
+		var spill = text.scrollHeight - text.clientHeight;
+		text.classList.toggle("over", spill > 1);
+		if (document.getElementById("showText").checked && spill > 1) {
+			lineArray.push("OVERFLOW rules text is " + spill.toFixed(0) + "px taller than its box.");
+		}
+		var foot = (textBox.bottom - stageBox.top) / stageBox.height * 100;
+		if (document.getElementById("showText").checked && foot > 99) {
+			lineArray.push("OFF-CARD text panel ends at " + foot.toFixed(1) + "%.");
+		}
+		var problems = document.getElementById("problems");
+		problems.textContent = lineArray.length === 0 ? "fits: nothing overlaps and nothing overflows." : lineArray.join("\n");
+		problems.className = "problems " + (lineArray.length === 0 ? "good" : "bad");
+	}
+
+	function apply() {
+		LAYOUT.window.left = Number(document.getElementById("winLeft").value);
+		LAYOUT.window.top = Number(document.getElementById("winTop").value);
+		LAYOUT.window.width = Number(document.getElementById("winWidth").value);
+		LAYOUT.window.height = Number(document.getElementById("winHeight").value);
+		LAYOUT.ribbon.top = Number(document.getElementById("ribbonTop").value);
+		LAYOUT.text.top = Number(document.getElementById("textTop").value);
+		LAYOUT.text.height = Number(document.getElementById("textHeight").value);
+		fields.forEach(function (field) {
+			document.getElementById(field.output).textContent = Number(document.getElementById(field.input).value).toFixed(1);
+		});
+		var art = document.querySelector("#composer .cardArt");
+		art.style.left = LAYOUT.window.left + "%";
+		art.style.top = LAYOUT.window.top + "%";
+		art.style.width = LAYOUT.window.width + "%";
+		art.style.height = LAYOUT.window.height + "%";
+		var lift = (LAYOUT.ribbon.top - RIBBON_NATIVE_TOP) + "%";
+		document.querySelectorAll(".cardRibbon > img, .cardRibbon > .tintWrap").forEach(function (img) { img.style.transform = "translateY(" + lift + ")"; });
+		document.querySelectorAll(".cardStage").forEach(placeTypes);
+		document.querySelectorAll(".cardText").forEach(function (node) {
+			node.style.left = LAYOUT.text.left + "%";
+			node.style.width = LAYOUT.text.width + "%";
+			node.style.top = LAYOUT.text.top + "%";
+			node.style.height = LAYOUT.text.height + "%";
+			fitText(node);
+		});
+		//Every size keeps the name in the same slot: the band between the cost and the owner pip.
+		var name = document.getElementById("nameBand");
+		name.style.left = LAYOUT.name.left + "%";
+		name.style.top = LAYOUT.name.top + "%";
+		name.style.width = LAYOUT.name.width + "%";
+		name.style.height = LAYOUT.name.height + "%";
+		name.style.setProperty("--hcLineScale", "1");
+		document.getElementById("readout").textContent = JSON.stringify(LAYOUT, null, 2);
+		report();
+	}
+
+	function setSize(size) {
+		var width = SIZE[size];
+		var stage = document.getElementById("composer");
+		stage.style.setProperty("--cardWidth", width + "px");
+		stage.dataset.size = size;
+		document.querySelectorAll(".sizeRow [data-size]").forEach(function (btn) {
+			btn.classList.toggle("on", btn.getAttribute("data-size") === size);
+		});
+		apply();
+		saveSettings();
+	}
+
+	function setView(view) {
+		var stage = document.getElementById("composer");
+		stage.classList.remove("view-b", "view-50", "view-diff");
+		if (view !== "a") stage.classList.add("view-" + view);
+		stage.dataset.view = view;
+		document.querySelectorAll(".viewRow [data-view]").forEach(function (btn) {
+			btn.classList.toggle("on", btn.getAttribute("data-view") === view);
+		});
+		saveSettings();
+	}
+
+	//Keep the bench's settings across refreshes (localStorage). Size and view are read off the stage.
+	var SETTINGS_KEY = "cardRedesignBench.v1";
+	var settingsReady = false;
+	function saveSettings() {
+		if (!settingsReady) return;   // never overwrite stored settings during init, before restore
+		try {
+			var stage = document.getElementById("composer");
+			var data = { __size: stage.dataset.size, __view: stage.dataset.view || "a" };
+			document.querySelectorAll("#controls input, #controls select").forEach(function (el) {
+				if (el.id) data[el.id] = el.type === "checkbox" ? el.checked : el.value;
+			});
+			localStorage.setItem(SETTINGS_KEY, JSON.stringify(data));
+		} catch (error) { /* storage unavailable */ }
+	}
+	function restoreSettings() {
+		var data = null;
+		try { data = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null"); } catch (error) { data = null; }
+		if (data == null) return;
+		if (data.layoutSel) {
+			document.getElementById("layoutSel").value = data.layoutSel;
+			setLayout(data.layoutSel);
+		}
+		Object.keys(data).forEach(function (id) {
+			if (id.indexOf("__") === 0 || id === "layoutSel") return;
+			var el = document.getElementById(id);
+			if (!el) return;
+			if (el.type === "checkbox") { el.checked = !!data[id]; el.dispatchEvent(new Event("change")); }
+			else if (el.tagName === "SELECT") { el.value = data[id]; el.dispatchEvent(new Event("change")); }
+			else { el.value = data[id]; el.dispatchEvent(new Event("input")); }
+		});
+		if (data.__size) setSize(data.__size);
+		setView(data.__view || "a");
+		apply();
+	}
+
+	function setLayout(name) {
+		LAYOUT.layout = name;
+		LAYOUT.window = { left: WINDOW[name].left, top: WINDOW[name].top, width: WINDOW[name].width, height: WINDOW[name].height };
+		LAYOUT.ribbon.top = BY_LAYOUT[name].ribbonTop;
+		LAYOUT.text.top = BY_LAYOUT[name].textTop;
+		LAYOUT.text.height = BY_LAYOUT[name].textHeight;
+		var frame = SRC + (name === "vertical" ? "frame_gold_vertical.png" : "frame_gold_horizontal.png");
+		document.querySelector("#composer .cardFrame img").src = frame;
+		document.getElementById("composer").dataset.layout = name;
+		loadSliders();
+		apply();
+	}
+
+	loadSliders();
+	document.getElementById("typeMode").value = LAYOUT.typeMode;
+	setSize("large");
+	fields.forEach(function (field) {
+		document.getElementById(field.input).addEventListener("input", apply);
+	});
+	document.getElementById("layoutSel").addEventListener("change", function (e) { setLayout(e.target.value); });
+	document.getElementById("typeMode").addEventListener("change", function (e) {
+		LAYOUT.typeMode = e.target.value;
+		apply();
+	});
+	document.querySelectorAll(".sizeRow [data-size]").forEach(function (btn) {
+		btn.addEventListener("click", function () { setSize(btn.getAttribute("data-size")); });
+	});
+	document.querySelectorAll(".viewRow [data-view]").forEach(function (btn) {
+		btn.addEventListener("click", function () { setView(btn.getAttribute("data-view")); });
+	});
+	document.getElementById("textPanel").addEventListener("input", function () { fitText(document.getElementById("textPanel")); report(); });
+	function bindShow(id, selector) {
+		document.getElementById(id).addEventListener("change", function (e) {
+			document.querySelectorAll("#composer " + selector).forEach(function (node) {
+				node.style.display = e.target.checked ? "" : "none";
+			});
+			report();
+		});
+	}
+	bindShow("showArt", ".cardArt");
+	bindShow("showBg", ".cardBg");
+	bindShow("showBorder", ".cardBorder");
+	bindShow("showFrame", ".cardFrame");
+	bindShow("showRibbon", ".cardRibbon");
+	bindShow("showTypes", ".cardTypes");
+	bindShow("showGem", ".cardGem");
+	bindShow("showCost", ".cardCost");
+	bindShow("showOwner", ".cardOwner");
+	bindShow("showIcon", ".cardIcon");
+	bindShow("showText", ".cardText");
+	bindShow("showName", ".cardName");
+	document.getElementById("magentaPlate").addEventListener("change", function (e) {
+		document.getElementById("composer").classList.toggle("magenta", e.target.checked);
+	});
+	document.getElementById("newChrome").addEventListener("change", function (e) {
+		document.getElementById("composer").classList.toggle("new-chrome", e.target.checked);
+	});
+	//Baked per-piece tints (cardsGrok/tint/<type>/<piece>.png). Copy 0 is the primary supertype; later
+	//copies are masked 135° (on the wrapper) so a multi-type card shades type-to-type.
+	var TINT_DEF = {
+		border: { file: "border_blue.png", source: SRC + "border_blue.png" },
+		bg: { file: "bg_priest_blue.png", source: SRC + "bg_priest_blue.png" },
+		ribbonBack: { file: "newribbon_back.png", source: GROK + "newribbon_back.png" },
+		iconBack: { file: "newicon_back.png", source: GROK + "newicon_back.png" },
+		costBack: { file: "newring_cost_back.png", source: GROK + "newring_cost_back.png" },
+		ownerBack: { file: "newring_owner_back.png", source: GROK + "newring_owner_back.png" }
+	};
+	var TINT_SOFTNESS = 0.12;
+	function selectedSupertypes() {
+		return ["supertypeSel", "supertype2Sel", "supertype3Sel"].map(function (id) {
+			var el = document.getElementById(id);
+			return el ? el.value : "";
+		}).filter(function (value) { return value !== ""; });
+	}
+	function applySupertype() {
+		var types = selectedSupertypes();
+		var count = Math.max(1, types.length);
+		document.querySelectorAll("#composer [data-piece]").forEach(function (wrap) {
+			var def = TINT_DEF[wrap.getAttribute("data-piece")];
+			if (!def) return;
+			var copy = Number(wrap.getAttribute("data-copy"));
+			var type = types[copy];
+			//`!important`: `.newPiece { display:block !important }` out-specifies a plain inline hide,
+			//so an unused copy would keep rendering (and its empty `<img>` drew a box outline).
+			if (type == null) { wrap.style.setProperty("display", "none", "important"); return; }
+			wrap.style.removeProperty("display");
+			var img = wrap.querySelector("img");
+			if (img) img.src = type === "support" ? def.source : GROK + "tint/" + type + "/" + def.file;
+			if (copy === 0) {
+				wrap.style.maskImage = ""; wrap.style.webkitMaskImage = "";
+			} else {
+				var from = ((copy / count - TINT_SOFTNESS) * 100).toFixed(1);
+				var to = ((copy / count + TINT_SOFTNESS) * 100).toFixed(1);
+				var mask = "linear-gradient(135deg, transparent " + from + "%, #000 " + to + "%)";
+				wrap.style.maskImage = mask; wrap.style.webkitMaskImage = mask;
+			}
+		});
+	}
+	["supertypeSel", "supertype2Sel", "supertype3Sel"].forEach(function (id) {
+		var el = document.getElementById(id);
+		if (el) el.addEventListener("change", applySupertype);
+	});
+	applySupertype();
+	document.getElementById("reducedFx").addEventListener("change", function (e) {
+		document.body.classList.toggle("reduced", e.target.checked);
+	});
+	document.getElementById("controls").addEventListener("change", saveSettings, true);
+	document.getElementById("controls").addEventListener("input", saveSettings, true);
+	restoreSettings();
+	settingsReady = true;
+	saveSettings();
+	window.setSize = setSize;
+	window.setView = setView;
+	window.setLayout = setLayout;
+	window.LAYOUT = LAYOUT;
+	window.addEventListener("load", apply);
+	if (document.fonts && document.fonts.ready) {
+		document.fonts.ready.then(function () { apply(); });
+	}
+</script>
+</body>
+</html>

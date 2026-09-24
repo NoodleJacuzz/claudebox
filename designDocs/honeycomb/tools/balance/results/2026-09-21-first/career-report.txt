@@ -1,0 +1,43 @@
+BALANCE TEST: ALL THE CRUNCH
+
+Career mode: 4 simulated player(s), each on one profile, run after run, for at most 150 runs, until every route is cleared, the gauntlet relic is bought, the secret gauntlet is cleared and every tree is full.
+The secret gauntlet's release switch is turned on in memory for this test only. The bot deciding: the learned bot, using !designDocs\honeycomb\tools\balance\results\2026-09-21-first\values.json.
+
+WHAT EACH CAREER REACHED, AND ON WHICH RUN
+  the first Act1-1 boss beaten                              run 1 to 5
+  the Flooded Vault route cleared                           run 3 to 28
+  the Flora route cleared                                   run 7 to 28
+  the Pollen Road route cleared                             run 1 to 11 (2 of 4 careers never got there)
+  the Grandmaster's Invitation first offered in a shop      run 14 to 29 (2 of 4 careers never got there)
+  the Grandmaster's Invitation bought                       run 15 to 61 (2 of 4 careers never got there)
+  the secret gauntlet cleared                               run 61 to 61 (3 of 4 careers never got there)
+  all three routes cleared                                  run 13 to 28 (2 of 4 careers never got there)
+  every tree full                                           never, in any of 4 career(s)
+
+HOW FULL THE TREES GOT (ranks held out of the most a tree can hold, since nodes in an exclusive group cannot be held together)
+  brienne    capacity 45, held 35 / 36 / 36 / 35 at the end of each career; 25% first reached on run 6 / 13 / 9 / 9, 50% on 22 / 32 / 26 / 20, 75% on 89 / 100 / 94 / 90, 100% on never / never / never / never
+  nettle     capacity 39, held 33 / 33 / 33 / 33 at the end of each career; 25% first reached on run 5 / 10 / 8 / 7, 50% on 16 / 28 / 20 / 16, 75% on 59 / 73 / 61 / 63, 100% on never / never / never / never
+  severine   capacity 40, held 34 / 34 / 34 / 34 at the end of each career; 25% first reached on run 5 / 10 / 8 / 7, 50% on 20 / 28 / 22 / 18, 75% on 59 / 74 / 63 / 63, 100% on never / never / never / never
+  cassadora  capacity 40, held 34 / 34 / 34 / 34 at the end of each career; 25% first reached on run 6 / 10 / 8 / 7, 50% on 17 / 28 / 20 / 18, 75% on 62 / 76 / 64 / 67, 100% on never / never / never / never
+  cinder     capacity 40, held 34 / 34 / 34 / 34 at the end of each career; 25% first reached on run 6 / 10 / 8 / 7, 50% on 19 / 28 / 23 / 19, 75% on 64 / 78 / 65 / 69, 100% on never / never / never / never
+  clemence   capacity 42, held 34 / 34 / 34 / 34 at the end of each career; 25% first reached on run 6 / 13 / 9 / 8, 50% on 20 / 31 / 25 / 20, 75% on 79 / 90 / 85 / 81, 100% on never / never / never / never
+  The secret gauntlet's own tree (Anastasia, 43 nodes) is not counted: she cannot join a party before release, so no experience can be earned for it.
+
+WIN RATE THROUGH A CAREER (runs won in each block of 20 runs; this is the first direct look at how much the tree changes difficulty)
+  career 1: 4 of 20, 3 of 20, 0 of 20, 1 of 20, 1 of 20, 0 of 20, 0 of 20  (150 runs in all)
+  career 2: 1 of 20, 3 of 20, 0 of 20, 1 of 20, 1 of 20, 1 of 20, 0 of 20  (150 runs in all)
+  career 3: 3 of 20, 3 of 20, 0 of 20, 1 of 20, 0 of 20, 1 of 20, 1 of 20  (150 runs in all)
+  career 4: 7 of 20, 1 of 20, 2 of 20, 0 of 20, 0 of 20, 0 of 20, 0 of 20  (150 runs in all)
+
+THE NEVER-REACHED LIST (across 4 career(s); anything here is unreachable or very rare)
+  encounters never fought (6 of 80): eelNest, pollenHighDrift, pollenLastMile, salvagerCrew, salvagerDeep, championDeep
+    seen by some careers and missed by others: frontierPost, drownedPatrol, jellyBloom, vaultGuard, bruteRiot, drainingDark, floraDeepArbor, floraBellChoir, floraRootRoom, pollenFencers, pollenCanopy, pollenSprawl, pollenDeepRoad, pollenBathhouse, floraCache, floraStripped, pollenStripped, scavengerSalvage, championDuel, scavengerDeep, and 5 more
+  events never seen (4 of 13): nettleSpecimen, nettleMethodology, nettleSynthesis, lustEventCleared
+  relics never held or offered (0 of 25): none
+    seen by some careers and missed by others: gauntletInvitation
+  cards never offered (18 of 198): brienneUnstoppable, brienneShieldWall, brienneReliquary, nettleBurst, nettlePlague, nettleBacchanal, severineBloodyVerdict, severineHeartsToll, severineCrimsonCommunion, cinderSunspear, cinderRallyTheRanks, cinderCindersToAsh, clemenceMiracle, clemenceSurrender, clemenceCommunion, cassadoraTarotSpread, cassadoraGrandHeist, cassadoraWitchsBrew
+    seen by some careers and missed by others: clemenceSanctuary, neutralHedge
+  tree nodes never bought (93 of 256): brienne:briAtt3, brienne:briDef1, brienne:briAtt2, brienne:briWheel1, brienne:briWheel2, brienne:briWheel3, brienne:briExtraAttack, brienne:briReplaceAttack, brienne:briExtraDefence, brienne:briReplaceDefence, brienne:briU2, brienne:briDef2, brienne:briOpenE, brienne:briBoun2, brienne:briShop2, brienne:briAbility2, brienne:briRestB, brienne:briBanish2, nettle:netAtt3, nettle:netDef1, nettle:netAtt2, nettle:netWheel2, nettle:netWheel3, nettle:netExtraAttack, nettle:netReplaceAttack, nettle:netExtraDefence, nettle:netReplaceDefence, nettle:netU2, nettle:netDef2, nettle:netOpenE, nettle:netBoun2, nettle:netShop2, nettle:netRestB, severine:severineAtt3, severine:severineDef1, severine:severineAtt2, severine:severineWheel2, severine:severineWheel3, severine:severineExtraAttack, severine:severineReplaceAttack, and 53 more
+    seen by some careers and missed by others: brienne:briReroll2
+
+Profiles saved for matrix mode at tree levels: 0%, 25%, 50%, 75%, in !designDocs\honeycomb\tools\balance\results\2026-09-21-first\profiles.

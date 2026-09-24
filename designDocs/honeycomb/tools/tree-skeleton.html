@@ -1,0 +1,714 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Honeycomb — tree skeleton</title>
+<style>
+	@font-face { font-family: norwester; src: url("../../scripts/fonts/norwester.otf"); }
+	:root {
+		--bg: #0b0812; --panel: #14101f; --panel2: #1c1628; --edge: #2a2138; --edge2: #3a3148;
+		--ink: #bbb; --dim: #666; --cream: #efe4cf; --gold: #c9a961; --gold2: #f0d89a;
+		--red: #e0524a; --good: #7fc99a; --blue: #8fd8ff;
+	}
+	* { box-sizing: border-box; }
+	html, body { height: 100%; }
+	body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink);
+		font: 13px system-ui, sans-serif; user-select: none; }
+	#stage { position: fixed; inset: 0; }
+	#stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+	.treeLine { pointer-events: none; }
+
+	/* --- Red dashed live-space borders --- */
+	.liveBorder { stroke: var(--red); stroke-width: 1.5; stroke-dasharray: 8 6; fill: none; opacity: .85; }
+	.liveBorderLabel { fill: var(--red); font: 11px ui-monospace, Consolas, monospace; opacity: .9; }
+	.centerAxis { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 3 7; opacity: .35; fill: none; }
+	.colBand { fill: rgba(201,169,97,0.03); stroke: none; }
+	.gridLine { stroke: var(--edge2); stroke-width: 1; opacity: .16; fill: none; }
+
+	.edge { fill: none; stroke: var(--edge2); stroke-width: 2.5; cursor: pointer; }
+	.edgeHit { fill: none; stroke: transparent; stroke-width: 14; cursor: pointer; }
+	.edgeHit:hover + .edge { stroke: var(--red); stroke-width: 3.5; }
+	.arrowHead { fill: var(--edge2); }
+	.linkPreview { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 6 5; }
+	.linkPreview.target { stroke: var(--good); stroke-dasharray: none; }
+	.node.linkTarget .nodePad { stroke: var(--good); stroke-width: 3.5; filter: brightness(1.35); }
+
+	.nodePad { fill: var(--panel2); stroke: var(--edge2); stroke-width: 2.5; cursor: grab; }
+	.nodeText { fill: var(--cream); font-family: norwester, sans-serif; font-size: 12px;
+		text-anchor: middle; pointer-events: none; }
+	.nodeRank { fill: var(--gold2); font: 11px ui-monospace, Consolas, monospace;
+		text-anchor: middle; pointer-events: none; }
+	.node.ranked .nodePad { stroke-width: 3; }
+	.node.sel .nodePad { fill: #3a2c14; stroke: var(--gold2); stroke-width: 3.5; }
+	.node:hover .nodePad { stroke: var(--gold); }
+	.handle { fill: var(--panel); stroke: var(--gold); stroke-width: 1.5; cursor: crosshair; }
+	.handle:hover { fill: var(--gold); r: 7; }
+
+	#toolbar { position: fixed; top: 10px; left: 10px; z-index: 5; display: flex; gap: 8px;
+		align-items: center; flex-wrap: wrap; background: rgba(20,16,31,.94); border: 1px solid var(--edge2);
+		border-radius: 9px; padding: 8px 10px; max-width: calc(100vw - 20px); }
+	#toolbar button { background: var(--panel2); color: #cfc4a8; border: 1px solid var(--edge2);
+		border-radius: 5px; padding: 5px 10px; cursor: pointer; font: inherit; }
+	#toolbar button:hover { background: var(--edge2); color: #fff8e0; }
+	#toolbar button.on { background: var(--edge2); color: #fff8e0; }
+	#toolbar button.danger { border-color: #5a2a2a; color: #d98a7a; }
+	#toolbar input, #toolbar select { background: #100c18; color: var(--cream); border: 1px solid var(--edge2);
+		border-radius: 4px; padding: 5px 6px; font: 12px ui-monospace, Consolas, monospace; }
+	#toolbar .sep { width: 1px; height: 22px; background: var(--edge2); }
+	#toolbar label { display: flex; align-items: center; gap: 5px; color: var(--dim); font-size: 12px; }
+
+	#hint { position: fixed; bottom: 10px; left: 10px; z-index: 5; color: var(--dim); font-size: 12px;
+		background: rgba(20,16,31,.9); border: 1px solid var(--edge); border-radius: 8px; padding: 6px 10px;
+		max-width: 640px; line-height: 1.5; }
+	#hint b { color: #cfc4a8; }
+	#zoomReadout { position: fixed; bottom: 10px; right: 10px; z-index: 5; color: var(--dim);
+		font: 12px ui-monospace, Consolas, monospace; background: rgba(20,16,31,.9);
+		border: 1px solid var(--edge); border-radius: 8px; padding: 6px 10px; }
+	#selectedPanel { position: fixed; top: 60px; right: 10px; z-index: 5; width: 220px;
+		background: rgba(20,16,31,.96); border: 1px solid var(--edge2); border-radius: 9px; padding: 10px 12px; }
+	#selectedPanel h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .07em;
+		color: #cfc4a8; }
+	#selectedPanel label { display: block; margin: 6px 0; color: var(--dim); font-size: 11px; }
+	#selectedPanel input { width: 100%; margin-top: 3px; background: #100c18; color: var(--cream);
+		border: 1px solid var(--edge2); border-radius: 4px; padding: 4px 5px; font: 12px ui-monospace, monospace; }
+	#selectedPanel .row { display: flex; gap: 6px; margin-top: 8px; }
+	#selectedPanel .row button { flex: 1; padding: 4px; font-size: 12px; }
+	#skeletonBox { position: fixed; right: 10px; bottom: 10px; z-index: 5; width: 420px; max-width: calc(100vw - 20px);
+		display: none; background: rgba(20,16,31,.98); border: 1px solid var(--edge2); border-radius: 9px;
+		padding: 10px; }
+	#skeletonBox textarea { width: 100%; height: 220px; background: #100c18; color: var(--cream);
+		border: 1px solid var(--edge2); border-radius: 5px; font: 11px ui-monospace, Consolas, monospace;
+		padding: 6px; white-space: pre; }
+	#skeletonBox .row { display: flex; gap: 6px; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+	<svg id="svg">
+		<g id="viewport"></g>
+	</svg>
+</div>
+
+<div id="toolbar">
+	<label>Tree <input id="treeName" size="10" placeholder="brienne"></label>
+	<div class="sep"></div>
+	<button id="addBtn">+ Node (or double-click)</button>
+	<button id="mirrorBtn">Mirror node</button>
+	<button id="snapBtn" class="on">Snap: on</button>
+	<button id="rankBtn" title="Click a node to add a rank, right-click to remove (min 1)">Rank mode: off</button>
+	<div class="sep"></div>
+	<button id="deleteBtn" class="danger">Delete node</button>
+	<button id="clearBtn" class="danger">Clear</button>
+	<div class="sep"></div>
+	<button id="exportBtn">Skeleton</button>
+	<button id="saveBtn">Save file</button>
+	<button id="openBtn">Open file</button>
+	<input id="openInput" type="file" accept=".json,application/json" style="display:none">
+</div>
+
+<div id="selectedPanel" style="display:none">
+	<h3 id="selHeading">Selected node</h3>
+	<label>Label<input id="labelInput" placeholder="A1"></label>
+	<label>Tag (optional)<input id="tagInput" placeholder="exclusive-agg"></label>
+	<label>Position<input id="posReadout" readonly></label>
+	<div class="row"><button id="mirrorSelBtn">Mirror</button><button id="deleteSelBtn" class="danger">Delete</button></div>
+</div>
+
+<div id="hint">
+	<b>Double-click</b> empty space to add a node &middot; <b>Drag</b> a node to move it &middot;
+	<b>Shift-click</b> nodes to select several, then drag them as a group &middot;
+	<b>Drag the gold handle</b> under a node onto another to connect (from = prerequisite) &middot;
+	<b>Click a line</b> to delete the connection &middot; <b>Drag background</b> to pan &middot; <b>Wheel</b> to zoom &middot;
+	<b>Alt</b> ignores snapping.<br>
+	<b>Rank mode</b>: click a node to add a rank, right-click to remove (down to the base 1). Ranks show as ×N.
+</div>
+<div id="zoomReadout">zoom 100%</div>
+
+<div id="skeletonBox">
+	<textarea id="skeletonBoxText" readonly></textarea>
+	<div class="row">
+		<button id="copySkeletonBtn">Copy</button>
+		<button id="closeSkeletonBtn">Close</button>
+	</div>
+</div>
+
+<script>
+"use strict";
+
+//===================================================================================================
+//GAME GEOMETRY. Mirrors scripts/misc/honeycomb/honeycomb-tuning.js `progression.treeView` and the
+//overlays' mapping: `y` is a lane in 0-100 spread across the column, `x` is depth at a fixed step.
+//The red dashed lines mark the live game space: left/right = the node-centre extent, top = the tree
+//origin. See rework/TREE-DESIGN.md.
+//===================================================================================================
+const GAME = {
+	width: 320,          // treeView.width
+	sideMargin: 42,      // treeView.sideMargin
+	topMargin: 34,       // treeView.topMargin
+	depthStep: 18,       // treeView.depthStep
+	nodeRadius: 20,      // treeView.nodeRadius
+};
+const BAND = { left: GAME.sideMargin, right: GAME.width - GAME.sideMargin };
+function laneToWorldX(lane) { return BAND.left + (Math.max(0, Math.min(100, lane)) / 100) * (BAND.right - BAND.left); }
+function worldXToLane(wx) { return Math.max(0, Math.min(100, ((wx - BAND.left) / (BAND.right - BAND.left)) * 100)); }
+function depthToWorldY(depth) { return GAME.topMargin + depth * GAME.depthStep; }
+function worldYToDepth(wy) { return (wy - GAME.topMargin) / GAME.depthStep; }
+
+//===================================================================================================
+//State. nodes: { id, label, tag, x, y, requires: [id] }. Saved so a refresh loses nothing.
+//===================================================================================================
+const STORE_KEY = "honeycombTreeSkeleton.v2";
+const state = {
+	name: "",
+	nodes: [],
+	selectedArray: [],   // node ids; shift-click builds a group
+	snap: true,
+	rankMode: false,     // click adds a rank, right-click removes (min 1)
+	zoom: 1,
+	panX: 0,
+	panY: 0,
+	nextId: 1,
+};
+const RANK_MAXIMUM = 5;
+let linking = null;     // { from: id, wx: 0, wy: 0, targetId: id|null }
+let dragging = null;    // { offsets: { id: {dx, dy} }, origin: { id: {x, y} }, primary: id }
+let rankPress = null;   // { id, startX, startY, moved } for a click-to-rank
+let edgePress = null;   // { from: id, to: id, startX, startY } for a click-to-delete
+let panning = null;     // { startX, startY, panX, panY }
+let lastBackgroundPress = 0;
+function nodeRank(node) { return node == null || node.rank == null ? 1 : node.rank; }
+
+function save() {
+	try {
+		localStorage.setItem(STORE_KEY, JSON.stringify({
+			name: state.name, nodes: state.nodes, nextId: state.nextId,
+			zoom: state.zoom, panX: state.panX, panY: state.panY,
+		}));
+	} catch (err) { /* file:// with storage disabled is fine */ }
+}
+function load() {
+	try {
+		const raw = localStorage.getItem(STORE_KEY);
+		if (raw == null) return;
+		const data = JSON.parse(raw);
+		state.name = data.name || "";
+		state.nodes = data.nodes || [];
+		for (const node of state.nodes) if (node.rank == null) node.rank = 1;
+		state.nextId = data.nextId || (state.nodes.length + 1);
+		state.zoom = data.zoom || 1;
+		state.panX = data.panX || 0;
+		state.panY = data.panY || 0;
+	} catch (err) { /* ignore a corrupt skeleton */ }
+}
+function nodeById(id) { return state.nodes.find((n) => n.id === id) || null; }
+function newId() { return "n" + (state.nextId++); }
+function isSelected(id) { return state.selectedArray.indexOf(id) >= 0; }
+function selectOnly(id) { state.selectedArray = id == null ? [] : [id]; }
+function toggleSelected(id) {
+	if (isSelected(id)) state.selectedArray = state.selectedArray.filter((other) => other !== id);
+	else state.selectedArray = state.selectedArray.concat([id]);
+}
+function selectedNodes() { return state.nodes.filter((n) => isSelected(n.id)); }
+function nextLabel() {
+	let i = 1;
+	while (state.nodes.some((n) => n.label === "N" + i)) i += 1;
+	return "N" + i;
+}
+
+//===================================================================================================
+//Snapping. y snaps to symmetric lanes (multiples of 5), x to depth steps of 5.
+//===================================================================================================
+const SNAP_STEP = 5;
+function snapLane(y) { return state.snap ? Math.round(y / SNAP_STEP) * SNAP_STEP : Math.round(y); }
+function snapDepth(x) { return state.snap ? Math.round(x / SNAP_STEP) * SNAP_STEP : Math.round(x); }
+
+//===================================================================================================
+//World <-> screen. The viewport group is translate(pan) scale(zoom).
+//===================================================================================================
+function worldToScreen(wx, wy) { return { x: state.panX + wx * state.zoom, y: state.panY + wy * state.zoom }; }
+function screenToWorld(sx, sy) { return { x: (sx - state.panX) / state.zoom, y: (sy - state.panY) / state.zoom }; }
+function eventScreen(event) {
+	const rect = document.getElementById("svg").getBoundingClientRect();
+	return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+}
+
+//===================================================================================================
+//Rendering
+//===================================================================================================
+const SVG_NS = "http://www.w3.org/2000/svg";
+function el(name, attrs) {
+	const node = document.createElementNS(SVG_NS, name);
+	for (const key of Object.keys(attrs || {})) node.setAttribute(key, attrs[key]);
+	return node;
+}
+const FAR = 100000;
+
+function render() {
+	const viewport = document.getElementById("viewport");
+	viewport.innerHTML = "";
+	viewport.setAttribute("transform", "translate(" + state.panX + " " + state.panY + ") scale(" + state.zoom + ")");
+
+	//The whole tab column, faintly.
+	viewport.appendChild(el("rect", { class: "colBand", x: 0, y: -FAR, width: GAME.width, height: FAR * 2 }));
+
+	//Grid: depth rows every 10, lane guides every 10.
+	for (let x = 0; x <= 300; x += 10) {
+		viewport.appendChild(el("line", { class: "gridLine", x1: 0, y1: depthToWorldY(x), x2: GAME.width, y2: depthToWorldY(x) }));
+	}
+	for (let lane = 0; lane <= 100; lane += 10) {
+		const wx = laneToWorldX(lane);
+		viewport.appendChild(el("line", { class: "gridLine", x1: wx, y1: -FAR, x2: wx, y2: FAR }));
+	}
+	//The centre axis.
+	const axis = laneToWorldX(50);
+	viewport.appendChild(el("line", { class: "centerAxis", x1: axis, y1: -FAR, x2: axis, y2: FAR }));
+
+	//Red dashed live-space borders: left, right, and the top tree origin.
+	viewport.appendChild(el("line", { class: "liveBorder", x1: BAND.left, y1: -FAR, x2: BAND.left, y2: FAR }));
+	viewport.appendChild(el("line", { class: "liveBorder", x1: BAND.right, y1: -FAR, x2: BAND.right, y2: FAR }));
+	viewport.appendChild(el("line", { class: "liveBorder", x1: BAND.left, y1: GAME.topMargin, x2: BAND.right, y2: GAME.topMargin }));
+	appendText(viewport, "live width", BAND.left + 4, GAME.topMargin - 6, "liveBorderLabel");
+	appendText(viewport, "tree start", BAND.right - 4, GAME.topMargin - 6, "liveBorderLabel", "end");
+
+	//Edges, under the nodes.
+	for (const node of state.nodes) {
+		for (const fromId of node.requires) {
+			const from = nodeById(fromId);
+			if (from == null) continue;
+			drawEdge(viewport, from, node);
+		}
+	}
+	if (linking != null) {
+		const from = nodeById(linking.from);
+		if (from != null) {
+			//Drawn in WORLD coordinates, inside the transformed group (the old code used screen coords
+			//and so was transformed twice -- the line appeared in the wrong place).
+			const a = { x: laneToWorldX(from.y), y: depthToWorldY(from.x) + GAME.nodeRadius + 10 };
+			const target = linking.targetId == null ? null : nodeById(linking.targetId);
+			const b = target == null ? { x: linking.wx, y: linking.wy }
+				: { x: laneToWorldX(target.y), y: depthToWorldY(target.x) };
+			viewport.appendChild(el("line", {
+				class: "linkPreview" + (target == null ? "" : " target"),
+				x1: a.x, y1: a.y, x2: b.x, y2: b.y,
+			}));
+		}
+	}
+	//Nodes.
+	for (const node of state.nodes) {
+		const wx = laneToWorldX(node.y), wy = depthToWorldY(node.x);
+		const rank = nodeRank(node);
+		const classes = "node" + (isSelected(node.id) ? " sel" : "") + (rank > 1 ? " ranked" : "") +
+			(linking != null && linking.targetId === node.id ? " linkTarget" : "");
+		const g = el("g", { class: classes, "data-id": node.id });
+		g.appendChild(el("circle", { class: "nodePad", cx: wx, cy: wy, r: GAME.nodeRadius }));
+		const label = el("text", { class: "nodeText", x: wx, y: wy + 4 });
+		label.textContent = node.label;
+		g.appendChild(label);
+		if (rank > 1) {
+			const badge = el("text", { class: "nodeRank", x: wx, y: wy - GAME.nodeRadius - 7 });
+			badge.textContent = "×" + rank;
+			g.appendChild(badge);
+		}
+		g.appendChild(el("circle", { class: "handle", "data-handle": node.id, cx: wx, cy: wy + GAME.nodeRadius + 10, r: 6 }));
+		viewport.appendChild(g);
+	}
+	updateReadouts();
+}
+
+function appendText(parent, text, x, y, className, anchor) {
+	const node = el("text", { class: className, x, y, "text-anchor": anchor || "start" });
+	node.textContent = text;
+	parent.appendChild(node);
+	return node;
+}
+function drawEdge(viewport, from, to) {
+	const ax = laneToWorldX(from.y), ay = depthToWorldY(from.x);
+	const bx = laneToWorldX(to.y), by = depthToWorldY(to.x);
+	const midY = (ay + by) / 2;
+	const d = "M " + ax.toFixed(1) + " " + ay.toFixed(1) +
+		" C " + ax.toFixed(1) + " " + midY.toFixed(1) + ", " + bx.toFixed(1) + " " + midY.toFixed(1) + ", " + bx.toFixed(1) + " " + by.toFixed(1);
+	//A wide, invisible hit path so the thin line is easy to click.
+	const hit = el("path", { class: "edgeHit", d, "data-edge": from.id + ">" + to.id });
+	hit.style.pointerEvents = "stroke";
+	viewport.appendChild(hit);
+	const path = el("path", { class: "edge", d });
+	path.style.pointerEvents = "none";
+	viewport.appendChild(path);
+	//Arrowhead at the child, pointing down the curve.
+	const size = 7;
+	const head = el("polygon", { class: "arrowHead", points: (bx - size) + "," + (by - size * 1.6) + " " + (bx + size) + "," + (by - size * 1.6) + " " + bx + "," + by });
+	head.style.pointerEvents = "none";
+	viewport.appendChild(head);
+}
+
+//===================================================================================================
+//Interaction
+//===================================================================================================
+function addNodeAt(wx, wy) {
+	const node = { id: newId(), label: nextLabel(), tag: "", rank: 1, x: snapDepth(worldYToDepth(wy)), y: snapLane(worldXToLane(wx)), requires: [] };
+	node.x = Math.max(0, node.x);
+	state.nodes.push(node);
+	selectOnly(node.id);
+	save(); render();
+	return node;
+}
+function removeNodes(idArray) {
+	const doomed = {}; for (const id of idArray) doomed[id] = true;
+	state.nodes = state.nodes.filter((n) => doomed[n.id] !== true);
+	for (const node of state.nodes) node.requires = node.requires.filter((r) => doomed[r] !== true);
+	state.selectedArray = state.selectedArray.filter((id) => doomed[id] !== true);
+	save(); render();
+}
+function mirrorOf(node) {
+	return state.nodes.find((other) => other.id !== node.id && Math.abs(other.x - node.x) < 0.001 && Math.abs(other.y - (100 - node.y)) < 0.001) || null;
+}
+function mirrorNode(node) {
+	if (node == null) return;
+	if (Math.abs(node.y - 50) < 0.001) {
+		console.warn("A node on the centre axis (y = 50) has no mirror.");
+		return;
+	}
+	if (mirrorOf(node) != null) {
+		console.warn("That node already has a mirror.");
+		return;
+	}
+	const twin = {
+		id: newId(), label: nextLabel(), tag: node.tag, rank: nodeRank(node),
+		x: node.x, y: Math.round((100 - node.y) * 100) / 100,
+		requires: node.requires.map((r) => {
+			const parent = nodeById(r);
+			if (parent == null) return r;
+			const parentTwin = mirrorOf(parent);
+			return parentTwin == null ? r : parentTwin.id;
+		}),
+	};
+	state.nodes.push(twin);
+	selectOnly(twin.id);
+	//A twin is only useful once its parents have twins too; report what is still one-sided.
+	const missing = twin.requires.filter((r) => node.requires.indexOf(r) >= 0);
+	save(); render();
+	if (missing.length > 0) console.warn("Mirrored node still hangs off unmirrored parent(s):", missing.join(", "));
+}
+function mirrorSelection() {
+	const chosen = selectedNodes();
+	for (const node of chosen) mirrorNode(node);
+}
+
+function nearestNode(wx, wy, maxDistance) {
+	let best = null, bestDistance = maxDistance;
+	for (const node of state.nodes) {
+		const d = Math.hypot(laneToWorldX(node.y) - wx, depthToWorldY(node.x) - wy);
+		if (d < bestDistance) { bestDistance = d; best = node; }
+	}
+	return best;
+}
+function capturePointer(svg, pointerId) {
+	try { svg.setPointerCapture(pointerId); } catch (err) { /* synthetic event or already released */ }
+}
+function installInput() {
+	const svg = document.getElementById("svg");
+
+	svg.addEventListener("pointerdown", (event) => {
+		if (event.button !== 0) return;
+		const screen = eventScreen(event);
+		const world = screenToWorld(screen.x, screen.y);
+
+		//1. A node's link handle starts a connection.
+		const handle = event.target.closest ? event.target.closest("[data-handle]") : null;
+		if (handle != null) {
+			linking = { from: handle.getAttribute("data-handle"), wx: world.x, wy: world.y, targetId: null };
+			capturePointer(svg, event.pointerId);
+			render();
+			return;
+		}
+
+		//2. An edge starts a click-to-delete (fired on pointerup if the pointer barely moved).
+		const edgeHit = event.target.closest ? event.target.closest("[data-edge]") : null;
+		if (edgeHit != null) {
+			const parts = edgeHit.getAttribute("data-edge").split(">");
+			edgePress = { from: parts[0], to: parts[1], startX: screen.x, startY: screen.y };
+			capturePointer(svg, event.pointerId);
+			return;
+		}
+
+		//3. A node: select it (shift toggles), then drag the whole selection rigidly.
+		const nodeGroup = event.target.closest ? event.target.closest(".node") : null;
+		if (nodeGroup != null) {
+			const node = nodeById(nodeGroup.getAttribute("data-id"));
+			if (node != null) {
+				if (event.shiftKey) {
+					toggleSelected(node.id);
+					if (!isSelected(node.id)) { save(); render(); return; }   // shift-click removed it
+				} else if (!isSelected(node.id)) {
+					selectOnly(node.id);
+				}
+				const offsets = {}, origin = {};
+				for (const selected of selectedNodes()) {
+					offsets[selected.id] = { dx: laneToWorldX(selected.y) - world.x, dy: depthToWorldY(selected.x) - world.y };
+					origin[selected.id] = { x: selected.x, y: selected.y };
+				}
+				dragging = { offsets, origin, primary: node.id };
+				if (state.rankMode) rankPress = { id: node.id, startX: screen.x, startY: screen.y, moved: false };
+				capturePointer(svg, event.pointerId);
+				render();
+			}
+			return;
+		}
+
+		//4. Background: pan, or detect a double-click to add.
+		const now = Date.now();
+		if (now - lastBackgroundPress < 320) {
+			addNodeAt(world.x, world.y);
+			lastBackgroundPress = 0;
+			return;
+		}
+		lastBackgroundPress = now;
+		panning = { startX: screen.x, startY: screen.y, panX: state.panX, panY: state.panY };
+		capturePointer(svg, event.pointerId);
+	});
+
+	svg.addEventListener("pointermove", (event) => {
+		const screen = eventScreen(event);
+		const world = screenToWorld(screen.x, screen.y);
+		if (rankPress != null && Math.hypot(screen.x - rankPress.startX, screen.y - rankPress.startY) > 5) rankPress.moved = true;
+		if (linking != null) {
+			linking.wx = world.x; linking.wy = world.y;
+			const target = nearestNode(world.x, world.y, GAME.nodeRadius + 14);
+			linking.targetId = target != null && target.id !== linking.from ? target.id : null;
+			render();
+			return;
+		}
+		if (dragging != null) {
+			const primary = nodeById(dragging.primary);
+			if (primary != null) {
+				const rawLane = worldXToLane(world.x + dragging.offsets[primary.id].dx);
+				const rawDepth = Math.max(0, worldYToDepth(world.y + dragging.offsets[primary.id].dy));
+				const targetLane = event.altKey ? Math.round(rawLane) : snapLane(rawLane);
+				const targetDepth = event.altKey ? Math.round(rawDepth) : snapDepth(rawDepth);
+				const deltaX = targetLane - dragging.origin[primary.id].y;
+				const deltaY = targetDepth - dragging.origin[primary.id].x;
+				for (const id of Object.keys(dragging.origin)) {
+					const node = nodeById(id);
+					if (node == null) continue;
+					node.y = Math.max(0, Math.min(100, dragging.origin[id].y + deltaX));
+					node.x = Math.max(0, dragging.origin[id].x + deltaY);
+				}
+				render();
+			}
+			return;
+		}
+		if (panning != null) {
+			state.panX = panning.panX + (screen.x - panning.startX);
+			state.panY = panning.panY + (screen.y - panning.startY);
+			render();
+		}
+	});
+
+	svg.addEventListener("pointerup", (event) => {
+		const screen = eventScreen(event);
+		const world = screenToWorld(screen.x, screen.y);
+		if (linking != null) {
+			const target = nearestNode(world.x, world.y, GAME.nodeRadius + 14);
+			const from = nodeById(linking.from);
+			if (target != null && from != null && target.id !== from.id && target.requires.indexOf(from.id) < 0) {
+				target.requires.push(from.id);
+			}
+			linking = null;
+			save(); render();
+			return;
+		}
+		if (edgePress != null) {
+			const moved = Math.hypot(screen.x - edgePress.startX, screen.y - edgePress.startY);
+			if (moved < 5) {
+				const to = nodeById(edgePress.to);
+				if (to != null) to.requires = to.requires.filter((r) => r !== edgePress.from);
+			}
+			edgePress = null;
+			save(); render();
+			return;
+		}
+		if (rankPress != null) {
+			//A click (not a drag) adds a rank; `moved` is set the moment the pointer travels past a
+			//few pixels, so dragging a node never changes its rank.
+			if (rankPress.moved == false) {
+				const node = nodeById(rankPress.id);
+				if (node != null) node.rank = Math.min(RANK_MAXIMUM, nodeRank(node) + 1);
+			}
+			rankPress = null;
+			dragging = null;
+			save(); render();
+			return;
+		}
+		dragging = null;
+		panning = null;
+		save(); render();
+	});
+
+	svg.addEventListener("wheel", (event) => {
+		event.preventDefault();
+		const screen = eventScreen(event);
+		const before = screenToWorld(screen.x, screen.y);
+		const factor = event.deltaY < 0 ? 1.12 : 1 / 1.12;
+		state.zoom = Math.max(0.3, Math.min(3, state.zoom * factor));
+		//Keep the point under the cursor fixed.
+		state.panX = screen.x - before.x * state.zoom;
+		state.panY = screen.y - before.y * state.zoom;
+		save(); render();
+	}, { passive: false });
+
+	//Double-click a node to rename it.
+	svg.addEventListener("dblclick", (event) => {
+		const nodeGroup = event.target.closest ? event.target.closest(".node") : null;
+		if (nodeGroup == null) return;
+		const node = nodeById(nodeGroup.getAttribute("data-id"));
+		if (node == null) return;
+		selectOnly(node.id);
+		render();
+		const input = document.getElementById("labelInput");
+		input.focus(); input.select();
+	});
+
+	//Right-click removes a rank, down to the base 1. Only meaningful in rank mode.
+	svg.addEventListener("contextmenu", (event) => {
+		if (state.rankMode != true) return;
+		const nodeGroup = event.target.closest ? event.target.closest(".node") : null;
+		if (nodeGroup == null) return;
+		event.preventDefault();
+		const node = nodeById(nodeGroup.getAttribute("data-id"));
+		if (node != null && nodeRank(node) > 1) {
+			node.rank = nodeRank(node) - 1;
+			save(); render();
+		}
+	});
+}
+
+//===================================================================================================
+//Toolbar
+//===================================================================================================
+function updateReadouts() {
+	const panel = document.getElementById("selectedPanel");
+	const selected = selectedNodes();
+	const single = selected.length === 1 ? selected[0] : null;
+	if (selected.length === 0) panel.style.display = "none";
+	else {
+		panel.style.display = "block";
+		document.getElementById("selHeading").textContent = single == null ? selected.length + " nodes selected" : "Selected node";
+		document.getElementById("labelInput").value = single == null ? "" : single.label;
+		document.getElementById("labelInput").disabled = single == null;
+		document.getElementById("tagInput").value = single == null ? "" : (single.tag || "");
+		document.getElementById("tagInput").disabled = single == null;
+		document.getElementById("posReadout").value = single == null ? (selected.length + " selected")
+			: ("x " + single.x + ", y " + single.y + (nodeRank(single) > 1 ? " · rank " + nodeRank(single) : ""));
+	}
+	document.getElementById("zoomReadout").textContent = "zoom " + Math.round(state.zoom * 100) + "%  ·  " + state.nodes.length + " nodes";
+}
+
+function skeletonText() {
+	const lines = state.nodes.map((n) => {
+		const requires = n.requires.map((r) => JSON.stringify(r)).join(", ");
+		const tag = n.tag ? ", tag: " + JSON.stringify(n.tag) : "";
+		const rank = nodeRank(n) > 1 ? ", rank: " + nodeRank(n) : "";
+		return "\t{ id: " + JSON.stringify(n.id) + ", label: " + JSON.stringify(n.label) + tag + rank +
+			", x: " + n.x + ", y: " + n.y + ", requires: [" + requires + "] },";
+	});
+	return "// Tree skeleton" + (state.name ? ": " + state.name : "") + "\n[\n" + lines.join("\n") + "\n]";
+}
+
+function boot() {
+	load();
+	document.getElementById("treeName").value = state.name;
+	document.getElementById("treeName").addEventListener("input", (e) => { state.name = e.target.value; save(); });
+	document.getElementById("labelInput").addEventListener("input", (e) => {
+		const selected = selectedNodes();
+		if (selected.length !== 1) return;
+		selected[0].label = e.target.value; save(); render();
+	});
+	document.getElementById("tagInput").addEventListener("input", (e) => {
+		const selected = selectedNodes();
+		if (selected.length !== 1) return;
+		selected[0].tag = e.target.value; save();
+	});
+	document.getElementById("addBtn").addEventListener("click", () => {
+		//Drop a node near the middle of what is on screen.
+		const centre = screenToWorld(window.innerWidth / 2, window.innerHeight / 2);
+		addNodeAt(centre.x, centre.y);
+	});
+	document.getElementById("mirrorBtn").addEventListener("click", mirrorSelection);
+	document.getElementById("mirrorSelBtn").addEventListener("click", mirrorSelection);
+	document.getElementById("deleteBtn").addEventListener("click", () => removeNodes(state.selectedArray));
+	document.getElementById("deleteSelBtn").addEventListener("click", () => removeNodes(state.selectedArray));
+	document.getElementById("snapBtn").addEventListener("click", (e) => {
+		state.snap = !state.snap;
+		e.target.classList.toggle("on", state.snap);
+		e.target.textContent = "Snap: " + (state.snap ? "on" : "off");
+	});
+	document.getElementById("rankBtn").addEventListener("click", (e) => {
+		state.rankMode = !state.rankMode;
+		e.target.classList.toggle("on", state.rankMode);
+		e.target.textContent = "Rank mode: " + (state.rankMode ? "on" : "off");
+	});
+	document.getElementById("clearBtn").addEventListener("click", () => {
+		if (!confirm("Clear the whole skeleton?")) return;
+		state.nodes = []; state.selectedArray = []; state.nextId = 1;
+		save(); render();
+	});
+	document.getElementById("exportBtn").addEventListener("click", () => {
+		document.getElementById("skeletonBoxText").value = skeletonText();
+		document.getElementById("skeletonBox").style.display = "block";
+	});
+	document.getElementById("copySkeletonBtn").addEventListener("click", () => {
+		const box = document.getElementById("skeletonBoxText");
+		box.select(); document.execCommand("copy");
+	});
+	document.getElementById("closeSkeletonBtn").addEventListener("click", () => {
+		document.getElementById("skeletonBox").style.display = "none";
+	});
+	document.getElementById("saveBtn").addEventListener("click", () => {
+		const blob = new Blob([JSON.stringify({ name: state.name, nodes: state.nodes, nextId: state.nextId, zoom: state.zoom, panX: state.panX, panY: state.panY }, null, "\t")], { type: "application/json" });
+		const anchor = document.createElement("a");
+		anchor.href = URL.createObjectURL(blob);
+		anchor.download = (state.name || "tree") + "-skeleton.json";
+		anchor.click();
+	});
+	document.getElementById("openBtn").addEventListener("click", () => document.getElementById("openInput").click());
+	document.getElementById("openInput").addEventListener("change", (event) => {
+		const file = event.target.files[0];
+		if (file == null) return;
+		const reader = new FileReader();
+		reader.onload = () => {
+			try {
+				const data = JSON.parse(reader.result);
+				state.name = data.name || "";
+				state.nodes = data.nodes || [];
+				for (const node of state.nodes) if (node.rank == null) node.rank = 1;
+				state.nextId = data.nextId || (state.nodes.length + 1);
+				state.zoom = data.zoom || 1;
+				state.panX = data.panX || state.panX;
+				state.panY = data.panY || state.panY;
+				state.selectedArray = [];
+				document.getElementById("treeName").value = state.name;
+				save(); render();
+			} catch (err) { alert("That file did not parse as a skeleton."); }
+		};
+		reader.readAsText(file);
+		event.target.value = "";
+	});
+	window.addEventListener("keydown", (event) => {
+		if (event.key === "Delete" || event.key === "Backspace") {
+			if (document.activeElement != null && ["INPUT", "TEXTAREA"].indexOf(document.activeElement.tagName) >= 0) return;
+			if (state.selectedArray.length > 0) removeNodes(state.selectedArray);
+		}
+	});
+	installInput();
+	//Centre the live band the first time.
+	if (state.panX === 0 && state.panY === 0) {
+		state.panX = window.innerWidth / 2 - (GAME.width / 2);
+		state.panY = window.innerHeight / 2 - 120;
+	}
+	render();
+}
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+BALANCE TEST: ALL THE CRUNCH
+PLAN: a run takes about 16 seconds on one worker. With 10 worker(s) and 0.75 hour(s), about 1707 runs fit: 21 seeds in each of the 80 cells (4 tree levels x 20 parties). 0 runs are already in !designDocs\honeycomb\tools\balance\results\2026-09-21-first\matrix-results.jsonl and will be skipped. A win rate from 420 runs per tree level is good to about +-5 points.
+
+Matrix mode: 840 whole runs, across 4 tree levels and every three-character party, with the same seeds in every column.
+
+THE RULES THE BOT USED
+  Which stop to walk to: every stop is scored by its type, and a path is the sum of its stops. The weights are:
+    combat   base 1
+    elite    base 1.5; 2.5 extra while the party is at 70% health or more, -4 when it is below
+    event    base 0.6
+    treasure base 2
+    rest     base 0.3; 8 for each whole party's-worth of missing health
+    shop     base 0.3; 2.5 extra with 90 gold or more
+    boss     base 0
+  What to take, buy, remove or choose: the learned bot takes the option with the best value it has measured, if that value is above zero,
+  and decides 15% of everything at random so its values keep updating. An option seen fewer than 12 times has no trusted value and is decided at random.
+  A run is judged by how many more fights it won after the decision, plus 6 for finishing the run.
+  The bot deciding here: the learned bot, using !designDocs\honeycomb\tools\balance\results\2026-09-21-first\values.json.
+
+WIN RATE AT EACH TREE LEVEL
+  0% of the tree    9 of 220 runs won (4.1%, somewhere between 2.2% and 7.6%)
+  25% of the tree   43 of 220 runs won (19.5%, somewhere between 14.8% and 25.3%)
+  50% of the tree   30 of 200 runs won (15%, somewhere between 10.7% and 20.6%)
+  75% of the tree   4 of 200 runs won (2%, somewhere between 0.8% and 5%)
+  The win rates are really different between: 0% and 25%; 0% and 50%; 25% and 75%; 50% and 75% (their ranges do not overlap).
+
+HOW FAR RUNS GET (the share of runs that beat at least this many bosses)
+  0%    first boss 34.5%, second boss 4.1%, average fights won 7.2
+  25%   first boss 71.4%, second boss 19.5%, average fights won 10.4
+  50%   first boss 52.5%, second boss 15%, average fights won 9.5
+  75%   first boss 17.5%, second boss 2%, average fights won 6.3
+
+WHERE RUNS END (the encounters that finish the most runs, all tree levels together)
+  tallyLedger                 52 runs
+  matriarchLair               48 runs
+  moldGarden                  45 runs
+  hollowPatrol                42 runs
+  barkWall                    35 runs
+  bruteAndSpore               34 runs
+  sageCouncil                 29 runs
+  gardenerGrove               26 runs
+  championAlone               23 runs
+  eelAndToad                  21 runs
+
+BY PARTY (runs won, all tree levels together)
+  nettle, severine, clemence        15 of 42 runs won (35.7%, somewhere between 23% and 50.8%)
+  brienne, nettle, severine         10 of 42 runs won (23.8%, somewhere between 13.5% and 38.5%)
+  nettle, severine, cassadora       9 of 42 runs won (21.4%, somewhere between 11.7% and 35.9%)
+  severine, cinder, clemence        8 of 42 runs won (19%, somewhere between 10% and 33.3%)
+  nettle, severine, cinder          7 of 42 runs won (16.7%, somewhere between 8.3% and 30.6%)
+  brienne, nettle, cassadora        6 of 42 runs won (14.3%, somewhere between 6.7% and 27.8%)
+  brienne, nettle, clemence         5 of 42 runs won (11.9%, somewhere between 5.2% and 25%)
+  brienne, severine, cassadora      5 of 42 runs won (11.9%, somewhere between 5.2% and 25%)
+  brienne, severine, cinder         4 of 42 runs won (9.5%, somewhere between 3.8% and 22.1%)
+  brienne, severine, clemence       3 of 42 runs won (7.1%, somewhere between 2.5% and 19%)
+  brienne, cinder, clemence         3 of 42 runs won (7.1%, somewhere between 2.5% and 19%)
+  severine, cassadora, cinder       3 of 42 runs won (7.1%, somewhere between 2.5% and 19%)
+  nettle, cassadora, cinder         2 of 42 runs won (4.8%, somewhere between 1.3% and 15.8%)
+  nettle, cinder, clemence          2 of 42 runs won (4.8%, somewhere between 1.3% and 15.8%)
+  brienne, nettle, cinder           1 of 42 runs won (2.4%, somewhere between 0.4% and 12.3%)
+  brienne, cassadora, cinder        1 of 42 runs won (2.4%, somewhere between 0.4% and 12.3%)
+  brienne, cassadora, clemence      1 of 42 runs won (2.4%, somewhere between 0.4% and 12.3%)
+  severine, cassadora, clemence     1 of 42 runs won (2.4%, somewhere between 0.4% and 12.3%)
+  nettle, cassadora, clemence       0 of 42 runs won (0%, somewhere between 0% and 8.4%)
+  cassadora, cinder, clemence       0 of 42 runs won (0%, somewhere between 0% and 8.4%)
+
+BY CHARACTER (runs won with them in the party)
+  brienne    39 of 420 runs won (9.3%, somewhere between 6.9% and 12.4%)
+  nettle     57 of 420 runs won (13.6%, somewhere between 10.6% and 17.2%)
+  severine   65 of 420 runs won (15.5%, somewhere between 12.3% and 19.2%)
+  cassadora  28 of 420 runs won (6.7%, somewhere between 4.7% and 9.5%)
+  cinder     31 of 420 runs won (7.4%, somewhere between 5.2% and 10.3%)
+  clemence   38 of 420 runs won (9%, somewhere between 6.7% and 12.2%)
+
+BY ROUTE (the second region a run went on to; "none reached" means it was lost in the first region)
+  none reached    467 runs, 0 of them won
+  floodedVault    175 runs, 44 of them won
+  flora           87 runs, 23 of them won
+  pollenRoad      111 runs, 19 of them won
+
+WHAT THIS REPORT CANNOT SEE
+  Each card is valued on its own, so a deck that needs three specific cards together is undervalued.
+  The bot is not a person. Comparisons between the columns can be trusted; the absolute win rates cannot until Noodle has checked the bot against his own play.
+  Noodle's standing direction is that runs are meant to be lost. These are numbers, not a judgement of them.
