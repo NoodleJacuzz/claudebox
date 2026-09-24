@@ -1,0 +1,25 @@
+//Rest node campfire art, by party composition -- LOOK TEST, round 02
+//
+//Noodle's idea: "replacing the rest node art with one based on your party composition". The party is
+//three, so this is three regions.
+//
+//ROUND 01 WAS GENERATED WITH `latent` AND ALL THREE WERE DESTROYED. Noodle, session 50: "Latent is
+//completely broken, using it destroys the output image because it isn't compatible with Forge." The
+//engine doc said latent was the answer to bleeding at three regions; it is not available, so attention
+//is the only calc mode and the bleeding is a thing to design around. webui2-generate.js now refuses a
+//block containing the word.
+//
+//DESIGNED FOR ATTENTION. Bleeding gets worse the more regions there are and the less alike they are,
+//so each region is kept SHORT and the three characters are given strongly different silhouettes and
+//colours by their own outfits. Everything the three share -- the fire, the cave, the night, sitting --
+//is outside the braces, so the engine puts it in the common block every region receives, which is
+//also the part that bleeding cannot hurt.
+//
+//Staffs and skulls are dropped: they are standing-around props and this is people sitting down.
+
+- rest-brienne-nettle-severine  the starting three
+rp1-1-1, brienne {default, smile}, nettle {default, !black staff, !flaming skull, !floating skull, bored}, severine {default, smug}, sitting, sitting on ground, campfire, bonfire, fire, night, cave, warm light, Landscape
+- rest-cassadora-cinder-clemence  the other three
+rp1-1-1, cassadora {default, closed eyes}, cinder {default, grin}, clemence {default, smile}, sitting, sitting on ground, campfire, bonfire, fire, night, cave, warm light, Landscape
+- rest-brienne-cinder-clemence  a mixed party
+rp1-1-1, brienne {default, laughing}, cinder {default, grin}, clemence {default, smile}, sitting, sitting on ground, campfire, bonfire, fire, night, cave, warm light, Landscape
