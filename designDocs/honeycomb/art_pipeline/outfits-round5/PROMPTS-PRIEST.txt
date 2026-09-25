@@ -1,0 +1,39 @@
+//priest outfits -- Clemence, round 5 (2026-09-25). One paste = one character. She is blind: every design covers her eyes with cloth, lace, bandage or veil, something that can burn away.
+clemence, simple white background, standing, full body
+
+- Devotee-A  Sister of Mercy: the nursing nun, hair cropped under a wimple, her own eyes bandaged, lantern at her feet
+!long hair, !wavy hair, short hair, wimple, white wimple, grey habit, nun habit, long dress, white apron, red cross, bandages over eyes, bandaged hands, satchel, medical bag, lantern on floor, white gloves, sandals
+- Devotee-B  recoloured tan and green, the herbalist; the lantern gives way to a swinging censer
+wimple, beige wimple, tan habit, nun habit, long dress, green apron, bandages over eyes, bandaged hands, satchel, holding censer, censer, incense, white gloves, sandals
+- Devotee-C  the Hospitaller (original): a knight-nun in mail under a white tabard, blindfolded, the shield on her back
+chainmail, hauberk, white tabard, red cross, surcoat, gorget, gauntlets, white cloak, hood down, white blindfold, blindfold, kite shield on back, mace on hip, armored boots
+- Devotee-D  lewd A: the sister down to her dressings
+!long hair, !wavy hair, short hair, wimple, white wimple, sarashi, bandages, bandaged arms, bandaged legs, bandages over eyes, mostly nude, red cross, satchel, lantern on floor, sandals, navel, underboob
+- Devotee-E  lewd B: the tan habit cut short over the stockings
+wimple, beige wimple, tan habit, nun habit, short dress, green apron, white thighhighs, garter straps, zettai ryouiki, bandages over eyes, bandaged hands, holding censer, censer, incense, white gloves
+- Devotee-F  lewd C: the hospitaller's tabard soaked through, worn over nothing
+naked tabard, white tabard, wet clothes, wet, see-through clothes, red cross, gorget, gauntlets, white blindfold, blindfold, kite shield on back, armored boots, nipples, navel
+- Ecstatic-A  Bride: a white wedding gown and a bridal veil down over her eyes, braided bun, bouquet in hand
+!long hair, !wavy hair, braided bun, white wedding dress, wedding dress, bridal veil, eye veil, white veil, lace trim, gold circlet, white gloves, lace gloves, elbow gloves, holding bouquet, bouquet, pink flower, flower crown, white heels, high heels
+- Ecstatic-B  recoloured black and red, the widow-bride; the bouquet gives way to a lit candelabra
+black wedding dress, wedding dress, bridal veil, eye veil, black veil, black lace, lace trim, red flower, black gloves, lace gloves, elbow gloves, holding candelabra, candelabra, candles, candlelight, black heels, high heels
+- Ecstatic-C  the Seraph (original): six wings, a burning halo, a white blindfold, the habit already catching
+six wings, multiple wings, feathered wings, white dress, flowing dress, long dress, burning, fire, flames, burning halo, halo, glowing, light particles, white blindfold, blindfold, barefoot
+- Ecstatic-D  lewd A: the bride in her bridal lingerie, the veil kept
+!long hair, !wavy hair, braided bun, bridal lingerie, white lingerie, bridal veil, eye veil, white veil, lace, white garter belt, white thighhighs, lace gloves, elbow gloves, holding bouquet, bouquet, pink flower, white heels, high heels, cleavage, navel
+- Ecstatic-E  lewd B: the black gown open all the way down the back
+black wedding dress, backless dress, sideboob, bridal veil, eye veil, black veil, black lace, red flower, black gloves, lace gloves, holding candelabra, candelabra, candles, candlelight, black heels, high heels
+- Ecstatic-F  lewd C: the ascension burning the dress off her, wings and light the only cover left
+six wings, multiple wings, feathered wings, burning clothes, torn dress, white dress, burning, fire, flames, burning halo, halo, glowing, light particles, light censor, white blindfold, blindfold, barefoot, nipples, navel
+- Abbess-A  Cardinal: the red cassock and cope, gold pectoral cross, a red veil over the eyes, hair slicked into a low bun, crosier in hand
+!long hair, !wavy hair, hair slicked back, low bun, red cassock, cassock, cope, zucchetto, pectoral cross, gold cuffs, red veil, eye veil, holding staff, crosier, gold staff, red gloves, black shoes
+- Abbess-B  recoloured purple and silver; the crosier gives way to the abbey's keys and a handbell
+purple cassock, cassock, cope, zucchetto, pectoral cross, silver cuffs, black veil, eye veil, key ring on hip, key ring, holding bell, handbell, purple gloves, black shoes
+- Abbess-C  the Shepherdess (original): straw hat, a sundress and apron, lace over the eyes, crook in hand and a lamb at her feet
+straw hat, blue sundress, white apron, white veil, eye veil, shepherd's crook, holding staff, lamb, flower crown, barefoot
+- Abbess-D  lewd A: the red cassock with its sides gone
+!long hair, !wavy hair, hair slicked back, low bun, red cassock, sideless outfit, sideboob, zucchetto, pectoral cross, gold cuffs, red veil, eye veil, holding staff, crosier, gold staff, red gloves, black shoes
+- Abbess-E  lewd B: the purple cassock unbuttoned to the waist between the keys and the bell
+purple cassock, partially unbuttoned, cleavage, zucchetto, pectoral cross, silver cuffs, black veil, eye veil, key ring on hip, holding bell, handbell, purple gloves, black shoes
+- Abbess-F  lewd C: the shepherdess joined the flock: ears, horns, a bell collar and fur for clothes
+sheep ears, fake animal ears, sheep horns, bell collar, white fur bikini, fur bikini, white fur trim, straw hat, white veil, eye veil, shepherd's crook, holding staff, barefoot, cleavage, navel

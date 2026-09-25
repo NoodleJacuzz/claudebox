@@ -89,7 +89,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`rework/starters/`** | Starting decks, outfit unlock routes, **relics and heirlooms**, roster order. | **10** | s25 |
 | **`rework/progression/`** | The six trees: node effects, EXP pricing, what a node hands out. | **4** | s30 |
 | **`rework/enemies/`** | Enemy numbers, identities, roles, encounter composition. | **6** | s51 |
-| **`art_pipeline/`** | The sprite pass: art owed, prompts, and how much art there needs to be. | **11** | 2026-09-22 |
+| **`art_pipeline/`** | The sprite pass: art owed, prompts, and how much art there needs to be. | **11** | 2026-09-25 |
 | **`card_redesign/`** | The card face: frames, chrome, rarity marks, ribbons. No gameplay. | **3** | s39 (rules only) |
 | **`chessmaster/`** | Anastasia, her kit, her gauntlet, her art. She stays invisible until a profile earns her. | **11** | s57 |
 | **`performance/`** | **Top demo goal.** Why it runs poorly for players, and the telemetry to find out. | **4** | s36 |
