@@ -12,9 +12,10 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | Step | State |
 |---|---|
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
-| 2. Heat and Poison (§2) | ☑ Heat locked in his words; defaults below are his to veto |
+| 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
 | 3. Grids: Cinder (§3.1) | ⏸ drafted, waits on his veto |
-| 3. Grids: Clemence, Brienne, Nettle, Severine, Cassadora (§3.2–3.6) | ☐ |
+| 3. Grids: Brienne's Torment strand (§3.3) | ⏸ proposed on his idea, waits on his yes |
+| 3. Grids: Clemence, Brienne (full), Nettle, Severine, Cassadora | ☐ |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -68,14 +69,18 @@ no guaranteed payoff, so it never reads as delayed damage.
    Lust reaches Anastasia through Commander's Burden — `chessmaster/` should check it wants that.
 7. **Heat is a debuff.** Gaining it gives Cinder Stride (live rule), Last Rites cleanses it, Artifact blocks
    the first application, it ends with the fight. No maximum.
-8. **Tag: Heat is its own lust tag** (Noodle, B34 fifth message: *"Heat (it's own tag)"*). A new `heat`
-   entry in `cardTagArray` with `lustTag: true`; the status's Lust carries it, so a hot Cinder builds a
-   Heat weakness between runs and Heat gets its own scene bundle. (The Torment default was overruled:
-   Torment is being cut.)
+8. **Tag: Heat is its own lust tag, and its weakness is for show.** A new `heat` entry in `cardTagArray`
+   with `lustTag: true`; the status's Lust carries it, so a hot Cinder builds a Heat weakness between runs
+   and Heat gets its own scene bundle. **The weakness rank never multiplies Heat's Lust** (Noodle, B34
+   sixth message: *"Heat weakness is entirely for show and unlocking lust events. Heat is entirely balanced
+   around dealing 1 lust per turn, if we made it increase with the weakness it'd hit 2/turn instantly"*).
+   Engine: a per-tag flag the rank multiplier skips; rank-ups still fire events.
 9. **Heat applied to an enemy by a card carries `heat`** like any of her Lust.
-10. **Only the party applies Heat.** Enemies never inflict it — the Pollen Road idea was withdrawn by Noodle
-    the same day (*"Charm is not Heat"*; it does not fit the fey's cool tones and nobility, and powder that
-    inflicts heat could read as drug use). Heat on an enemy comes from Cinder's cards alone.
+10. **Enemies may inflict Heat; no region is built on it.** Noodle's sixth message makes Venom, Exposure and
+    Heat the legal act-1 options, *"legal but not a focus"*. So an act-1 enemy may carry a Heat move, but the
+    fey's identity is Exposure (his fifth message withdrew Heat as their theme: *"Charm is not Heat"*, the
+    cool tones and nobility, and powder that inflicts heat could read as drug use). Heat on an enemy comes
+    mostly from Cinder's cards; the Lust it causes carries `heat` whoever applied the status.
 
 Engine: one status entry — an `onCardPlayed` reaction on the holder (entity hook exists), the enemy side
 through `onMovePlayed`, and a small `onShifted` / turn-end listener for the cooling. No new verb.
@@ -84,7 +89,23 @@ through `onMovePlayed`, and a small `onShifted` / turn-end listener for the cool
 
 `decayMode: "halve"` on the Poison entry (the table already names it; today `decrement`). 5 Poison is then
 8 damage where it was 14, so Nettle's appliers rise or her consumers (Reap, Rupture, Burst, Quicken Rot)
-become the point. Priced in her grid, not here.
+become the point. Priced in her grid, not here. **Signed off as a MUST** (B34, sixth message).
+
+### 2.3 The lust tags for the second demo — SIGNED OFF (B34, sixth message)
+
+What each represents is in his words in `../../designBibles/story.md` §11. What a card in this brief may carry:
+
+| Tag | In the demo | Who inflicts it | On cards here |
+|---|---|---|---|
+| **Venom** | yes — the Thorn Arbor's focus (act1-flora) | Nettle; Act1-B enemies | Nettle's nine venom cards keep it |
+| **Exposure** | yes — the Pollen Road's focus (act1-fey), **replacing Charm there** | Act1-C enemies; Clemence's outgoing Lust | Clemence's five enemy-facing cards keep it |
+| **Heat** | yes — the status, legal for any act-1 enemy, never a focus | the Heat status, wherever it sits | Cinder; the weakness is for show (§2.1 default 8) |
+| **Penance** | yes — Clemence only | Clemence, on herself and on allies | her self-Lust already; **her Abbess cards must carry it** (today they carry nothing, so "other characters get Penance scenes" is not yet true) |
+| Charm | **no** — act 2, masculine enemies | — | scrubbed everywhere in act 1 (MUST) |
+| Torment | **no** — act 2, electric and spanking; **Brienne's early access is the one exception if §3.3 is taken** | Brienne, on herself, via §3.3 | the Lust she takes onto herself |
+| Restraint | **unmentioned in either list** — read as cut with the act-1 retag (8 enemy moves) | — | nothing |
+
+The Mushroom Frontier (act1-A) focuses on health damage, not Lust.
 
 ## 3. The grids
 
@@ -175,10 +196,70 @@ fallback Stumble.
 | Ashen Cloak | → **neutral candidate "Cool Head"** (lose all Heat, gain 3 tHP per stack): if enemies apply Heat, a vent belongs to everyone |
 | Phoenix Heart | a selfish power; Recede and Cinders to Ash already pay Heat |
 
-### 3.2 Clemence ☐ · 3.3 Brienne ☐ · 3.4 Nettle ☐ · 3.5 Severine ☐ · 3.6 Cassadora ☐
+### 3.2 Clemence ☐ — rules already settled for her grid
 
-Next in that order. Clemence's list is where the Abbess line meets a hot Cinder (Kindled Want, Ordeal,
-Sanctify, Stay With Me) and where Poison halving does not reach; Nettle's is where it does.
+- Where the Abbess line meets a hot Cinder: Kindled Want, Ordeal, Sanctify, Stay With Me. Poison halving
+  does not reach her.
+- **Her Abbess cards carry `penance`.** Measured: Kindled Want and Ordeal are `{ index: "lust", amount: N }`
+  with no `lustTagArray`, so an ally taking Lust from them teaches the ledger nothing today. With the tag,
+  the yuri scenes he named become reachable.
+- **Absolution (A1) ⏸.** It is the one place Clemence takes the party's Lust (A7 made it his exception).
+  Under *"if anyone in the party should be taking lust from others, it should be her [Brienne], not
+  Clement"* it should become Penance-only: she pays, they heal, nobody is soothed. His call.
+
+### 3.3 Brienne ☐ — the Torment strand, proposed on his idea ⏸
+
+**Take: yes, and Bastion is where it lives.** Five reasons, each a test the cards below can fail:
+
+1. **The party needs one Lust sink and it should be the wall, not a healer.** Soothing on Severine let
+   players stall; Clemence is banned from it. *Moving* Lust is zero-sum — the party's total never falls —
+   so it cannot be stalled on, and Unshakeable (Lust capped at her maximum health) puts a hard ceiling on
+   how much she can hold. Lust carries to the next fight, so a full sponge pays at the next door.
+2. **Bastion gets its second half:** the wall you hit, and the one who takes it home. Headstrong (costs 1
+   more each time she has lost health) already rewards taking a blow as something other than health.
+3. **Resolve reads damage taken; Lust she takes onto herself feeds it 1:1.** The loop: take the party's Lust
+   → Resolve → Aegis → party tHP → tHP holds her own margin. That is the value tHP-maxing was missing.
+4. **It is the reader Heat and Penance needed.** Cinder runs hot, Clemence pays in Penance, Brienne takes it
+   out of them: three characters in one loop with no soothe in it.
+5. **Torment's early access lands on the one character who can fluff it** (*"Take it out on me, I can take
+   it!"*) with no act-2 enemy in sight; 3 to 4 scenes, his docket.
+
+**What the tag does.** Every point of Lust Brienne takes onto herself this way lands as `torment`, whatever
+tag it wore on the ally. That is the masochism reading, and it is how she teaches Torment alone.
+
+**The outfit carries the identity, the cards are tools** (bible: an outfit is the High-benefit swing):
+
+| Bastion | Today | Proposed |
+|---|---|---|
+| Signature | Headstrong — 3, Deal 18, costs 1 more each time she lost health this fight | keep; converting damage to Lust keeps it cheap |
+| Passive | Resolve twice as fast, only from tHP lost | **Big Sister Aura:** whenever another ally would gain Lust, half of it lands on Brienne instead, and Lust she takes builds Resolve 1:1 |
+| A2 | disabled; once a fight, if she would Break, lose all Resolve and gain half as tHP | keep: the sponge's safety valve |
+
+**The cards**, on the 20-card shape (one base common, Bastion's 2 C + 2 R; names are his placeholders):
+
+| Card | R | E | Gate | Effect | Why |
+|---|---|---|---|---|---|
+| Willing Target | C | 1 | base | An ally loses up to 8 Lust. Brienne gains that much Lust and that much Resolve. | the glue: every Brienne can take it out of someone; ally-Lust row |
+| Living Stress-Relief | C | 1 | Bastion unlock | Gain 6 tHP and 1 Taunt. Until your next turn, damage Brienne takes lands on her as Lust instead. | the conversion, one enemy turn; no health lost, margin spent |
+| Challenge | C | 1 | Bastion unlock | Gain 10 tHP and 1 Taunt. | the wall half, kept |
+| Wake-Up Kiss | R | 1 | Bastion, any pool | A Broken ally recovers and loses all their Lust. Brienne gains that much. Exhaust. | **cross-party:** the party's only un-break; under the cap it can Break her instead |
+| Punching Bag Session | R | 2 | Bastion, worn-only | Gain Temporary HP equal to Brienne's Lust. Gain 2 Taunt. | selfish: the sponge becomes the wall |
+
+Intercept (an ally gains 8 tHP, Brienne gains 1 Taunt) stays a base common as the wall's bridge. Stand
+Fast, Shield Wall, Suffer the Blows, Iron Retort, Thorn Armour and Rally compete for what is left of her
+20 in the full grid, which comes after his yes.
+
+**Engine.** `lust` reading a tally exists (Absolve). Damage landing as Lust is a sibling of the
+`replaceSelfDamage` hook Night Court used, on incoming damage. Recover from Broken is a primitive.
+
+**Not this:** her Lust as a damage payoff. Being most dangerous before she Breaks is Cinder's; Brienne's
+payoff is the wall (tHP, Taunt, Resolve).
+
+### 3.4 Nettle ☐ · 3.5 Severine ☐ · 3.6 Cassadora ☐
+
+Nettle is priced on halving and keeps her nine venom cards. **Severine loses every soothe** (Heartsblood's
+"lose 3 Lust"; the Vitae Chalice relic with it) — his rule, sixth message. Cassadora carries no lust tags;
+Frailty and Witch's Brew sit on the session-55 Frail.
 
 ## 4. Verdicts
 
@@ -195,13 +276,16 @@ Engine, from the grids:
 - **Sortie**: `shiftParty` `front` then `backward` (both exist).
 - **Reward dedupe**: a held-card weight in `rollCardReward` (`POOL-REVIEW-02.md` §1).
 - **Default signature**: `cardAdditionArray` on the default outfit, as the alts have; `randomCardCount` removed.
+- **Heat's weakness is for show**: a per-tag flag the rank multiplier (`lustMultiplier`, entities.js) skips.
+- **Brienne's strand (§3.3, after his yes)**: incoming damage landing as Lust (a sibling of `replaceSelfDamage`),
+  and the outfit-level "half the party's Lust lands on her" hook.
 
 **Housekeeping Noodle named for the desktop session (2026-09-25, B34 fifth message).** In the order that
 unblocks the most. Each is a table edit and a suite check; none needs a design decision except the first.
 
 | # | Job | Where | Size |
 |---|---|---|---|
-| 1 | **The lust tags: four survive.** His list is Venom, Charm, Heat, Penance. Cut: Torment (0 enemy moves, nothing to retag), Restraint (**8 enemy moves**), Exposure (**6 enemy moves + Clemence's 5 outgoing cards**: Heavenly Gaze, Wanton Gaze, Confession, Let Go, Soft Words, which need a tag or none). His afterthought — the fey from Charm to Exposure — would instead cut Charm (**15 moves**, and the charm writing rules that run through `lust_events/IDEAS.md`) and keep Exposure. **⏸ one word from him: Charm or Exposure for the fey.** Measured with `tools/lust-share.js`. | `honeycomb-content-cards.js` (`cardTagArray`), `honeycomb-content-enemies.js`, `lust_events/` B17 and B20 | small once decided |
+| 1 | **The lust tags — SIGNED OFF (§2.3).** Demo: Venom, Exposure, Heat, Penance. **The fey move to Exposure** (15 Charm moves retagged); every old Charm reference and weakness scrubbed; act-1 enemies use only Venom, Exposure and Heat (8 Restraint and 0 Torment moves retagged); Charm and Torment stay defined for act 2. The charm writing rules in `lust_events/IDEAS.md` become act-2 material. Measured with `tools/lust-share.js`. Verbatim in `../../enemy_overhaul/FEEDBACK.md` E14 and `../../lust_events/FEEDBACK.md` B23. | `honeycomb-content-cards.js` (`cardTagArray`), `honeycomb-content-enemies.js`, saves (`reconcileWeaknessLedger` drops the dead tags), `lust_events/` B17 and B20 | the retag is 23 moves |
 | 2 | `heat` added to `cardTagArray` with `lustTag: true` | content-cards | one entry |
 | 3 | `../starters/` B1: the three unlock routes, and the 18 alts off `unlockedFromStart` | content-characters, progression | the one engine job |
 | 4 | `tuning.reward`: 85 / 15, elite 60 / 40, boss fourth slot rare, held-card weight | tuning, combat | small |

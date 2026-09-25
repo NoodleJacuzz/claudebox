@@ -156,6 +156,43 @@ This supersedes nothing in B17 — it says *where* the surviving tags go once B1
 
 ---
 
+### B23. The tag set for the second demo, signed off ☐ — FILED 2026-09-25 FROM `rework/cards/` B34
+
+**This is B17's answer.** Noodle, 2026-09-25, in the card-pool conversation (the whole message is
+`../rework/cards/FEEDBACK.md` B34, sixth message; the engine side is `../rework/cards/CARD-POOL-02.md`
+§2.3; the retag of enemy moves is `../enemy_overhaul/FEEDBACK.md` E14):
+
+> Every type of lust we have is another bundle of scenes I'll want to do. Long or short, every new lust tag is a commitment.
+
+> Alright, I'm 100% set. I can't remember the act ABCs or titles, but the tags that will be in use for the second demo build, for sure, are:
+> - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
+> - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.
+> - (act1-frontier should primarily focus on hp damage)
+> - Heat, inflicted by the status effect of the same name. Represents the character's growing sex drive in general. Coming up with intersting ideas for these will probably be hard. Extremely important note: Heat weakness is entirely for show and unlocking lust events. Heat is entirely balanced around dealing 1 lust per turn, if we made it increase with the weakness it'd hit 2/turn instantly.
+> - Penance, inflicted exclusively by Clement. Represents the character falling for the allure of sin itself. If we have other characters get Penance scenes that'll be our excuse for yuri.
+>
+> The tags we will leave mainly for act 2, which is beyond the second demo's scope are:
+> - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
+> - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
+> On Torment: [...] If you agree, that would give Brienne essentially a sort of early access to this lust type, which would also give me a chance to see how it's recieved, and only add 3-4 more lust events to the docket.
+
+**What it means for the scene docket:**
+
+- **Four bundles in the demo:** Venom (Nettle's sketches in `SCENES-01.md` stand), Exposure (the fey's, and
+  Clemence's outgoing Lust), Heat (its own bundle; he expects the ideas to be hard), Penance (Clemence on
+  herself, and on allies once her Abbess cards carry the tag — today they carry none, so the yuri scenes
+  are not yet reachable; `../rework/cards/CARD-POOL-02.md` §3.2).
+- **Torment reaches the demo only through Brienne**, 3 to 4 scenes, if her masochism strand is taken
+  (`../rework/cards/CARD-POOL-02.md` §3.3, waits on his yes).
+- **Charm is act 2.** The charm writing rules in `IDEAS.md` §3 (fey suggestibility, the banned-word list)
+  are kept as act-2 material, not deleted; the fey no longer use them.
+- **Restraint** is in neither list and is read as cut; `RATE.md` and B20's per-act budget want re-reading
+  against the four.
+- **Heat's weakness ranks up and fires events like any tag but never multiplies its Lust** — an engine flag,
+  named in `CARD-POOL-02.md` §5.
+
+---
+
 ## Unsorted — drop new reports for this workstream here
 
 *(a report that does not clearly belong to this workstream goes in `../FEEDBACK.md` instead)*

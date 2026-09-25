@@ -245,6 +245,49 @@ current position, and that is his call rather than a finding.
 
 ---
 
+### E14. The act-1 retag: five MUSTs, signed off ☐ — FILED 2026-09-25 FROM `rework/cards/` B34
+
+Noodle, 2026-09-25, in the card-pool conversation (the whole message is `../rework/cards/FEEDBACK.md` B34,
+sixth message; what each tag represents is `../designBibles/story.md` §11):
+
+> Alright, I'm 100% set. I can't remember the act ABCs or titles, but the tags that will be in use for the second demo build, for sure, are:
+> - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
+> - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.
+> - (act1-frontier should primarily focus on hp damage)
+> - Heat, inflicted by the status effect of the same name. [...]
+> - Penance, inflicted exclusively by Clement. [...]
+>
+> The tags we will leave mainly for act 2, which is beyond the second demo's scope are:
+> - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
+> - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
+
+> All the existing attack names and tags that will need to change are not a huge loss. Moving closer to a shared pool of attacks (mainly to reduce the amount of owed art) will necessitate a rework of them anyways
+>
+> Okay, just so our ducks are all in a row, I am signing off right now that for sure 100%:
+> - Poison MUST change to halve when it triggers, down from 1 per turn.
+> - Act 1 enemies MUST change their attacks to exclusively use legal act 1 options. Venom, Exposure, and Heat is legal but not a focus.
+> - The fey MUST change to using exposure.
+> - Instances where the old Charm tag was used MUST be removed and replaced with Exposure as a theme.
+> - All existing references and weaknesses to the old Charm MUST be scrubbed.
+
+**The size of it, measured with `../tools/lust-share.js` the same day:** the roster's 44 Lust moves carry
+Charm 15, Venom 15, Restraint 8, Exposure 6, Torment 0. So the retag is **15 Charm moves → Exposure** (all
+on the Pollen Road) and **8 Restraint moves → Venom, Exposure or Heat** by region (Restraint is in neither
+of his lists and is read as cut). Torment has nothing to retag. The Thorn Arbor stays Venom; the Mushroom
+Frontier focuses on health damage. "Heat is legal but not a focus" means an act-1 enemy MAY carry a Heat
+move (the status: 1 Lust per stack whenever the holder plays a card; `../rework/cards/CARD-POOL-02.md`
+§2.1) and no region is built on it.
+
+**Scrubbing Charm** reaches past the moves: the ledger (`reconcileWeaknessLedger` drops dead tags on load),
+the Pollen Road's "charm" wording in `../designBibles/story.md` §4 and `ROUTE-IDENTITY.md`, the charm
+writing rules in `../lust_events/IDEAS.md` (act-2 material now, `../lust_events/` B23), and `RATE.md`.
+Poison halving is one field (`decayMode: "halve"`) and is priced in Nettle's grid, not here.
+
+**"A shared pool of attacks"** — his aside that enemies will move toward shared move definitions to cut
+owed art — is a design direction for this workstream and is not yet an item.
+
+---
+
 ## Unsorted — drop new reports for this workstream here
 
 *(a report that does not clearly belong to this workstream goes in `../FEEDBACK.md` instead)*

@@ -311,3 +311,28 @@ behaves are in `../lust_events/IDEAS.md` §3.
 - **Recklessness puts her nearest Clemence's space** (Noodle, same message): *"while 'I want to be broken' is
   Clement's thing, Cinder is probably the second closest to that space due to her theme of recklessness."*
   Her status is **Heat**, in Lust, not fire damage (`../rework/cards/POOL-REVIEW-02.md` §5).
+
+### Brienne
+
+- **If anyone takes the party's Lust, it is her** (Noodle, 2026-09-25, `../rework/cards/FEEDBACK.md` B34 sixth
+  message): *"Due to her nature as a tank, and because of her skill that caps lust at her max HP, I would like
+  to float the idea of Brienne having a masochistic theme somewhere within her card pool. [...] Fluff-wise this
+  would have to be expressed as a sort of "Take it out on me, I can take it!" attitude"*. Proposed as her
+  Bastion outfit's second half, `../rework/cards/CARD-POOL-02.md` §3.3, tagged Torment.
+
+# 11. The lust tags — what each represents
+
+Noodle's, verbatim, 2026-09-25 (`../rework/cards/FEEDBACK.md` B34). The engine side is
+`../rework/cards/CARD-POOL-02.md` §2.3; the scene side is `../lust_events/FEEDBACK.md` B23.
+
+> - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
+> - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.
+> - (act1-frontier should primarily focus on hp damage)
+> - Heat, inflicted by the status effect of the same name. Represents the character's growing sex drive in general.
+> - Penance, inflicted exclusively by Clement. Represents the character falling for the allure of sin itself. If we have other characters get Penance scenes that'll be our excuse for yuri.
+>
+> The tags we will leave mainly for act 2, which is beyond the second demo's scope are:
+> - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
+> - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
+
+Restraint appears in neither list and is read as cut. Torment reaches the demo only through Brienne (§10).

@@ -654,6 +654,43 @@ the trail is this item. Two lines went stale on this message and were fixed the 
 keeps it that way: **statuses before grids** — Heat is locked, Poison halving is one field priced inside
 Nettle's grid, Frail and Taunt were settled in session 55 — so no grid waits on a status now.
 
+His sixth message, the same day — the tags signed off, five MUSTs, and the Brienne idea:
+
+> Alright, I'm 100% set. I can't remember the act ABCs or titles, but the tags that will be in use for the second demo build, for sure, are:
+> - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
+> - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.
+> - (act1-frontier should primarily focus on hp damage)
+> - Heat, inflicted by the status effect of the same name. Represents the character's growing sex drive in general. Coming up with intersting ideas for these will probably be hard. Extremely important note: Heat weakness is entirely for show and unlocking lust events. Heat is entirely balanced around dealing 1 lust per turn, if we made it increase with the weakness it'd hit 2/turn instantly.
+> - Penance, inflicted exclusively by Clement. Represents the character falling for the allure of sin itself. If we have other characters get Penance scenes that'll be our excuse for yuri.
+>
+> The tags we will leave mainly for act 2, which is beyond the second demo's scope are:
+> - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
+> - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
+> On Torment: Due to her nature as a tank, and because of her skill that caps lust at her max HP, I would like to float the idea of Brienne having a masochistic theme somewhere within her card pool. If anyone in the party should be taking lust from others, it should be her, not Clement, absolutely not Severine (players were cheesing at low levels by stalling with her incredible self-healing, for some reason we let lust soothing slip into her toolkit). If you agree, that would give Brienne essentially a sort of early access to this lust type, which would also give me a chance to see how it's recieved, and only add 3-4 more lust events to the docket. It would also greatly improve her abilities as a tank and give tHP-maxing more value. Fluff-wise this would have to be expressed as a sort of "Take it out on me, I can take it!" attitude, mechanically it could be expressed as Brienne taking other character's lust, or Brienne taking lust instead of damage. Cards could be named "Wake-Up Kiss", "Willing Target", "Big Sister Aura", "Living Stress-Relief", "Punching Bag Session", etc. Honestly, some of those are pretty bad, but not every card name needs to describe something literally happening in battle.
+>
+> All the existing attack names and tags that will need to change are not a huge loss. Moving closer to a shared pool of attacks (mainly to reduce the amount of owed art) will necessitate a rework of them anyways
+>
+> Okay, just so our ducks are all in a row, I am signing off right now that for sure 100%:
+> - Poison MUST change to halve when it triggers, down from 1 per turn.
+> - Act 1 enemies MUST change their attacks to exclusively use legal act 1 options. Venom, Exposure, and Heat is legal but not a focus.
+> - The fey MUST change to using exposure.
+> - Instances where the old Charm tag was used MUST be removed and replaced with Exposure as a theme.
+> - All existing references and weaknesses to the old Charm MUST be scrubbed.
+>
+> Okay, with those out of the way, card pool. Sorry to take such a detour to restate what's probably obvious. What's your take on the Brienne idea? Want to explore it to give bastion an identity beyond just "big wall"?
+
+**Filed the same hour.** The tag set and what each represents: `CARD-POOL-02.md` §2.3 and
+`../../designBibles/story.md` §11. The five MUSTs went verbatim to `../../enemy_overhaul/FEEDBACK.md` **E14**
+(retagging is theirs) and the tag set to `../../lust_events/FEEDBACK.md` **B23** (the scene bundles are
+theirs). What it changed in this brief: Heat's weakness is for show and never multiplies (default 8);
+enemies may inflict Heat as a legal act-1 option, never a focus (default 10); Severine's kit loses its
+soothe (§3.5); Clemence's Abbess cards must carry `penance` for the yuri scenes to exist, since today they
+carry nothing (§3.2); Absolution is flagged ⏸ under "not Clement". **The Brienne idea: yes, and the strand
+is sketched in §3.3 for his veto** — Bastion becomes the sponge (a passive that takes half the party's
+incoming Lust onto her and builds Resolve from it), with Willing Target as the base-pool glue card, Living
+Stress-Relief as the damage-to-Lust conversion, Wake-Up Kiss as the party's only un-break, and Punching Bag
+Session as the worn-only payoff. Every Lust she takes onto herself carries `torment`.
+
 ---
 
 ## Unsorted — drop new reports for this workstream here
