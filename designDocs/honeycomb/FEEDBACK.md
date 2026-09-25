@@ -153,8 +153,15 @@ cut-ins, and none of it would look like a rename bug.
 *(add new reports below this line. The next session reads them, decides which workstream owns each,
 moves the report there verbatim, and bumps that row's count in the index above.)*
 
-**The inbox is empty.** The batches below are routing tables for reports that have already been
-filed; they are kept because they say which workstream to open for each one.
+**One cross-cutting report, filed 2026-09-25 under `rework/cards/` B34 (fifth message) because it arrived
+there — it belongs to three folders and the Friday desktop session should read it first:** the lust tags
+cut to four (Venom, Charm, Heat, Penance; Torment, Restraint and Exposure go, or Charm instead of Exposure
+if the fey move — ⏸ his one word), Heat as its own tag, and enemies never inflicting Heat. The retag sizes
+are measured in `rework/cards/CARD-POOL-02.md` §5. Touches `lust_events/` B17 / B20 and
+`enemy_overhaul/` (8 Restraint and 6 Exposure moves to retag, or 15 Charm).
+
+The batches below are routing tables for reports that have already been filed; they are kept because
+they say which workstream to open for each one.
 
 ### The session 61 reports (2026-09-23), closed
 

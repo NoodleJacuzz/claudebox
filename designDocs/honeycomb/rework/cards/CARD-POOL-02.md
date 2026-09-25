@@ -68,17 +68,17 @@ no guaranteed payoff, so it never reads as delayed damage.
    Lust reaches Anastasia through Commander's Burden — `chessmaster/` should check it wants that.
 7. **Heat is a debuff.** Gaining it gives Cinder Stride (live rule), Last Rites cleanses it, Artifact blocks
    the first application, it ends with the fight. No maximum.
-8. **Tag: Torment.** Heat's self-inflicted Lust carries `torment` — the one lust tag with no source anywhere,
-   and "relentless, past the point of bearing" is overexertion. His call, since `lust_events/` B17 caps tags
-   per character.
-9. **Heat applied to an enemy by a card carries that card's lust tag**, like any Lust.
+8. **Tag: Heat is its own lust tag** (Noodle, B34 fifth message: *"Heat (it's own tag)"*). A new `heat`
+   entry in `cardTagArray` with `lustTag: true`; the status's Lust carries it, so a hot Cinder builds a
+   Heat weakness between runs and Heat gets its own scene bundle. (The Torment default was overruled:
+   Torment is being cut.)
+9. **Heat applied to an enemy by a card carries `heat`** like any of her Lust.
+10. **Only the party applies Heat.** Enemies never inflict it — the Pollen Road idea was withdrawn by Noodle
+    the same day (*"Charm is not Heat"*; it does not fit the fey's cool tones and nobility, and powder that
+    inflicts heat could read as drug use). Heat on an enemy comes from Cinder's cards alone.
 
 Engine: one status entry — an `onCardPlayed` reaction on the holder (entity hook exists), the enemy side
 through `onMovePlayed`, and a small `onShifted` / turn-end listener for the cooling. No new verb.
-
-**A hook for `enemy_overhaul/`, not a decision:** the Pollen Road's charm expressed as Heat — moths and fey
-that make the party pay for its own tempo, with the counterplay of holding a character back — is on theme
-("the pollen's started affecting their judgement") and gives enemy Heat a home.
 
 ### 2.2 Poison halves
 
@@ -185,14 +185,29 @@ Sanctify, Stay With Me) and where Poison halving does not reach; Nettle's is whe
 Cinder's are in §3.1. The other five follow their grids. Retired definitions go to
 `../../Archive/RETIRED-CARDS-S6x.md` with the replacement named, as `RETIRED-CARDS-S33.md` did.
 
-## 5. Engine asks
+## 5. Engine asks, and the Friday housekeeping list
+
+Engine, from the grids:
 
 - **Heat**: one status entry (§2.1), plus the cooling listener. `shiftEntity` already fires `onShifted`
-  with distance and direction is derivable from ranks.
+  with distance and direction is derivable from ranks. Plus the `heat` lust tag.
 - **Poison `halve`**: one field.
 - **Sortie**: `shiftParty` `front` then `backward` (both exist).
 - **Reward dedupe**: a held-card weight in `rollCardReward` (`POOL-REVIEW-02.md` §1).
 - **Default signature**: `cardAdditionArray` on the default outfit, as the alts have; `randomCardCount` removed.
+
+**Housekeeping Noodle named for the desktop session (2026-09-25, B34 fifth message).** In the order that
+unblocks the most. Each is a table edit and a suite check; none needs a design decision except the first.
+
+| # | Job | Where | Size |
+|---|---|---|---|
+| 1 | **The lust tags: four survive.** His list is Venom, Charm, Heat, Penance. Cut: Torment (0 enemy moves, nothing to retag), Restraint (**8 enemy moves**), Exposure (**6 enemy moves + Clemence's 5 outgoing cards**: Heavenly Gaze, Wanton Gaze, Confession, Let Go, Soft Words, which need a tag or none). His afterthought — the fey from Charm to Exposure — would instead cut Charm (**15 moves**, and the charm writing rules that run through `lust_events/IDEAS.md`) and keep Exposure. **⏸ one word from him: Charm or Exposure for the fey.** Measured with `tools/lust-share.js`. | `honeycomb-content-cards.js` (`cardTagArray`), `honeycomb-content-enemies.js`, `lust_events/` B17 and B20 | small once decided |
+| 2 | `heat` added to `cardTagArray` with `lustTag: true` | content-cards | one entry |
+| 3 | `../starters/` B1: the three unlock routes, and the 18 alts off `unlockedFromStart` | content-characters, progression | the one engine job |
+| 4 | `tuning.reward`: 85 / 15, elite 60 / 40, boss fourth slot rare, held-card weight | tuning, combat | small |
+| 5 | Poison `decayMode: "halve"` — **after Nettle's grid**, since her appliers are priced on it | content-statuses | one field |
+| 6 | The Heat status entry and Cinder's cards — **after his veto of §3.1** | content-statuses, content-cards | the first character |
+| 7 | Stale lines elsewhere: `../starters/STARTER-LIST.md` (Cinder "attacks apply +1 Vulnerable to herself"), `../starters/OUTFITS-LIST.md` Cinder (Ashfall passive, "Sundered"), `../../reference/MECHANICS-01.md` (reference only, leave) | docs | minutes |
 
 ## 6. Done means
 

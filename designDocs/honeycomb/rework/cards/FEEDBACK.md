@@ -631,6 +631,29 @@ members; enemies read the same sentence; it is a debuff; its Lust carries Tormen
 §3.1 is Cinder's full list on it, drafted for his veto**: 12 C / 8 R, Sortie as the default signature, the
 Ashfall passive swapped to "1 Heat at the start of her turn", twelve cuts each with a reason. Clemence next.
 
+His fifth message, the same day — the lust tags, the fey, and the pipeline:
+
+> I appreciate the heads up. There's a lot of housekeeping to do come friday.
+> - Every type of lust we have is another bundle of scenes I'll want to do. Long or short, every new lust tag is a commitment. As such, I really, really only want Venom, Charm, Heat (it's own tag), and Clement's type. I honestly don't know how torment and exposure have lasted this long in the game without being cut yet due to how much harder we've moved towards venom and charm. I'll probably have desktop claude dummy them out. Actually, I'm writing this out of order, but given the conclusion I arrived at below, maybe rework the fey's tag from charm to exposure would be best.
+> - The fey having moves that inflict Heat is probably fine, though Charm is not Heat. I also worry that heat as a status doesn't fit well with the cool tones, dazed enemies, and fairy knights/nobility you actually fight. And now that I'm thinking about it, enemies using powder that inflicts heat could maybe be misinterpreted as drug use. I think I've talked myself out of the idea.
+>
+> Sorry to make things complicated for you. How much of a knot is our new card design pipeline in now that we've gone back and forth so many times? With our goal being the second demo build, I was hoping for a cleaner, better organized slate this go-around.
+
+**Three things change, all recorded in `CARD-POOL-02.md`:** Heat is **its own lust tag** (default 8
+rewritten); **enemies never inflict Heat** (the Pollen Road hook is withdrawn, default 10); and the tag cut
+is the first row of the Friday housekeeping table in its §5. What the roster teaches today, measured:
+Venom 15 moves, Charm 15, Restraint 8, Exposure 6, Torment 0 — so Torment costs nothing to cut, Restraint
+(not on his list of four) is 8 moves, and Exposure is 6 moves plus Clemence's 5 outgoing cards. **⏸ One
+word from him decides the fey:** keep **Charm** (his list; the charm writing rules in `lust_events/IDEAS.md`
+survive) or move them to **Exposure** (his afterthought; 15 moves retagged and those rules orphaned).
+Recommended: Charm, on cost, unless the charm scenes are the bundle he dreads writing.
+
+**The pipeline is not in a knot.** Every reversal replaced text rather than layering it: the brief has no
+Burn in it, Heat is in his words in one place, Cinder's grid is one table, the reasoning is one review, and
+the trail is this item. Two lines went stale on this message and were fixed the same hour. The rule that
+keeps it that way: **statuses before grids** — Heat is locked, Poison halving is one field priced inside
+Nettle's grid, Frail and Taunt were settled in session 55 — so no grid waits on a status now.
+
 ---
 
 ## Unsorted — drop new reports for this workstream here

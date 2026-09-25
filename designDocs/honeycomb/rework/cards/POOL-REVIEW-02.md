@@ -317,9 +317,8 @@ character. That is a better Nettle — apply big, cash before it fades — and i
 **Engine cost.** One status entry: an `onCardPlayed` reaction on the holder (the entity hook exists) and the
 enemy side through `onMovePlayed`, with the standard `decayTiming`. No new verb.
 
-**Open.** Whether an ability counts as playing a card (I would say no). Whether Heat on an enemy stays
-Cinder's alone or other lust attackers may apply it (Clemence's Confession applying Heat instead of
-Sensitive would be on-theme; I would keep it Cinder's, so the status has one owner).
+**Settled the same day** (B34, fifth message): Heat is its own lust tag; only Cinder's cards apply it; enemies
+never inflict it. The remaining defaults are `CARD-POOL-02.md` §2.1.
 
 ---
 
