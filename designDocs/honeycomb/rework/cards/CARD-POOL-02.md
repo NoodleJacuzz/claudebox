@@ -13,9 +13,9 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 |---|---|
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
 | 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
-| 3. Grids: Cinder (§3.1) | ⏸ drafted, waits on his veto |
-| 3. Grids: Brienne (§3.3) | ⏸ drafted on the sponge, waits on his veto |
-| 3. Grids: Clemence (§3.2 holds her settled rules), Nettle, Severine, Cassadora | ☐ Clemence next |
+| 3. Grids: Cinder (§3.1), Brienne (§3.3), Nettle (§3.4), Severine (§3.5), Cassadora (§3.6) | ⏸ all five drafted, wait on his veto |
+| 3. Grids: Clemence (§3.2 holds her settled rules) | ☐ **last, next** |
+| 3. Neutrals (§3.7) | ☐ candidates listed |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -317,12 +317,261 @@ it is kept as written and the Crunch prices it.
 `replaceSelfDamage` hook Night Court used, on incoming damage. Recover from Broken is a primitive. The
 Bastion passive is an outfit-level `modifyLustGained`-style hook on the other allies.
 
-### 3.4 Nettle ☐ · 3.5 Severine ☐ · 3.6 Cassadora ☐
+### 3.4 Nettle — Poison / Souls, on halving ⏸ draft for veto
 
-Nettle is priced on halving and keeps her nine venom cards. **Severine loses every soothe** (Heartsblood's
-"lose 3 Lust"; the Vitae Chalice relic with it) — signed off, seventh message: *"it didn't really make
-sense on her to begin with."* Cassadora carries no lust tags; Frailty and Witch's Brew sit on the
-session-55 Frail.
+Sisters: **Timing** (default) *Poison now or Poison later* · **Rotsinger** consume · **Sporemother** spread ·
+**Nightshade** Poison carries Lust. Souls come from exhausting (Rotsinger: from consuming instead).
+
+**What halving does to her.** 7 Poison used to be 28 damage over seven turns; it is 11 over three (7, 3, 1).
+A 3 barely changes (6 → 4). So Poison stops being a clock and becomes **a charge you set and detonate**:
+appliers go up about a third, and the consumers (Rupture, Burst, Pop) and the detonators (Quicken Rot,
+Death Knell) are where the value is realised. That is a sharper Nettle than the one the sim called the
+least-drafted package in the game — *apply big, cash before it fades* — and Timing, the default, is exactly
+"when". Every venom card keeps its tag. Numbers below are the first guess; `../../tools/budget-audit.js`
+and the Crunch decide.
+
+**Basics and abilities**
+
+| Card | E | Effect | Note |
+|---|---|---|---|
+| Wither (aggressive ×2) | 1 | Deal 4. Apply 1 Poison. | unchanged |
+| Last Rites (defensive ×2) | 1 | Remove all negative statuses from an ally. | unchanged — and it now puts a hot Cinder out in one card, which is a reason to bring her |
+| A1 Blight | — | Inflict Poison equal to your Souls (not spent). Once a rest. | unchanged |
+| A2 Undead Army | — | Spend all Souls. Deal 1 damage to a random enemy per Soul spent. | unchanged |
+
+**Signatures** (never drop)
+
+| Outfit | Card | E | Effect | Why |
+|---|---|---|---|---|
+| default | **Quicken Rot** | 1 | The target's Poison acts now. Apply 3 Poison. | graduated from the pool: "now or later" on one card; under halving it cashes half the charge |
+| rotsinger | **Pop** | 1 | Consume 1 Poison. Deal 12. | as listed |
+| sporemother | **Spore** | 1 | Apply 3 Poison. If the target was already Poisoned, apply 3 to every other enemy too. | as listed, +1 |
+| nightshade | **Kiss** | 1 | The target loses all its Lust and gains that much Poison. | as listed; reads Lust any ally put there |
+
+**Outfit passives and A2**
+
+| Outfit | Passive | A2 | Change |
+|---|---|---|---|
+| rotsinger | Souls come from consuming Poison instead of exhausting. | Spend all Souls; the party heals 1 per Soul. | as listed |
+| sporemother | **When a poisoned enemy falls, its Poison spreads to ALL other enemies.** | Spend all Souls; 1 Poison to a random enemy per Soul. | **replaces "Poison heals allies instead of damaging enemies"** (the audit's WATCH); Pandemic the card goes with it |
+| nightshade | All Poison inflicts Lust instead of damage. | Spend all Souls; enemies with Poison take that much Lust. | as listed |
+
+**The pool**
+
+| Card | R | E | Gate | F | A | Effect | From | Why |
+|---|---|---|---|---|---|---|---|---|
+| **Base (Timing)** | | | | | | | | |
+| Blight Needle | C | 1 | base | B | | Deal 5. Apply 4 Poison. | RW +1 | verb: hit and charge |
+| Venom Sac | C | 1 | base | G | | Apply 9 Poison. Exhaust. | RW +2 | the big charge; the exhaust is a Soul |
+| Grave Choice | C | 1 | base | — | | **Choose one:** apply 7 Poison; or spend 3 Souls: gain 1 Energy and draw 2. | RW +2 | the Choose One |
+| Reap | C | 1 | base | B | | Deal 5, plus 2 per Poison on the target. | K | reads the charge without spending it |
+| Draw Out | C | 1 | base | G | ✓ | An ally loses up to 8 Lust. The front enemy gains that much Poison. | K | bridge: a hot Cinder's or a heated ally's Lust becomes her charge (the one soothe left outside Brienne's kit; it ends fights, it cannot stall them) |
+| Plague Bearer | C | 1 | base | G | ✓ | This turn, an ally's attacks also inflict 2 Poison. | K | bridge: any ally's hits charge the target |
+| Death Knell | R | 2 | base | B | | Every enemy's Poison acts now, twice. | K | the detonator: 8 becomes 12 now and leaves 2 |
+| Rot From Within | R | 1 | base | G | | Double the target's Poison. Exhaust. | K | the enhancer, and a Soul |
+| **Rotsinger** | | | | | | | | |
+| Rupture | C | 1 | unlock | B | | Consume all Poison on an enemy. Deal twice that much. | K | the consume |
+| Putrefy | C | 1 | unlock | B | | Deal 3, plus 3 per negative status on the target. | K | reads every debuff anyone applied |
+| Catharsis | R | 2 | unlock (any pool) | B | | Each enemy takes damage equal to its Poison, plus 3 per debuff it has. | K | **cross-party:** Weak, Sundered, Frail, Marked, Sensitive, Heat all count |
+| Burst | R | 1 | worn | B | | Consume all Poison on an enemy. Deal that much to ALL enemies. | K | selfish consume |
+| **Sporemother** | | | | | | | | |
+| Infect | C | 1 | unlock | G | | Apply 4 Poison and 2 Infected. | RW +1 | every ally's hits keep charging it |
+| Miasma | C | 2 | unlock | G | | Apply 4 Poison and 1 Weak to ALL enemies. | RW +1 | the sweep, and the Weak that Wasting used to read; broken form Miasmic Haze |
+| Rot Garden | R | 2 | unlock (any pool) | G | ✓ | Power. Whenever any ally's attack wounds an enemy, it gains 1 Poison. | K | **cross-party:** the whole party charges |
+| Creeping Plague | R | 2 | worn | G | | Apply 5 Poison and 2 Sundered to ALL enemies. | RW +1 | selfish sweep |
+| **Nightshade** | | | | | | | | |
+| Intoxicate | C | 1 | unlock | B | | Apply 4 Poison and 2 Intoxicated. | RW +1 | Poison ticks as Lust |
+| Flushed | C | 1 | unlock | B | | Inflict 4 Lust, plus twice the target's Poison. | K | the Venom payoff |
+| Aphrodisiac | R | 1 | unlock (any pool) | B | ✓ | Power. Whenever an enemy takes Lust from any ally, it gains 1 Poison. | K | **cross-party:** Clemence's Rapture and Cinder's enemy Heat charge it |
+| Bacchanal | R | 2 | worn | B | | Apply 2 Intoxicated to ALL enemies. Each takes Lust equal to its Poison. | K | selfish; broken form Last Bloom |
+
+Totals **12 C / 8 R** · Burst 10, Grind 9, Choose 1 · ally-touching 5 of 20 (was 5 of 32). Broken forms
+survive: Wither → Pollen Burst, Miasma → Miasmic Haze, Bacchanal → Last Bloom, fallback Wither Within.
+**Souls** now come from Venom Sac, Rot From Within and Cassadora's Fence if it lands as a neutral (§3.7);
+if the audit finds Timing starved, Death Knell gains Exhaust.
+
+**Cut (11)**
+
+| Cut | Why |
+|---|---|
+| Quicken Rot | not cut — graduated to the default signature |
+| Corpse Pyre | exhaust-for-damage; Rot From Within and Venom Sac are the Soul sources now |
+| Wasting | its Weak rider is read by Putrefy and Catharsis already |
+| Fester | Festering doubles what Rot From Within already doubles |
+| Contagion | Spore, the signature, is the spread |
+| Scatter Spores, Spore Cloud | sweeps; Miasma and Creeping Plague are the sweeps |
+| Pandemic | its rule is the Sporemother passive now |
+| Pollen Kiss | Wither already hits and poisons; its tax form stays pointed from Wither |
+| Love Bite, Lotus Smoke | Sensitive is Clemence's setup; Lotus Smoke is a Lust sweep the Nightshade A2 does better |
+| Heady Spores | Aphrodisiac is the same bridge the other way round and reads more sources |
+
+### 3.5 Severine — Blood / Thirst ⏸ draft for veto
+
+Sisters: **Wounded** (default) *being damaged feeds all three* · **Huntress** hunt the wounded · **Crimson
+Covenant** pay in blood · **Blood Saint** give blood. **No soothe anywhere** (signed off: Heartsblood's
+"lose 3 Lust" goes, and the Vitae Chalice relic with it). Her glue is that she *produces* three shared
+things: Weak and Sundered on enemies for the debuff readers, health lost on allies for Brienne's Resolve
+and her own powers, and healing for Blood Debt and Gorged.
+
+**Basics and abilities**
+
+| Card | E | Effect | Note |
+|---|---|---|---|
+| Claw Flurry (aggressive ×2) | 1 | Deal 2, three times. | unchanged; three hits charge an Infected or Envenomed target |
+| Drain (defensive ×2) | 1 | Deal 4. Heal for the damage dealt. | unchanged |
+| A1 Blood Tap | — | Lose 5 HP. Gain 1 Strength. Three times a fight. | unchanged |
+| A2 Quicken | — | Draw a card for each lit Thirst orb. | unchanged |
+
+**Signatures** (never drop)
+
+| Outfit | Card | E | Effect | Why |
+|---|---|---|---|---|
+| default | **Answer in Kind** | 1 | Deal 4, plus the health Severine lost since your last turn. | graduated from the pool: Wounded on one card, not a carry |
+| huntress | **Finish** | 2 | Deal 10. Double if the target or Severine is below half health. | as listed |
+| crimsonCovenant | **Cut** | 1 | Deal 3 damage to yourself. Gain 3 Strength. | as listed (reads "Deal 6" under the passive) |
+| bloodSaint | **Blood Moon** | 2 | Deal 20 damage to EVERYONE. | as listed; Brienne's gold soaks it and her Resolve counts it, Blood for Blood sends it back |
+
+**Outfit passives and A2** — all as listed in OUTFITS-LIST, unchanged: Huntress draws a card when an enemy
+dies (A2: +2 Energy if all orbs are lit); Crimson Covenant doubles damage she deals herself and doubles
+healing she receives (A2: regain all HP if all orbs are lit); Blood Saint splits her self-healing among the
+party (A2: Sanctified while all three orbs are lit).
+
+**The pool**
+
+| Card | R | E | Gate | F | A | Effect | From | Why |
+|---|---|---|---|---|---|---|---|---|
+| **Base (Wounded)** | | | | | | | | |
+| Bloodthirst | C | 1 | base | B | | Deal 6, plus 3 for each lit Thirst orb. | K | her plain attack, reading the orb |
+| Hamstring | C | 1 | base | B | | Deal 7. Apply 1 Weak. | K | verb: Weak for the debuff readers; broken form Cripple |
+| Red Choice | C | 1 | base | — | | **Choose one:** deal 9; or gain 2 Fleeting Strength per lit Thirst orb. | K | the Choose One |
+| Coup de Grace | C | 1 | base | B | | Deal 8. If it falls, gain 1 Energy and draw 1. | K | the kill anyone set up pays |
+| Bleed Together | C | 1 | base | B | ✓ | You and an ally each lose 4 HP and gain 3 Fleeting Strength. | K | bridge: health loss on an ally — Resolve, Blood Rite, Blood for Blood all read it |
+| Drink Deep | C | 1 | base | G | | Deal 7. Heal as much as it dealt. | K | the drain, bigger |
+| Feeding Frenzy | R | 1 | base | B | | Deal 4 three times, plus 1 on each hit per lit Thirst orb. | K | the orb payoff |
+| Scar Tissue | R | 1 | base | G | | Power. Whenever Severine loses health, she gains 3 tHP. | K | her hurt becomes gold, which Brienne's readers then read |
+| **Huntress** | | | | | | | | |
+| Mark Prey | C | 1 | unlock | B | | Deal 4. Apply 2 Sundered. | K | Sundered for everyone's hits |
+| Stalk | C | 1 | unlock | B | | Deal 6 to the enemy with the least health. If it is below half, again. | K | the huntress verb |
+| Pack Hunt | R | 1 | unlock (any pool) | B | ✓ | Apply 1 Marked to ALL enemies. Draw a card. | K | **cross-party:** every ally's attacks read Marked |
+| Bloody Verdict | R | 2 | worn | B | | Deal 6 plus half the target's missing health. If it falls, heal 6. | K | selfish execute; the missing health is anyone's work |
+| **Crimson Covenant** | | | | | | | | |
+| Blood Price | C | 1 | unlock | B | | Lose 5 HP. Deal 14. | K | the plain trade |
+| Blood Rite | C | 1 | unlock | T | | Power. When the party damages one of its own, draw 1 (twice a turn). | K | reads every self-cost in the party |
+| Blood for Blood | R | 2 | unlock (any pool) | G | ✓ | Power. Whenever an ally loses health, deal that much to a random enemy. | K | **cross-party:** every hit the party takes comes back |
+| Sanguine Tide | R | 1 | worn | B | | Deal damage to ALL enemies equal to the damage the party has taken this turn. | K | selfish; the Covenant passive doubles what feeds it |
+| **Blood Saint** | | | | | | | | |
+| Transfusion | C | 1 | unlock | G | ✓ | Severine loses 5 HP. An ally heals 10. | K | give blood |
+| Leech Mark | C | 1 | unlock | G | | Deal 5. Apply 2 Siphoned. | K | every ally's hits heal the most hurt |
+| Blood Debt | R | 1 | unlock (any pool) | B | ✓ | Power. Whenever another ally heals, deal that much to a random enemy. | K | **cross-party:** Clemence's healing becomes damage |
+| Nightfall | R | 2 | worn | G | | Deal 8 to ALL enemies and inflict 1 Weak. Heal 2 for each enemy still standing. | K | selfish sweep; under the passive its heal is the party's; broken form Moonfall |
+
+Totals **12 C / 8 R** · Burst 11, Grind 6, Tempo 1, Choose 1 · ally-touching 7 of 20 (was 5 of 32). Broken
+forms survive: Claw Flurry → Prey No More, Hamstring → Cripple, Nightfall → Moonfall, fallback Lash Out.
+
+**Cut (11)**
+
+| Cut | Why |
+|---|---|
+| Answer in Kind | not cut — graduated to the default signature |
+| Pounce, Scent of Blood | "below half" riders; Stalk and Finish carry the hunt |
+| Exsanguinate | one execute rare is enough and Bloody Verdict reads more |
+| Open Vein | a multi-hit for blood; Claw Flurry is the multi-hit |
+| Blood Pact | 0-cost energy, the banned shape, even priced in blood |
+| Red Harvest | missing-health scaling; Answer in Kind is the Wounded read |
+| Heart's Toll | under the Covenant passive it is lose 20 for 30 |
+| Heartsblood | its soothe is gone and Transfusion gives the blood |
+| Gorge | Gorged is one card's rule; Scar Tissue turns her hurt into gold already |
+| Crimson Arc | a small sweep; Nightfall is the sweep, and its broken form is still pointed from Claw Flurry |
+| Crimson Communion | Nightfall under the Blood Saint passive is the communion |
+
+### 3.6 Cassadora — intents / the Orb ⏸ draft for veto
+
+Sisters: **Intents** (default) *reading and changing them* · **Soothsayer** her own deck · **Grifter** steal
+· **Hedge Witch** debuffs. No lust tags. **Her Hex line is the best glue in the game now:** Spread
+Misfortune copies and Malediction doubles *every* debuff — Nettle's Poison, Cinder's enemy Heat,
+Severine's Marked — so both sit where anyone can draft them. **Warded Fate loses its soothe** (3 Lust), for
+the same reason Severine did.
+
+**Basics and abilities**
+
+| Card | E | Effect | Note |
+|---|---|---|---|
+| Wisplight (aggressive ×2) | 1 | Deal 4. Apply 1 Sundered. | unchanged |
+| Second Thoughts (defensive ×2) | 1 | The target picks a new intent. | unchanged |
+| A1 Glimpse | — | Re-roll one enemy's intent. Once a rest. | unchanged |
+| A2 Magic Trick | — | as listed | unchanged |
+
+**Signatures** (never drop)
+
+| Outfit | Card | E | Effect | Why |
+|---|---|---|---|---|
+| default | **Omen** | 1 | Deal 4, plus 3 per enemy intending to attack and 2 per filled Orb quadrant. | graduated from the pool: reading on one card, not a carry |
+| soothsayer | **Read** | 1 | Scry 3. | as listed |
+| grifter | **Misdirect** | 2 | Apply 1 Turncoat. | as listed |
+| hedgeWitch | **Jinx** | 0 | Apply 1 Weak or Sundered, at random. | as listed |
+
+**Outfit passives and A2** — all as listed in OUTFITS-LIST, unchanged: Soothsayer's random and reward
+cards lean rare (A2: draw a card per Orb symbol); Grifter's stolen cards do not exhaust and stay in the deck
+between fights (A2: erase a card of a matching type from the deck if the Orb is full); Hedge Witch's
+re-rolls inflict 1 Weak and stolen cards go to the discard (A2: a debuff on each enemy per Orb symbol).
+
+**The pool**
+
+| Card | R | E | Gate | F | A | Effect | From | Why |
+|---|---|---|---|---|---|---|---|---|
+| **Base (Intents)** | | | | | | | | |
+| Twist Fate | C | 1 | base | G | | Deal 5. The target picks a new intent. | K | verb: hit and change |
+| Cross My Palm | C | 1 | base | — | | **Choose one:** the target picks a new intent; or empty the Orb: draw 1 per quadrant, +1 Energy if it was full. | K | the Choose One |
+| Curse | C | 1 | base | B | | Apply 2 Sundered and 1 Weak. | K | verb: two debuffs for every reader |
+| Spread Misfortune | C | 1 | base | B | | Copy every debuff on the target onto every other enemy. | K | **bridge:** Poison, Heat, Marked, whoever put them there |
+| Palm Reading | C | 1 | base | T | ✓ | Draw one of an ally's cards. That ally gains 5 tHP. | K | bridge: a tutor and gold |
+| Warded Fate | C | 1 | base | G | ✓ | An ally gains 7 tHP. A random enemy picks a new intent. | RW no soothe | bridge: tHP row |
+| Evil Eye | R | 1 | base | B | | Power. Whenever an enemy's intent is changed, it takes 6. | K | the Intents payoff |
+| Wheel of Fortune | R | 2 | base | G | ✓ | ALL enemies pick new intents. ALL allies gain 4 tHP for each enemy no longer attacking. | K | the party's Intents card; broken form Stillness Within |
+| **Soothsayer** | | | | | | | | |
+| Divination | C | 1 | unlock | T | | Scry 4. Draw 2. | K | the dig |
+| Card Up the Sleeve | C | 1 | unlock | T | | Return a card from your discard pile to your hand. It costs 1 less this fight. | K | the recursion, her distinct verb |
+| Destiny's Hand | R | 1 | unlock (any pool) | T | ✓ | Draw one card belonging to each other ally. Gain 1 Energy. | K | **cross-party:** the tutor |
+| Augury | R | 1 | worn | T | | Power. Scry 2. Draw 1 more card each turn. | K | selfish engine |
+| **Grifter** | | | | | | | | |
+| Understudy | C | 1 | unlock | B | | Steal an enemy's intent. Draw 1. | K | the steal |
+| Mirror Fate | C | 1 | unlock | B | | Deal 4, plus all the damage the enemy intends to deal. | K | reads the intent; broken form Shattered Mirror |
+| Accomplice | R | 1 | unlock (any pool) | B | ✓ | Steal an enemy's intent; it costs 0. The front ally gains 2 Fleeting Strength. | K | **cross-party:** the front ally, whoever it is |
+| Grand Heist | R | 2 | worn | B | | Steal the intent of ALL enemies. Exhaust. | K | selfish |
+| **Hedge Witch** | | | | | | | | |
+| Frailty | C | 1 | unlock | B | | Deal 6. Apply 2 Frail. | K | the answer to enemies that shell themselves |
+| Bad Luck | C | 1 | unlock | G | | Apply 1 Weak and 1 Sundered to ALL enemies. | K | the sweep that Catharsis and Putrefy read |
+| Coven's Curse | R | 1 | unlock (any pool) | B | ✓ | Power. Whenever an ally gives an enemy a debuff, it takes 3. | K | **cross-party:** every Poison, Weak, Heat and Marked applied by anyone |
+| Malediction | R | 1 | worn | B | | Double every debuff on an enemy. Exhaust. | K | worn-only, but it doubles what the whole party applied |
+
+Totals **12 C / 8 R** · Burst 9, Grind 5, Tempo 5, Choose 1 · ally-touching 6 of 20 (was 4 of 32). Broken
+forms survive: Wisplight → Turned Coat, Mirror Fate → Shattered Mirror, Wheel of Fortune → Stillness
+Within, fallback Blinded.
+
+**Cut (11)**
+
+| Cut | Why |
+|---|---|
+| Omen | not cut — graduated to the default signature |
+| Encore, Reshuffle, Portent | draw-and-scry bodies; Divination is the dig, Read the signature |
+| Tarot Spread | a bigger Divination; Augury is the worn rare |
+| Sleight of Hand | Twist Fate and Second Thoughts change intents already |
+| Turncoat | duplicates Misdirect, the signature |
+| Double Cross | needs Turncoat to pay |
+| Fence | → **neutral candidate** (§3.7): exhaust a card, gain 2 Energy is glue for any party carrying curses, and Nettle's Souls read it |
+| Pilfer | Understudy is the steal; Grand Heist the big one |
+| Enfeeble | Weak is on Curse, Bad Luck, Hamstring and Miasma already |
+| Witch's Brew | Bad Luck plus Malediction is the same board |
+
+### 3.7 Neutrals ☐ — candidates so far
+
+About eight, on rate, pure glue, shops and the boss slot only (§1). Candidates the character cuts threw
+up: **Cool Head** (lose all your Heat; gain 3 tHP per stack lost), **Fence** (exhaust a card; gain 2
+Energy), plus the live Shared Resolve, Field Tonic and Hedge Your Bet brought onto rate (B26). Written
+after Clemence.
+
+**Anastasia is outside this pass** (his eighth message): a secret, effectively a playable boss, balanced on
+different axes, and unplayed by anyone who has given feedback. Her 13 C / 7 R stay as they are.
 
 ## 4. Verdicts
 

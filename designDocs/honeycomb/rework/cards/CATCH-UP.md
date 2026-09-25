@@ -34,7 +34,8 @@ edge-case defaults for his veto, and **Cinder's and Brienne's full 12 C / 8 R li
 Kept Word as default signatures; Brienne's Bastion is the party's Lust sponge on his masochism idea, tagged
 Torment). Late the same day he signed off the demo's tag set (Venom, Exposure, Heat, Penance), five MUSTs,
 Severine losing every soothe, Absolution losing its soothe, Restraint cut, and the Abbess line applying
-Heat to allies. **Next: Clemence's grid**, then Nettle, Severine, Cassadora. The first engine job either
+Heat to allies. **Nettle, Severine and Cassadora are drafted too** (§3.4–3.6; Nettle repriced on halving).
+**Next: Clemence's grid, last by his order; Anastasia is outside the pass.** The first engine job either
 way is `../starters/` B1, since every alt is still unlocked from run one.
 
 ---

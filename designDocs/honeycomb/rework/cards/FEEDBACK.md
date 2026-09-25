@@ -708,7 +708,19 @@ from Clemence lands in the Heat bundle and no yuri Penance scenes are owed; the 
 Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence (`../../lust_events/` B23).
 **Brienne's full 12 C / 8 R list is drafted in §3.3** on the sponge: Kept Word graduates to the default
 signature, Bastion's passive becomes Big Sister Aura, Suffer the Blows (his card) is Bastion's worn-only
-rare, fifteen cuts with reasons. Clemence next.
+rare, fifteen cuts with reasons.
+
+His eighth message, the same day:
+
+> Thank you, Clemence is last, I think. Anastasia's a secret character, she's effectively a playable boss, and as a character who's really appealing to play solo she doesn't break the game for being strong. Plus, very few players have unlocked her so far, and not one has given feedback since anyone going fast enough to unlock her burnt themselves out on the game for now. I'll wait, she fundamentally needs to be balanced on different axes.
+> Please, go ahead.
+
+**Nettle, Severine and Cassadora are drafted** (`CARD-POOL-02.md` §3.4–3.6), each 12 C / 8 R with a
+graduated default signature (Quicken Rot, Answer in Kind, Omen), each with its cuts and reasons. Nettle is
+repriced on halving (appliers about a third up; the consumers and detonators are the point) and her
+Sporemother passive is proposed as the fall-spread instead of "Poison heals allies". Severine and
+Cassadora lose their last soothes (Heartsblood, Warded Fate). Anastasia is outside the pass in his words
+(§3.7). **Clemence is last and next.**
 
 ---
 
