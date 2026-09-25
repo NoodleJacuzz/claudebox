@@ -13,9 +13,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 |---|---|
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
 | 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
-| 3. Grids: Cinder (§3.1), Brienne (§3.3), Nettle (§3.4), Severine (§3.5), Cassadora (§3.6) | ⏸ all five drafted, wait on his veto |
-| 3. Grids: Clemence (§3.2 holds her settled rules) | ☐ **last, next** |
-| 3. Neutrals (§3.7) | ☐ candidates listed |
+| 3. Grids: all six (§3.1–3.6) | ⏸ **all drafted**, wait on his veto; Severine revised on his read (no Marked, no Sundered) |
+| 3. Neutrals (§3.7) | ☐ candidates listed; next |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -203,16 +202,99 @@ fallback Stumble.
 | Ashen Cloak | → **neutral candidate "Cool Head"** (lose all Heat, gain 3 tHP per stack): if enemies apply Heat, a vent belongs to everyone |
 | Phoenix Heart | a selfish power; Recede and Cinders to Ash already pay Heat |
 
-### 3.2 Clemence ☐ — rules already settled for her grid
+### 3.2 Clemence — Lust / Broken / Devotion ⏸ draft for veto
 
-- **The Abbess line applies Heat to allies, not Lust** (settled, seventh message). Kindled Want, Ordeal,
-  Penitent's Draw and Shared Fever give an ally Heat stacks with their Strength, tHP or cards: the ally runs
-  hot, pays per card, and cools by moving back — which is what Cinder's Ashfall reads and Brienne's Bastion
-  sponges. Today they are `{ index: "lust", amount: N }` with no tag and teach the ledger nothing. If the
-  status cannot carry a card's job, that card may deal Heat-tagged Lust directly (§2.1 default 11).
-- **Absolution (A1) loses its soothe** (settled: *"the not-clement exception must go"*). Draft: Clemence
-  takes 10 Lust (Penance); ALL allies heal 5. She pays, they heal, nobody is soothed; once per rest stays.
-- Poison halving does not reach her. Penance stays on herself alone.
+Sisters: **Mercy** (default) *healing in general* · **Devotee** make Breaking hard · **Ecstatic** rush her
+own Break · **Abbess** heat the others. Devotion fills 1:1 on health and tHP given. **Rules settled before
+the grid:** the Abbess line applies **Heat** to allies, not Lust (seventh message) — the ally runs hot, pays
+per card and cools by moving back, which is what Cinder's Ashfall reads and Brienne's Bastion sponges;
+**Absolution loses its soothe** (*"the not-clement exception must go"*); she never soothes an ally; her own
+Lust is spent only by rare broken forms (B18); her healing is off-rate and *incredible*, her Lust riders
+are the sacrifice; Penance on herself, Exposure on enemies; Poison halving does not reach her. Broken
+forms keep the session-55 rule (starter and common forms at the rare rate, rare forms spend her Lust), and
+every card she keeps already has one, so the pass cuts her form count from 35 to 23.
+
+**Where her glue is now.** Her givers were always the most numerous in the pool; what was missing were
+readers. Now: Heat on an ally is read by Cinder's payoffs and Brienne's sponge; her healing is read by
+Severine's Blood Debt; her Exposure Lust is read by Nettle's Kiss, Flushed and Aphrodisiac; Sensitive
+amplifies everyone's Lust including Heat's. And she reads back: Stay With Me and Sheltering Grace pay on an
+ally's Lust, so a hot Cinder is her best customer.
+
+**Basics and abilities**
+
+| Card | E | Effect | Note |
+|---|---|---|---|
+| Tempt (aggressive ×2) | 1 | Inflict 6 Lust. | unchanged, Exposure |
+| Offering (defensive ×2) | 1 | Heal an ally for 6. | unchanged |
+| A1 Absolution | — | **Clemence takes 10 Lust. ALL allies heal 5. Once a rest.** | rebuilt: she pays, they heal, nobody is soothed |
+| A2 One with Nothing | — | Lose all Devotion, then lose half that much life. Once a fight. | unchanged |
+
+**Signatures** (never drop)
+
+| Outfit | Card | E | Effect | Why |
+|---|---|---|---|---|
+| default | **Mercy** | 1 | The most hurt ally heals 12. Clemence gains 6 Lust. | graduated from the pool: the sister's name, healing in general, not a carry |
+| devotee | **Blessed Pain** | 2 | An ally heals 20. | as listed; the register B18 asked for |
+| ecstatic | **Edge** | 0 | Clemence gains 6 Lust. | as listed; the 0 is priced by the Lust |
+| abbess | **Guided Hand** | 1 | An ally gains 2 Strength and 2 Heat. | was 6 Lust; now the status |
+
+**Outfit passives and A2**
+
+| Outfit | Passive | A2 | Note |
+|---|---|---|---|
+| devotee | Prevent all self-inflicted Lust. | Spend all Devotion; give tHP equal to the amount lost, split across allies. | ⏸ **as listed, but it makes every Lust rider free**, which is the sacrifice B18 asked for. Proposed: *halve* her self-inflicted Lust instead, so Devotee is slow to Break rather than unable |
+| ecstatic | She cannot be soothed. Lust she gains while Broken is dealt at random among allies and enemies. | Spend all Devotion; gain that much Lust. | as listed |
+| abbess | Immune to Lust inflicted by enemies. | Spend all Devotion; each other ally gains Heat equal to a fifth of it. | A2 was "gains that much Lust"; the status now, scaled |
+
+**The pool**
+
+| Card | R | E | Gate | F | A | Effect | From | Why |
+|---|---|---|---|---|---|---|---|---|
+| **Base (Mercy)** | | | | | | | | |
+| Mending Word | C | 1 | base | G | ✓ | An ally heals 10. Clemence gains 4 Lust. | RW 7→10 | the heal, off-rate as asked |
+| Sheltering Grace | C | 1 | base | G | ✓ | An ally gains 9 tHP, or 12 if they have Lust. Clemence gains 4 Lust. | K | tHP row, and it reads their Lust |
+| Answered Prayer | C | 1 | base | — | ✓ | **Choose one:** an ally heals 10; or spend 8 Devotion: gain 1 Energy and draw 2. | RW 7→10 | the Choose One |
+| Heavenly Gaze | C | 1 | base | B | | Inflict 9 Lust. If Clemence has more Lust than the target, draw 1. | K | verb: Exposure for Nettle's readers |
+| Stay With Me | C | 1 | base | G | ✓ | An ally gains tHP equal to their Lust, up to 12. | K | bridge: a hot Cinder, a heated ally, a sponge Brienne |
+| Confide | C | 1 | base | T | | Draw 3. Clemence gains 5 Lust. | K | the exchange her whole kit is made of |
+| Miracle | R | 2 | base | G | ✓ | An ally is restored to full health. Clemence gains 10 Lust. Exhaust. | RW | *"restore target to full hp for 2 mana"* — his register; broken form Wonder spends her Lust |
+| Font of Grace | R | 2 | base | G | ✓ | Power. At the start of your turn, the most hurt ally heals 5 and Clemence gains 3 Lust. | K | the healing engine |
+| **Devotee** | | | | | | | | |
+| Bear the Weight | C | 1 | unlock | G | ✓ | An ally and Clemence each gain 7 tHP. Clemence gains 3 Lust. | K | tHP on two bodies |
+| Blessed Endurance | C | 1 | unlock | G | | Clemence gains 10 tHP and 4 Lust. | K | her own break line, raised |
+| Blessing | R | 1 | unlock (any pool) | G | ✓ | Power. Whenever an ally gains tHP, they gain 2 more. | K | **cross-party:** every tHP giver in the party |
+| Sanctuary | R | 2 | worn | G | ✓ | ALL allies gain 10 tHP. Clemence gains 6 Lust. | K | the wall build's sweep; broken form Sanctum spends her Lust |
+| **Ecstatic** | | | | | | | | |
+| Let Go | C | 1 | unlock | B | | Clemence gains 12 Lust. Inflict Lust equal to half of Clemence's on an enemy. | K | the rush, and the payoff for it |
+| Confession | C | 1 | unlock | B | | Inflict 6 Lust and 2 Sensitive. Clemence gains 4 Lust. | K | Sensitive amplifies every Lust source in the party, Heat included |
+| Rapture's Gift | R | 1 | unlock (any pool) | B | ✓ | Power. When Clemence Breaks, ALL other allies gain 2 Strength and 8 tHP. | K | **cross-party:** her Break is their turn |
+| Surrender | R | 1 | worn | B | ✓ | ALL allies heal 6. Then Clemence gains Lust until she Breaks. Exhaust. | K | selfish; broken form Revelation |
+| **Abbess** | | | | | | | | |
+| Sanctify | C | 1 | unlock | B | ✓ | An ally gains Sanctified. Clemence gains 5 Lust. | K | the razor's edge: they keep their cards past the Break |
+| Ordeal | C | 1 | unlock | B | ✓ | An ally gains 3 Heat and 10 tHP. | RW | was 10 Lust; the gift a hot Cinder wants |
+| Shared Fever | R | 1 | unlock (any pool) | B | ✓ | Each other ally gains 2 Heat. Gain 2 Energy. | RW | **cross-party:** the party runs hot for tempo; Brienne sponges it, Nettle draws it out |
+| Communion | R | 2 | worn | B | ✓ | ALL allies gain Sanctified. Clemence gains 10 Lust. Exhaust. | K | selfish to Sanctuary; broken form Rapturous Host |
+
+Totals **12 C / 8 R** · Burst 8, Grind 9, Tempo 2, Choose 1 · ally-touching 15 of 20 (was 19 of 32; the
+share went up). Broken forms: every kept card keeps its own; the fallback stays Rapture.
+
+**Cut (11)**
+
+| Cut | Why |
+|---|---|
+| Mercy | not cut — graduated to the default signature |
+| Lay On Hands | a party heal at 2; Font of Grace and Miracle are the sweeps |
+| Martyr's Vow | a power that reads her Lust rising *and* falling; Font of Grace heals more simply |
+| Anoint, Fallen Vigil | heals gated on a Broken ally; Sanctify is what an Abbess does about a Break |
+| Kindled Want | Guided Hand, the signature, is Strength and Heat already |
+| Penitent's Draw | Heat for cards; Shared Fever does it for the party |
+| Broken Saints | Rapture's Gift pays the Break for everyone |
+| Fervent Prayer | 0-cost energy, the banned shape, even priced in Lust; Edge is her one 0 |
+| Wanton Gaze, Soft Words | Lust bodies; Heavenly Gaze and Tempt are the Exposure verbs |
+| Ecstasy | an engine that needs her Broken; Surrender is the rush and the worn rare |
+
+**Engine.** Heat on allies from a card: `applyStatus` with the entry (§2.1). The Abbess A2's "a fifth" is a
+number for tuning. Nothing else new.
 
 ### 3.3 Brienne — Temporary HP / Resolve / the sponge ⏸ draft for veto
 
@@ -410,8 +492,16 @@ if the audit finds Timing starved, Death Knell gains Exhaust.
 Sisters: **Wounded** (default) *being damaged feeds all three* · **Huntress** hunt the wounded · **Crimson
 Covenant** pay in blood · **Blood Saint** give blood. **No soothe anywhere** (signed off: Heartsblood's
 "lose 3 Lust" goes, and the Vitae Chalice relic with it). Her glue is that she *produces* three shared
-things: Weak and Sundered on enemies for the debuff readers, health lost on allies for Brienne's Resolve
-and her own powers, and healing for Blood Debt and Gorged.
+things: Weak on enemies for the debuff readers, health lost on allies for Brienne's Resolve and her own
+powers, and healing for Blood Debt and Gorged.
+
+**She applies two enemy statuses, Weak and Siphoned, and no amplifier.** Marked and Sundered came off her
+on his read (B34, ninth message): with Claw Flurry and Feeding Frenzy in her own kit, a self-applied +3 per
+hit and +50% damage taken made her multi-hits great in any party, so building around her was nothing to
+build. Her per-hit riders now come from teammates — Brienne's Armament, Cinder's Vanguard, Nettle's
+Infected and Envenomed, Cassadora's Sundered, Clemence's Strength — which is the teambuilding read of a
+multi-hit character. Weak stays: with Drain it gives her legs as a health tank, his words. `marked` is
+orphaned by this and is deleted (status hygiene, MECHANICS-02 part 10).
 
 **Basics and abilities**
 
@@ -450,9 +540,9 @@ party (A2: Sanctified while all three orbs are lit).
 | Feeding Frenzy | R | 1 | base | B | | Deal 4 three times, plus 1 on each hit per lit Thirst orb. | K | the orb payoff |
 | Scar Tissue | R | 1 | base | G | | Power. Whenever Severine loses health, she gains 3 tHP. | K | her hurt becomes gold, which Brienne's readers then read |
 | **Huntress** | | | | | | | | |
-| Mark Prey | C | 1 | unlock | B | | Deal 4. Apply 2 Sundered. | K | Sundered for everyone's hits |
+| Scent of Blood | C | 1 | unlock | T | | Deal 5. If any enemy is below half health, draw 2. | K, restored | reads the wounded state anyone made |
 | Stalk | C | 1 | unlock | B | | Deal 6 to the enemy with the least health. If it is below half, again. | K | the huntress verb |
-| Pack Hunt | R | 1 | unlock (any pool) | B | ✓ | Apply 1 Marked to ALL enemies. Draw a card. | K | **cross-party:** every ally's attacks read Marked |
+| Pack Hunt | R | 1 | unlock (any pool) | B | ✓ | Power. ALL allies' attacks deal 3 more damage to enemies below half health. | RW | **cross-party:** the whole pack cashes a state anyone created; no status on the enemy (the draw-once-a-turn version is the gentler one) |
 | Bloody Verdict | R | 2 | worn | B | | Deal 6 plus half the target's missing health. If it falls, heal 6. | K | selfish execute; the missing health is anyone's work |
 | **Crimson Covenant** | | | | | | | | |
 | Blood Price | C | 1 | unlock | B | | Lose 5 HP. Deal 14. | K | the plain trade |
@@ -465,7 +555,7 @@ party (A2: Sanctified while all three orbs are lit).
 | Blood Debt | R | 1 | unlock (any pool) | B | ✓ | Power. Whenever another ally heals, deal that much to a random enemy. | K | **cross-party:** Clemence's healing becomes damage |
 | Nightfall | R | 2 | worn | G | | Deal 8 to ALL enemies and inflict 1 Weak. Heal 2 for each enemy still standing. | K | selfish sweep; under the passive its heal is the party's; broken form Moonfall |
 
-Totals **12 C / 8 R** · Burst 11, Grind 6, Tempo 1, Choose 1 · ally-touching 7 of 20 (was 5 of 32). Broken
+Totals **12 C / 8 R** · Burst 10, Grind 6, Tempo 2, Choose 1 · ally-touching 7 of 20 (was 5 of 32). Broken
 forms survive: Claw Flurry → Prey No More, Hamstring → Cripple, Nightfall → Moonfall, fallback Lash Out.
 
 **Cut (11)**
@@ -473,7 +563,8 @@ forms survive: Claw Flurry → Prey No More, Hamstring → Cripple, Nightfall �
 | Cut | Why |
 |---|---|
 | Answer in Kind | not cut — graduated to the default signature |
-| Pounce, Scent of Blood | "below half" riders; Stalk and Finish carry the hunt |
+| Mark Prey | Sundered on her made her own multi-hits self-sufficient (ninth message); it stays Cassadora's and Nettle's |
+| Pounce | +1 Energy on a "below half" rider; Scent of Blood's draw is the safer read |
 | Exsanguinate | one execute rare is enough and Bloody Verdict reads more |
 | Open Vein | a multi-hit for blood; Claw Flurry is the multi-hit |
 | Blood Pact | 0-cost energy, the banned shape, even priced in blood |

@@ -720,7 +720,20 @@ graduated default signature (Quicken Rot, Answer in Kind, Omen), each with its c
 repriced on halving (appliers about a third up; the consumers and detonators are the point) and her
 Sporemother passive is proposed as the fall-spread instead of "Poison heals allies". Severine and
 Cassadora lose their last soothes (Heartsblood, Warded Fate). Anastasia is outside the pass in his words
-(§3.7). **Clemence is last and next.**
+(§3.7).
+
+His ninth message, the same day:
+
+> Thank you! Sorry, I meant to end the Clemence line with a question mark, because I'm on mobile generally think of Clemence as the sixth character. If someone's left, please go over them too.
+> And in your opinion, do you think Severine has too many statuses? It sounds like she still has marked, and I think I saw you mention sundered and weak. Weak reads as fine to me since it and her drain gives her some legs as a health tank, but if mark is still in the game, that plus sundered maybe makes her a little too self-sufficient. Getting great value out of her Claw Flurry and Drain seem less like a great way to intuitively build a team and more like things she can do every turn at this rate in any composition.
+
+**He is right, and §3.5 is revised:** Mark Prey is cut, Pack Hunt is rebuilt as a party power (ALL allies'
+attacks deal 3 more to enemies below half health) with no status on the enemy, Scent of Blood comes back
+as the Huntress common, and `marked` is orphaned and deleted. She applies Weak and Siphoned and no
+amplifier; her per-hit riders come from teammates now. **Clemence's grid is drafted (§3.2)**, the sixth:
+Mercy graduates to the default signature, Miracle becomes "restore an ally to full", the Abbess cards apply
+Heat, Absolution is rebuilt, the Devotee passive is flagged (it makes every Lust rider free), eleven cuts,
+and her broken forms go from 35 to 23 with the cards. **All six are drafted; neutrals next.**
 
 ---
 

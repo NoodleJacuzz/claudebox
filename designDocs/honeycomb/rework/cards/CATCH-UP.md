@@ -34,9 +34,11 @@ edge-case defaults for his veto, and **Cinder's and Brienne's full 12 C / 8 R li
 Kept Word as default signatures; Brienne's Bastion is the party's Lust sponge on his masochism idea, tagged
 Torment). Late the same day he signed off the demo's tag set (Venom, Exposure, Heat, Penance), five MUSTs,
 Severine losing every soothe, Absolution losing its soothe, Restraint cut, and the Abbess line applying
-Heat to allies. **Nettle, Severine and Cassadora are drafted too** (§3.4–3.6; Nettle repriced on halving).
-**Next: Clemence's grid, last by his order; Anastasia is outside the pass.** The first engine job either
-way is `../starters/` B1, since every alt is still unlocked from run one.
+Heat to allies. **All six grids are drafted** (§3.1–3.6; Nettle repriced on halving; Severine revised on his
+read to carry no damage amplifier of her own; Clemence with Heat on the Abbess line and her broken forms
+cut from 35 to 23). Anastasia is outside the pass. **Next: the neutral tier (§3.7), then his vetoes, then
+`CARD-POOL-02.md` becomes the build list.** The first engine job either way is `../starters/` B1, since
+every alt is still unlocked from run one.
 
 ---
 
