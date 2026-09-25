@@ -188,6 +188,17 @@ The MVP checkpoint was reported; the first demo shipped 2026-09-23; the second d
 Syrup Town logic is unchanged apart from additive wiring: the loader line in each page, two
 `devPreviewBoot` cases, and the title-screen button (`REQUIREMENTS.md` §4b, signed off).
 
+### Design review happens on the desktop, in the frame (Noodle, 2026-09-25)
+
+> This came up in the last two sessions. I cannot judge cards or relics as lists in txt files. I want visual
+> grids. They can be dummies using the game's card art, but I must be able to see a card with its cost and
+> effect in the card frame in order to feel I can judge it fairly. I would want a similar grid of relics.
+> That means all review and veto-ing is deferred for desktop sessions, please record this in your claude file.
+
+A cloud session drafts, measures and files; it never records a verdict of his on a card or a relic. The
+verdicts happen on the desktop, in the game's frame, through the bench `tooling/TOOLING.md` S65-1 asks for.
+A text grid is a draft, not a review.
+
 ### The demo scope — the second demo (Noodle, 2026-09-25)
 
 The first demo's scope list is `Archive/demo1/Archive/DEMO-1-SCOPE.md`. On 2026-09-25 Noodle set the
@@ -270,7 +281,7 @@ it's actually functional, and their feedback would be worth more than just our o
 | Common enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-1 | After E14; carries the turn-target question |
 | Elite enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-2 | The five previewed designs are the route-native elites |
 | Boss enemy encounter rework | Enemy rework | `enemies/ENEMIES.md` S64-3 | All placeholders but the Juggernaut, his words |
-| Relic & equipment rework | Relic & equipment rework | `relics/RELICS.md` B22, B1, B4 | Answered session 39, not built |
+| Relic & equipment rework | Relic & equipment rework | `relics/RELICS.md` S65-1, B22, B1, B4 | The rarity model answered session 65 (`relics/RELIC-REWORK-01.md`); his MUST: *"an expanded and robust set of relic rarities"*. Safe pool first, his lists second; verdicts in the frame |
 | Engine | Engine | `engine/ENGINE.md`, "Where it stands" | The verbs the other pipelines wait for |
 
 **The order the dependencies force**, whichever pipeline a day is spent on:

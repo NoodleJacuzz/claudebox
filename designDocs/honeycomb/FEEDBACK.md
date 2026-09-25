@@ -22,17 +22,17 @@ Counts are OPEN items, one per `###` heading in the pipeline's document. Re-coun
 
 | Pipeline | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8). All blockers on his list. | **14** | 2026-09-25 (filed) |
+| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8). All blockers on his list. S65-1 the in-frame review grids. | **15** | 2026-09-25 (filed) |
 | **`desk/`** | The phone desk's eleven-phase plan. A blocker on his list; a session of its own. | **41** | 2026-09-23 (phases 1 to 4 built) |
-| **`card_pool/`** | What a card costs, does and is worth. B34 the manual pass: `card_pool/CARD-POOL-02.md` drafted whole, vetoes held. | **12** | 2026-09-25 (design only) |
-| **`enemies/`** | Who an enemy is and what it costs. E14 the retag first; S64-1 to S64-3 the three gate sessions; E9 every name for veto. | **12** | 2026-09-25 (filed) |
+| **`card_pool/`** | What a card costs, does and is worth. B34 the manual pass: `card_pool/CARD-POOL-02.md` drafted whole, vetoes held. S65-1 the starter broken-card rule, measured. | **13** | 2026-09-25 (design only) |
+| **`enemies/`** | Who an enemy is and what it costs. E14 the retag first; S64-1 to S64-3 the three gate sessions; E9 every name for veto; S65-1 the act-1 difficulty standard they are graded on. | **13** | 2026-09-25 (filed) |
 | **`art_pipeline/`** | Alt outfits, card art, enemy art, card chrome, VFX overlays. | **14** | 2026-09-25 (filed) |
-| **`events/`** | Lust Events by tag, map events, the writing groundwork. B23 is the docket. | **9** | 2026-09-25 (filed) |
+| **`events/`** | Lust Events by tag, map events, the writing groundwork. B23 is the docket. S65-1 event relics priced in a weakness rank. | **10** | 2026-09-25 (filed) |
 | **`mobile/`** | Landscape sizing, portrait styling, the phone test path. | **4** | 2026-09-25 (filed) |
-| **`relics/`** | Starters, outfits and their unlock routes, relics, the trees. B1 is the load-bearing item. | **6** | s60 |
+| **`relics/`** | Starters, outfits and their unlock routes, relics, the trees. B1 is the load-bearing item; S65-1 the rarity model, for his veto. | **7** | 2026-09-25 (design only) |
 | **`engine/`** | The verbs the other pipelines wait for, the screens, audio, performance. | **24** | 2026-09-25 (filed) |
 
-**136 items open across nine documents.** Forty-one of them are the desk's plan. Anastasia's eleven
+**141 items open across nine documents.** Forty-one of them are the desk's plan. Anastasia's eleven
 (`chessmaster/`) are off the gate and frozen in `Archive/demo1/` on Noodle's machine.
 
 Three of these are wired together and should not be tuned one at a time: `relics/` B22 (no starting
@@ -46,8 +46,8 @@ has by the boss.
 *(add new reports below this line. The next session reads them, decides which pipeline owns each, moves
 the report there verbatim, and fixes that row's count above.)*
 
-**2026-09-25: nothing waits here.** Noodle's second-demo message and his replies on it were filed line by
-line; the batches routed before it are in `Archive/demo1/Archive/INBOX-ROUTED-2026-09.md`.
+**2026-09-25:** Noodle's second-demo message and his replies on it were filed line by line; the batches
+routed before it are in `Archive/demo1/Archive/INBOX-ROUTED-2026-09.md`. Nothing else waits here.
 
 ### The two that are still waiting on him
 
@@ -66,3 +66,6 @@ which shortcuts he meant first.
 He plans to have the events agent replace placeholder events and write character descriptions. Any text
 written for this follows `.claude/CLAUDE.md` rules 1 and 2 and `../voice_matching/`. Never invent text for
 a slot he left empty. `events/EVENTS.md` S64-1 is where the map events' share lands.
+
+*(IN-9, his note on the first demo's difficulty, was routed the same day to `enemies/ENEMIES.md` S65-1,
+where the three encounter sessions it grades are queued.)*

@@ -311,6 +311,24 @@ picked, and whether players get a control.
 
 ---
 
+### S65-1. Review grids: cards and relics rendered in the frame ☆ — FILED 2026-09-25
+
+> Sure. HOWEVER. This came up in the last two sessions. I cannot judge cards or relics as lists in txt
+> files. I want visual grids. They can be dummies using the game's card art, but I must be able to see a
+> card with its cost and effect in the card frame in order to feel I can judge it fairly. I would want a
+> similar grid of relics. That means all review and veto-ing is deferred for desktop sessions, please record
+> this in your claude file.
+
+The rule is recorded in `../BASICS.md` ("Design review happens on the desktop, in the frame"). The tool it
+needs: a bench page that renders a list of proposed cards through the game's real card drawing
+(`../tools/card-effects-preview.html` composes the frame already) and a matching relic grid with icon, name,
+rarity, pool and text, fed from a JS or JSON list so a draft can be dropped in without touching a content
+table. Desktop only: the cloud copy has placeholder rasters, and a screenshot against placeholders lies
+(`../reference/TRAPS.md`). Waiting on it today: `../card_pool/CARD-POOL-02.md` §3's six grids and the
+neutrals, `../relics/RELIC-REWORK-01.md` §4 and §8.
+
+---
+
 ## Unsorted — drop new reports for this pipeline here
 
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*

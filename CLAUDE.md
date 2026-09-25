@@ -20,6 +20,10 @@
   Paths in those docs are written as `!designDocs/...`; in this repository
   the `!` is dropped (`designDocs/...`). Only part of the project is uploaded,
   so some referenced files (images, `.claude/` tooling) may be missing.
+- **Honeycomb review rule (Noodle, 2026-09-25):** he judges cards and relics only as
+  visual grids in the game's card frame. A cloud session drafts, measures and files;
+  every review or veto waits for a desktop session
+  (`designDocs/honeycomb/BASICS.md`, "Design review happens on the desktop, in the frame").
 
 ## Layout
 

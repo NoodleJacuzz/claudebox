@@ -26,14 +26,14 @@ words; read it and nothing else. Counts are open items, checked by `tools/feedba
 
 | Pipeline | Open | Where it is | Document |
 |---|---|---|---|
-| **Tooling** (blockers: the suite, the balance tests, the Quality Lab) | 14 | The suite is measured and its overhaul waits on his yes to a two-stage order. Basic Bite is finished; All the Crunch needs its full-size run and his calibration hour. The Quality Lab is designed; Phase 0 needs no decision. | `tooling/TOOLING.md` |
+| **Tooling** (blockers: the suite, the balance tests, the Quality Lab) | 15 | The suite is measured and its overhaul waits on his yes to a two-stage order. Basic Bite is finished; All the Crunch needs its full-size run and his calibration hour. The Quality Lab is designed; Phase 0 needs no decision. S65-1: the in-frame review grids he needs before any verdict. | `tooling/TOOLING.md` |
 | **Phone desk** (blocker) | 41 | Phases 1 to 4 built 2026-09-23 and waiting on a restart and his eye; phases 5 to 11 are a session of their own. His notes arrive through `tools/desk/desk-cli.js inbox`. | `desk/FEEDBACK.md` |
-| **Card pool rework** | 12 | `card_pool/CARD-POOL-02.md` is the brief: all six grids and the neutral tier drafted, his vetoes held. First engine job is `relics/RELICS.md` B1. | `card_pool/CARD-POOL.md` |
-| **Enemy rework** | 12 | E14, the act-1 retag, first. Then the three gate sessions: common, elite and boss encounters. Every name is his to veto. | `enemies/ENEMIES.md` |
+| **Card pool rework** | 13 | `card_pool/CARD-POOL-02.md` is the brief: all six grids and the neutral tier drafted, his vetoes held. First engine job is `relics/RELICS.md` B1. S65-1: the starter broken-card rule, 0 of 10 comply. | `card_pool/CARD-POOL.md` |
+| **Enemy rework** | 13 | E14, the act-1 retag, first. Then the three gate sessions: common, elite and boss encounters, graded against S65-1, his note on the first demo's difficulty and the act-1 floor. Every name is his to veto. | `enemies/ENEMIES.md` |
 | **Artwork** | 14 | Alt outfit picks (round-5 prompts written), then card art after the pool cut, VFX overlays by Stable Diffusion, the card chrome's three items. | `art_pipeline/ART-PIPELINE.md` |
-| **Events & Writing** | 9 | The docket is Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence; one bundle per session. The writing groundwork is `../voice_matching/`. Map events have their pictures and want their cast lines. | `events/EVENTS.md` |
+| **Events & Writing** | 10 | The docket is Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence; one bundle per session. The writing groundwork is `../voice_matching/`. Map events have their pictures and want their cast lines. S65-1: event relics priced in a weakness rank. | `events/EVENTS.md` |
 | **Mobile support** | 4 | Landscape sizing, then portrait (the camera pans with the card drag). The phone test path comes first. | `mobile/MOBILE.md` |
-| **Relic & equipment rework** | 6 | B1 the unlock routes; B22 the relic rework, answered and not built; B23 and B4 on the trees. | `relics/RELICS.md` |
+| **Relic & equipment rework** | 7 | S65-1 the rarity model, answered session 65 (`relics/RELIC-REWORK-01.md`): safe pool first, his 29 ideas second, verdicts in the frame; B1 the unlock routes; B22 the relic rework, answered and not built; B23 and B4 on the trees. | `relics/RELICS.md` |
 | **Engine** | 24 | The verbs the other pipelines wait for, the shop drag, the rest site audit, the SFX library and assignment, elite and boss songs, five items waiting on his eye, performance as a standing concern. | `engine/ENGINE.md` |
 | **Character and story writing** | — | Bibles for characters, mechanics and story. `designBibles/story.md` §3 is the tone rule, §11 the lust tags. | `designBibles/` |
 
@@ -91,6 +91,7 @@ no other home goes in `Archive/SESSION-LOG.md`.
 
 | # | Date | What landed |
 |---|---|---|
+| 65 (cloud) | 2026-09-25 | **Relic rarity measured and re-modelled** (`relics/RELIC-REWORK-01.md`, `tools/relic-census.js`). Rarity is a price tag today: every relic roll is a uniform pick, 4.3 relics a run from a pool of 15 or 16 for a trio, so 37% of drops are rares. Proposed for his veto: common persists as the collection, uncommon is the gated engine part, rare the swing; boss, shop and event are sources, not weights. The live 36 re-filed; the gap is the boss tier, which his own 29 relic ideas (filed verbatim, §7 and §8) mostly close. Later the same day: his answers to all eight questions filed verbatim (§6), the desktop-grid review rule recorded in `BASICS.md`, three items filed (the starter broken-card rule to `card_pool/`, event relics priced in a weakness rank to `events/`, the review grids to `tooling/`), his difficulty note routed to `enemies/` as S65-1, the standard the three encounter sessions are graded on. No game code changed. |
 | 64 (cloud) | 2026-09-25 | **The documentation tree rebuilt from Noodle's pipelines.** Twenty workstream folders became eight pipeline documents plus `desk/`; every open item moved in his words; everything else is frozen at its old path in `Archive/demo1/`. Earlier the same day: 39 closed items archived, the root documents cut, his second-demo message filed as the gate. No game code changed. |
 | 63 (cloud) | 2026-09-25 | The card pool reviewed for the manual pass; `card_pool/CARD-POOL-02.md` drafted whole; the lust tags signed off (E14, B23). |
 | 62 (cloud) | 2026-09-24 | The Quality Lab designed, not built (`tooling/QUALITY-LAB-BRIEF.md`). |

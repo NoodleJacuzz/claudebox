@@ -3,11 +3,12 @@
 **Written session 55, from Noodle's note:** *"Need a document with potential relic rewards, including
 bonus rerolls and bonus banish"*.
 
-Section 1 is generated from the game's own tables and is accurate as of session 55. Section 2 is the
-gap he named. Section 3 is a menu of ideas. **None of it is built and none of it is a decision.**
+Section 1 is generated from the game's own tables and is accurate as of session 55; `../tools/relic-census.js`
+prints the live table now, and `RELIC-REWORK-01.md` §3 sizes the pool from it. Section 2 is the gap he
+named. Section 3 is a menu of ideas. **None of it is built and none of it is a decision.**
 
-Where this sits: `rework/starters/` owns relics (its `RELICS.md` B22 is the relic rework). The rules
-for how a relic is offered are in `../reference/MECHANICS-01.md`.
+Where this sits: this folder owns relics (`RELICS.md` B22 is the relic rework). The rules for how a relic
+is offered are in `../reference/MECHANICS-01.md`.
 
 ---
 
