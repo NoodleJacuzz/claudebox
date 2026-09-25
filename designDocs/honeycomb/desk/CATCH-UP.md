@@ -139,7 +139,7 @@ the `syrup-town-scenes` skill first, as for any scene text.
 `idea`, `sketch`, `draft`, `ready for the game`. `desk-cli.js folder <id> "<folder>" ["<tags>"]` files
 an existing draft.
 
-**Moving a draft into the game** is ordinary Honeycomb authoring (`../lust_events/AUTHORING.md`). When
+**Moving a draft into the game** is ordinary Honeycomb authoring (`../events/AUTHORING.md`). When
 it is in, reply on the draft's notes and set its stage.
 
 **A pending edit** is his full wanted text for a live event, kept because it changes the event's shape

@@ -19,7 +19,7 @@ Tests: **765 headless**, 111 of them section [56], which is this round. Run `nod
 
 > **Session 6 polished this round.** Recovery, both cut-ins, the on-board mark, the halving, the
 > shattered bar end and the whole weakness ledger were reworked against Noodle's round-05 notes.
-> **`../Archive/FEEDBACK-05.md` items 1–8 and 22–25 are where that lives, and where those notes disagree with
+> **`../Archive/demo1/Archive/FEEDBACK-05.md` items 1–8 and 22–25 are where that lives, and where those notes disagree with
 > anything below, they win.** The supersessions are marked in place.
 
 ---

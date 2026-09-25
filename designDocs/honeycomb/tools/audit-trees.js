@@ -1,7 +1,7 @@
 /**
  * Progression tree auditor for Honeycomb Catacombs.
  *
- * Not part of the game. Runs the rules in `!designDocs/honeycomb/rework/progression/TREE-DESIGN.md` over the six
+ * Not part of the game. Runs the rules in `!designDocs/honeycomb/relics/TREE-DESIGN.md` over the six
  * shipped trees: hard rules fail the process (exit 1), soft rules are printed for a human to judge.
  * The layout is authored in `!designDocs/skeletons/wip.json`; this file measures what actually shipped
  * in `honeycomb-content-characters.js`.

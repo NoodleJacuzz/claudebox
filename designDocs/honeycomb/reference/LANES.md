@@ -9,8 +9,8 @@ every index it creates carries that lane's prefix, and every shared file has one
 
 | Lane | Tag | Session # | Brief |
 |---|---|---|---|
-| Enemy overhaul E7 — Act1-B, Act1-C, the routes | **`E7`** | **45** | `../enemy_overhaul/_archive/HANDOFF-E7.md` *(done session 45)* |
-| Anastasia — her kit and her gauntlet | **`ANA`** | **46** | `../chessmaster/BUILD-ANASTASIA.md` |
+| Enemy overhaul E7 — Act1-B, Act1-C, the routes | **`E7`** | **45** | `../Archive/demo1/enemy_overhaul/_archive/HANDOFF-E7.md` *(done session 45)* |
+| Anastasia — her kit and her gauntlet | **`ANA`** | **46** | `../Archive/demo1/chessmaster/BUILD-ANASTASIA.md` |
 
 ---
 
@@ -77,7 +77,7 @@ So the order regions are added in is load-bearing, and it is fixed:
 No hit means E7 has not got there. Do not add E7's regions for it. Finish everything else in the brief,
 check once more, and if they are still absent build the gauntlet's enemies and encounters anyway, prove
 them with `honeycomb.combat.begin("<encounter>")`, leave the region and the relic unwired, and write
-that down as the first line of `../chessmaster/STATUS.md`.
+that down as the first line of `../Archive/demo1/chessmaster/STATUS.md`.
 
 ## 5. Mechanics of not clobbering
 

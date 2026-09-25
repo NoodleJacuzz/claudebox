@@ -1,8 +1,8 @@
 //===================================================================================================
 //HONEYCOMB CATACOMBS -- feedback index audit (developer tool, never loaded by the game)
 //===================================================================================================
-//Session 41 split feedback out of the numbered rounds: every workstream folder keeps its own
-//FEEDBACK.md, and the root FEEDBACK.md carries an index of how many items are open in each.
+//Every pipeline folder keeps its queue in the document named after it (2026-09-25; before that,
+//every workstream folder kept a FEEDBACK.md), and the root FEEDBACK.md indexes how many are open in each.
 //
 //That index is the early-stop detector. A session that is cut off mid-task often manages to close an
 //item in a workstream file but never gets back to the root index -- so a row that disagrees with its
@@ -21,14 +21,23 @@ const HONEYCOMB = path.resolve(__dirname, "..");
 //Folders that are workstreams. Anything else at this level is reference, archive or tooling.
 const NOT_A_WORKSTREAM = ["Archive", "reference", "tools", "designBibles"];
 
+//A pipeline folder's queue is the document named after it (card_pool/CARD-POOL.md), or FEEDBACK.md
+//where a folder keeps the older shape (desk/). Everything under Archive/ is frozen and never counted.
+function queueFileFor(folder) {
+	const name = path.basename(folder).toUpperCase().replace(/_/g, "-") + ".md";
+	for (const candidate of [name, "FEEDBACK.md"]) {
+		if (fs.existsSync(path.join(HONEYCOMB, folder, candidate))) return candidate;
+	}
+	return null;
+}
+
 function findWorkstreamArray() {
 	const out = [];
 	const walk = (relative) => {
 		for (const entry of fs.readdirSync(path.join(HONEYCOMB, relative || "."), { withFileTypes: true })) {
 			if (!entry.isDirectory() || entry.name.startsWith("_") || NOT_A_WORKSTREAM.includes(entry.name)) continue;
 			const here = relative ? relative + "/" + entry.name : entry.name;
-			if (fs.existsSync(path.join(HONEYCOMB, here, "FEEDBACK.md"))) out.push(here);
-			//rework/ is a container of workstreams rather than one itself.
+			if (queueFileFor(here)) out.push(here);
 			else walk(here);
 		}
 	};
@@ -36,9 +45,9 @@ function findWorkstreamArray() {
 	return out;
 }
 
-//An open item is a "### " heading in a workstream feedback file. Closed ones move to _archive/.
+//An open item is a "### " heading in the queue file. Closed ones move to ARCHIVE.md beside it.
 function countOpen(workstream) {
-	const text = fs.readFileSync(path.join(HONEYCOMB, workstream, "FEEDBACK.md"), "utf8");
+	const text = fs.readFileSync(path.join(HONEYCOMB, workstream, queueFileFor(workstream)), "utf8");
 	return text.split("\n").filter((line) => /^### /.test(line)).length;
 }
 
@@ -87,7 +96,7 @@ for (const workstream of workstreamArray.sort()) {
 }
 
 for (const folder of indexed.keys()) {
-	if (!workstreamArray.includes(folder)) problemArray.push(folder + ": indexed, but has no FEEDBACK.md");
+	if (!workstreamArray.includes(folder)) problemArray.push(folder + ": indexed, but has no queue file");
 }
 
 console.log("");

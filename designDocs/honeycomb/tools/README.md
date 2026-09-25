@@ -34,7 +34,7 @@ Moved here session 41 from the honeycomb root, which is now four documents and n
 | `music/music-loops.json` | **The cut list** — which seconds of which source song each looping track is made of. Editing this is how the music is changed. |
 | `music/build-music-loops.py` | Builds `honeycomb sound/music/loop/*.mp3` from the cut list, masters them to one loudness, and proves each file's post-roll repeats its opening. Python; needs numpy, scipy and the `imageio-ffmpeg` package's ffmpeg. |
 | `music/music-metrics.json` (+ `.js` twin) | GENERATED. What the build measured; suite block [123] holds `tuning.audio.music` to it. |
-| `music/music-audition.html` | The listening bench: drops each track a few seconds before every join, through the game's real player. Opens from disk. Workstream: `../audio/MUSIC.md`. |
+| `music/music-audition.html` | The listening bench: drops each track a few seconds before every join, through the game's real player. Opens from disk. Workstream: `../engine/MUSIC.md`. |
 
 ## Inspectors
 
@@ -63,21 +63,65 @@ Moved here session 41 from the honeycomb root, which is now four documents and n
 
 | Page | Is |
 |---|---|
-| `card-effects-preview.html` | The card frame composer, broken-card effect candidates, and an SVG filter lab. Workstream: `../card_redesign/BRIEF.md`. |
+| `card-effects-preview.html` | The card frame composer, broken-card effect candidates, and an SVG filter lab. Workstream: `../Archive/demo1/card_redesign/BRIEF.md`. |
 | `nameplate-preview.html` | The fighter nameplate against its mockup reference. |
 | `tree-maker.html`, `tree-skeleton.html` | The progression tree editors. |
 | `sfx-report.html` | The sound report, rendered. |
 
 ## Browser driving
 
-`agent-browser.js` drives the system Chrome through the Playwright bundled with `@playwright/mcp`.
-**It is for the opencode agent only** — Claude uses `.claude/devserver.py` + `.claude/launch.json`.
-Options and the eval-snippet pattern are in `../BASICS.md`, "Browser tooling".
+Two different agents work on this project, and they reach a browser differently. **Read the note first;
+do not hand the wrong one to the wrong agent.**
+
+> **If you are Claude (the `claude` CLI, working from `.claude/`): keep using your own preview server.**
+> Your setup is `.claude/devserver.py` + `.claude/launch.json`, and it works. The tool below is not for
+> you; do not switch to it.
+
+**opencode's browser tool** — for the opencode agent only. The opencode desktop app's MCP plumbing never
+connected a browser server, so this bypasses MCP entirely and drives the system Chrome through the
+Playwright bundled with `@playwright/mcp` (no browser download, no config, no restart).
+
+1. Serve the game with no caching: `python .claude/devserver.py 8000` (leave it running).
+2. Drive it with `agent-browser.js`:
+
+```
+node "!designDocs/honeycomb/tools/agent-browser.js" --out shot.png [options]
+```
+
+| Option | Meaning |
+|---|---|
+| `--url <url>` | default `http://localhost:8000/index.html`; also accepts a `file:///…` path (needed to prove offline behaviour) |
+| `--out <png>` | where the screenshot is written; read it back with the Read tool |
+| `--viewport WxH` | default `1280x720`; e.g. `812x375` for phone landscape |
+| `--scale <n>` | device scale factor (2 gives a sharper shot) |
+| `--wait <ms>` | how long to wait after load before acting (2500–3000 is plenty; the title boot is slow) |
+| `--after <ms>` | wait between the eval and the shot (default 1200) |
+| `--eval "<js>"` / `--eval-file <file>` | run a snippet in the page before the shot; the game exposes `window.honeycomb` |
+| `--hover "<selector>"` | real pointer hover, so inline `onmouseenter` tooltips fire |
+| `--full` | full-page screenshot |
+| `--console` | print the page's console output and `[pageerror]`s, plus the eval's return value |
+
+The eval snippet is how the game is driven, e.g. start a fight and open a screen:
+
+```js
+(async () => {
+  honeycomb.state = honeycomb.newProfile();
+  honeycomb.newRun([{ characterIndex: "severine", outfitIndex: "default" }], 42);
+  honeycomb.combat.begin("loneSporeling", {});
+  honeycomb.scene.go("combat");
+  await new Promise((r) => setTimeout(r, 2500));
+  return "ok";
+})()
+```
+
+Rules of thumb: use `file://` to prove something works offline (a canvas is tainted there); use
+`--console` to catch a page error a screenshot would hide; and hover with `--hover`, not a synthetic
+event, when testing tooltips.
 
 ## balance/
 
 The two balance tests. Each prints its name as its first line. Both use the real engine and the real cards.
-The plan and the build steps are `../balance_tests/BRIEF.md`; where the build stands is `../balance_tests/CATCH-UP.md`.
+The plan and the build steps are `../tooling/BALANCE-BRIEF.md`; where the build stands is `../tooling/TOOLING.md`.
 
 **BALANCE TEST: BASIC BITE** — `node "!designDocs/honeycomb/tools/balance/basic-bite.js" [--workers N] [--seeds N] [--party a,b,c] [--region R] [--only x,y] [--json] [--trace encounter] [--bot-legacy]`.
 Every encounter played as one fight with a typical deck, against the targets in `tuning.balance`, then a plain-English list of the
@@ -110,4 +154,4 @@ loader it uses (the suite's file list, read off `test-honeycomb.js`).
 
 **The stored results are stale** — they model the card pool session 33 replaced, and 6 of the 20 cards
 their cut list names no longer exist. Re-run before cutting a card on them. See
-`../rework/cards/DRAFT-SIM-01.md`.
+`../Archive/demo1/rework/cards/DRAFT-SIM-01.md`.

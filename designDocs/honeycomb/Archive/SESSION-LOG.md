@@ -44,6 +44,16 @@ three lists (`../BASICS.md`, "The demo scope — the second demo"). What landed,
   and nothing there can be checked; `doc-links.js` needs the `!designDocs` name (run through a temporary
   symlink); the suite cannot run whole. No game code changed.
 
+- **Second half of the day: the tree rebuilt from Noodle's pipelines.** He asked to move forward from the
+  old documentation folder, bringing forward only what is relevant, with archiving reduced to one motion.
+  Twenty workstream folders became eight pipeline folders (`card_pool`, `enemies`, `art_pipeline`,
+  `events`, `mobile`, `relics`, `engine`, `tooling`), each with one document named after it (status, rules,
+  queue) and an `ARCHIVE.md` beside it; `desk/` stayed because its server reads `desk/data/`. Every open
+  item moved in his words with its paths rewritten (136 before and after); E5, E8 and B43 closed on the
+  way; his replies on the gate were filed (three enemy sessions, separate event sessions, VFX creation as
+  Stable Diffusion work, the writing groundwork as a fifth blocker, portrait's camera pan, all eleven desk
+  phases). Everything else moved to `demo1/` at its old path, this file excepted. `feedback-audit.js`
+  reads the new layout; `tools/README.md` took the browser-tooling section out of BASICS.
 ---
 
 
@@ -114,7 +124,7 @@ this entry exists because LANES asks each lane for one, and records only what be
 ## Status as of 2026-09-20 (session 45, lane E7: Act1-B and Act1-C built and switched on)
 
 One of two lanes working the repo at once (`../reference/LANES.md`; the other is session 46, lane ANA).
-The workstream record is `../enemy_overhaul/CATCH-UP.md`; this entry exists for the two decisions whose
+The workstream record is `../enemies/ENEMIES.md`; this entry exists for the two decisions whose
 reasoning belongs nowhere current.
 
 **Why a route is a table and not a branch in the generator.** The game shipped the next morning, so the
@@ -141,7 +151,7 @@ first boss in the game.
 bosses the sisters each read a hundred health short, graded as one they carried twice a boss's fight. The
 answer was a table entry, `bossHalf`, exactly half of `boss`. Cost: one additive line in a file LANES
 assigns to lane ANA, because the compendium's heading table must cover every role or an enemy lands
-silently in "Other". Recorded in `../enemy_overhaul/INFERENCES.md` I10.
+silently in "Other". Recorded in `../enemies/INFERENCES.md` I10.
 
 ---
 
