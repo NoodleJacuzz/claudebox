@@ -11,13 +11,13 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noodle · ☑ d
 |---|---|
 | §0 the brief | ☑ filed verbatim |
 | §1 what rarity does today | ☑ measured 2026-09-25 |
-| §2 what each tier is for | ⏸ for veto |
-| §3 sizing | ⏸ for veto, sized off §1 |
-| §4 the live 36, re-filed | ⏸ for veto; his verdicts kept |
+| §2 what each tier is for | ☑ agreed 2026-09-25; ownership rewritten to his rule (§2.3) |
+| §3 sizing | ☑ weights agreed; re-sized for the act 1-2 boss paying no relic |
+| §4 the live 36, re-filed | ☑ the moves agreed; verdicts on each relic wait for the desktop grids (§6.7) |
 | §5 engine asks | ☐ none built |
-| §6 his decisions | ⏸ eight questions |
+| §6 his decisions | ☑ answered 2026-09-25, verbatim |
 | §7 his relic lists | ☑ filed verbatim 2026-09-25 |
-| §8 the lists read against the model | ⏸ for him |
+| §8 the lists read against the model | ☑ read; his two principles and the build order filed |
 
 ---
 
@@ -48,9 +48,14 @@ Still binding from before (`RELICS.md` A5, B22):
 
 > Mark crimson fang, votive candle, and bone necklace as relics to replace in the relic rework.
 
+His gate-level answer the same morning (§6.8):
+
+> Demo 2 MUST have an expanded and robust set of relic rarities, and move past the previous system of just
+> common and rare.
+
 The bible's definition, which §2 keeps (`../designBibles/characters.md`): *"Common relics & heirlooms
 are unlocked on obtainment and equippable from the start, whereas rare relics & heirlooms vanish when the
-run ends."* Superseded by §0 if he confirms (§6.8): the session-55d line the suite still quotes, *"I only
+run ends."* Superseded by the answer above: the session-55d line the suite still quotes, *"I only
 designed common and rare. Uncommon was used at one point but it should be a legacy term."*
 
 ---
@@ -131,7 +136,7 @@ Give each axis its own field and every tier has a job.
 | **Job** | **Vocabulary, and the collection.** The relics a player learns and is glad to see. Finding one unlocks it as equipment for every run after: the bible's rule, and B22's "unlockable". | **The engine part.** Pays off a build the party is already in. Where the sister-mechanic relics live. | **The swing.** Changes how the run is played from the moment it lands. Party-wide, memorable, about one a run. |
 | **Design band** | One always-on rule, no condition, one number. "Start of combat", "when X, +N". Never draw or Energy every turn. | One condition, one payoff; worth more the deeper the commitment; dead in the wrong party, so it is **gated** (a character, an archetype, a resource) and never offered dead. | Rule-changing and unconditional: Artifact for everyone, rerolls refilled, a second card from elites. Heavy enough that two would be a problem. |
 | **Persists** | **Yes**: gaining it also unlocks it (`unlocks.grant("equipment", …)`), worn from teambuilding. | No | No |
-| **Scope** | Party relics and heirlooms both | Mostly heirlooms; a few party-wide conditionals | Party-wide |
+| **Scope** | Party-wide, or owned by one character, chosen in the equipment menu (§2.3) | Gated to a character's mechanic, which he calls faked ownership; never explicitly owned; a few party-wide conditionals | Party-wide |
 | **Where** | Chests (heavy), shops, some elites. The bible's act-1 meta list: *"boosting odds of finding new common artifacts"*. | Elites (heavy), chests, shops. The bible's act-2 job: *"relic acquisition to fix holes"*. | Elites and chests (light), shops (dear). |
 | **Price** | 120 | 200 | 300 |
 | **Reads as** | "nice" | "mine" | "the run changed" |
@@ -157,15 +162,14 @@ the tier (`persists`), not a fourth rarity.
 |---|---|---|
 | `rarity` | common · uncommon · rare | weight per source, price, `persists`: one row each in `honeycomb.relicRarityArray` (today `equipmentRarityArray`, serving both tables) |
 | `pool` | chance (default) · boss · shop · event · gauntlet | which roll may reach it, or which screen |
-| `characterIndex` | a character, or none | scope: an heirloom is worn by her and offered only while she is in the party, the gate the fifteen `offerCondition: partyContains` lines write by hand today |
-| `offerCondition` | any condition | anything else (the Mulligan Stone's reroll pool) |
+| `offerCondition` | any condition | the gate: a sister relic is offered only while its character is in the party, which he calls **faked ownership** (it only talks to her mechanic); the Mulligan Stone only while a reroll pool exists |
+| `owner` | a party member, chosen | **explicit ownership**, his rule (§6.2): only where there is a moment to choose, so a common is assigned in the equipment menu at teambuilding and an event relic by the event's own pick of a member; a relic found by chance mid-run never has one. A relic whose benefit reaches one character is a balancing tool, not the norm |
 
-**One table.** Because commons persist, a relic and a piece of equipment are the same entry: found in a
-run, worn from the next teambuilding. Merging `relicArray` and `equipmentArray` is the honest shape;
-`honeycomb.equipmentArray` survives as the view "every entry whose rarity persists", so the loadout code
-does not move. The cheap shape keeps two tables and an `unlocksEquipment` field on the relic.
-Recommended: merge. Every duplicated pair drifts, and the Iron Sigil is already a relic in the design and
-equipment in the code.
+**One table, his call (§6.2).** *"Equipment"* is a flavour name for a common relic taken at the start, and
+nothing else: no mechanical difference from a relic found on turn one. `relicArray` and `equipmentArray`
+merge; the teambuilding screen's equipment tab lists the persisting rarity, keeps its starting allowance
+(one piece each in a trio, more in a smaller party), and is where a common's owner is chosen. Every
+duplicated pair drifts, and the Iron Sigil is already a relic in the design and equipment in the code.
 
 ---
 
@@ -179,20 +183,21 @@ proposal, and `relic-census.js` measures what any set of them produces.
 |---|---|---|---|---|---|
 | chest | 0.9 | 70 | 30 | 0 | 0.65 C · 0.28 U |
 | elite | 1.4 | 40 | 45 | 15 | 0.55 C · 0.62 U · 0.21 R |
-| boss | 2.0 | boss pool: three offered, one taken | | | 2 boss |
+| boss | 1.0 (the act 1-2 boss pays no relic until act 2 exists, his call, §6.3) | boss pool: three offered, one taken | | | 1 boss |
 | shop | 2.3 visits × (2 chance slots + 1 shop-pool slot) | 45 | 40 | 15 | 4.6 chance + 2.3 shop-pool, for sale |
 | event | as written | | | | ≈ 0.3 |
 
-Given by chance ≈ 4.3 a run, the same total as today, re-shaped: **1.2 common, 0.9 uncommon, 0.2 rare,
-2 boss**, plus what is bought. A rare becomes a one-in-five event before the shop; a common is met every
-run; the two boss choices are the run's big decisions.
+Given by chance ≈ 3.3 a run, re-shaped: **1.2 common, 0.9 uncommon, 0.2 rare, 1 boss**, plus what is
+bought. A rare becomes a one-in-five event before the shop; a common is met every run; the boss choice
+after act 1-1 is the run's big decision, and the act 1-2 boss pays no relic until there is an act 2 to
+carry it into.
 
 | Tier | Pool target | Have (§4) | Gap | Why that size |
 |---|---|---|---|---|
 | Common | ≈ 20 (8 party + 2 heirlooms × 6) | 11 live, 15 drafted in `RELICS-LIST.md` | none; trim to the best 20 | a trio sees 14; at 1.2 found a run the collection takes ≈ 17 runs, longer with duplicates, shorter with Collector |
 | Uncommon | 24–30 (3–4 heirlooms × 6 + ≈ 6 party-wide) | 16 live, 7 drafted | ≈ 6 party-wide conditionals | a trio sees 15–18; a given one in ≈ 5% of runs, Slay the Spire's uncommon rate |
 | Rare | 8–10 | 3 live, 7 drafted | none | ≈ 3% of runs each |
-| Boss | 8–10 | 1 | **8** | six offered a run from ten: each seen in 60% of runs, taken in 20%; act 2 widens it |
+| Boss | 8–10 | 1 live; his lists bring it to 8 or 9 (§8) | closed by §8 | three offered a run from nine: each seen in a third of runs, taken in a ninth; act 2 doubles the offers |
 | Shop | 5–6 | 2, plus the Invitation | 3–4 | `RELIC-REWARDS.md` §4 holds six unnamed reroll / banish ideas |
 | Event | one per character for the demo | 0 | 6 | `../events/` owns them |
 
@@ -228,7 +233,7 @@ proposal. Names are unchanged; renaming is his.
 | Halo of Thorns | common, Clemence | KEEP | Uncommon heirloom | |
 | Cracked Hourglass | rare, Cassadora | FAIL → draft | Uncommon heirloom | |
 | Sleight Purse | common, Cassadora | FAIL → draft | Uncommon heirloom | |
-| Bone Pendant | rare, party | FAIL | **Boss** | draw +1 every turn, with a drawback |
+| Bone Pendant | rare, party | FAIL | **Boss** | draw +1 every turn, confirmed boss-grade (§6.5); needs its drawback |
 | Crackseal Wax | rare, party | KEEP | Rare | the event that hands it out wants an event relic of its own |
 | Mulligan Stone | rare, party, gated | — | Rare | gate stays |
 | Dominion Rod | rare, party | — | **Shop** | six banishes are a plan |
@@ -256,29 +261,96 @@ Totals: Common 11 · Uncommon 16 · Rare 3 · Boss 1 · Shop 2 · plot 1 · off 
 | 1 | `honeycomb.relicRarityArray`: three rows with `persists`, `price` and `order`; `relicPriceArray` reads it; the `starter` row goes | table | small |
 | 2 | `tuning.relic.weightArray`, one row per source, and **one** `honeycomb.rollRelic(source)` replacing the three copies of the filter with a weighted pick | verb | small |
 | 3 | `pool` honoured: the chance roll skips boss / shop / event; the boss reward rolls `bossRelicChoiceCount` from the boss pool into a choice. The card reward's choice screen is the model; a relic one does not exist | verb + screen | medium |
-| 4 | Persistence: `grantRelic` grants the equipment unlock when the tier persists; merge the tables or add `unlocksEquipment` (§2.3, §6.2) | verb, one decision | medium if merged |
+| 4 | Persistence: `grantRelic` grants the unlock when the tier persists; the tables merge and `equipmentArray` becomes the view of the persisting rarity (§2.3, decided §6.2) | verb | medium |
 | 5 | `characterIndex` on a relic implies the party gate; the fifteen hand-written `partyContains` lines go | table cleanup, one line in `relicOfferable` | small |
 | 6 | Shop: a third shelf slot rolled from the shop pool; `shopGuaranteed` generalises to it | verb | small |
 | 7 | Suite: block [16269] §5 rewritten; new checks that the weights of each source sum, every boss relic carries a `drawback`, a persisting tier grants its unlock, and one **measured** check: rares under a quarter of drops over 600 runs, proven red first by setting a weight wrong | suite | medium |
 | 8 | Warnings: one rule per band. An uncommon has a gate or a condition; a boss relic a `drawback`; a common reads no private meter | table | small |
 | 9 | Saves: `run.relicArray` stores indices and counters only, and rarity strings live on definitions, so a re-tiering touches no save | check | none |
+| 10 | The run's final boss pays no relic while it is the demo's last fight: a `reward.finalBossRelic` switch read by `rollRewardRelic` against `map.route.regionsPerRun` (§6.3); flipped back when act 2 exists | tuning | small |
+| 11 | `owner` on a carried relic (`run.relicArray[i].owner`), set by the equipment menu for a common at run start and by an event's member pick for an event relic, handed to hooks as `params.owner` (§2.3) | verb | small to medium |
 
 ---
 
-## 6. For him ⏸ — eight questions
+## 6. His decisions — ANSWERED 2026-09-25
 
-1. **Commons persist** (the bible's rule: find it, own it, wear it from teambuilding)? Recommended yes.
-   It gives common a job its in-run strength does not have to carry, and it is B22's "unlockable".
-2. **One table** for relics and equipment, or two with a link? Recommended one (§2.3).
-3. **A boss tier** — three offered with drawbacks after every boss, the only Energy — on the demo's gate?
-   Recommended yes, eight to ten designs. It is the one tier nothing drafted covers.
-4. **The weights** in §3, or his numbers. The census measures either.
-5. **Re-filings that move a relic out of the chance pool**: the Ledger and the Rod become shop-only, the
-   Bone Pendant a boss relic, the Shadow Locket a party rare as he said.
-6. **Event heirlooms priced in a weakness rank** are `../events/` work. On the gate, or not?
-7. **Names.** Every draft name is a placeholder; naming is his.
-8. **The suite quotes his 55d line** (*"I only designed common and rare…"*). Confirm §0 supersedes it, so
-   block [16269] §5 can be rewritten.
+The questions as asked, his answers verbatim under each.
+
+1. **Commons persist** (the bible's rule: find it, own it, wear it from teambuilding)?
+
+   > Yes.
+
+2. **One table for relics and equipment, or two with a link?**
+
+   > I would prefer that equipment was purely a flavor name for common relics taken at the start. I don't
+   > like that equipment is treated as mechanically different in any way from just having a relic available
+   > from the start. The one thing is I do like the idea that some relics have "owners". Both when ownership
+   > is faked (ie the relic only interacts with one character's mechanic, like a resolve relic is seen by the
+   > player as being owned by Brienne), and when it is explicit. I think relic ownership only works for ones
+   > given by events, since we can directly pick a party member for the relic to "target". Common relics are
+   > good design space for true ownership to live since the equipment menu works for assigning ownership as
+   > well, it works intuitively, and a relic that gives a benefit to only one character is a good balancing
+   > tool. Note: Please don't take this to mean every, or even most common relics should use ownership as
+   > its mechanic, it's just one neat mechanic.
+
+   §2.3 is rewritten to this.
+
+3. **A boss tier, three offered with drawbacks after every boss, on the demo's gate?**
+
+   > Yes. Though I'd like to request the act1-2 bosses no longer drop relics temporarily. It feels bad to
+   > get a cool relic and have no chance to play with it, it takes the wind from the sails of a victory.
+
+   §3 and §5 row 10 carry it. The act 1-2 boss's card reward is the same kind of dead reward and was not
+   asked about; left as it is.
+
+4. **The weights in §3, or his numbers?**
+
+   > Weights seem solid.
+
+5. **The re-filings out of the chance pool: Ledger and Rod to the shop, Bone Pendant to boss, Shadow
+   Locket to rare?**
+
+   > Bone pendant... Was that every turn? If not, it's not strong enough to fit in the boss energy relic
+   > archetype. All other shifts are good.
+
+   It is every turn ("Draw 1 additional card each turn"), so it stays a boss relic.
+
+6. **Event heirlooms priced in a weakness rank, on the gate?**
+
+   > Yes. I came up with that in my own list too.
+
+   Filed as `../events/EVENTS.md` S65-1.
+
+7. **Names are his?**
+
+   > Sure. HOWEVER. This came up in the last two sessions. I cannot judge cards or relics as lists in txt
+   > files. I want visual grids. They can be dummies using the game's card art, but I must be able to see a
+   > card with its cost and effect in the card frame in order to feel I can judge it fairly. I would want a
+   > similar grid of relics. That means all review and veto-ing is deferred for desktop sessions, please
+   > record this in your claude file.
+
+   Recorded in `../BASICS.md` ("Design review happens on the desktop, in the frame") and in the Claude
+   instructions file at the repository root; the bench is `../tooling/TOOLING.md` S65-1. §4's verdicts and
+   §8 wait for it.
+
+8. **Does this morning's message supersede the 55d line the suite quotes?**
+
+   > Yes. Demo 2 MUST have an expanded and robust set of relic rarities, and move past the previous system
+   > of just common and rare.
+
+9. **Added by him, outside the eight:**
+
+   > I genuinely keep forgetting this, but please add to the list: Common broken cards with the exception
+   > of Clemence's MUST all be made to comply with the design archetype of "This card has no effect. If
+   > left unplayed at the end of your turn: [Bad effect happens TO THE ALLIED PARTY, NOT ENEMIES]". As far
+   > as I'm aware, not a single one does, and it keeps getting forgotten.
+
+   > Oh no, I made a huge mistake. It should be starter, not common in that must statement, I'm very
+   > sorry!
+
+   Measured and filed as `../card_pool/CARD-POOL.md` S65-1: the five characters' starters break into ten
+   forms and none complies; Anastasia's starter form, Advance Broken, is the one card in the game with the
+   shape.
 
 ---
 
@@ -359,6 +431,24 @@ specific strategy has begun to form."* *Mechanical Shake-ups* sort across uncomm
 event. *EXTREME* is a **source, not a weight**: met, never rolled, one a run at most, so that every
 expensive one is seen by every player who wants it. No common appears in any list, which is right: the
 collection is the quiet tier.
+
+**His reading of this read (2026-09-25), verbatim:**
+
+> Good catch on the lack of split between burst and grind. I was purely ideacrafting.
+
+> Yes some of them are overcome by specific party compositions, this is good. When a player sees that relic,
+> it makes them want to include Clemence. When they already have her, they feel rewarded for experimenting.
+> The game is more than hard enough already, a few very rare combinations breaking through that difficulty
+> and carrying a player really far aren't a dealbreaker, especially given we're in act 1.
+
+> Still, just treat all the relic designs I suggested as theoretical. Your designs are likely far safer, much
+> more inside-the-lines than mine are, which creates a very nice 1-2. We get the safe relics working, look at
+> our environment, and judge *then* if the crazier ones are good fits.
+
+Two rules and an order. A party that dodges a relic's price is a party rewarded for experimenting; where a
+Watch below says a composition hollows a price out, his rule wins. **The build order is the safe pool
+first**: §2's tiers and weights, §4's re-filing and the `RELICS-LIST.md` drafts, measured with the census,
+and only then his lists, judged in the frame (§6.7).
 
 **Three things fall out of the boss list.** The offer should be **stratified by lean**: a `lean` field
 (`burst` / `grind` / `either`) and the three offered are one of each, or a boss could hand a Grind party

@@ -540,6 +540,30 @@ cuts: about 70 cards leave when the six grids land, and the suite's content-boun
 
 ---
 
+### S65-1. Starter broken cards: no effect, punished if unplayed ☆ — FILED 2026-09-25
+
+> I genuinely keep forgetting this, but please add to the list: Common broken cards with the exception of
+> Clemence's MUST all be made to comply with the design archetype of "This card has no effect. If left
+> unplayed at the end of your turn: [Bad effect happens TO THE ALLIED PARTY, NOT ENEMIES]". As far as I'm
+> aware, not a single one does, and it keeps getting forgotten.
+
+Corrected by him minutes later:
+
+> Oh no, I made a huge mistake. It should be starter, not common in that must statement, I'm very sorry!
+
+So the rule is for the broken form a STARTER card falls into. Measured 2026-09-25: he is right. The five
+characters outside Clemence have starters that break into **10 forms** (each character's default
+`brokenCard` plus one per-card override, such as Brienne's Grit into Backs to the Wall); every one of the
+ten has a played effect and none has an `unplayedEffectArray`. The one card in the game with the shape is
+Anastasia's starter form, Advance Broken (*"No effect. If this is still in your hand at the end of your turn,
+deal 6"*), on the `honeycomb.combat.resolveUnplayedCards` seam from session 47, and her table is the model
+for the rest: `brokenCardByRarity` names a form per rank, so the starter form can carry this rule while
+common and rare forms keep an effect. The verb exists; this is a content edit of ten cards, their
+descriptions, and `../reference/BROKEN-01.md`. Lands with the pool pass (B34), since every broken form is
+rewritten when its card is.
+
+---
+
 ## Unsorted — drop new reports for this pipeline here
 
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*

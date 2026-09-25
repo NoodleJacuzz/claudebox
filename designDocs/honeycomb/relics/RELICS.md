@@ -21,7 +21,8 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
 - **Relics.** Uncommon was retired in session 55d (16 common, 9 rare) and **reopened by Noodle in
   session 65**: `RELIC-REWORK-01.md` is the brief. Measured, rarity is a price tag (every roll is a
   uniform pick, so 37% of drops are rares and a given relic turns up in a quarter of a trio's runs); a job
-  per tier is proposed and the live 36 re-filed, all waiting on his veto (S65-1). B22, answered session 39
+  per tier, agreed by him the same day, the live 36 re-filed and his 29 ideas read (S65-1); verdicts on
+  individual relics wait for the desktop grids. B22, answered session 39
   and not built: replace Crimson Fang, Votive Candle and Bone Necklace (free per-fight healing undercuts
   the campfire), and cut starting relics so relics become unlockable. `RELIC-REWARDS.md` lists every
   relic, where it can come from, and the gap: no relic grants a reroll or a banish except through a tree
@@ -112,7 +113,7 @@ testing can answer what we need."* Do not act on it.
 
 ---
 
-### S65-1. Relic rarity: what each tier is for ⏸ — FILED 2026-09-25, brief drafted the same day
+### S65-1. Relic rarity: what each tier is for ◐ — FILED 2026-09-25; brief drafted and his answers filed the same day
 
 > We depreciated the uncommon rarity because it had no mechanical difference between it and rare to keep
 > the game lean, but the numbers don't lie:
@@ -135,7 +136,12 @@ and event are sources, never rolled; special and starter are not imported. Sized
 36 re-filed (§4), nine engine asks (§5), eight questions (§6). **The design gap is the boss tier.** Comes
 before B22, which it shapes. Later the same morning he drafted 29 relic ideas in four lists (boss Energy
 bargains, build-arounds, mechanical shake-ups, EXTREME shake-ups): filed verbatim in §7 and read against
-the model in §8, where they close most of the boss gap.
+the model in §8, where they close most of the boss gap. His answers to the brief's eight questions are in
+its §6, verbatim: commons persist; one table, *equipment* is a flavour name for a relic taken at the start,
+and explicit ownership lives only where a member can be chosen (the equipment menu, an event's pick); the
+boss tier is on the gate and the act 1-2 boss pays no relic until act 2 exists; the weights stand; safe pool
+first, his lists second; verdicts on individual relics wait for the desktop grids (`../BASICS.md`, design
+review). His MUST: demo 2 moves past common and rare.
 
 ---
 

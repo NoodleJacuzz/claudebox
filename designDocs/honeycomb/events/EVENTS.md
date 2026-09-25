@@ -264,6 +264,28 @@ it. `../events/RATE.md` says what a rank costs a run today, which is what "faste
 
 ---
 
+### S65-1. Event relics priced in a weakness rank ☆ — FILED 2026-09-25
+
+From the relic rarity session (`../relics/RELIC-REWORK-01.md` §2.2 and §8 rows 15, 25 and 29). Asked whether
+event heirlooms priced in a weakness rank belong on the gate:
+
+> Yes. I came up with that in my own list too.
+
+His own line, from his relic lists the same morning:
+
+> - When acquired, each character gains a weakness rank of [lust type, doesn't matter which]. While you
+>   carry [relic name], reduce lust inflicted by [lust type] cards by 90%.
+
+The event tier's rule: a relic given only by the event that tells it, carrying the event's cost so the relic
+IS the consequence. One relic per act-1 tag (Venom, Exposure, Heat) is the first content; the reading taken
+is resistance to Lust the ENEMY inflicts with that tag, to confirm. The event picks the party member the
+relic targets, which is where explicit relic ownership is allowed to live (his answer 2 in the brief's §6).
+A Fortitude party cannot pay the price, so the event is never offered to one, as the Weeping Bloom already
+does (S64-2). Written against the scene docket, not ahead of it: a rank raised with no scene behind it is a
+rank-up and nothing to see.
+
+---
+
 ## Unsorted — drop new reports for this pipeline here
 
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*
