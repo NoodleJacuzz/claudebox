@@ -27,6 +27,9 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
   party's Lust landing on Brienne), a `discoverCard` verb and an exact-damage hook for the two neutrals,
   the unplayed-card hook for broken starters (`../card_pool/CARD-POOL.md` A1), and the Charm scrub with
   `reconcileWeaknessLedger` dropping dead tags. The list with its seams is `../card_pool/CARD-POOL-02.md` §5.
+  Added session 65, the relic rarity verbs (`../relics/RELIC-REWORK-01.md` §5): a rarity table with weights
+  and persistence, one weighted `rollRelic` for every source, the boss relic choice, relic owners, and the
+  switch that keeps the run's final boss from paying a relic.
 - **Loading.** Both pages carry one loader line; a new Honeycomb file is a line in
   `honeycomb-loader.js`, never a page edit (suite block [142]); every request carries an hourly `?v=`.
 - **Performance.** Measured session 47: the rules engine is under 2 ms a turn; `repaint()` is 13 ms with

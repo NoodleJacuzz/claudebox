@@ -455,6 +455,29 @@ containing block has no definite height, so the cap resolves to none and has nev
 
 ---
 
+### S65-1. The first demo's difficulty is the standard the three encounter sessions are graded on ☆ — ROUTED 2026-09-25 FROM THE ROOT INBOX
+
+An aside from the relic rarity session, in his words:
+
+> As an aside: I personally blame myself for the design decisions that led to the overly high difficulty,
+> it leaves us in a very tough spot. Yes, not every run in StS is meant to be won, but a run not making it
+> past act 1? I was designing the difficulty curve, looking at a high failure rate and signing off on it as
+> if the game was already finished. Now we are trapped, casual players might be afraid to return, hardcore
+> players may be expecting something even more difficult. This is a very tricky situation, I'm already
+> trying to mediate things in my discord and in forums saying demo 1 was closer to a proof of concept.
+
+Routed here because S64-1 to S64-3 are where act-1 difficulty is actually set. Not a task of its own: it
+is the standard those three sessions are graded on, and the floor in `../BASICS.md` is the rule (*"A run
+ending in the first 1/3rd of act 1 should be astronomically unlucky, or the result of purposeful
+self-sabotage"*, and *"I'd rather have the data point of 'you went too far in the other direction'"*). The
+instruments are `../tools/enemy-template.js` for each encounter's budget and the Crunch's act-1 clear rate
+(`../tooling/TOOLING.md` T1 to T6), measured before and after each session. Two things outside this
+pipeline bear on it and should not be double-counted: persisting common relics (`../relics/RELIC-REWORK-01.md`
+§2.1) give a run that dies in act 1 starting power for the next one, and boss drawbacks arrive after the
+act 1-1 boss, so the relic rework never reaches the opening.
+
+---
+
 ## Unsorted — drop new reports for this pipeline here
 
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*
