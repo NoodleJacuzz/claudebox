@@ -37,7 +37,8 @@ Severine losing every soothe, Absolution losing its soothe, Restraint cut, and t
 Heat to allies. **All six grids are drafted** (§3.1–3.6; Nettle repriced on halving; Severine revised on his
 read to carry no damage amplifier of her own; Clemence with Heat on the Abbess line and her broken forms
 cut from 35 to 23). Anastasia is outside the pass. **The neutral tier is drafted too (§3.7, twelve
-colourless-style cards).** He is holding his vetoes; **the brief is complete as a draft**, and once he has
+colourless-style cards, two of them his: Possibility, a discover card, and Devil's Number, an exact-damage
+draw engine).** He is holding his vetoes; **the brief is complete as a draft**, and once he has
 read it, it becomes the build list. The first engine job either way is `../starters/` B1, since every alt is
 still unlocked from run one.
 

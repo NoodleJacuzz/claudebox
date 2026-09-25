@@ -14,7 +14,7 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
 | 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
 | 3. Grids: all six (§3.1–3.6) | ⏸ **all drafted**; he is holding his vetoes for now; Severine revised on his read (no Marked, no Sundered) |
-| 3. Neutrals (§3.7) | ⏸ drafted on the colourless precedent, 8 C / 4 R |
+| 3. Neutrals (§3.7) | ⏸ drafted on the colourless precedent, 7 C / 5 R, with his Possibility and Devil's Number in place of Shared Resolve and Cool Head |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -34,7 +34,7 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | Rates | unchanged from `CARD-POOL-01.md` §1.2: starter 6 / common 9 / rare 12+ per energy |
 | Reward weights | **85 / 15** (elite 60 / 40; the boss's fourth slot always rare). One slot per party member, kept. A card the deck already holds is weighted down |
 | Starting deck | 2 aggressive + 2 defensive basics + 1 signature per character = **15**. `randomCardCount` removed; the default outfit gets a signature |
-| Neutrals | **the colourless tier** (§3.7): 8 C / 4 R, agnostic by construction, priced above rate, never in an ordinary reward; every shop stocks one, the boss's fourth slot rolls a neutral rare half the time |
+| Neutrals | **the colourless tier** (§3.7): 7 C / 5 R, agnostic by construction, priced above rate, never in an ordinary reward; every shop stocks one, the boss's fourth slot rolls a neutral rare half the time; the tier may pilot a mechanic a future character will own |
 | Gates | alts stop being `unlockedFromStart` (run-win / shop / tree-end, `../starters/` B1). Gated cards keep `offerCondition` `outfitUnlocked` / `wearsOutfit` |
 | Choose One | exactly one per character, in the base pool, cashing the mechanic |
 | Retirement | cut cards go to `honeycomb.retiredCardArray`, definitions to `../../Archive/RETIRED-CARDS-S6x.md` |
@@ -667,14 +667,16 @@ character's rares. Three rules follow:
    or a one-shot any deck is glad to draw. Two ranks, as Slay the Spire has uncommon and rare colourless.
 3. **Rare to see.** Never in an ordinary reward (`neutralSlotChance` stays 0). **Every shop stocks one**, the
    **boss's fourth slot rolls a neutral rare half the time**, and events may hand one out (`map/`'s call).
-   A 0-cost neutral still needs a real price; the tier has one, and it exhausts.
+   A 0-cost neutral still needs a real price; the tier has two, Possibility and Tempering, and both exhaust.
+4. **A neutral may pilot a mechanic** a future character will own (Noodle, eleventh message): a specific
+   neutral is unlikely to be seen in any one run, so the tier is where a discover verb or an exact-number
+   read can exist before a character is built on it.
 
-Twelve cards, 8 C / 4 R. Names are placeholders except where kept.
+Twelve cards, 7 C / 5 R. Names are placeholders except where kept or his.
 
 | Card | R | E | F | Effect | From | Why |
 |---|---|---|---|---|---|---|
-| Shared Resolve | C | 1 | G | ALL allies gain 6 tHP. | RW (B26: it was 2 + living allies) | the party wall anyone can buy; Brienne's readers read it |
-| Cool Head | C | 1 | G | Remove all Heat from an ally. They gain 3 tHP per stack removed. | new (was Cinder's Ashen Cloak) | the vent, for a hot Cinder, a heated Abbess party, or enemy Heat |
+| Possibility | C | 0 | T | Choose one of three rare cards from the party's pools to add to your hand for this fight. It costs 1 less. Exhaust. | new, **his** | the discover precedent: a temporary card, a cost cut, and a pick that depends on who is in the party |
 | Fence | C | 1 | T | Exhaust a card in your hand. Gain 2 Energy. | new (was Cassadora's) | curse and junk removal that pays; Nettle's Souls read the exhaust |
 | Field Tonic | C | 1 | G | An ally heals 12. Exhaust. | RW 10→12 | the agnostic heal, exhausting as the bible asks; Blood Debt reads it |
 | Low Blow | C | 1 | B | Apply 2 Weak and 2 Sundered to an enemy. | new | the setup every debuff reader in the game pays: Putrefy, Catharsis, Coven's Curse, Spread Misfortune, Malediction |
@@ -685,10 +687,21 @@ Twelve cards, 8 C / 4 R. Names are placeholders except where kept.
 | Flourish | R | 1 | B | Power. Every fourth card you play in a turn deals 8 to ALL enemies. | new | an engine any deck feeds; a hot Cinder feeds it fastest |
 | Clean Slate | R | 1 | G | Remove every debuff from ALL allies. Each gains 3 tHP per debuff removed. | new | the party cleanse; Heat, Weak, Frail, Sundered, enemy poison all count |
 | Opening Salvo | R | 1 | B | Innate. Deal 10 to ALL enemies. Exhaust. | new | turn-one tempo for any deck; the Innate primitive exists |
+| Devil's Number | R | 2 | T | Power. Whenever an ally deals exactly 6 damage, draw a card. | new, **his** | the exact-number precedent: every character but Clemence can land a 6 (Sword Strike, Longspear, Scorch twice, Bloodthirst, Frailty, Feeding Frenzy at two orbs), and Strength, Weak and Sundered become choices rather than free value |
 
-Totals **8 C / 4 R** · Burst 3, Grind 5, Tempo 3, Choose 1 · every card reads a shared row.
+Totals **7 C / 5 R** · Burst 3, Grind 3, Tempo 5, Choose 1 · every card reads a shared row.
 
-**Cut:** Focused Mind (draw 2 for 1: under rate and says nothing).
+**Cut:** Focused Mind (draw 2 for 1: under rate and says nothing). **Shared Resolve** (his read: 6 tHP is
+peanuts to the one in front and gone unused on the one at the back; B26's card retires). **Cool Head** (it
+reads Heat alone, which is one character's status and not agnostic; Clean Slate is the cleanse and covers
+Heat with everything else).
+
+**Two defaults for his veto on his cards.** Possibility's three are drawn from the rares the party could be
+offered today — its characters', unlocked, worn-only only if worn — so the pick belongs to someone in the
+party and its text resolves; a discovered card is a this-fight copy owned by its character, exactly as a
+stolen enemy move is. Devil's Number counts the amount a hit lands for after Strength, Weak and Sundered
+and before tHP soaks it, which is the number the forecast prints on the card; a tick with no attacker
+(Poison, Thorns, Heat) never counts; each hit of a multi-hit counts on its own.
 
 **Where they come from, as tuning:** `shop` stocks one neutral per visit (rank rolled 75 / 25); the boss
 reward's fourth slot is a character rare or a neutral rare on a coin flip; `neutralSlotChance` 0. Shop price
@@ -716,6 +729,12 @@ Engine, from the grids:
 - **Heat's weakness is for show**: a per-tag flag the rank multiplier (`lustMultiplier`, entities.js) skips.
 - **Brienne's strand (§3.3, after his yes)**: incoming damage landing as Lust (a sibling of `replaceSelfDamage`),
   and the outfit-level "half the party's Lust lands on her" hook.
+- **Possibility (§3.7)**: a `discoverCard` verb — N candidates from a filtered pool (the party's legal rares),
+  the choice window that exists, a this-fight instance on the stolen-card plumbing (`giveStolenCard` already
+  makes an exhausting, owned, temporary copy), plus `modifyCardCost`. MECHANICS-01 scored this "New verb"
+  as *Generate (a pool)*.
+- **Devil's Number (§3.7)**: a world hook on damage landed carrying the amount, with an exact-amount
+  condition; attacker-less ticks excluded.
 
 **Housekeeping Noodle named for the desktop session (2026-09-25, B34 fifth message).** In the order that
 unblocks the most. Each is a table edit and a suite check; none needs a design decision except the first.

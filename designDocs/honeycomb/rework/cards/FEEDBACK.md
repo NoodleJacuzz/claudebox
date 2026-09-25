@@ -747,6 +747,23 @@ as the renamed rare A6 asked for; Ashen Cloak and Fence arrive from the Cinder a
 Resolve comes onto rate (B26). **Vetoes are held by his choice; the brief is complete as a draft.** What
 remains before Friday is his read of it, and the housekeeping table in §5.
 
+His eleventh message, the same day:
+
+> I'm gonna push back on you a little bit on two of these. I think Shared Resolve isn't as synergistic as you'd hope, since a small bit of tHP to the party will be peanuts to the person in front, and while tHP is generally useful, it's really not exciting when you give it to nettle and it's gone in a few turns where she wasn't even hit or could use it.
+> Cool head sounds like it works specifically off heat, which is the opposite of what you described when you spoke about agnostic.
+>
+> I think it's okay to get tricksy here, getting a specific neutral card, even at common, won't be likely. Unless the player is playing solo, I guess, but that carries its own drawbacks. And a neutral card here can create a precedent we use for a future character. So I propose
+> Possibility: 0 cost, exhaust, choose one of three rare cards to add to your hand, it costs 1 less. (Precedent for discover-like mechanics, temporary cards that are only available to you for the encounter, cost reduction, also a slay the spire card through-and-through)
+> Devil's Number: 2 cost, power, whenever an ally deals exactly 6 damage, draw a card. (Sets precedent for caring about specific numbers, seems like it has anti-synergy with things like sundered but actually it makes their use more thoughtful. "Do I want to hold back on gaining strength so my basic attack deals six, or build exactly enough strength on Severine so her claw flurry deals 6?" And even if they had infinite card draw, energy is the more important target to carefully manage. Everyone can deal six aside from Clemence I think, which is flavorful since she's holy)
+
+**Both taken.** Shared Resolve and Cool Head are out (B26's card retires; Clean Slate is the agnostic cleanse
+and covers Heat), Possibility is a neutral common and Devil's Number a neutral rare (§3.7, 7 C / 5 R), and
+the tier gains a fourth rule: it may pilot a mechanic a future character will own. Two defaults on his
+cards for his veto: Possibility draws its three from the rares the party could be offered today, and the
+pick is a this-fight copy owned by its character on the stolen-card plumbing; Devil's Number counts the
+number the forecast prints on the hit, never a tick, each hit of a multi-hit on its own. Engine asks are
+in §5 (a discover verb, an exact-damage hook).
+
 ---
 
 ## Unsorted — drop new reports for this workstream here
