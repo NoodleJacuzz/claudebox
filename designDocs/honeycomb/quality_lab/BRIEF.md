@@ -527,10 +527,12 @@ owner (`honeycomb.newCardInstance(cardIndex, ownerInstanceId)`), so an ally slot
 card by holding an instance owned by that actor and going through `honeycomb.combat.playCard`. An
 enemy slot plays it through the move path: `honeycomb.changeIntent(enemy, cardIndex)` accepts any
 card index, `honeycomb.moveCard` resolves it with the enemy as owner and its side as the acting side,
-and `honeycomb.combat.playMove` runs the effects with the enemy as source. Three holes stand between
-that and "every card in enemy hands", and they are P0 (§3.10). The suite block that proves them
-closed plays every card in `cardArray` from an enemy source and from a character source and requires
-no error, no touch of the party's hand or energy, and no self-effect landing on the party.
+and `honeycomb.combat.playMove` runs the effects with the enemy as source, and the owner lookup
+(`honeycomb.cardOwnerMember`) already searches the enemy line, so that enemy is its own acting
+entity. Three smaller holes stand between that and "every card in enemy hands", and they are P0
+(§3.10). The suite block that proves them closed plays every card in `cardArray` from an enemy
+source and from a character source and requires no error, no touch of the party's hand or energy,
+and no self-effect landing on the party.
 
 **Replay** restores the snapshot, rebuilds the battlefield, and runs the cycle again with the override
 array as it now stands. Determinism gives the same log; the screen shows the changed timing. This
@@ -641,16 +643,18 @@ session.
 Each is small except P0, each is independently worth doing, and each is something the lab would
 otherwise measure as its own fault. Each ends in a check.
 
-- **P0. Wielder-relative play, three fixes.** (1) `honeycomb.cardActingEntity` knows only party
-  members, so a card an enemy plays falls through to `tuning.deck.ownerlessFallback` (`frontAlly`) and
-  its self-effects, which player cards aim at `owner`, land on the party's front ally; return the
-  wielder when the instance's owner is any combatant on the board. (2) Draw, discard, energy and
+- **P0. Wielder-relative play, three fixes.** (1) A card with NO owner falls through
+  `honeycomb.cardActingEntity` to `tuning.deck.ownerlessFallback` (`frontAlly`), so its self-effects
+  land on the party's front ally; the owner lookup itself already knows both teams, so an enemy that
+  plays a card through the move path is its own acting entity. The lab hands every card an owner by
+  construction, and `throwRandomCards` (the one path that resolves a raw definition with no owner)
+  gets an owner view built the way `honeycomb.moveCard` builds one. (2) Draw, discard, energy and
   exhaust verbs act on the party's combat state whatever the source; guard them the way
   `addCardToDeck` already refuses a non-party source unless the entry says `evenFromOpponents`, so
-  they resolve to nothing. (3) Tree and outfit modifiers and the owner-down policy read the owner as a
-  member; prove they resolve to no modifier for a non-member rather than throw. The wider change,
-  taking the owner off the card's entry altogether, is `../ownerless_cards/BRIEF.md`; the lab neither
-  waits on it nor blocks it.
+  they resolve to nothing. (3) The Broken form and the pose hold are looked up through the card's
+  entry (`characterIndex`), not the wielder; prove a non-member wielder resolves to no form and the
+  default hold rather than throwing. All three are Steps 3 and 4 of `../ownerless_cards/BRIEF.md`,
+  which writes the suite block once; whichever plan lands first carries them.
 - **P1. One resolver for a card's sound, and the report reads it.** The `sfx` field stays as the
   priority over `cardSfxMap` (Q5: *"there should be priorities, especially if we want to include mod
   support down the line"*), `../tools/sfx-report.js` audits `honeycomb.cardSfxStem` rather than the map,

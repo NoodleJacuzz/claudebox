@@ -108,7 +108,8 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`balance_tests/`** | The two balance tests, Basic Bite and All the Crunch. Built session 53, checked session 54; the matrix needs a re-run on corrected profiles. | **6** | s54 |
 | **`vfx/`** | Card and combat visual effects. **B21 made hit feedback depend on this.** | **1** | never started |
 | **`desk/`** | The phone desk: Noodle's page for editing events, notes, drafts and image requests from his phone. Second round planned in eleven phases in its `FEEDBACK.md`. | **41** | 2026-09-23 (plan only) |
-| **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch and revised on his answers; the open item is ownerless cards, a prerequisite larger than the lab. | **1** | 2026-09-25 (design only) |
+| **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch and revised on his answers; nothing open until something is built. | **0** | 2026-09-25 (design only) |
+| **`ownerless_cards/`** | Owners assigned in the run, never on a card's entry; pools as a shareable content table. Planned from Noodle's direction; the open items are the decisions the plan waits on. | **7** | 2026-09-25 (plan only) |
 | — | Cross-cutting, below | 1 | s41 |
 
 **97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still
@@ -158,14 +159,13 @@ cut-ins, and none of it would look like a rename bug.
 *(add new reports below this line. The next session reads them, decides which workstream owns each,
 moves the report there verbatim, and bumps that row's count in the index above.)*
 
-### Ownerless cards (Noodle, 2026-09-25) — recorded, not yet planned
+### Ownerless cards (Noodle, 2026-09-25) — filed into `ownerless_cards/`
 
 Answering a Quality Lab question, Noodle said card ownership inside a card's identity *"was a huge
-design mistake we made right from the start"* and that the game must *"move to an inherently
-ownerless card system"* where enemies share card pools. His full words are `quality_lab/FEEDBACK.md`
-Q4. It is an engine and card-pool change larger than the lab; the lab takes only its first step (a
-card playable from any source). **It wants its own folder and a direct plan**, per his rule that each
-major shortcoming starts fresh (`BASICS.md`, "The demo scope"). Nobody has written that plan.
+design mistake we made right from the start"*, then refined it the same day: cards have owners in a
+run, assigned in-game, and the owner is never a field on the card's entry. His full words are
+`ownerless_cards/FEEDBACK.md`; the plan is `ownerless_cards/BRIEF.md`, and it traces the bug he named
+(a bought neutral card letting a Broken character attack). Nothing is built.
 
 The batches below are routing tables for reports that have already been
 filed; they are kept because they say which workstream to open for each one.
