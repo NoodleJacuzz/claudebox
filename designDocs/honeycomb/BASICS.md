@@ -276,6 +276,15 @@ two `devPreviewBoot` cases).
 
 ### The demo scope (Noodle, session 38; amended session 39)
 
+**Out of date (Noodle, 2026-09-25).** The first demo has shipped and this list has not been rewritten
+since. His words, answering a Quality Lab question that had ranked new work by it:
+
+> The first demo is out, I'm saving usage rates for bugtesting, the documentation is out of date and I haven't had a chance to update them before starting cloud sessions. The projects you mentioned are from an earlier time in the workflow, it's easier to essentially start from scratch on each of the game's major shortcomings with direct, actionable plans rather than use half-finished ones from much earlier states.
+
+Until he rewrites this section, do not use the list below or the workstream items under it to justify
+or rank new work. A new shortcoming gets a fresh folder with a direct plan (`quality_lab/` is the
+first). The list is kept as written because it is still the record of what the demo was.
+
 > The Proof of Concept is well past completed and testing. We're working on a beta demo, and the goals
 > are explicitly:
 >

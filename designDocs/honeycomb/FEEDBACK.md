@@ -24,6 +24,11 @@ them does not block the demo, however loud it is.
 
 ---
 
+**Out of date since 2026-09-25.** The two sections below, the top priority and the demo gate, predate
+the first demo shipping. Noodle's words are in `BASICS.md`, "The demo scope": the items they point at
+*"are from an earlier time in the workflow"*, and telemetry is shelved (`performance/FEEDBACK.md` A8).
+Do not rank new work by either section until he rewrites them.
+
 ## The top priority (session 39)
 
 > High priority, most important demo goal is better performance. Why are players saying the game runs
@@ -103,7 +108,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`balance_tests/`** | The two balance tests, Basic Bite and All the Crunch. Built session 53, checked session 54; the matrix needs a re-run on corrected profiles. | **6** | s54 |
 | **`vfx/`** | Card and combat visual effects. **B21 made hit feedback depend on this.** | **1** | never started |
 | **`desk/`** | The phone desk: Noodle's page for editing events, notes, drafts and image requests from his phone. Second round planned in eleven phases in its `FEEDBACK.md`. | **41** | 2026-09-23 (plan only) |
-| **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch; the open items are the decisions it waits on. | **8** | 2026-09-24 (design only) |
+| **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch and revised on his answers; the open item is ownerless cards, a prerequisite larger than the lab. | **1** | 2026-09-25 (design only) |
 | — | Cross-cutting, below | 1 | s41 |
 
 **97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still
@@ -153,7 +158,16 @@ cut-ins, and none of it would look like a rename bug.
 *(add new reports below this line. The next session reads them, decides which workstream owns each,
 moves the report there verbatim, and bumps that row's count in the index above.)*
 
-**The inbox is empty.** The batches below are routing tables for reports that have already been
+### Ownerless cards (Noodle, 2026-09-25) — recorded, not yet planned
+
+Answering a Quality Lab question, Noodle said card ownership inside a card's identity *"was a huge
+design mistake we made right from the start"* and that the game must *"move to an inherently
+ownerless card system"* where enemies share card pools. His full words are `quality_lab/FEEDBACK.md`
+Q4. It is an engine and card-pool change larger than the lab; the lab takes only its first step (a
+card playable from any source). **It wants its own folder and a direct plan**, per his rule that each
+major shortcoming starts fresh (`BASICS.md`, "The demo scope"). Nobody has written that plan.
+
+The batches below are routing tables for reports that have already been
 filed; they are kept because they say which workstream to open for each one.
 
 ### The session 61 reports (2026-09-23), closed

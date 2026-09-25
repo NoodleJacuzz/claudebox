@@ -1,25 +1,29 @@
 # Quality Lab — BRIEF
 
-Written 2026-09-24 from Noodle's pitch (sent from his phone) and a read of the code. **Nothing is built.**
+Written 2026-09-24 from Noodle's pitch (sent from his phone) and a read of the code; revised
+2026-09-25 on his answers to the eight questions the first draft left open. **Nothing is built.**
 This is a standing brief: goals, the measured facts it rests on, the shape of the build and the rules.
-Progress goes in `CATCH-UP.md`; the questions it leaves for Noodle are `FEEDBACK.md` Q1–Q8; guesses a
-build session makes go in an inferences file (INFERENCES.md) that this folder does not have yet.
+Progress goes in `CATCH-UP.md`; the one prerequisite that is larger than the lab is `FEEDBACK.md` Q4;
+his answers to the settled questions are in `_archive/FEEDBACK-DONE.md`; guesses a build session
+makes go in an inferences file (INFERENCES.md) that this folder does not have yet.
 
 | File in this folder | Holds |
 |---|---|
 | `BRIEF.md` | this file: the pitch verbatim, what the engine does today, the design, the build order |
 | `CATCH-UP.md` | where the work is. Update it as each phase lands |
-| `FEEDBACK.md` | Noodle's words, and the eight decisions the design waits on |
+| `FEEDBACK.md` | Noodle's words; the open items |
+| `_archive/FEEDBACK-DONE.md` | the seven questions he answered on 2026-09-25, with the answers |
 
-Read `../BASICS.md` first. The Battle Lab this builds on is `../Archive/FEEDBACK-07.md` §A2 and
-`../ui/FEEDBACK.md` A10; the animation vocabulary is `../Archive/POLISH-01.md` §3–4.
+Read `../BASICS.md` first. The Battle Lab whose seams this reuses is `../Archive/FEEDBACK-07.md` §A2;
+the animation vocabulary is `../Archive/POLISH-01.md` §3–4.
 
 ---
 
 ## 1. The pitch, verbatim
 
-Noodle's text is quoted whole, in his order and spelling. Under each part is how it was read and what
-in the engine already serves it. If an annotation and the quote disagree, the quote wins.
+Noodle's text is quoted whole, in his order and spelling. Under each part is how it was read, what
+in the engine already serves it, and what he settled on 2026-09-25. If an annotation and the quote
+disagree, the quote wins.
 
 > Quality tuner pitch
 >
@@ -54,7 +58,8 @@ moves the relationship between sound and picture without anyone deciding it shou
 
 Measured: six to eight inputs per single test from the title, four to test the same card again, no
 replay, no persistence across a refresh, and no way to change a sound, pose or effect from inside it
-(§2.4). A test result today is a number somebody types into `honeycomb-tuning.js` by hand.
+(§2.4). A test result today is a number somebody types into `honeycomb-tuning.js` by hand. His
+verdict on the Battle Lab's shape is under "Solution brief pitch" below.
 
 > Final goal: A game-feel standardization system, allowing us to quantify previously untranslatable
 > gaps, and creating templates an agent creating cards can pick from that carry proven relationships.
@@ -73,11 +78,14 @@ touching a number.
 > creates an exportable list of changes that will then be inserted into the codebase or tested live by
 > replaying the sequence with the desired change.
 
-Read as a MODE on the real combat screen with its own boot path, not a screen of its own (Q2). Noodle
-ruled on this shape once already, for the Battle Lab: *"The window approach is unviable"*, use the
-game's engine, nothing blocks the board, everything is picked by its picture. The lab stands on the
-Battle Lab's seams (§2.4) and adds three things the Battle Lab lacks: a cycle driver, a tap recorder,
-and a replay. The exportable list is §3.8.
+**Settled (Q2): its own screen, on the same battlefield, with a one-press transform into a live
+battle.** Noodle: the Battle Lab *"was mostly unusable due to the complex UI not being user friendly
+and trying to fit the myriad options on top of an existing battle space"*, and in a real battle *"the
+hand, deck, etc would get in the way"*. So the lab is a scene of its own (§3.3) that mounts the
+fighters, plates, floating numbers, vfx and log handlers the combat screen uses, and nothing else: no
+hand, no deck, no piles, no energy, no top bar. A **Go live** button copies its actors and its card into
+a real battle, and the Performance Delay Test runs in every scene, so any difference between the lab
+and a live fight is a measurement (§3.5). The exportable list is §3.8.
 
 > Important terms used hereon, defined to keep this document lean
 > " The current action" - Whatever the player is currently testing. Primarily one of the game's cards,
@@ -106,10 +114,13 @@ and focus while the lab runs).
 > is essential for stress-testing in larger environments and to identify an acceptable margin of error
 > in user expectations.
 
-The cycle driver is §3.4. Two things it needs decided: who the dummy allies are (Q4: the recommended
-answer is N copies of the card's owner, so owner-relative effects and poses are the real ones) and how
-an enemy "plays the current action" when the action is a player card (Q3). Entity count also serves
-the statistics: five allies is five samples of the same impact per cycle.
+**Settled (Q3, Q4): any actor can stand as a dummy, and every actor, enemies included, plays the
+literal card.** *"The dummy enemies we are making must be able to use every single card in the game,
+even if practically that card does nothing for them"*, and a card must *"just call for the wielder's
+-offense pose at so-and-so timing"* rather than belong to a character. The cycle driver is §3.4; what
+it needs from the engine, a card playable from any source, is the first step of a larger change he has
+asked for, **ownerless cards** (`FEEDBACK.md` Q4, and §3.10 P0). Entity count also serves the
+statistics: five allies is five samples of the same impact per cycle.
 
 > "Attack animation" - The sequence of targets, meaning user pose changes, target pose changes, vfx
 > overlaid onto the target, the vfx's position, sound effects, damage number appearance time and
@@ -124,8 +135,8 @@ Called **the action timeline** below, and it is the one engine change everything
 > eventually need to be handled is defined above. Ideally with a thoughtful set of defaults to reduce
 > need for user input as much as possible.
 
-The sentence ends mid-list in the pitch (Q1). Read as sfx first; the recommendation is sfx and screen
-shake for the first build, because both are pure timing and need no art. The defaults are §3.7.
+**Settled (Q1): the first build handles sound effects and screen shake.** Both are pure timing and
+need no art. The defaults are §3.7.
 
 > "testOverrides" - A possible name for the array used to store changes to targets in-game for live
 > testing. Replay and Calibration tests should be able to test the current action with testOverrides
@@ -140,10 +151,11 @@ it. An exported override is a table row; injecting it is a paste.
 > "Impact" - The golden variable(s) of each attack animation. Independent targets are primarily
 > measured to help us find the impact timing of actions, as well as how far off
 
-Also ends mid-sentence (Q1); read as "how far off each target is from it". The engine half-has the
-idea: `honeycomb.combatScene.shakeForDamage` scales the shake by the bite taken and returns a hit
-stop, so the moment of the damage beat IS the impact today. What is missing is the name, and offsets
-measured from it.
+**Settled (Q1): "as well as how far off each target is from it."** The engine half-has the idea:
+`honeycomb.combatScene.shakeForDamage` scales the shake by the bite taken and returns a hit stop, so
+the moment of the damage beat IS the impact today. What is missing is the name, and offsets measured
+from it. His answer to Q6 adds a second anchor, the action's start, for the parts of an action that
+happen before the impact and tell nothing about it (§3.2).
 
 > Test Functions:
 > - Initial calibration
@@ -170,17 +182,21 @@ predicts it. So there are two baselines (§3.5), both stored per device.
 Half of this exists as `honeycomb.perf` (§2.6): frame cadence, long tasks, and each replay's expected
 against actual time, printed to the console by two debug actions. The lab adds the human on top of it,
 correlates a broken rhythm with the beat that was playing and the long task that ran, and exports the
-result. "Outside the quality lab" is a debug action usable in any fight, and, if Noodle agrees, a field
-in the telemetry beacon (Q8). This half is also the top demo goal's missing instrument (§6).
+result. **Settled (Q2, Q8): "outside the quality lab" means every scene of the game, through one
+debug action, with the same record, so a lab cycle and the same fight played live can be compared. It
+does not mean telemetry**, which Noodle has shelved (`_archive/FEEDBACK-DONE.md` Q8). The device
+profile stays on the device.
 
 > - Assignment
 > The user selects the asset used for the literal card's target of their choice from a grid with a
 > confirm button and search options. For poses and vfx, this should visually display the pose or vfx
 > overlay. For sfx, this should be a grid of buttons that play the sound when selected.
 
-Three pickers on the Battle Lab's picker pattern (§3.5). One prerequisite: sound assignment has two
-sources of truth today and they disagree on 34 cards (§2.7, Q5). A grid that writes to one of them
-while the other wins is worse than no grid.
+Three pickers on the Battle Lab's picker pattern (§3.5). The pose picker shows the poses of the
+actor selected as the wielder, because a card asks for a pose by role and the wielder supplies it
+(Q4). **Settled (Q5): a card's own sound field and the sound table both stay, as priorities**, with
+the field winning; what changes is that the report reads the resolved value and the holes are closed
+(§3.10 P1).
 
 > - Alignment
 > A mode to determine the ideal timings and position for assigning aspects of an attack animation.
@@ -231,6 +247,13 @@ per-file number: `leadInMsMap` holds silence measured at 2% of peak; the windup 
 bullets become the first four rows of the template table (§3.7). One of them cannot be expressed by
 the engine today at all: every hit is its own 180 ms beat, so an all-enemies attack always plays as a
 wave (§2.2).
+
+**Settled (Q6): templates first, new templates as needed; a per-card override is the highest
+priority and the rarest thing, and saving one first asks whether the asset or the template is what is
+wrong (§3.8).** His jumping attack, *"a jumping sound and a pose change right at the start with the
+impact frame coming afterwards on a sort of second beat"*, is why every entry on the timeline carries
+an anchor, the action's start or its impact (§3.2): the jump sound and the crouch are start-anchored
+and the taps place only the impact.
 
 > - Reference comparison
 > Describes comparing the current action against a known-good template, using lab results to check
@@ -290,7 +313,7 @@ plus any hit stop, so a five-target sweep is a 900 ms wave, and "impact everyone
 asked for. Shipped multi-hit cards opt out of VFX with `vfx: "none"` (`severineRend`, CARDS:9233)
 because the alternative is a wall of them. The attacker's pose plays once, on the action entry.
 
-### 2.3 Presentation fields
+### 2.3 Presentation fields, and who a card belongs to
 
 `honeycomb.art.presentationFor` (ART:182–197): the card's `pose` and `animationArray`, else the type's
 (`cardTypeArray`, CARDS:99–209: damage is offense + lunge, passive is passive + rise, the rest passive
@@ -299,7 +322,15 @@ with nothing), else `passive`. Hold: `poseHoldMs` on the card, then the characte
 `tuning.audio.cardSfxMap[index]`, then a type fallback. VFX: a `vfx` path on a damage effect entry,
 copied onto the log entry, else the default. No card sets an `animationArray`; one enemy move does
 (`capBruteWindUp`). Ordinary enemies have no `damaged` drawing (`enemySpriteSet` is combat and offense,
-TU:312), so their hit is CSS only, which is `../vfx/CATCH-UP.md`'s unbuilt tilt-and-redden.
+TU:312), so their hit is CSS only.
+
+A card is tied to a character in three places the lab runs into: the character's pools decide who is
+offered it, `honeycomb.defaultOwnerFor` gives a created card to the party member whose character it
+names and the Battle Lab dims a card whose owner is absent, and owner-relative effects (the owner's
+place in the line, `partyShift` moving the owner, the owner's tree through
+`honeycomb.memberCardModifierArray`) read the owner rather than whoever played it. Enemy moves are
+cards too (`honeycomb.enemyCardArray`) and resolve through the same presentation code, with a null
+target for their flourishes.
 
 `playVfx` has no anchor, offset or delay; it centres on the whole fighter box, not the sprite, and its
 first use of a file can lag because `vfx.prepare` is asynchronous. The card flying at its target
@@ -353,10 +384,13 @@ library is 45 stems in `honeycomb sound/sfx/`.
 
 No `keydown` anywhere; pointer type is read by capture listeners on the root and overlay host
 (`honeycomb.input`); `../REQUIREMENTS.md` §8 allows listeners on Honeycomb's own elements only. A new
-file is a line in `honeycomb-loader.js`'s `scriptArray` (suite block [142]). Modes are root classes
-re-applied by `applyTuningToCss`. localStorage holds `honeycombSave<slot>`, `honeycombMeta<slot>` and
-`honeycombTelemetryV1`; no dev key exists. Clipboard export exists in `saveTransfer.copy` (title
-scene) with a selection fallback, and file download through a Blob (`.noodle`).
+file is a line in `honeycomb-loader.js`'s `scriptArray` (suite block [142]). A scene is
+`honeycomb.scene.register({ index, build, teardown, cssClass })`; the combat scene's `build` draws
+sides, hand, top bar and piles in one pass and its `repaint()` rebuilds all of them from `innerHTML`;
+the log handlers find fighters by element id (`fighterElement`). localStorage holds
+`honeycombSave<slot>`, `honeycombMeta<slot>` and `honeycombTelemetryV1`; no dev key exists. Clipboard
+export exists in `saveTransfer.copy` (title scene) with a selection fallback, and file download through
+a Blob (`.noodle`).
 
 ---
 
@@ -364,11 +398,13 @@ scene) with a selection fallback, and file download through a Blob (`.noodle`).
 
 ### 3.1 In one paragraph
 
-Give every action a named impact and schedule each target from it; stamp when each target was fired
-and drawn; record the tester's taps against those stamps; run a fixed cycle from a saved setup and run
-it again with overrides on, through the same resolver the live game uses; write what survives to the
-asset, the template, or the card, in that order of preference; export it as the table rows it already
-is; and keep a suite block that resolves every card and shouts when one drifts.
+Give every action a named impact and schedule each target from the action's start or from that
+impact; stamp when each target was fired and drawn; record the tester's taps against those stamps; run
+a fixed cycle from a saved setup on a screen that holds nothing but the battlefield, let any actor play
+any card, and run it again with overrides on, through the same resolver the live game uses; write what
+survives to the asset, the template, or the card, in that order of preference; export it as the table
+rows it already is; hand the same actors and card to a real battle in one press; and keep a suite
+block that resolves every card and shouts when one drifts.
 
 ### 3.2 The action timeline
 
@@ -382,13 +418,15 @@ raises the ordinal. Nothing else in the engine changes.
 ```
 { impactAtMs,                       // from the action entry's start
   hitGapMs, sweep: "atOnce"|"wave", // between hits, and how one hit's targets land
-  sourcePose: { atMs, pose, holdMs },
-  sfx:        { atMs, stem, volumeScale },       // atMs = impactAtMs − impactMs of the file
-  targetPose: { atMs, pose, holdMs },
-  vfx:        { atMs, path, anchor, scale },
-  number:     { atMs },
-  shake:      { atMs, strength },
-  provenance: { tier, index } }                   // which tier answered each value
+  entryArray: [
+    { target: "sourcePose", anchor: "start",  atMs, pose, holdMs },   // pose is a ROLE: offense, passive…
+    { target: "sfx",        anchor: "impact", atMs, stem, volumeScale }, // atMs = −impactMs of the file
+    { target: "sfx",        anchor: "start",  atMs, stem },           // a windup sound, when a template has one
+    { target: "targetPose", anchor: "impact", atMs, pose, holdMs },
+    { target: "vfx",        anchor: "impact", atMs, path, anchorPoint, scale },
+    { target: "number",     anchor: "impact", atMs },
+    { target: "shake",      anchor: "impact", atMs, strength } ],
+  provenance: { tier, index } }                                        // which tier answered each value
 ```
 
 Each value resolves in order: **override** (`honeycomb.presentationOverrideArray`, §3.8) → **card or
@@ -397,43 +435,69 @@ move field** (`presentation: { … }`, only the keys it sets) → **asset** (`tu
 (`honeycomb.presentationTemplateArray`, §3.7, chosen by the card's `presentationTemplate` field or by
 `honeycomb.presentation.templateFor(action)` from its shape) → **`tuning.animation`** defaults.
 
+**Two anchors.** An entry anchored to `start` fires at `atMs` after the action begins; one anchored
+to `impact` fires at `impactAtMs + atMs`. A strike has everything on the impact. A leap has its crouch
+and its jump sound on the start and its landing on the impact, and Noodle's point stands: nothing
+about the crouch can be learned from where the landing is, so start-anchored entries come from the
+template or the asset and the taps place only impacts.
+
+**Poses are roles, resolved by the wielder.** A pose entry names `offense`, `damaged`, `passive` or
+another role; `honeycomb.art.spriteChain` resolves the role against whoever is acting, with the
+fallback chain it already has (an ordinary enemy's `damaged` falls to its resting pose today). An
+unintended wielder using a pose it does not have is a fallback, not an error.
+
 The three action handlers (`cardPlayed`, `moveUsed`, `abilityUsed`) ask for the schedule, fire the
-source pose at 0, fire the sound with a timer at `sfx.atMs` the way the Broken stinger already does,
-and return `impactAtMs` as their wait, so the damage beat lands ON the impact. The `damage` handler
-plays a `hitGroup` as one beat when `sweep` is `atOnce` and staggers it by `hitGapMs` when `wave`;
-shake, number and vfx fire on their own timers at their offsets. Multi-hit templates carry a `vfxScale`
+start-anchored entries on timers from the beat's start and the impact-anchored ones on timers from the
+impact, the way the Broken stinger already does for its sound, and return `impactAtMs` as their wait
+so the damage beat lands ON the impact. The `damage` handler plays a `hitGroup` as one beat when
+`sweep` is `atOnce` and staggers it by `hitGapMs` when `wave`. Multi-hit templates carry a `vfxScale`
 and `volumeScale` per hit after the first. **Phase 0 ships with defaults that reproduce today's timing
 exactly** (party impact 0, enemy impact 420, every offset 0), proven by a suite check, so the change
 moves nothing until a template or a measurement says so.
 
-**Stamps.** Each fired target calls `honeycomb.perf.recordTarget({ actionId, hitGroup, target,
-scheduledAt, firedAt, paintedAt })`: `scheduledAt` when the timer was set, `firedAt` when it ran,
+**Stamps.** Each fired entry calls `honeycomb.perf.recordTarget({ scene, actionId, hitGroup, target,
+anchor, scheduledAt, firedAt, paintedAt })`: `scheduledAt` when the timer was set, `firedAt` when it ran,
 `paintedAt` from a `requestAnimationFrame` after the DOM write. For sound, `firedAt` is the Audio
 element's `playing` event, which needs `playFile` to return the element (P2). The gap
-`scheduledAt → paintedAt` is the performance signal, and it is measurable with no human present.
+`scheduledAt → paintedAt` is the performance signal, and it is measurable with no human present, in
+any scene.
 
 Put the resolver and the template table beside `honeycomb.art.presentationFor` if the suite loads
 `honeycomb-art.js` (check the load list at the top of `../tools/test-honeycomb.js`); otherwise in a new
 content-side file, honeycomb-presentation.js, loaded before the scene files. A helper in a scene file
 is invisible to the suite.
 
-### 3.3 The lab mode
+### 3.3 The lab screen
+
+**Its own scene**, `qualityLab`, registered like the four others. It mounts **the battlefield**: the
+sides, the fighter columns and plates, the floating-number layer, the vfx layer, the shake, the log
+handlers and `playLog`, all of which exist today inside the combat scene and are used unchanged. It
+mounts nothing else: no hand, no deck, no piles, no energy orb, no top bar, no play-queue rail. This
+needs the battlefield lifted out of the combat scene into a piece both scenes mount (P9): the handlers
+already address fighters by element id, so what moves is the side and fighter markup, the floating and
+vfx layers, and a `repaint` of the sides alone; each scene supplies its own `afterBeat`.
 
 Entered by a `qualityLab` debug action marked `quick` and `topBar`, and by a boot target
 `"honeycombQualityLab"` in `scripts/index.js` beside the two existing ones (an additive host touch of
-the kind already made; still note it in `../REQUIREMENTS.md`). Puts `hcQualityLabMode` on the root the
-way `hcLabMode` is, on top of the Battle Lab's own mode, so its handles stay available.
+the kind already made; still note it in `../REQUIREMENTS.md`).
 
 **Persisted setup**, in one localStorage key of its own (`tuning.storage.qualityLabKey`, never a save
-slot): the literal card, ally and enemy counts, the mirror action for the enemy side, the mode, the
-device profile (§3.5) and the override array. A refresh comes back to the same card.
+slot): the literal card, the actor in each dummy slot on both sides, the counts, the mode, the device
+profile (§3.5) and the override array. A refresh comes back to the same card and the same line-ups.
 
-**On the board:** N copies of the literal card's owner on the party line (Q4), N enemies on the other,
-`labNoEnd` on, victory and defeat suspended. A strip along the top edge that never covers a fighter:
-the literal card as a face (press to open the Battle Lab's card picker), two count steppers, mode tabs,
-BEGIN, and a results drawer that slides in after a cycle with REPLAY and EXPORT. Every control is at
-least `tuning.qualityLab.tapTargetMinimumPx` on a side, in honeycomb pixels, because this is also the
-phone test path (§6).
+**On the board:** one to five actors a side, each slot holding any character-and-outfit or any enemy,
+picked by portrait the way the Battle Lab picks them, and standing through `honeycomb.summonCombatant`.
+Win and loss are suspended (`labNoEnd`). A strip along the top edge that never covers a fighter: the
+literal card as a face (press to open the card picker, every card in the game, sorted), a slot stepper
+per side, mode tabs, BEGIN, GO LIVE, and a results drawer that slides in after a cycle with REPLAY and
+EXPORT. Every control is at least `tuning.qualityLab.tapTargetMinimumPx` on a side, in honeycomb
+pixels, so the lab is usable on a phone.
+
+**GO LIVE** starts a real fight from the lab's board: an encounter built from the enemy slots, the party
+built from the ally slots, the literal card in the hand of the front ally and telegraphed by every
+enemy, the override array still active because the resolver is shared, `labNoEnd` off. It is the
+Battle Lab's `start` with the lab's actors instead of the run's party, and it exists so a cycle and a
+live fight of the same thing can be measured against each other with the Performance Delay Test.
 
 **The tap surface:** during a cycle a transparent layer inside `#honeycombRoot` takes every pointer
 down and up; the root is focused and hears Space. Recording writes to an array and touches no DOM until
@@ -445,17 +509,25 @@ the cycle ends, so the recorder cannot cost the frames it measures.
 
 1. Snapshot the engine state (the save system already serialises mid-combat state and a reload of it
    continues to an identical result; use the same function in memory).
-2. After `tuning.qualityLab.beginDelayMs`, for each ally in line order: put the literal card in that
-   owner's hand, play it through `honeycomb.combat.playCard` on the target the template names (the
-   front enemy unless the card targets otherwise), wait for `busy` to clear.
+2. After `tuning.qualityLab.beginDelayMs`, for each ally slot in line order: put the literal card in
+   that actor's hand and play it through `honeycomb.combat.playCard` with that actor as the source, on
+   the target the template names (the front enemy unless the card targets otherwise), wait for `busy`
+   to clear.
 3. End the party turn: the ally end-of-turn beats play (statuses, Broken escalation), which is how a
    status or a tick is "the current action".
-4. Each enemy telegraphs the mirror action (Q3) and the enemy turn plays; then the enemy end of turn.
+4. Each enemy slot plays the literal card the same way, as its own source, and the enemy end of turn
+   plays.
 5. Close the tap recorder, compute the mode's result (§3.5), open the drawer.
 
-**Replay** restores the snapshot, rebuilds the screen with `scene.go("combat")`, and runs the cycle
-again with the override array as it now stands. Determinism gives the same log; the screen shows the
-changed timing. This avoids a second walk of a played log entirely (§2.5).
+**Any actor plays any card.** Step 2 and step 4 are one path: `playCard(card, source, target)` with
+no owner looked up. An effect that names something the source does not have (energy, a hand, a draw
+pile, a party place, a tree) resolves to nothing and logs nothing rather than throwing. This is the
+engine seam the lab needs from ownerless cards (P0), and it gets a suite block of its own: every card
+in `cardArray`, played by an enemy source and by a character source, resolves without error.
+
+**Replay** restores the snapshot, rebuilds the battlefield, and runs the cycle again with the override
+array as it now stands. Determinism gives the same log; the screen shows the changed timing. This
+avoids a second walk of a played log entirely (§2.5).
 
 ### 3.5 The modes
 
@@ -472,22 +544,23 @@ Alignment refuses to write without an anticipation baseline; Calibration without
 either refuses when the spread is over `baselineSpreadMaximumMs`.
 
 **Performance Delay Test.** The metronome runs through a whole cycle; the tester keeps time. Recorded:
-every tap, every beat's stamps, the perf monitor's frames and long tasks. Computed: each interval's
+every tap, every entry's stamps, the perf monitor's frames and long tasks. Computed: each interval's
 error against the metronome; an interval past `hitchThresholdMs` is a hitch, and the report names the
 beat kind that was playing and any long task inside it. Writes a session record (§3.6), never an
-override. Also exposed as a `quick` debug action in any ordinary fight, so a hitch Noodle feels on his
-own play can be caught where it happens.
+override. **It is an overlay openable in every scene** through one `quick` debug action, with the
+same record tagged by `scene`, so a lab cycle, the same board after GO LIVE, and an ordinary fight can
+be laid side by side.
 
 **Assignment.** Three pickers on the `labPicker` pattern, closing on the choice: sfx (the 45 stems
-grouped by family, a press plays the stem), pose (the owner's sprite set, drawn), vfx (each file over a
-sample sprite), with a search box. Writes an override for the literal card; a toggle writes it for the
-template or the asset instead (Q6). Needs P1 first.
+grouped by family, a press plays the stem), pose (the selected wielder's sprite set, drawn, by role),
+vfx (each file over the selected wielder), with a search box. Writes an override for the literal card;
+a toggle writes it for the template or the asset instead (§3.8).
 
 **Alignment.** The tester taps where each impact is expected. Computed per action: impact = tap − the
 anticipation offset − the action's start stamp; taps per action = impact count; median gap between
 taps = `hitGapMs`; the median over the cycle's N actions is the value, the spread the confidence.
 Below `minimumSamples` taps the drawer shows the number and refuses the save. Writes `impactAtMs`,
-`hitGapMs`, `sweep`. Replay is one press.
+`hitGapMs`, `sweep`. Start-anchored entries are not touched by this mode. Replay is one press.
 
 **Calibration.** The tester picks the target being judged (sound, target pose, number, shake, vfx)
 and taps when it is perceived. Computed: perceived = tap − the reaction latency; error = perceived −
@@ -502,11 +575,11 @@ not to the card that happened to play it.
 deviceProfile { userAgent, cadenceMs, anticipationMs, anticipationSpreadMs,
                 reactionMs, reactionSpreadMs, measuredAt }
 tap           { downAt, upAt, source: "key"|"mouse"|"touch", beatType, actionId }
-session       { mode, literalCard, allyCount, enemyCount, overridesActive: [...],
+session       { scene, mode, literalCard, allySlotArray, enemySlotArray, overridesActive: [...],
                 stamps: [...perf.recordTarget], taps: [...], result: {...}, deviceProfile }
 override      { subject: { tier: "card"|"move"|"asset"|"template", index },
                 target: "sfx"|"sourcePose"|"targetPose"|"vfx"|"number"|"shake"|"timeline",
-                field, value,
+                anchor: "start"|"impact", field, value,
                 provenance: { mode, samples, median, spreadMs, measuredAt, device } }
 ```
 
@@ -514,53 +587,60 @@ Times are `performance.now()` values on one clock; `Date.now()` never appears in
 
 ### 3.7 Templates and defaults
 
-`honeycomb.presentationTemplateArray`, a content table. First rows, from the pitch:
+`honeycomb.presentationTemplateArray`, a content table. First rows, from the pitch and from Q6:
 
-| index | Chosen for | Offsets it fixes |
+| index | Chosen for | What it fixes |
 |---|---|---|
 | `strike` | one hit, one target | impact at the lunge's middle; shake trails by `shakeTrailMs`; number at impact |
 | `flurry` | more than one hit | `hitGapMs`; `vfxScale` and `volumeScale` under 1 after the first hit |
 | `sweep` | one hit, a whole side | `sweep: "atOnce"` |
 | `wave` | a whole side, in sequence (Chess Piece attacks, anything that triggers along a line) | `sweep: "wave"`, `hitGapMs` |
+| `leap` | a windup before the blow | a start-anchored pose and sound; the impact on a second beat at `impactAtMs` |
 | `rise` | no damage: a power or a buff | no impact; the pose and its sound only |
 | `tick` | a status tick, the Broken spiral | `poisonTickMs`-shaped; no source pose |
 
 `templateFor` derives one from the action's shape (hit count, target reach, whether it deals damage)
 when the card names none; a `presentationTemplate` field on the card wins. Every number in a row is a
 tuning-style named field. The pitch's `shakeTrailMs`, `multiHitVfxScale` and `multiHitVolumeScale` go
-in `tuning.animation` and the rows read them.
-
-The order of preference for writing a result is asset, then template, then card. A per-card override is
-for the edge case the pitch names, and the report (§3.9) lists every card that carries one, so their
-number stays visible.
+in `tuning.animation` and the rows read them. **A new template is the normal answer to a card that
+does not fit** (Noodle: *"I'll stick to existing templates and create new templates as needed"*); a
+per-card override is the answer only when the card really is alone.
 
 ### 3.8 Overrides and export
 
-`honeycomb.presentationOverrideArray` is in memory and serialised into the lab's storage key. EXPORT
-copies two things to the clipboard (and offers a file, on the `.noodle` pattern): the session record
-as JSON, and the override array rendered as the table rows it maps to, ready to paste:
-`impactMsMap` entries, `presentationTemplateArray` rows, `presentation` fields for cards. The game never
-writes a file (it must run from `file://`); a session pastes the rows, runs the suite, and clears the
-override. An override that has been pasted and an override that is still live are the same shape, which
-is the point.
+`honeycomb.presentationOverrideArray` is in memory and serialised into the lab's storage key. Saving
+a per-card override is a two-step: the drawer first shows what the same value would change if written
+to the asset or the template instead, and how many cards that touches, and asks which (Noodle:
+*"the first response after an override is done is to ask 'Is there something wrong with this asset in
+templates?'"*). EXPORT copies two things to the clipboard (and offers a file, on the `.noodle`
+pattern): the session record as JSON, and the override array rendered as the table rows it maps to,
+ready to paste: `impactMsMap` entries, `presentationTemplateArray` rows, `presentation` fields for
+cards. The game never writes a file (it must run from `file://`); a session pastes the rows, runs the
+suite, and clears the override. An override that has been pasted and an override that is still live
+are the same shape, which is the point.
 
 ### 3.9 Reference comparison
 
 Two instruments. A node tool, compare.js in a new quality-lab folder under `../tools/`, reads
-exported sessions and the live tables and
-prints, per card, each target's offset against its template's, flagging anything past
-`tuning.qualityLab.toleranceMs`, plus every card carrying a per-card override. And a suite block
-resolves the schedule of every card and enemy move headlessly and fails when a value falls outside its
-template's tolerance or a template names a stem or path that does not exist. The second is the
-drift guard; the first is the reading list for the next alignment session.
+exported sessions and the live tables and prints, per card, each target's offset against its
+template's, flagging anything past `tuning.qualityLab.toleranceMs`, plus every card carrying a
+per-card override. And a suite block resolves the schedule of every card and enemy move headlessly and
+fails when a value falls outside its template's tolerance or a template names a stem or path that does
+not exist. The second is the drift guard; the first is the reading list for the next alignment
+session.
 
-### 3.10 Prerequisites the sweep found
+### 3.10 Prerequisites the sweep found, and the one Noodle added
 
-Each is small, independently worth doing, and something the lab would otherwise measure as its own
-fault. Each ends in a check.
+Each is small except P0, each is independently worth doing, and each is something the lab would
+otherwise measure as its own fault. Each ends in a check.
 
-- **P1. One source of truth for a card's sound** (Q5). 34 of the 35 `sfx` fields disagree with their
-  `cardSfxMap` rows and the report audits the wrong one.
+- **P0. Ownerless cards** (`FEEDBACK.md` Q4). Larger than the lab and owed its own plan; the lab
+  needs only its first step, a card playable from any source with the effects it cannot use resolving
+  to nothing (§3.4). Pools, the tree, and owner-relative wording are the rest of it.
+- **P1. One resolver for a card's sound, and the report reads it.** The `sfx` field stays as the
+  priority over `cardSfxMap` (Q5: *"there should be priorities, especially if we want to include mod
+  support down the line"*), `../tools/sfx-report.js` audits `honeycomb.cardSfxStem` rather than the map,
+  a row a field overrides is reported as stale, and the 10 orphan rows go.
 - **P2. `playFile` returns its Audio element and takes a delay**; sounds are decoded once and kept, so
   a stem's first play is not a hitch; the host path's 50 ms single slot is documented on the seam.
 - **P3. Play speed reaches everything or nothing**: the CSS duration variables scaled in
@@ -568,12 +648,14 @@ fault. Each ends in a check.
   saying it is not, the cut-ins scaled once. Until then, measure at 1×.
 - **P4. A named impact with behaviour-preserving defaults** (§3.2, Phase 0).
 - **P5. `hitGroup` on damage entries**, so at-once is possible.
-- **P6. `playVfx` takes an anchor and an offset**, and anchors on the sprite, not the fighter box.
+- **P6. `playVfx` takes an anchor point and an offset**, and anchors on the sprite, not the fighter box.
 - **P7. The Battle Lab's autosave leak** (`labNoEnd` written to `honeycombSave0` with no way back
   after a reload), the undefined `lab.holdEnergy`, the unread `reopenPollMs`/`reopenTimeoutMs`, the
   dead `flyCard`, the unread `hitShakePixels`.
 - **P8. `honeycomb.perf` gains per-target stamps and a copy-to-clipboard**, and its report gains
   the device profile.
+- **P9. The battlefield lifted out of the combat scene** (§3.3), so a second scene can mount it and
+  GO LIVE can hand it back. The combat screen must be byte-identical before and after.
 
 ---
 
@@ -584,61 +666,69 @@ fault. Each ends in a check.
 2. **No document or window listener**, keyboard included. Space is heard on the root while it has focus.
 3. **The resolver, the template table and the override array live where the suite can load them.** The
    scene owns DOM and timers only.
-4. **Noodle's three Battle Lab rulings hold here**: nothing blocks the board, everything is picked by
-   its picture, the handle is on the thing.
-5. **Overrides never bypass the resolver.** If the lab can show a timing the game cannot ship, the lab
+4. **The lab screen holds the battlefield and its strip, nothing else.** No hand, deck, piles or top
+   bar; those are what GO LIVE is for. Nothing blocks the board, everything is picked by its picture,
+   the handle is on the thing.
+5. **Any actor plays any card, and a card names its poses by role.** A card that resolves to nothing
+   for its wielder is a no-op, never an error; a pose the wielder lacks falls back, never errors.
+6. **Overrides never bypass the resolver.** If the lab can show a timing the game cannot ship, the lab
    is lying.
-6. **Measure at 1× until P3 lands**, and say so in the drawer.
-7. **A write needs a baseline and enough samples**; the drawer prints the median, the spread and the
-   count beside every value it offers to save.
-8. **Every length is a honeycomb pixel**; every control clears the phone minimum.
-9. **The lab's storage is its own key.** It never writes a save slot, and it never leaves the fight it
-   built in the autosave (which is P7's bug, and must not be repeated).
-10. **Phase 0 changes nothing visible.** Its suite check proves today's timings resolve unchanged.
-11. **Comments are lean and quote nobody.** His words are in this folder's `FEEDBACK.md`.
-12. Each phase ends in checks in a new numbered block at the end of `../tools/test-honeycomb.js`, and
+7. **Measure at 1× until P3 lands**, and say so in the drawer.
+8. **A write needs a baseline and enough samples**; the drawer prints the median, the spread and the
+   count beside every value it offers to save. **A per-card override is saved only after the asset or
+   template question has been answered.**
+9. **Every length is a honeycomb pixel**; every control clears the phone minimum.
+10. **The lab's storage is its own key.** It never writes a save slot, and it never leaves the fight it
+    built in the autosave (which is P7's bug, and must not be repeated).
+11. **Phase 0 changes nothing visible.** Its suite check proves today's timings resolve unchanged.
+12. **Comments are lean and quote nobody.** His words are in this folder's `FEEDBACK.md` and its archive.
+13. Each phase ends in checks in a new numbered block at the end of `../tools/test-honeycomb.js`, and
     each check is made to fail before it is recorded as passing.
 
 ---
 
 ## 5. Build order
 
-**Phase 0 — the timeline, no UI.** P4, P5, P2, P8, and the resolver with its override array and
-template table. Checks: every card and move resolves; the resolved defaults equal today's timings for
-a party card and for an enemy move; an override wins over a card field, a card field over an asset,
-an asset over a template; an override round-trips through JSON; `hitGroup` is shared by every target of
-one `damage` effect and differs between two; `playFile` returns an element; the document-listener
-count is still the `error`/`unhandledrejection` pair.
+**Phase 0 — the timeline, no UI.** P4, P5, P2, P8, and the resolver with its anchors, override array
+and template table; plus the first step of P0, a card played from any source. Checks: every card and
+move resolves; the resolved defaults equal today's timings for a party card and for an enemy move; an
+override wins over a card field, a card field over an asset, an asset over a template; an override
+round-trips through JSON; `hitGroup` is shared by every target of one `damage` effect and differs
+between two; every card played by an enemy source and by a character source resolves without error;
+`playFile` returns an element; the document-listener count is still the `error`/`unhandledrejection`
+pair.
 
-**Phase 1 — the mode and the cycle.** The debug action and boot target, the storage key, the board
-setup, BEGIN, the cycle driver, snapshot and replay, the tap recorder, the drawer, EXPORT. Checks: a
+**Phase 1 — the screen and the cycle.** P9, then the `qualityLab` scene, the debug action and boot
+target, the storage key, the slot pickers, BEGIN, the cycle driver, snapshot and replay, the tap
+recorder, the drawer, EXPORT, GO LIVE. Checks: the combat screen is byte-identical to before P9; a
 cycle from a persisted card runs with no taps and ends; two runs of the same setup give byte-identical
 logs; a replay with an override changes the resolved schedule and nothing in the log; an export pastes
-back into an identical override array; the recorder adds no DOM node during a cycle.
+back into an identical override array; the recorder adds no DOM node during a cycle; GO LIVE starts a
+fight whose party and enemies are the lab's slots and whose front ally holds the literal card.
 
 **Phase 2 — the modes**, in the order the pitch's dependencies impose: Baselines, the Performance
-Delay Test, Alignment, Calibration, Assignment (sfx first). Checks per mode on synthetic tap arrays:
-the arithmetic of §3.5 (a known offset in, the same offset out), the refusal below `minimumSamples`,
-the refusal without a baseline, a duplicate detected from two onsets against one schedule.
+Delay Test as an overlay in every scene, Alignment, Calibration, Assignment (sfx first, then shake's
+trail, per Q1; poses and vfx after). Checks per mode on synthetic tap arrays: the arithmetic of §3.5
+(a known offset in, the same offset out), the refusal below `minimumSamples`, the refusal without a
+baseline, a duplicate detected from two onsets against one schedule, a lab record and a live record
+of the same board comparable field for field.
 
 **Phase 3 — codification.** The template rows filled from the first sessions, the compare tool, the
-drift guard block, and the template table handed to `../rework/cards/` as the field a new card sets.
+drift guard block, and the template table handed to whoever writes cards as the field a new card sets.
 
 Phases 0 and 1 are one session each. Phase 2 is one mode per session, and each mode is usable on its
-own. The prerequisites P1, P3, P6 and P7 can be done by any session at any point.
+own. The prerequisites P1, P3, P6 and P7 can be done by any session at any point. The rest of P0 is
+its own plan and does not wait on the lab.
 
 ---
 
-## 6. What this gives the other workstreams
+## 6. Scope
 
-- **`../performance/` B16, the top demo goal.** Per-beat `scheduledAt → paintedAt` stamps and a human's
-  hitch log, exportable, on a phone, from a boot target: the measurement path that file says is missing.
-  The device profile is a candidate telemetry field (A8, Q8).
-- **`../mobile/` A12.** A URL-style boot straight into a fight with whole-screen tap targets is the
-  "large-hit-target test path" that item asks for before the phone re-test.
-- **`../vfx/` B13 and `../art_pipeline/` B21.** A vfx picker with anchor and offset, the at-once
-  sweep, and the flurry scaling are the assignment half of the VFX workstream, on real timing.
-- **`../audio/` B9–B11.** The sfx grid replaces searching the table, `impactMsMap` is the number the
-  library has been missing, and P1 ends the two-sources problem.
-- **`../ui/` B6, the hand.** The same recorder and stamps apply to the hand's feel once the cycle can
-  include a draw and a drag; not in scope here, but the instrument will exist.
+This is a direct plan for one shortcoming, the drift in how an attack looks and sounds, and it stands
+on its own. Noodle, 2026-09-25: the first demo is out, the root documents' demo goals and the
+workstream items they point at *"are from an earlier time in the workflow"*, and each of the game's
+major shortcomings gets a fresh plan rather than a half-finished one. So nothing here is justified by
+an earlier item, and nothing here should be read as serving one. Telemetry is shelved and is not a
+consumer of any record this lab makes. Performance measurement is in scope exactly as far as the lab
+needs it: the stamps, the perf monitor's export, and the Performance Delay Test available in every
+scene so the lab and a live fight can be compared.

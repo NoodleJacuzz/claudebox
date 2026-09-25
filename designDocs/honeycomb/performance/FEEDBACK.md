@@ -20,7 +20,13 @@ Where the work is: `../CATCH-UP.md`. What the project is: `../BASICS.md`.
 
 ---
 
-### A8. Telemetry — PROMOTED, endpoint still unpicked ⏸
+### A8. Telemetry — SHELVED (Noodle, 2026-09-25) ⏸
+
+> Telemetry was a failure project that never got off the ground due to being lower priority than first demo playability, and there are at least a dozen major completely game-reshaping projects still higher on the priority list. I have my hands overflowing with issues I can already see, I don't consider it valuable to search for invisible ones at this stage.
+
+**Do not build this.** Said while answering `../quality_lab/FEEDBACK.md`'s question about sending a
+device profile to a beacon; nothing the Quality Lab records leaves the device. Everything below is the
+history of the item as it stood before, kept for when he reopens it.
 
 > I wanted to know if obtaining telemetry data when the game was hosted on itch.io and neocities was
 > possible, manual copy-out does not do that and the scale would be frankly horrible.
