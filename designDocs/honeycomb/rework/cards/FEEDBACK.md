@@ -574,6 +574,36 @@ healing.
 
 ---
 
+### B34. The manual pass on the card pool ☆ — REVIEWED 2026-09-25, waits on his answers
+
+> Ahoy! The current Honeycomb card pool was designed by AI, and while they went through a rework I think I've put off making a manual pass of them for too long now. Please read through the basics, then the mechanics and character story bibles. After that, please see OUTFITS-LIST.md where I go over a touch on mechanical identity.
+>
+> Honestly, I have no idea where to start here. I know that:
+> - Some cards felt like they lacked a strong identity while playtesting, very few cards felt memorable.
+> - Overall feedback is that is that there's too many nonsynergistic cards diluting the cool. We need more "glue" cards. Cards meant to bridge the archetypes together.
+> - We need to actually lock costumes and ensure that the new card pool's least glue-ey, most selfish to their own sister archetype are locked with them
+> - In generating their poses, Cinder and Clement came out with a much stronger "fire" identity than expected.
+> - Cinder and Clement are widely regarded the weakest characters, not just in numbers but in team synergy.
+> - I'd like for Cinder to move away from sundered and have some kind of burn for her status effect.
+> - 15-21 starting cards in deck is a lot for a slay the spire-like
+> - I'd like a similar amount of encounters per run to slay the spire, and 75 cards in each character pool in that game turned out pretty good. Granted, we have three characters instead of 1
+> - I'm okay with accepting a huge slash to card pool sizes, making the sets we do have more interesting and reducing future art pass workloads.
+> - Slay the Spire
+>
+> I think we need to take a look over the card pool as it is now. Remember, we're only doing design and plan work. I'd like you to take in the card pool and tell me what you think, don't just roll over and accept my choices immediately, but also don't glaze the current system overly either. Please take your time and avoid subagents if feasible.
+
+**`POOL-REVIEW-02.md` is the answer**, measured on the live content. The short version: a character is
+offered about 16 cards a run because rewards deal one slot per party member, so at 21 C / 11 R a common
+comes round every other run and a rare almost as often as a common — the flat gradient, not the raw
+count, is why nothing is memorable. Glue is structural here because two-thirds of every reward screen
+belongs to characters the player may not be building. Proposed: 12 C + 8 R per character (base 6 + 2,
+each alt +2 C, +1 cross-party R, +1 worn-only R), weights 85 / 15, a 15-card starting deck with a default
+signature, Burning as Cinder's two-sided status, and Clemence's healing as its extinguisher. **Blocked in
+practice on `../starters/` B1** (the alts are still `unlockedFromStart`). Seven questions for him in §7.
+No game code changed.
+
+---
+
 ## Unsorted — drop new reports for this workstream here
 
 *(a report that does not clearly belong to this workstream goes in `../../FEEDBACK.md` instead)*

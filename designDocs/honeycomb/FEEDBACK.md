@@ -85,7 +85,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 
 | Workstream | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. | **20** | s57 |
+| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. **B34: the manual pass, reviewed 2026-09-25 in `rework/cards/POOL-REVIEW-02.md`, waits on Noodle.** | **21** | 2026-09-25 (design only) |
 | **`rework/starters/`** | Starting decks, outfit unlock routes, **relics and heirlooms**, roster order. | **10** | s25 |
 | **`rework/progression/`** | The six trees: node effects, EXP pricing, what a node hands out. | **4** | s30 |
 | **`rework/enemies/`** | Enemy numbers, identities, roles, encounter composition. | **6** | s51 |
@@ -106,7 +106,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch; the open items are the decisions it waits on. | **8** | 2026-09-24 (design only) |
 | — | Cross-cutting, below | 1 | s41 |
 
-**97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still
+**98 items open across 17 workstreams** (session 54 added `balance_tests/` T6; 2026-09-25 added `rework/cards/` B34), plus one that belongs to no single folder and two still
 unfiled in the inbox below. Counts are `tools/feedback-audit.js`'s, re-measured session 51 — the
 previous total was stale, and disagreed with the sum of its own rows.
 

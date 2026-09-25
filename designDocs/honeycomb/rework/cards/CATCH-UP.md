@@ -22,12 +22,20 @@ cross-party count came out Nettle 2 / Severine 2, not Nettle 0; and the draft si
 
 `CARD-POOL-01.md` §5b is the map of what was built. Its status board is the per-step truth.
 
+**2026-09-25: Noodle asked for the manual pass (`FEEDBACK.md` B34) and `POOL-REVIEW-02.md` is the review.**
+Measured: about 16 card offers per character per demo run, so the live 21 C / 11 R offers a common 0.57
+times a run and a rare 0.36 — the gradient is flat, which is the memorability problem. Proposed 12 C + 8 R
+per character, 85 / 15 weights, a 15-card starting deck, Burning for Cinder, and a glue rule built on the
+shared-currency table in its §2. **Waits on his answers to its §7; `CARD-POOL-02.md` (the brief) is not
+written yet.** The first job either way is `../starters/` B1, since every alt is still unlocked from run one.
+
 ---
 
 ## Files
 
 | File | Holds | Read it before |
 |---|---|---|
+| `POOL-REVIEW-02.md` | **The 2026-09-25 review of the session-33 pool**: offers-per-run maths, the shape and glue audit, the proposed 20-card shape, Burning, the plan and the questions for Noodle. | starting the second pool pass |
 | `CARD-POOL-01.md` | The brief: Noodle's corrections verbatim, hard rules, the per-character grids, the verdicts, the status board. | touching the pool at all |
 | `BALANCE-01.md` | The foundational numbers: turns per fight, damage budget, enemy derivation, the healing rule. `tuning.balance` holds them. | pricing any card or enemy |
 | `CARD-AUDIT-01.md` | Every card rated on I/S_v/S_h/C and its Starting/Accelerate/Payoff/Late-game fit. | re-scoring a card |
@@ -63,7 +71,8 @@ Items are `FEEDBACK.md` holds the full quote and annotation for each. The table 
 
 | | Goal | State |
 |---|---|---|
-| **B1** | **Unlock routes.** Every alt outfit is still open from run one, so the whole 21 C / 11 R pool drops at once. Nothing gates the gated cards. | ☐ the load-bearing one |
+| **B34** | **The manual pass on the pool.** Reviewed in `POOL-REVIEW-02.md`; the brief waits on his answers to its §7. | ⏸ reviewed 2026-09-25 |
+| **B1** | **Unlock routes.** Every alt outfit is still open from run one, so the whole 21 C / 11 R pool drops at once. Nothing gates the gated cards. | ☐ the load-bearing one, and B34's first step |
 | **B26** | **The neutral pool missed the overhaul.** It was not rebuilt with the rest. | ☆ new |
 | **B18** | **Clemence's redesign.** | ☐ |
 | **B5** | **Cross-party hooks** — thin on Nettle and Severine. | ◐ |
