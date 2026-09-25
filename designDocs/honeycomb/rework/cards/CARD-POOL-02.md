@@ -14,8 +14,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
 | 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
 | 3. Grids: Cinder (§3.1) | ⏸ drafted, waits on his veto |
-| 3. Grids: Brienne's Torment strand (§3.3) | ⏸ proposed on his idea, waits on his yes |
-| 3. Grids: Clemence, Brienne (full), Nettle, Severine, Cassadora | ☐ |
+| 3. Grids: Brienne (§3.3) | ⏸ drafted on the sponge, waits on his veto |
+| 3. Grids: Clemence (§3.2 holds her settled rules), Nettle, Severine, Cassadora | ☐ Clemence next |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -81,6 +81,9 @@ no guaranteed payoff, so it never reads as delayed damage.
     fey's identity is Exposure (his fifth message withdrew Heat as their theme: *"Charm is not Heat"*, the
     cool tones and nobility, and powder that inflicts heat could read as drug use). Heat on an enemy comes
     mostly from Cinder's cards; the Lust it causes carries `heat` whoever applied the status.
+11. **Heat-tagged Lust comes only from the status.** The one exception he allows (seventh message): if the
+    Abbess line cannot do its job by applying the status, Clemence may deal Heat-tagged Lust directly
+    *"until I'm ready to do Penance events"*. Try the status first (§3.2).
 
 Engine: one status entry — an `onCardPlayed` reaction on the holder (entity hook exists), the enemy side
 through `onMovePlayed`, and a small `onShifted` / turn-end listener for the cooling. No new verb.
@@ -100,12 +103,16 @@ What each represents is in his words in `../../designBibles/story.md` §11. What
 | **Venom** | yes — the Thorn Arbor's focus (act1-flora) | Nettle; Act1-B enemies | Nettle's nine venom cards keep it |
 | **Exposure** | yes — the Pollen Road's focus (act1-fey), **replacing Charm there** | Act1-C enemies; Clemence's outgoing Lust | Clemence's five enemy-facing cards keep it |
 | **Heat** | yes — the status, legal for any act-1 enemy, never a focus | the Heat status, wherever it sits | Cinder; the weakness is for show (§2.1 default 8) |
-| **Penance** | yes — Clemence only | Clemence, on herself and on allies | her self-Lust already; **her Abbess cards must carry it** (today they carry nothing, so "other characters get Penance scenes" is not yet true) |
+| **Penance** | yes — Clemence only, **on herself** | Clemence, on herself | her self-Lust already. **Her Abbess cards apply the Heat status to allies instead of Lust** (seventh message), so nothing else is owed under Penance |
 | Charm | **no** — act 2, masculine enemies | — | scrubbed everywhere in act 1 (MUST) |
-| Torment | **no** — act 2, electric and spanking; **Brienne's early access is the one exception if §3.3 is taken** | Brienne, on herself, via §3.3 | the Lust she takes onto herself |
-| Restraint | **unmentioned in either list** — read as cut with the act-1 retag (8 enemy moves) | — | nothing |
+| Torment | **no** — act 2, electric and spanking; **Brienne's early access is the one exception** (§3.3) | Brienne, on herself | the Lust she takes onto herself |
+| Restraint | **cut outright** (seventh message: *"zero issues dumpstering it completely"*) | — | nothing; 8 enemy moves retagged (E14) |
 
 The Mushroom Frontier (act1-A) focuses on health damage, not Lust.
+
+**The writing scope of the second demo, in his words** (seventh message): *"Lust events for each character
+for Venom, Exposure, Heat. Torment events for Brienne, Penance events for Clemence."* That is what the cards
+here may build a weakness toward, and nothing else.
 
 ## 3. The grids
 
@@ -198,68 +205,124 @@ fallback Stumble.
 
 ### 3.2 Clemence ☐ — rules already settled for her grid
 
-- Where the Abbess line meets a hot Cinder: Kindled Want, Ordeal, Sanctify, Stay With Me. Poison halving
-  does not reach her.
-- **Her Abbess cards carry `penance`.** Measured: Kindled Want and Ordeal are `{ index: "lust", amount: N }`
-  with no `lustTagArray`, so an ally taking Lust from them teaches the ledger nothing today. With the tag,
-  the yuri scenes he named become reachable.
-- **Absolution (A1) ⏸.** It is the one place Clemence takes the party's Lust (A7 made it his exception).
-  Under *"if anyone in the party should be taking lust from others, it should be her [Brienne], not
-  Clement"* it should become Penance-only: she pays, they heal, nobody is soothed. His call.
+- **The Abbess line applies Heat to allies, not Lust** (settled, seventh message). Kindled Want, Ordeal,
+  Penitent's Draw and Shared Fever give an ally Heat stacks with their Strength, tHP or cards: the ally runs
+  hot, pays per card, and cools by moving back — which is what Cinder's Ashfall reads and Brienne's Bastion
+  sponges. Today they are `{ index: "lust", amount: N }` with no tag and teach the ledger nothing. If the
+  status cannot carry a card's job, that card may deal Heat-tagged Lust directly (§2.1 default 11).
+- **Absolution (A1) loses its soothe** (settled: *"the not-clement exception must go"*). Draft: Clemence
+  takes 10 Lust (Penance); ALL allies heal 5. She pays, they heal, nobody is soothed; once per rest stays.
+- Poison halving does not reach her. Penance stays on herself alone.
 
-### 3.3 Brienne ☐ — the Torment strand, proposed on his idea ⏸
+### 3.3 Brienne — Temporary HP / Resolve / the sponge ⏸ draft for veto
 
-**Take: yes, and Bastion is where it lives.** Five reasons, each a test the cards below can fail:
+Sisters: **Oath** (default) *tHP carried into your turn pays* · **Siegeplate** tHP is a weapon · **Bastion**
+the wall, and the one who takes it home · **Almoner** tHP is currency. Resolve fills from damage taken
+(live) and, in Bastion, from Lust she takes onto herself.
 
-1. **The party needs one Lust sink and it should be the wall, not a healer.** Soothing on Severine let
-   players stall; Clemence is banned from it. *Moving* Lust is zero-sum — the party's total never falls —
-   so it cannot be stalled on, and Unshakeable (Lust capped at her maximum health) puts a hard ceiling on
-   how much she can hold. Lust carries to the next fight, so a full sponge pays at the next door.
-2. **Bastion gets its second half:** the wall you hit, and the one who takes it home. Headstrong (costs 1
-   more each time she has lost health) already rewards taking a blow as something other than health.
-3. **Resolve reads damage taken; Lust she takes onto herself feeds it 1:1.** The loop: take the party's Lust
-   → Resolve → Aegis → party tHP → tHP holds her own margin. That is the value tHP-maxing was missing.
-4. **It is the reader Heat and Penance needed.** Cinder runs hot, Clemence pays in Penance, Brienne takes it
-   out of them: three characters in one loop with no soothe in it.
-5. **Torment's early access lands on the one character who can fluff it** (*"Take it out on me, I can take
-   it!"*) with no act-2 enemy in sight; 3 to 4 scenes, his docket.
+**Why the sponge lives here** (his idea, B34 sixth message; each line is a test a card can fail): the party
+needs one Lust sink and it must be the wall, not a healer, because *moving* Lust is zero-sum and cannot be
+stalled on where healing could; Unshakeable caps what she holds at her maximum health and Lust carries to
+the next fight, so a full sponge pays at the next door; Resolve already reads damage taken, so Lust she
+takes feeds Aegis and party tHP, which is what holds her own margin; and it is the reader Heat needed — a
+hot Cinder, a heated Abbess party and a Bastion Brienne are one loop with no soothe in it. **Every point of
+Lust she takes onto herself lands as `torment`**, whatever it wore on the ally: the masochism reading, and
+how she teaches Torment alone. **Not this:** her Lust as a damage payoff — most dangerous before she Breaks
+is Cinder's; Brienne's payoff is the wall.
 
-**What the tag does.** Every point of Lust Brienne takes onto herself this way lands as `torment`, whatever
-tag it wore on the ally. That is the masochism reading, and it is how she teaches Torment alone.
+**Basics and abilities**
 
-**The outfit carries the identity, the cards are tools** (bible: an outfit is the High-benefit swing):
+| Card | E | Effect | Note |
+|---|---|---|---|
+| Sword Strike (aggressive ×2) | 1 | Deal 6. | unchanged |
+| Brace (defensive ×2) | 1 | Gain 6 tHP. | unchanged |
+| A1 Dig In | — | Gain 12 tHP. Once a fight. | unchanged |
+| A2 Aegis | — | Spend all Resolve. The party gains that much tHP. End the turn. | unchanged; the outfits swap it as listed below |
 
-| Bastion | Today | Proposed |
+**Signatures** (never drop)
+
+| Outfit | Card | E | Effect | Why |
+|---|---|---|---|---|
+| default | **Kept Word** | 1 | Deal 6, plus the tHP you carried into this turn. | graduated from the pool: the whole Oath idea on one card, not a carry |
+| siegeplate | **Plate Edge** | 1 | Deal 4. Gain 4 tHP. | as listed |
+| bastion | **Headstrong** | 3 | Deal 18. Costs 1 more each time Brienne has lost health this fight. | as listed; a blow taken as Lust keeps it cheap |
+| almoner | **Incredible Wealth** | 0 | Spend all your tHP. Your next card costs 1 less for every 5 spent. | as listed; the 0 is priced by her whole shield |
+
+**Outfit passives and A2**
+
+| Outfit | Passive | A2 |
 |---|---|---|
-| Signature | Headstrong — 3, Deal 18, costs 1 more each time she lost health this fight | keep; converting damage to Lust keeps it cheap |
-| Passive | Resolve twice as fast, only from tHP lost | **Big Sister Aura:** whenever another ally would gain Lust, half of it lands on Brienne instead, and Lust she takes builds Resolve 1:1 |
-| A2 | disabled; once a fight, if she would Break, lose all Resolve and gain half as tHP | keep: the sponge's safety valve |
+| siegeplate | Her tHP is reduced by attacks only after her base HP reaches 0. | Spend all Resolve. Deal that much to the front enemy. |
+| bastion | **Big Sister Aura:** whenever another ally would gain Lust, half of it lands on Brienne instead, as Torment. Lust she takes onto herself builds Resolve 1:1. *(replaces "Resolve twice as fast, only from tHP lost")* | Disabled. Once a fight, if she would Break, lose all Resolve and gain half as tHP. |
+| almoner | She loses all tHP at the end of her turn; draws one more card a turn. | Spend all Resolve. Each other ally soothes 4 and spends 4 tHP if they have it. |
 
-**The cards**, on the 20-card shape (one base common, Bastion's 2 C + 2 R; names are his placeholders):
+**The pool**
 
-| Card | R | E | Gate | Effect | Why |
-|---|---|---|---|---|---|
-| Willing Target | C | 1 | base | An ally loses up to 8 Lust. Brienne gains that much Lust and that much Resolve. | the glue: every Brienne can take it out of someone; ally-Lust row |
-| Living Stress-Relief | C | 1 | Bastion unlock | Gain 6 tHP and 1 Taunt. Until your next turn, damage Brienne takes lands on her as Lust instead. | the conversion, one enemy turn; no health lost, margin spent |
-| Challenge | C | 1 | Bastion unlock | Gain 10 tHP and 1 Taunt. | the wall half, kept |
-| Wake-Up Kiss | R | 1 | Bastion, any pool | A Broken ally recovers and loses all their Lust. Brienne gains that much. Exhaust. | **cross-party:** the party's only un-break; under the cap it can Break her instead |
-| Punching Bag Session | R | 2 | Bastion, worn-only | Gain Temporary HP equal to Brienne's Lust. Gain 2 Taunt. | selfish: the sponge becomes the wall |
+| Card | R | E | Gate | F | A | Effect | From | Why |
+|---|---|---|---|---|---|---|---|---|
+| **Base (Oath)** | | | | | | | | |
+| Bulwark | C | 2 | base | G | ✓ | ALL allies gain 7 tHP. | K | the party wall; tHP row for everyone |
+| Intercept | C | 1 | base | G | ✓ | An ally gains 8 tHP. Brienne gains 1 Taunt. | K | bridge: gold on them, the hits on her |
+| Shield Bash | C | 1 | base | B | | Gain 5 tHP, then deal damage equal to half your tHP. | K | her attack reads her tHP, which anyone can feed |
+| Weigh the Cost | C | 1 | base | — | | **Choose one:** gain 9 tHP; or spend 8 Resolve: gain 1 Energy and draw 2. | K | the Choose One; Resolve cashed |
+| Willing Target | C | 1 | base | G | ✓ | An ally loses up to 8 Lust. Brienne gains that much Lust and that much Resolve. | new | the sink; ally-Lust row; 8 Resolve is one Weigh the Cost |
+| Ransom | C | 1 | base | T | ✓ | Spend up to 8 of an ally's tHP, 4 at a time. Draw 1 per 4 spent; if 8, gain 1 Energy. | K | the one payoff in the game for tHP on an ally: her cleanest bridge |
+| Stand Fast | R | 1 | base | G | | Power. At the start of your turn, gain 5 tHP. | K | the engine; "carried" needs tHP every turn |
+| Promise Kept | R | 1 | base | B | | Deal twice the tHP you carried into this turn. | K | the Oath payoff |
+| **Siegeplate** | | | | | | | | |
+| Lend Steel | C | 1 | unlock | B | ✓ | An ally gains 7 tHP and 1 Armament. | K | their attacks read their tHP |
+| Heavy Swing | C | 1 | unlock | B | | Deal 8. If you have 10 or more tHP, deal 8 again. | K | damage keyed to tHP held |
+| Forge the Line | R | 2 | unlock (any pool) | B | ✓ | ALL allies gain 6 tHP and 1 Armament. | K | **cross-party:** everyone's attacks read their tHP |
+| Crushing Weight | R | 2 | worn | B | | Deal 4 plus half your tHP to ALL enemies. | K | selfish; her tHP as a sweep; broken form exists |
+| **Bastion** | | | | | | | | |
+| Living Stress-Relief | C | 1 | unlock | G | | Gain 6 tHP and 1 Taunt. Until your next turn, damage Brienne takes lands on her as Lust instead. | new | the conversion, one enemy turn: no health lost, margin spent |
+| Punching Bag Session | C | 1 | unlock | G | | Gain tHP equal to Brienne's Lust, up to 12. Gain 1 Taunt. | new | the sponge becomes the wall, at common rate |
+| Wake-Up Kiss | R | 1 | unlock (any pool) | G | ✓ | A Broken ally recovers and loses all their Lust. Brienne gains that much. Exhaust. | new | **cross-party:** reads the Broken-ally row, the party's only un-break; under the cap it can Break her instead |
+| Suffer the Blows | R | 0 | worn | G | | Gain 1 Taunt. Gain 10 tHP for each enemy. | K | his card (P23); the 0-cost wall; worn-only |
+| **Almoner** | | | | | | | | |
+| Alms | C | 1 | unlock | G | ✓ | Spend all your tHP. ALL allies lose that much Lust. | K | her shield buys the party's Lust off, at the price of the whole shield |
+| Gilded Strike | C | 1 | unlock | B | | Spend all your tHP. Deal twice that much. | K | the currency's payoff |
+| Tribute | R | 1 | unlock (any pool) | B | ✓ | Every ally spends all their tHP. Deal that much to the front enemy; draw 1 per 10 spent. | K | **cross-party:** everyone's tHP becomes damage and cards |
+| Reliquary | R | 1 | worn | T | | Power. When your tHP decays or is lost, gain 1 Energised per 6 lost (at most 2 a turn). | K | selfish: the engine under the Almoner passive |
 
-Intercept (an ally gains 8 tHP, Brienne gains 1 Taunt) stays a base common as the wall's bridge. Stand
-Fast, Shield Wall, Suffer the Blows, Iron Retort, Thorn Armour and Rally compete for what is left of her
-20 in the full grid, which comes after his yes.
+Totals **12 C / 8 R** · Burst 8, Grind 9, Tempo 2, Choose 1 · ally-touching 9 of 20 (was 10 of 32).
+Broken forms survive: Brace → Backs to the Wall, Bulwark → Huddle, Crushing Weight → Weight of Regret,
+fallback Buckle.
+
+**Two numbers for the veto.** Wake-Up Kiss hands her the whole load; "half that much" is the gentler
+version. Suffer the Blows is 30 tHP for 0 against three enemies and was built in session 55 on his spec;
+it is kept as written and the Crunch prices it.
+
+**Cut (15)**
+
+| Cut | Why |
+|---|---|
+| Kept Word | not cut — graduated to the default signature |
+| Oath of Iron | Entrenched on a common; Stand Fast is the carried-tHP engine |
+| Unbroken Oath | engine and payoff on one power; Stand Fast and Promise Kept split the job |
+| Tempered Plate | Armament for herself; Lend Steel and Forge the Line give it where it reads |
+| Riposte | Gilded Strike is the same idea, bigger |
+| Plated Charge | move and hit is Cinder's shape |
+| Unstoppable | a selfish power; Crushing Weight pays her tHP already |
+| Challenge | 10 tHP and Taunt: Dig In, Intercept and Suffer the Blows cover it |
+| Iron Retort, Thorn Armour | retaliation is a number on a wall, not an identity |
+| Shield Wall | Suffer the Blows is the wall rare now |
+| Rally | party Strength is Trial by Fire's; Pay the Toll went too |
+| Tithe | 0-cost energy, the banned shape |
+| Pay in Kind | Gilded Strike with a fixed number |
+| Pay the Toll | Fleeting Strength for tHP; Tribute pays the same spend louder |
+| Largesse | Intercept and Bulwark already move gold to allies |
 
 **Engine.** `lust` reading a tally exists (Absolve). Damage landing as Lust is a sibling of the
-`replaceSelfDamage` hook Night Court used, on incoming damage. Recover from Broken is a primitive.
-
-**Not this:** her Lust as a damage payoff. Being most dangerous before she Breaks is Cinder's; Brienne's
-payoff is the wall (tHP, Taunt, Resolve).
+`replaceSelfDamage` hook Night Court used, on incoming damage. Recover from Broken is a primitive. The
+Bastion passive is an outfit-level `modifyLustGained`-style hook on the other allies.
 
 ### 3.4 Nettle ☐ · 3.5 Severine ☐ · 3.6 Cassadora ☐
 
 Nettle is priced on halving and keeps her nine venom cards. **Severine loses every soothe** (Heartsblood's
-"lose 3 Lust"; the Vitae Chalice relic with it) — his rule, sixth message. Cassadora carries no lust tags;
-Frailty and Witch's Brew sit on the session-55 Frail.
+"lose 3 Lust"; the Vitae Chalice relic with it) — signed off, seventh message: *"it didn't really make
+sense on her to begin with."* Cassadora carries no lust tags; Frailty and Witch's Brew sit on the
+session-55 Frail.
 
 ## 4. Verdicts
 

@@ -691,6 +691,25 @@ incoming Lust onto her and builds Resolve from it), with Willing Target as the b
 Stress-Relief as the damage-to-Lust conversion, Wake-Up Kiss as the party's only un-break, and Punching Bag
 Session as the worn-only payoff. Every Lust she takes onto herself carries `torment`.
 
+His seventh message, the same day:
+
+> Good catch on absolution, the not-clement exception must go. Signing off on Severine losing any soothe, it didn't really make sense on her to begin with.
+>
+> I completely forgot about restraint, I have zero issues dumpstering it completely. Bondage as a whole is a design space I'm totally unfamiliar with.
+>
+> Good point on abbess, but counterpoint: If you have her inflict heat instead, that ties in better with her kit, and means I don't need to write so many more scenes. That actually defines the writing scope of the second demo, since it should be just for making a better act 1 experience. Lust events for each character for Venom, Exposure, Heat. Torment events for Brienne, Penance events for Clemence. This lets me defer some scenes until later, where I'll have more time to deal with them and less engine concerns. If needed mechanically for abbess to function, we can always temporarily break the heat tag standard of being only inflicted by the status and have Clement directly deal Heat lust damage until I'm ready to do Penance events.
+>
+> Brienne next, please.
+
+**Settled:** Absolution loses its soothe (Clemence pays, the party heals, nobody is soothed — `CARD-POOL-02.md`
+§3.2); Severine keeps no soothe (§3.4–3.6); Restraint is cut outright (§2.3, `../../enemy_overhaul/` E14);
+**the Abbess line applies Heat to allies instead of Lust** (§3.2 and §2.1 default 11), so the party's Lust
+from Clemence lands in the Heat bundle and no yuri Penance scenes are owed; the demo's writing scope is
+Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence (`../../lust_events/` B23).
+**Brienne's full 12 C / 8 R list is drafted in §3.3** on the sponge: Kept Word graduates to the default
+signature, Bastion's passive becomes Big Sister Aura, Suffer the Blows (his card) is Bastion's worn-only
+rare, fifteen cuts with reasons. Clemence next.
+
 ---
 
 ## Unsorted — drop new reports for this workstream here

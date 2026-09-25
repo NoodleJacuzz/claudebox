@@ -272,8 +272,9 @@ sixth message; what each tag represents is `../designBibles/story.md` §11):
 
 **The size of it, measured with `../tools/lust-share.js` the same day:** the roster's 44 Lust moves carry
 Charm 15, Venom 15, Restraint 8, Exposure 6, Torment 0. So the retag is **15 Charm moves → Exposure** (all
-on the Pollen Road) and **8 Restraint moves → Venom, Exposure or Heat** by region (Restraint is in neither
-of his lists and is read as cut). Torment has nothing to retag. The Thorn Arbor stays Venom; the Mushroom
+on the Pollen Road) and **8 Restraint moves → Venom, Exposure or Heat** by region (Restraint is cut
+outright — his seventh message: *"I have zero issues dumpstering it completely"*). Torment has nothing to
+retag. The Thorn Arbor stays Venom; the Mushroom
 Frontier focuses on health damage. "Heat is legal but not a focus" means an act-1 enemy MAY carry a Heat
 move (the status: 1 Lust per stack whenever the holder plays a card; `../rework/cards/CARD-POOL-02.md`
 §2.1) and no region is built on it.

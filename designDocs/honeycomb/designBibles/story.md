@@ -335,4 +335,6 @@ Noodle's, verbatim, 2026-09-25 (`../rework/cards/FEEDBACK.md` B34). The engine s
 > - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
 > - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
 
-Restraint appears in neither list and is read as cut. Torment reaches the demo only through Brienne (§10).
+Restraint is cut outright (*"Bondage as a whole is a design space I'm totally unfamiliar with"*). Torment
+reaches the demo only through Brienne (§10). The demo's writing scope, his words: *"Lust events for each
+character for Venom, Exposure, Heat. Torment events for Brienne, Penance events for Clemence."*

@@ -191,6 +191,16 @@ This supersedes nothing in B17 — it says *where* the surviving tags go once B1
 - **Heat's weakness ranks up and fires events like any tag but never multiplies its Lust** — an engine flag,
   named in `CARD-POOL-02.md` §5.
 
+**The writing scope of the second demo, his seventh message the same day:**
+
+> Good point on abbess, but counterpoint: If you have her inflict heat instead, that ties in better with her kit, and means I don't need to write so many more scenes. That actually defines the writing scope of the second demo, since it should be just for making a better act 1 experience. Lust events for each character for Venom, Exposure, Heat. Torment events for Brienne, Penance events for Clemence. This lets me defer some scenes until later, where I'll have more time to deal with them and less engine concerns. If needed mechanically for abbess to function, we can always temporarily break the heat tag standard of being only inflicted by the status and have Clement directly deal Heat lust damage until I'm ready to do Penance events.
+
+> I completely forgot about restraint, I have zero issues dumpstering it completely. Bondage as a whole is a design space I'm totally unfamiliar with.
+
+So the docket is **Venom, Exposure and Heat for every character; Torment for Brienne; Penance for Clemence
+on herself**. The Abbess line applies the Heat status to allies, so the Lust they take from Clemence lands
+in their Heat bundle and no yuri Penance scenes are owed for the demo. Restraint is gone.
+
 ---
 
 ## Unsorted — drop new reports for this workstream here
