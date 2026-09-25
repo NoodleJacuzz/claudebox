@@ -1,7 +1,7 @@
 # Honeycomb — MECHANICS-02: the balance and card-pool rework
 
 Session 20 (2026-09-15, overnight). The brief: read `../BASICS.md`, `../designBibles/mechanics.md`,
-`../designBibles/characters.md` and `../Archive/FEEDBACK-07.md` lines 256–286, then **do a full rework of the card
+`../designBibles/characters.md` and `../Archive/demo1/Archive/FEEDBACK-07.md` lines 256–286, then **do a full rework of the card
 pool for all six current characters**, and afterwards consider outfit rebalancing and progression
 overhauls.
 
@@ -62,7 +62,7 @@ To tell those apart, the rework uses these exchange rates. They are the *intende
 whether the shipped numbers hit them.
 
 **Superseded for commons and rares (session 33, Noodle):** these are the *starter* rates. Commons
-price at 9 per energy, rares at 12+, draw ≈ 0.4 energy. See `../rework/cards/CARD-POOL-01.md` §1.2.
+price at 9 per energy, rares at 12+, draw ≈ 0.4 energy. See `../Archive/demo1/rework/cards/CARD-POOL-01.md` §1.2.
 
 | Primitive | Intended rate | Why |
 |---|---|---|
@@ -408,7 +408,7 @@ question ("is this deliberately a payoff?"), not an automatic failure.
 Noodle's follow-up: the first pass was too surface-level; the healing nerfs were the wrong direction
 (the real culprit was Bloody Verdict's per-debuff drain fed by Nettle), and every card in the game
 should be rated on the two scales before more content is done. The complete, strict audit now lives in
-**`../rework/cards/CARD-AUDIT-01.md`**. What changed mechanically:
+**`../Archive/demo1/rework/cards/CARD-AUDIT-01.md`**. What changed mechanically:
 
 ### 15.1 Severine corrected
 
@@ -465,7 +465,7 @@ second seed were run; pick-rate rank correlation between them is 0.86–1.00 (1.
 full answers and the resulting cut report — Tier A: Crystal Gaze, Steady, Claw Flurry, Infect, Rake,
 Stillness, Puppet Strings, Transfusion; Tier B: Leech Mark, Heartsblood, Bloodlet, Mirror Fate, Thorn
 Armour, Pincer, Miasma, Longspear, Rally; Tier C: do not cut on this data alone, including Nightfall
-and the poison payoffs — live in **`../rework/cards/DRAFT-SIM-01.md`**. No cards were cut on the simulation alone; the
+and the poison payoffs — live in **`../Archive/demo1/rework/cards/DRAFT-SIM-01.md`**. No cards were cut on the simulation alone; the
 report is the deliverable and the Tier A/B decision is open.
 
 ## Open items

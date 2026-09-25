@@ -532,7 +532,7 @@ Turn the Line, Pincer. Broken: **Stumble** (falls to the back, sheds 6 Lust).
 
 ### Clemence
 
-Her first kit (lust moved between fighters) is archived in `../Archive/CLEMENCE-01.md`. She was rebuilt around becoming Broken in session 9: see part 7.2.
+Her first kit (lust moved between fighters) is archived in `../Archive/demo1/Archive/CLEMENCE-01.md`. She was rebuilt around becoming Broken in session 9: see part 7.2.
 
 ### Cassadora — intents
 
@@ -650,7 +650,7 @@ with their placeholder art folders and the three progression capstones that unlo
 
 ### 7.2 Clemence, rebuilt around becoming Broken ☑
 
-The first kit is archived in `../Archive/CLEMENCE-01.md`. Read against the brief above, point by point:
+The first kit is archived in `../Archive/demo1/Archive/CLEMENCE-01.md`. Read against the brief above, point by point:
 
 | Noodle asked for | What she has now |
 |---|---|

@@ -1,7 +1,7 @@
 Story Bible: the world, the acts, and how lore reaches the player
 
 Rewritten session 42, after the previous version was found to have been overwritten by another AI.
-That file is `../Archive/STORY-BIBLE-OVERWRITTEN.md` — not authoritative, kept for quotation.
+That file is `../Archive/demo1/Archive/STORY-BIBLE-OVERWRITTEN.md` — not authoritative, kept for quotation.
 
 The Mechanical Bible owns what each act asks of the *player*. This owns what each act is.
 
@@ -246,7 +246,7 @@ re-lays itself and the frontier resets for the next expedition.
 
 So: the party breaks off and gets out. What follows them home is the weakness ledger, and the Lust
 Events are where it gets dealt with. This is the loss state's entire fiction for now, and it is
-load-bearing for `../lust_events/` — a scene written against it should not assume more than this says.
+load-bearing for `../events/` — a scene written against it should not assume more than this says.
 
 **Why anyone goes back down.** Each character has their own reason, mostly the adventure or plain
 curiosity about the strange new creatures. Nobody is on a quest to save the world, and the dungeon is
@@ -285,7 +285,7 @@ Open, and flagged so nothing downstream assumes an answer:
 
 Small facts about the cast that are settled and must stay the same in every scene, card and picture.
 Add to this section whenever Noodle names or fixes a detail. The longer notes on how each character
-behaves are in `../lust_events/IDEAS.md` §3.
+behaves are in `../events/IDEAS.md` §3.
 
 ### Nettle
 
@@ -300,30 +300,30 @@ behaves are in `../lust_events/IDEAS.md` §3.
 
 ### Clemence
 
-- **What her broken state is, in his words** (2026-09-25, `../rework/cards/FEEDBACK.md` B34): *"she's
+- **What her broken state is, in his words** (2026-09-25, `../card_pool/CARD-POOL.md` B34): *"she's
   someone who believes in love with sin, her broken state has her ascending and seeing angels blessed with
   the gift of sight once again"*. Her eyes are veiled; Broken is when she sees. Never stated in a line (see
-  `../lust_events/IDEAS.md` §3), and she never deals health damage: *"Her doing HP damage at all doesn't feel
+  `../events/IDEAS.md` §3), and she never deals health damage: *"Her doing HP damage at all doesn't feel
   thematic for me."* Her space is Lust alone.
 
 ### Cinder
 
 - **Recklessness puts her nearest Clemence's space** (Noodle, same message): *"while 'I want to be broken' is
   Clement's thing, Cinder is probably the second closest to that space due to her theme of recklessness."*
-  Her status is **Heat**, in Lust, not fire damage (`../rework/cards/POOL-REVIEW-02.md` §5).
+  Her status is **Heat**, in Lust, not fire damage (`../card_pool/POOL-REVIEW-02.md` §5).
 
 ### Brienne
 
-- **If anyone takes the party's Lust, it is her** (Noodle, 2026-09-25, `../rework/cards/FEEDBACK.md` B34 sixth
+- **If anyone takes the party's Lust, it is her** (Noodle, 2026-09-25, `../card_pool/CARD-POOL.md` B34 sixth
   message): *"Due to her nature as a tank, and because of her skill that caps lust at her max HP, I would like
   to float the idea of Brienne having a masochistic theme somewhere within her card pool. [...] Fluff-wise this
   would have to be expressed as a sort of "Take it out on me, I can take it!" attitude"*. Proposed as her
-  Bastion outfit's second half, `../rework/cards/CARD-POOL-02.md` §3.3, tagged Torment.
+  Bastion outfit's second half, `../card_pool/CARD-POOL-02.md` §3.3, tagged Torment.
 
 # 11. The lust tags — what each represents
 
-Noodle's, verbatim, 2026-09-25 (`../rework/cards/FEEDBACK.md` B34). The engine side is
-`../rework/cards/CARD-POOL-02.md` §2.3; the scene side is `../lust_events/FEEDBACK.md` B23.
+Noodle's, verbatim, 2026-09-25 (`../card_pool/CARD-POOL.md` B34). The engine side is
+`../card_pool/CARD-POOL-02.md` §2.3; the scene side is `../events/EVENTS.md` B23.
 
 > - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
 > - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.

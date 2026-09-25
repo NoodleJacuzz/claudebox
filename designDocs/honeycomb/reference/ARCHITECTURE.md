@@ -5,7 +5,7 @@ file map, the five ideas the design rests on, the registry table, and how to dri
 It changes only when the architecture changes.
 
 Content rules (what a card may do, what a number may be) are not here — those are `MECHANICS-01.md`,
-`MECHANICS-02.md`, and the workstream briefs under `../rework/`.
+`MECHANICS-02.md`, and the workstream briefs under `../Archive/demo1/rework/`.
 The mistakes this architecture makes easy to repeat are `TRAPS.md`.
 
 ---

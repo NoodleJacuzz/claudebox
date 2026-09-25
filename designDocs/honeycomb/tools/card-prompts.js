@@ -73,7 +73,7 @@ function newEngine() {
 	return sandbox.honeycomb;
 }
 
-//The webui v2 entry per art folder, from art_pipeline/CATCH-UP.md "Codenames". Typed as `<Entry>V` for
+//The webui v2 entry per art folder, from Archive/demo1/art_pipeline/CATCH-UP.md "Codenames". Typed as `<Entry>V` for
 //the standing (female) line and `<Entry>C` for the male line, exactly as the refs are generated.
 const ENTRY = {
 	knight: ".hcKnightV",

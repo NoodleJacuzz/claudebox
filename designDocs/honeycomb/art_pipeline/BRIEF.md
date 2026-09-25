@@ -2,7 +2,7 @@
 
 **The standing brief for the art-pass pipeline.** Noodle's instructions, preserved as written (2026-09-14).
 Annotations under each are interpretation and pointers; **if an annotation and the instruction disagree, the
-instruction wins.** The feasibility analysis is `FEASIBILITY.md`; where the work stands is `../CATCH-UP.md`.
+instruction wins.** The feasibility analysis is `../Archive/demo1/art_pipeline/FEASIBILITY.md`; where the work stands is `ART-PIPELINE.md`.
 
 ---
 
@@ -100,7 +100,7 @@ Done 2026-09-14, tested on compiled text: every `-a` matches (`refs-roundtrip.js
 > 4. Identify patterns of differences between different poses. For instance, the difference between most `-a`
 >    and `-b`images is they're usually covering their body and embarrassed.
 
-Done 2026-09-14: `POSES-01.md`, "Patterns".
+Done 2026-09-14: `../Archive/demo1/art_pipeline/POSES-01.md`, "Patterns".
 
 > 5. Create rule templates for each different pose, test by generating some of the poses characters are
 >    missing, there's quite a lot of them.
@@ -114,7 +114,7 @@ Done 2026-09-14: `POSES-01.md`, "Patterns".
 > step 7, and leave general (but not overwhelming) advice for future agents. Knowing Brienne is a knight and Clement is
 > a priest will definitely color how those characters will be prompted differently for attacking and defending.
 
-Done 2026-09-14: `pose-templates.js` + `POSES-01.md` (the cast, templates, test generations, advice).
+Done 2026-09-14: `pose-templates.js` + `../Archive/demo1/art_pipeline/POSES-01.md` (the cast, templates, test generations, advice).
 
 > 6. Create rules in cleaningDB that transform simple shortcut inputs which will apply our templates to the
 >    images, and test generate all missing images to get their prompts.
