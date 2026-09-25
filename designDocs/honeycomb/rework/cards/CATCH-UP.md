@@ -22,12 +22,34 @@ cross-party count came out Nettle 2 / Severine 2, not Nettle 0; and the draft si
 
 `CARD-POOL-01.md` §5b is the map of what was built. Its status board is the per-step truth.
 
+**2026-09-25: Noodle asked for the manual pass (`FEEDBACK.md` B34) and `POOL-REVIEW-02.md` is the review.**
+Measured: about 16 card offers per character per demo run, so the live 21 C / 11 R offers a common 0.57
+times a run and a rare 0.36 — the gradient is flat, which is the memorability problem. **He agreed the
+shape the same day:** 12 C + 8 R per character, 85 / 15 weights, a 15-card starting deck, one reward slot
+per member, neutrals in shops and the boss slot, and a glue rule built on the shared-currency table in its
+§2. Burn was withdrawn on his read; **Cinder's status is Heat, locked in his own words** (1 Lust per stack
+whenever the holder plays a card; 1 Heat lost per shift toward the back, and 1 for ending the turn last)
+and Poison is to halve. **`CARD-POOL-02.md` is the brief**: the agreed rules, Heat verbatim with nine
+edge-case defaults for his veto, and **Cinder's and Brienne's full 12 C / 8 R lists drafted** (Sortie and
+Kept Word as default signatures; Brienne's Bastion is the party's Lust sponge on his masochism idea, tagged
+Torment). Late the same day he signed off the demo's tag set (Venom, Exposure, Heat, Penance), five MUSTs,
+Severine losing every soothe, Absolution losing its soothe, Restraint cut, and the Abbess line applying
+Heat to allies. **All six grids are drafted** (§3.1–3.6; Nettle repriced on halving; Severine revised on his
+read to carry no damage amplifier of her own; Clemence with Heat on the Abbess line and her broken forms
+cut from 35 to 23). Anastasia is outside the pass. **The neutral tier is drafted too (§3.7, twelve
+colourless-style cards, two of them his: Possibility, a discover card, and Devil's Number, an exact-damage
+draw engine).** He is holding his vetoes; **the brief is complete as a draft**, and once he has
+read it, it becomes the build list. The first engine job either way is `../starters/` B1, since every alt is
+still unlocked from run one.
+
 ---
 
 ## Files
 
 | File | Holds | Read it before |
 |---|---|---|
+| `CARD-POOL-02.md` | **The second pool pass, the brief**: the agreed shape, Heat in Noodle's words with the edge-case defaults, Poison halving, and the per-character grids — Cinder drafted, five to go. | writing or vetoing any grid |
+| `POOL-REVIEW-02.md` | **The 2026-09-25 review of the session-33 pool**: offers-per-run maths, the shape and glue audit, the proposed 20-card shape, the reasoning behind Heat, the plan and the questions with his answers. | understanding why the brief says what it says |
 | `CARD-POOL-01.md` | The brief: Noodle's corrections verbatim, hard rules, the per-character grids, the verdicts, the status board. | touching the pool at all |
 | `BALANCE-01.md` | The foundational numbers: turns per fight, damage budget, enemy derivation, the healing rule. `tuning.balance` holds them. | pricing any card or enemy |
 | `CARD-AUDIT-01.md` | Every card rated on I/S_v/S_h/C and its Starting/Accelerate/Payoff/Late-game fit. | re-scoring a card |
@@ -63,7 +85,8 @@ Items are `FEEDBACK.md` holds the full quote and annotation for each. The table 
 
 | | Goal | State |
 |---|---|---|
-| **B1** | **Unlock routes.** Every alt outfit is still open from run one, so the whole 21 C / 11 R pool drops at once. Nothing gates the gated cards. | ☐ the load-bearing one |
+| **B34** | **The manual pass on the pool.** Shape agreed and Heat locked 2026-09-25; `CARD-POOL-02.md` is the brief with Cinder's grid drafted. | ◐ Cinder ⏸ his veto · five grids to write |
+| **B1** | **Unlock routes.** Every alt outfit is still open from run one, so the whole 21 C / 11 R pool drops at once. Nothing gates the gated cards. | ☐ the load-bearing one, and B34's first step |
 | **B26** | **The neutral pool missed the overhaul.** It was not rebuilt with the rest. | ☆ new |
 | **B18** | **Clemence's redesign.** | ☐ |
 | **B5** | **Cross-party hooks** — thin on Nettle and Severine. | ◐ |

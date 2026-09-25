@@ -85,7 +85,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 
 | Workstream | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. | **20** | s57 |
+| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. **B34: the manual pass — shape agreed and Heat locked 2026-09-25; `rework/cards/CARD-POOL-02.md` is the brief, Cinder's grid drafted for his veto, five to go.** | **21** | 2026-09-25 (design only) |
 | **`rework/starters/`** | Starting decks, outfit unlock routes, **relics and heirlooms**, roster order. | **10** | s25 |
 | **`rework/progression/`** | The six trees: node effects, EXP pricing, what a node hands out. | **4** | s30 |
 | **`rework/enemies/`** | Enemy numbers, identities, roles, encounter composition. | **6** | s51 |
@@ -96,8 +96,8 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`ui/`** | The hand, the debug menu, the Battle Lab, text that cannot be read. | **16** | s58 |
 | **`map/`** | Map generation, act structure, node content. Both acts are live. | **13** | s58b |
 | **`audio/`** | Sound effects and music. | **2** | s57 |
-| **`lust_events/`** | **Demo goal.** The authored narrative — cut the tags, then write every rank. | **4** | s48 |
-| **`enemy_overhaul/`** | The roster's fiction: identity, naming, act placement, Lust expression. | **6** | s51 |
+| **`lust_events/`** | **Demo goal.** The authored narrative — cut the tags, then write every rank. **B23: the tag set signed off 2026-09-25.** | **5** | 2026-09-25 (filed) |
+| **`enemy_overhaul/`** | The roster's fiction: identity, naming, act placement, Lust expression. **E14: the act-1 retag MUSTs, signed off 2026-09-25.** | **7** | 2026-09-25 (filed) |
 | **`mobile/`** | Mobile portrait, and being able to test on a phone at all. | **2** | s43 |
 | **`gallery/`** | The Event Gallery: replaying scenes, one page per character. Lust Events today, other event kinds later. | **6** | s49 |
 | **`balance_tests/`** | The two balance tests, Basic Bite and All the Crunch. Built session 53, checked session 54; the matrix needs a re-run on corrected profiles. | **6** | s54 |
@@ -106,7 +106,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch; the open items are the decisions it waits on. | **8** | 2026-09-24 (design only) |
 | — | Cross-cutting, below | 1 | s41 |
 
-**97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still
+**100 items open across 17 workstreams** (session 54 added `balance_tests/` T6; 2026-09-25 added `rework/cards/` B34, `enemy_overhaul/` E14 and `lust_events/` B23), plus one that belongs to no single folder and two still
 unfiled in the inbox below. Counts are `tools/feedback-audit.js`'s, re-measured session 51 — the
 previous total was stale, and disagreed with the sum of its own rows.
 
@@ -153,8 +153,17 @@ cut-ins, and none of it would look like a rename bug.
 *(add new reports below this line. The next session reads them, decides which workstream owns each,
 moves the report there verbatim, and bumps that row's count in the index above.)*
 
-**The inbox is empty.** The batches below are routing tables for reports that have already been
-filed; they are kept because they say which workstream to open for each one.
+**The Friday desktop session starts here (2026-09-25, all routed, nothing waiting in this inbox):** Noodle
+signed off the lust tags for the second demo — Venom (flora), Exposure (fey, replacing Charm), Heat (its own
+tag, weakness for show), Penance (Clemence) — with five MUSTs: Poison halves, act-1 enemies use only legal
+act-1 options, the fey use Exposure, old Charm is replaced by Exposure as a theme, and every old Charm
+reference and weakness is scrubbed. Filed verbatim as **`enemy_overhaul/` E14** (the retag: 15 Charm, 8
+Restraint moves) and **`lust_events/` B23** (the tag set and what each represents), with the card side in
+`rework/cards/CARD-POOL-02.md` §2.3 and §5. His Brienne masochism idea is proposed as her Bastion strand
+in that brief's §3.3 and waits on his yes.
+
+The batches below are routing tables for reports that have already been filed; they are kept because
+they say which workstream to open for each one.
 
 ### The session 61 reports (2026-09-23), closed
 

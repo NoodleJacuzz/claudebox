@@ -574,6 +574,198 @@ healing.
 
 ---
 
+### B34. The manual pass on the card pool ☆ — REVIEWED 2026-09-25, waits on his answers
+
+> Ahoy! The current Honeycomb card pool was designed by AI, and while they went through a rework I think I've put off making a manual pass of them for too long now. Please read through the basics, then the mechanics and character story bibles. After that, please see OUTFITS-LIST.md where I go over a touch on mechanical identity.
+>
+> Honestly, I have no idea where to start here. I know that:
+> - Some cards felt like they lacked a strong identity while playtesting, very few cards felt memorable.
+> - Overall feedback is that is that there's too many nonsynergistic cards diluting the cool. We need more "glue" cards. Cards meant to bridge the archetypes together.
+> - We need to actually lock costumes and ensure that the new card pool's least glue-ey, most selfish to their own sister archetype are locked with them
+> - In generating their poses, Cinder and Clement came out with a much stronger "fire" identity than expected.
+> - Cinder and Clement are widely regarded the weakest characters, not just in numbers but in team synergy.
+> - I'd like for Cinder to move away from sundered and have some kind of burn for her status effect.
+> - 15-21 starting cards in deck is a lot for a slay the spire-like
+> - I'd like a similar amount of encounters per run to slay the spire, and 75 cards in each character pool in that game turned out pretty good. Granted, we have three characters instead of 1
+> - I'm okay with accepting a huge slash to card pool sizes, making the sets we do have more interesting and reducing future art pass workloads.
+> - Slay the Spire
+>
+> I think we need to take a look over the card pool as it is now. Remember, we're only doing design and plan work. I'd like you to take in the card pool and tell me what you think, don't just roll over and accept my choices immediately, but also don't glaze the current system overly either. Please take your time and avoid subagents if feasible.
+
+**`POOL-REVIEW-02.md` is the answer**, measured on the live content. The short version: a character is
+offered about 16 cards a run because rewards deal one slot per party member, so at 21 C / 11 R a common
+comes round every other run and a rare almost as often as a common — the flat gradient, not the raw
+count, is why nothing is memorable. Glue is structural here because two-thirds of every reward screen
+belongs to characters the player may not be building. Proposed: 12 C + 8 R per character (base 6 + 2,
+each alt +2 C, +1 cross-party R, +1 worn-only R), weights 85 / 15, a 15-card starting deck with a default
+signature. **Blocked in practice on `../starters/` B1** (the alts are still `unlockedFromStart`). No game
+code changed.
+
+His second message, the same day:
+
+> I'm onboard with trying out your ideas, and I'd be interested to see shere you'd take this. By the way, that final point was meant to be that Slay the Spire aims for 51 encounters, giving an idea of how much STS might leave un-shown of its card pool, just for reference.
+>
+> Since it dounds like they're blockinf, I'm on my phone right now, could you list out those  questions for me right here? Not sure how I feel about clement "extinguishing" flame from cinder onto enemies, sounds like it might be a very specific card that isn't settling in my head right, but I also wanna see you cook.
+
+And his third, answering the seven questions:
+
+> I'm with you on everything except burn. I'm just not feeling that design at all. I'd rather that the fire parallel had something to do with lust. I think I'd like to go with Heat as a status effect instead of burn. That'd keep clement's space solely in lust. Her doing HP damage at all doesn't feel thematic for me. Like, she's someone who believes in love with sin, her broken state has her ascending and seeing angels blessed with the gift of sight once again, and with this new freedom and power she... Lights her enemies on fire? I'm not feeling it. And while "I want to be broken" is Clement's thing, Cinder is probably the second closest to that space due to her theme of recklessness.
+> Poison I keep meaning to make half after it activates, if it still doesn't already.
+> I think it should have a different design space to poison, I also feel like it should have something to do with taking an action, I just don't have an idea I'm in love with yet, which is the biggest issue. Players are generally agreeing that lust buildup is way more dangerous than regular damage, so Cinder stepping into the self-damage space but from a different angle to Severine shouldn't make them feel too similar, still, I'm stumped, and this is a pretty important thing to figure out.
+
+**Shape agreed (20 per character, 85 / 15, 15-card deck, one slot per member, neutrals in shops and the
+boss slot, default signatures drafted for veto). Burn withdrawn.** `POOL-REVIEW-02.md` §5 is now **Heat**:
+*whenever this fighter plays a card, they gain Lust equal to their Heat; loses 1 stack at the end of their
+turn* — the price of recklessness paid per action, a producer for the "Lust on an ally" row the Abbess
+line and Nettle's Draw Out already read, and worked-up enemies when vented onto them. Poison to
+`decayMode: "halve"` is his standing instruction and is not yet applied (it reprices Nettle's appliers).
+
+His fourth message, choosing the harsher variant and writing the rule himself:
+
+> That harsher variant, that's it, I think that's exactly what it needs. It's the incentive for cinder to move back, it's the mechanical way players forcibly hold back Clement from breaking, it makes positioning matter the entire turn instead of just the end, it gives anastasia's golems a home in a party of 3, it lets players interact with it on their own terms unlike poison, it'd make an ability for cinder to move to the back of the party as useful as other abilities, it can be built up on characters without guarenteed payoff that would just make it feel like delayed damage. And it's even straightforward to explain. Heat: Inflicts 1 lust per stack of heat whenever the character plays a card. Players lose 1 heat whenever they are shifted towards the back of the party, or end their turn behind all other party members.
+
+**Heat is LOCKED in his words** — `CARD-POOL-02.md` §2.1 carries the rule verbatim, his seven reasons as
+requirements, and nine one-line defaults for the edge cases (paid before the card resolves; per card, not
+per hit; abilities are not cards; broken forms are; per shift whatever the distance; golems count as party
+members; enemies read the same sentence; it is a debuff; its Lust carries Torment). **`CARD-POOL-02.md`
+§3.1 is Cinder's full list on it, drafted for his veto**: 12 C / 8 R, Sortie as the default signature, the
+Ashfall passive swapped to "1 Heat at the start of her turn", twelve cuts each with a reason. Clemence next.
+
+His fifth message, the same day — the lust tags, the fey, and the pipeline:
+
+> I appreciate the heads up. There's a lot of housekeeping to do come friday.
+> - Every type of lust we have is another bundle of scenes I'll want to do. Long or short, every new lust tag is a commitment. As such, I really, really only want Venom, Charm, Heat (it's own tag), and Clement's type. I honestly don't know how torment and exposure have lasted this long in the game without being cut yet due to how much harder we've moved towards venom and charm. I'll probably have desktop claude dummy them out. Actually, I'm writing this out of order, but given the conclusion I arrived at below, maybe rework the fey's tag from charm to exposure would be best.
+> - The fey having moves that inflict Heat is probably fine, though Charm is not Heat. I also worry that heat as a status doesn't fit well with the cool tones, dazed enemies, and fairy knights/nobility you actually fight. And now that I'm thinking about it, enemies using powder that inflicts heat could maybe be misinterpreted as drug use. I think I've talked myself out of the idea.
+>
+> Sorry to make things complicated for you. How much of a knot is our new card design pipeline in now that we've gone back and forth so many times? With our goal being the second demo build, I was hoping for a cleaner, better organized slate this go-around.
+
+**Three things change, all recorded in `CARD-POOL-02.md`:** Heat is **its own lust tag** (default 8
+rewritten); **enemies never inflict Heat** (the Pollen Road hook is withdrawn, default 10); and the tag cut
+is the first row of the Friday housekeeping table in its §5. What the roster teaches today, measured:
+Venom 15 moves, Charm 15, Restraint 8, Exposure 6, Torment 0 — so Torment costs nothing to cut, Restraint
+(not on his list of four) is 8 moves, and Exposure is 6 moves plus Clemence's 5 outgoing cards. **⏸ One
+word from him decides the fey:** keep **Charm** (his list; the charm writing rules in `lust_events/IDEAS.md`
+survive) or move them to **Exposure** (his afterthought; 15 moves retagged and those rules orphaned).
+Recommended: Charm, on cost, unless the charm scenes are the bundle he dreads writing.
+
+**The pipeline is not in a knot.** Every reversal replaced text rather than layering it: the brief has no
+Burn in it, Heat is in his words in one place, Cinder's grid is one table, the reasoning is one review, and
+the trail is this item. Two lines went stale on this message and were fixed the same hour. The rule that
+keeps it that way: **statuses before grids** — Heat is locked, Poison halving is one field priced inside
+Nettle's grid, Frail and Taunt were settled in session 55 — so no grid waits on a status now.
+
+His sixth message, the same day — the tags signed off, five MUSTs, and the Brienne idea:
+
+> Alright, I'm 100% set. I can't remember the act ABCs or titles, but the tags that will be in use for the second demo build, for sure, are:
+> - Venom, primarily inflicted in act1-flora. Represents the character's chemical weakness to aphrodisiacs.
+> - Exposure, primarily inflicted in act1-fey. Represents the character's interest in exhibitionism.
+> - (act1-frontier should primarily focus on hp damage)
+> - Heat, inflicted by the status effect of the same name. Represents the character's growing sex drive in general. Coming up with intersting ideas for these will probably be hard. Extremely important note: Heat weakness is entirely for show and unlocking lust events. Heat is entirely balanced around dealing 1 lust per turn, if we made it increase with the weakness it'd hit 2/turn instantly.
+> - Penance, inflicted exclusively by Clement. Represents the character falling for the allure of sin itself. If we have other characters get Penance scenes that'll be our excuse for yuri.
+>
+> The tags we will leave mainly for act 2, which is beyond the second demo's scope are:
+> - Charm, primarily inflicted by masculine enemies with visible genitals. This represents the characters becoming more interested in men.
+> - Torment, primarily inflicted by electric attacks and spanking. This represents the characters becoming more masochistic.
+> On Torment: Due to her nature as a tank, and because of her skill that caps lust at her max HP, I would like to float the idea of Brienne having a masochistic theme somewhere within her card pool. If anyone in the party should be taking lust from others, it should be her, not Clement, absolutely not Severine (players were cheesing at low levels by stalling with her incredible self-healing, for some reason we let lust soothing slip into her toolkit). If you agree, that would give Brienne essentially a sort of early access to this lust type, which would also give me a chance to see how it's recieved, and only add 3-4 more lust events to the docket. It would also greatly improve her abilities as a tank and give tHP-maxing more value. Fluff-wise this would have to be expressed as a sort of "Take it out on me, I can take it!" attitude, mechanically it could be expressed as Brienne taking other character's lust, or Brienne taking lust instead of damage. Cards could be named "Wake-Up Kiss", "Willing Target", "Big Sister Aura", "Living Stress-Relief", "Punching Bag Session", etc. Honestly, some of those are pretty bad, but not every card name needs to describe something literally happening in battle.
+>
+> All the existing attack names and tags that will need to change are not a huge loss. Moving closer to a shared pool of attacks (mainly to reduce the amount of owed art) will necessitate a rework of them anyways
+>
+> Okay, just so our ducks are all in a row, I am signing off right now that for sure 100%:
+> - Poison MUST change to halve when it triggers, down from 1 per turn.
+> - Act 1 enemies MUST change their attacks to exclusively use legal act 1 options. Venom, Exposure, and Heat is legal but not a focus.
+> - The fey MUST change to using exposure.
+> - Instances where the old Charm tag was used MUST be removed and replaced with Exposure as a theme.
+> - All existing references and weaknesses to the old Charm MUST be scrubbed.
+>
+> Okay, with those out of the way, card pool. Sorry to take such a detour to restate what's probably obvious. What's your take on the Brienne idea? Want to explore it to give bastion an identity beyond just "big wall"?
+
+**Filed the same hour.** The tag set and what each represents: `CARD-POOL-02.md` §2.3 and
+`../../designBibles/story.md` §11. The five MUSTs went verbatim to `../../enemy_overhaul/FEEDBACK.md` **E14**
+(retagging is theirs) and the tag set to `../../lust_events/FEEDBACK.md` **B23** (the scene bundles are
+theirs). What it changed in this brief: Heat's weakness is for show and never multiplies (default 8);
+enemies may inflict Heat as a legal act-1 option, never a focus (default 10); Severine's kit loses its
+soothe (§3.5); Clemence's Abbess cards must carry `penance` for the yuri scenes to exist, since today they
+carry nothing (§3.2); Absolution is flagged ⏸ under "not Clement". **The Brienne idea: yes, and the strand
+is sketched in §3.3 for his veto** — Bastion becomes the sponge (a passive that takes half the party's
+incoming Lust onto her and builds Resolve from it), with Willing Target as the base-pool glue card, Living
+Stress-Relief as the damage-to-Lust conversion, Wake-Up Kiss as the party's only un-break, and Punching Bag
+Session as the worn-only payoff. Every Lust she takes onto herself carries `torment`.
+
+His seventh message, the same day:
+
+> Good catch on absolution, the not-clement exception must go. Signing off on Severine losing any soothe, it didn't really make sense on her to begin with.
+>
+> I completely forgot about restraint, I have zero issues dumpstering it completely. Bondage as a whole is a design space I'm totally unfamiliar with.
+>
+> Good point on abbess, but counterpoint: If you have her inflict heat instead, that ties in better with her kit, and means I don't need to write so many more scenes. That actually defines the writing scope of the second demo, since it should be just for making a better act 1 experience. Lust events for each character for Venom, Exposure, Heat. Torment events for Brienne, Penance events for Clemence. This lets me defer some scenes until later, where I'll have more time to deal with them and less engine concerns. If needed mechanically for abbess to function, we can always temporarily break the heat tag standard of being only inflicted by the status and have Clement directly deal Heat lust damage until I'm ready to do Penance events.
+>
+> Brienne next, please.
+
+**Settled:** Absolution loses its soothe (Clemence pays, the party heals, nobody is soothed — `CARD-POOL-02.md`
+§3.2); Severine keeps no soothe (§3.4–3.6); Restraint is cut outright (§2.3, `../../enemy_overhaul/` E14);
+**the Abbess line applies Heat to allies instead of Lust** (§3.2 and §2.1 default 11), so the party's Lust
+from Clemence lands in the Heat bundle and no yuri Penance scenes are owed; the demo's writing scope is
+Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence (`../../lust_events/` B23).
+**Brienne's full 12 C / 8 R list is drafted in §3.3** on the sponge: Kept Word graduates to the default
+signature, Bastion's passive becomes Big Sister Aura, Suffer the Blows (his card) is Bastion's worn-only
+rare, fifteen cuts with reasons.
+
+His eighth message, the same day:
+
+> Thank you, Clemence is last, I think. Anastasia's a secret character, she's effectively a playable boss, and as a character who's really appealing to play solo she doesn't break the game for being strong. Plus, very few players have unlocked her so far, and not one has given feedback since anyone going fast enough to unlock her burnt themselves out on the game for now. I'll wait, she fundamentally needs to be balanced on different axes.
+> Please, go ahead.
+
+**Nettle, Severine and Cassadora are drafted** (`CARD-POOL-02.md` §3.4–3.6), each 12 C / 8 R with a
+graduated default signature (Quicken Rot, Answer in Kind, Omen), each with its cuts and reasons. Nettle is
+repriced on halving (appliers about a third up; the consumers and detonators are the point) and her
+Sporemother passive is proposed as the fall-spread instead of "Poison heals allies". Severine and
+Cassadora lose their last soothes (Heartsblood, Warded Fate). Anastasia is outside the pass in his words
+(§3.7).
+
+His ninth message, the same day:
+
+> Thank you! Sorry, I meant to end the Clemence line with a question mark, because I'm on mobile generally think of Clemence as the sixth character. If someone's left, please go over them too.
+> And in your opinion, do you think Severine has too many statuses? It sounds like she still has marked, and I think I saw you mention sundered and weak. Weak reads as fine to me since it and her drain gives her some legs as a health tank, but if mark is still in the game, that plus sundered maybe makes her a little too self-sufficient. Getting great value out of her Claw Flurry and Drain seem less like a great way to intuitively build a team and more like things she can do every turn at this rate in any composition.
+
+**He is right, and §3.5 is revised:** Mark Prey is cut, Pack Hunt is rebuilt as a party power (ALL allies'
+attacks deal 3 more to enemies below half health) with no status on the enemy, Scent of Blood comes back
+as the Huntress common, and `marked` is orphaned and deleted. She applies Weak and Siphoned and no
+amplifier; her per-hit riders come from teammates now. **Clemence's grid is drafted (§3.2)**, the sixth:
+Mercy graduates to the default signature, Miracle becomes "restore an ally to full", the Abbess cards apply
+Heat, Absolution is rebuilt, the Devotee passive is flagged (it makes every Lust rider free), eleven cuts,
+and her broken forms go from 35 to 23 with the cards. **All six are drafted.**
+
+His tenth message, the same day:
+
+> I'll hold off on vetoes. For neutral, let's follow Slay the Spire's precedent here as well. Neutral cards being above rate makes sense. Given they're so rare, are generally agnostic enough to play nice with each character's pool, a random neutral card ends up being mechanically more valuable than plenty of the rares, at least that's my experience.
+
+**The neutral tier is drafted on that precedent (`CARD-POOL-02.md` §3.7):** twelve cards, 8 C / 4 R,
+agnostic by construction (no private meter or status; every card reads a shared row), priced above rate
+(commons at the rare rate, rares as engines or one-shots), and rare to see (every shop stocks one, the
+boss's fourth slot rolls a neutral rare half the time, never an ordinary reward). Whetted Edge lands here
+as the renamed rare A6 asked for; Ashen Cloak and Fence arrive from the Cinder and Cassadora cuts; Shared
+Resolve comes onto rate (B26). **Vetoes are held by his choice; the brief is complete as a draft.** What
+remains before Friday is his read of it, and the housekeeping table in §5.
+
+His eleventh message, the same day:
+
+> I'm gonna push back on you a little bit on two of these. I think Shared Resolve isn't as synergistic as you'd hope, since a small bit of tHP to the party will be peanuts to the person in front, and while tHP is generally useful, it's really not exciting when you give it to nettle and it's gone in a few turns where she wasn't even hit or could use it.
+> Cool head sounds like it works specifically off heat, which is the opposite of what you described when you spoke about agnostic.
+>
+> I think it's okay to get tricksy here, getting a specific neutral card, even at common, won't be likely. Unless the player is playing solo, I guess, but that carries its own drawbacks. And a neutral card here can create a precedent we use for a future character. So I propose
+> Possibility: 0 cost, exhaust, choose one of three rare cards to add to your hand, it costs 1 less. (Precedent for discover-like mechanics, temporary cards that are only available to you for the encounter, cost reduction, also a slay the spire card through-and-through)
+> Devil's Number: 2 cost, power, whenever an ally deals exactly 6 damage, draw a card. (Sets precedent for caring about specific numbers, seems like it has anti-synergy with things like sundered but actually it makes their use more thoughtful. "Do I want to hold back on gaining strength so my basic attack deals six, or build exactly enough strength on Severine so her claw flurry deals 6?" And even if they had infinite card draw, energy is the more important target to carefully manage. Everyone can deal six aside from Clemence I think, which is flavorful since she's holy)
+
+**Both taken.** Shared Resolve and Cool Head are out (B26's card retires; Clean Slate is the agnostic cleanse
+and covers Heat), Possibility is a neutral common and Devil's Number a neutral rare (§3.7, 7 C / 5 R), and
+the tier gains a fourth rule: it may pilot a mechanic a future character will own. Two defaults on his
+cards for his veto: Possibility draws its three from the rares the party could be offered today, and the
+pick is a this-fight copy owned by its character on the stolen-card plumbing; Devil's Number counts the
+number the forecast prints on the hit, never a tick, each hit of a multi-hit on its own. Engine asks are
+in §5 (a discover verb, an exact-damage hook).
+
+---
+
 ## Unsorted — drop new reports for this workstream here
 
 *(a report that does not clearly belong to this workstream goes in `../../FEEDBACK.md` instead)*
