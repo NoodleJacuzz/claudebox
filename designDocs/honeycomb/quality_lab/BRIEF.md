@@ -3,16 +3,17 @@
 Written 2026-09-24 from Noodle's pitch (sent from his phone) and a read of the code; revised
 2026-09-25 on his answers to the eight questions the first draft left open. **Nothing is built.**
 This is a standing brief: goals, the measured facts it rests on, the shape of the build and the rules.
-Progress goes in `CATCH-UP.md`; the one prerequisite that is larger than the lab is `FEEDBACK.md` Q4;
-his answers to the settled questions are in `_archive/FEEDBACK-DONE.md`; guesses a build session
+Progress goes in `CATCH-UP.md`; his answers to the eight questions the first draft asked are in
+`_archive/FEEDBACK-DONE.md`; the change his answers opened, ownerless cards, has its own pathway at
+`../ownerless_cards/` and the lab takes only the slice of it named in P0; guesses a build session
 makes go in an inferences file (INFERENCES.md) that this folder does not have yet.
 
 | File in this folder | Holds |
 |---|---|
 | `BRIEF.md` | this file: the pitch verbatim, what the engine does today, the design, the build order |
 | `CATCH-UP.md` | where the work is. Update it as each phase lands |
-| `FEEDBACK.md` | Noodle's words; the open items |
-| `_archive/FEEDBACK-DONE.md` | the seven questions he answered on 2026-09-25, with the answers |
+| `FEEDBACK.md` | Noodle's words; the open items (none while nothing is built) |
+| `_archive/FEEDBACK-DONE.md` | the eight questions he answered on 2026-09-25, with the answers |
 
 Read `../BASICS.md` first. The Battle Lab whose seams this reuses is `../Archive/FEEDBACK-07.md` §A2;
 the animation vocabulary is `../Archive/POLISH-01.md` §3–4.
@@ -118,9 +119,11 @@ and focus while the lab runs).
 literal card.** *"The dummy enemies we are making must be able to use every single card in the game,
 even if practically that card does nothing for them"*, and a card must *"just call for the wielder's
 -offense pose at so-and-so timing"* rather than belong to a character. The cycle driver is §3.4; what
-it needs from the engine, a card playable from any source, is the first step of a larger change he has
-asked for, **ownerless cards** (`FEEDBACK.md` Q4, and §3.10 P0). Entity count also serves the
-statistics: five allies is five samples of the same impact per cycle.
+it needs from the engine is three small fixes (§3.10 P0), because a card's wielder is already a
+run-time fact in the engine and only its default is derived from the card's entry. The larger change
+he asked for the same day, **ownerless cards**, is its own pathway at `../ownerless_cards/` and the
+lab does not wait on it. Entity count also serves the statistics: five allies is five samples of the
+same impact per cycle.
 
 > "Attack animation" - The sequence of targets, meaning user pose changes, target pose changes, vfx
 > overlaid onto the target, the vfx's position, sound effects, damage number appearance time and
@@ -519,11 +522,15 @@ the cycle ends, so the recorder cannot cost the frames it measures.
    plays.
 5. Close the tap recorder, compute the mode's result (§3.5), open the drawer.
 
-**Any actor plays any card.** Step 2 and step 4 are one path: `playCard(card, source, target)` with
-no owner looked up. An effect that names something the source does not have (energy, a hand, a draw
-pile, a party place, a tree) resolves to nothing and logs nothing rather than throwing. This is the
-engine seam the lab needs from ownerless cards (P0), and it gets a suite block of its own: every card
-in `cardArray`, played by an enemy source and by a character source, resolves without error.
+**Any actor plays any card, and the engine is most of the way there.** A card instance carries its
+owner (`honeycomb.newCardInstance(cardIndex, ownerInstanceId)`), so an ally slot plays the literal
+card by holding an instance owned by that actor and going through `honeycomb.combat.playCard`. An
+enemy slot plays it through the move path: `honeycomb.changeIntent(enemy, cardIndex)` accepts any
+card index, `honeycomb.moveCard` resolves it with the enemy as owner and its side as the acting side,
+and `honeycomb.combat.playMove` runs the effects with the enemy as source. Three holes stand between
+that and "every card in enemy hands", and they are P0 (§3.10). The suite block that proves them
+closed plays every card in `cardArray` from an enemy source and from a character source and requires
+no error, no touch of the party's hand or energy, and no self-effect landing on the party.
 
 **Replay** restores the snapshot, rebuilds the battlefield, and runs the cycle again with the override
 array as it now stands. Determinism gives the same log; the screen shows the changed timing. This
@@ -634,9 +641,16 @@ session.
 Each is small except P0, each is independently worth doing, and each is something the lab would
 otherwise measure as its own fault. Each ends in a check.
 
-- **P0. Ownerless cards** (`FEEDBACK.md` Q4). Larger than the lab and owed its own plan; the lab
-  needs only its first step, a card playable from any source with the effects it cannot use resolving
-  to nothing (§3.4). Pools, the tree, and owner-relative wording are the rest of it.
+- **P0. Wielder-relative play, three fixes.** (1) `honeycomb.cardActingEntity` knows only party
+  members, so a card an enemy plays falls through to `tuning.deck.ownerlessFallback` (`frontAlly`) and
+  its self-effects, which player cards aim at `owner`, land on the party's front ally; return the
+  wielder when the instance's owner is any combatant on the board. (2) Draw, discard, energy and
+  exhaust verbs act on the party's combat state whatever the source; guard them the way
+  `addCardToDeck` already refuses a non-party source unless the entry says `evenFromOpponents`, so
+  they resolve to nothing. (3) Tree and outfit modifiers and the owner-down policy read the owner as a
+  member; prove they resolve to no modifier for a non-member rather than throw. The wider change,
+  taking the owner off the card's entry altogether, is `../ownerless_cards/BRIEF.md`; the lab neither
+  waits on it nor blocks it.
 - **P1. One resolver for a card's sound, and the report reads it.** The `sfx` field stays as the
   priority over `cardSfxMap` (Q5: *"there should be priorities, especially if we want to include mod
   support down the line"*), `../tools/sfx-report.js` audits `honeycomb.cardSfxStem` rather than the map,
@@ -690,7 +704,7 @@ otherwise measure as its own fault. Each ends in a check.
 ## 5. Build order
 
 **Phase 0 — the timeline, no UI.** P4, P5, P2, P8, and the resolver with its anchors, override array
-and template table; plus the first step of P0, a card played from any source. Checks: every card and
+and template table; plus P0's three fixes. Checks: every card and
 move resolves; the resolved defaults equal today's timings for a party card and for an enemy move; an
 override wins over a card field, a card field over an asset, an asset over a template; an override
 round-trips through JSON; `hitGroup` is shared by every target of one `damage` effect and differs
@@ -717,8 +731,8 @@ of the same board comparable field for field.
 drift guard block, and the template table handed to whoever writes cards as the field a new card sets.
 
 Phases 0 and 1 are one session each. Phase 2 is one mode per session, and each mode is usable on its
-own. The prerequisites P1, P3, P6 and P7 can be done by any session at any point. The rest of P0 is
-its own plan and does not wait on the lab.
+own. The prerequisites P1, P3, P6 and P7 can be done by any session at any point. Ownerless cards
+(`../ownerless_cards/`) is its own plan; it does not wait on the lab and the lab does not wait on it.
 
 ---
 

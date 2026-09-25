@@ -1,8 +1,8 @@
 # Quality Lab — FEEDBACK, done
 
 Closed items, quote and annotation together, moved here from `../FEEDBACK.md`. The first draft of
-`../BRIEF.md` (2026-09-24) asked eight questions; Noodle answered all eight on 2026-09-25. Seven closed
-and are below; Q4 opened work and stays in `../FEEDBACK.md`. Every quote is his, verbatim.
+`../BRIEF.md` (2026-09-24) asked eight questions; Noodle answered all eight on 2026-09-25, and later
+the same day refined the fourth into a pathway of its own. Every quote is his, verbatim.
 
 ---
 
@@ -55,6 +55,32 @@ a fallback.
 that names something the source does not have resolves to nothing rather than throwing; a suite block
 plays every card from an enemy source and a character source (`../BRIEF.md` §3.4, Phase 0). With Q4 this
 is the first step of ownerless cards.
+
+---
+
+### Q4. Who the dummy allies are ☑ — answered 2026-09-25, and it became `../../ownerless_cards/`
+
+> 1-5x dummy allies and enemies, each assigned a single card
+
+The first draft stood N copies of the literal card's owner on the party line so that owner-relative
+effects and the owner's own poses would be the real ones, and asked whether he wanted copies or the
+roster.
+
+> Absolutely not. We must move to an inherently ownerless card system. Assigning card ownership within the card's identity itself was a huge design mistake we made right from the start. If we just need the card "sword strike", we should not need to do anything with Brienne. That is not modular design.
+> I think we should be able to change the actors serving as dummies, and the VFX picker should be able to display the poses of the selected actor, but ultimately, sword strike must just call for the wielder's -offense pose at so-and-so timing. Yes, this does mean there are situations where an unintended wielder uses an animation they don't have, and yes we will need fallbacks, but not doing so would rapidly bloat the cardbase when we really should be moving towards a model where enemies are happy to share card pools between each other.
+
+Asked how far the lab could go with ownership deferred, and told that a card's wielder is already a
+run-time fact in the engine (the instance carries its owner; only the default comes from the entry),
+he refined it the same day:
+
+> I know this may contradict what I just said, but I do think cards should have owners, but that the owner of a card is not inherent to the card's entry in our game files. Brienne still needs to own sword strike in her game, my issue was inherently tying that owner and card together, since that will make enemy design much harder, and already has bugs in-game right now, since buying a neutral card can make a broken character attack. Cards should be assigned owners in-game, but I specifically want an *inherently* ownerless system.  Please change docs to reflect that and draft up a plan that will take us there, since it seems like a smaller change than the entire Quality Lab and will likely help us down the road.
+
+**Settled, in two parts.** For the lab: any actor stands in any dummy slot, every actor plays the
+literal card as its own source, a card asks for a pose by role and the wielder's sprite chain resolves
+it with a fallback, and the pose picker shows the selected wielder's poses; the engine needs three
+small fixes for that, `../BRIEF.md` P0. For the game: an owner is assigned to a card when it is
+acquired and never written on the card's entry, which is the plan at `../../ownerless_cards/BRIEF.md`.
+The lab and that plan do not wait on each other.
 
 ---
 
