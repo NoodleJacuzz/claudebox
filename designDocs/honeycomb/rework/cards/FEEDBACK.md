@@ -598,9 +598,28 @@ comes round every other run and a rare almost as often as a common — the flat 
 count, is why nothing is memorable. Glue is structural here because two-thirds of every reward screen
 belongs to characters the player may not be building. Proposed: 12 C + 8 R per character (base 6 + 2,
 each alt +2 C, +1 cross-party R, +1 worn-only R), weights 85 / 15, a 15-card starting deck with a default
-signature, Burning as Cinder's two-sided status, and Clemence's healing as its extinguisher. **Blocked in
-practice on `../starters/` B1** (the alts are still `unlockedFromStart`). Seven questions for him in §7.
-No game code changed.
+signature. **Blocked in practice on `../starters/` B1** (the alts are still `unlockedFromStart`). No game
+code changed.
+
+His second message, the same day:
+
+> I'm onboard with trying out your ideas, and I'd be interested to see shere you'd take this. By the way, that final point was meant to be that Slay the Spire aims for 51 encounters, giving an idea of how much STS might leave un-shown of its card pool, just for reference.
+>
+> Since it dounds like they're blockinf, I'm on my phone right now, could you list out those  questions for me right here? Not sure how I feel about clement "extinguishing" flame from cinder onto enemies, sounds like it might be a very specific card that isn't settling in my head right, but I also wanna see you cook.
+
+And his third, answering the seven questions:
+
+> I'm with you on everything except burn. I'm just not feeling that design at all. I'd rather that the fire parallel had something to do with lust. I think I'd like to go with Heat as a status effect instead of burn. That'd keep clement's space solely in lust. Her doing HP damage at all doesn't feel thematic for me. Like, she's someone who believes in love with sin, her broken state has her ascending and seeing angels blessed with the gift of sight once again, and with this new freedom and power she... Lights her enemies on fire? I'm not feeling it. And while "I want to be broken" is Clement's thing, Cinder is probably the second closest to that space due to her theme of recklessness.
+> Poison I keep meaning to make half after it activates, if it still doesn't already.
+> I think it should have a different design space to poison, I also feel like it should have something to do with taking an action, I just don't have an idea I'm in love with yet, which is the biggest issue. Players are generally agreeing that lust buildup is way more dangerous than regular damage, so Cinder stepping into the self-damage space but from a different angle to Severine shouldn't make them feel too similar, still, I'm stumped, and this is a pretty important thing to figure out.
+
+**Shape agreed (20 per character, 85 / 15, 15-card deck, one slot per member, neutrals in shops and the
+boss slot, default signatures drafted for veto). Burn withdrawn.** `POOL-REVIEW-02.md` §5 is now **Heat**:
+*whenever this fighter plays a card, they gain Lust equal to their Heat; loses 1 stack at the end of their
+turn* — the price of recklessness paid per action, a producer for the "Lust on an ally" row the Abbess
+line and Nettle's Draw Out already read, and worked-up enemies when vented onto them. Poison to
+`decayMode: "halve"` is his standing instruction and is not yet applied (it reprices Nettle's appliers).
+**Waits on his read of the Heat definition.** Then `CARD-POOL-02.md`, Cinder first.
 
 ---
 

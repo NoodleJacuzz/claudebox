@@ -2,10 +2,12 @@
 
 2026-09-25, cloud session, design only. Noodle's request is `FEEDBACK.md` **B34**, verbatim. Nothing in the
 game changed. This is a review and a proposal; the brief for the second pool pass (`CARD-POOL-02.md`)
-gets written once the questions in §7 are answered. Read first: `../../designBibles/mechanics.md`,
-`../../designBibles/characters.md`, `../starters/OUTFITS-LIST.md`, `CARD-POOL-01.md`.
+is the next document. Read first: `../../designBibles/mechanics.md`, `../../designBibles/characters.md`,
+`../starters/OUTFITS-LIST.md`, `CARD-POOL-01.md`.
 
-Every number below was measured on the live content with the headless engine, not read off a doc.
+**Where it stands, same day:** Noodle agreed §4 and every §7 pick except the status. **Burn is
+withdrawn; §5 is now Heat**, in Lust space, on his constraints. Every number below was measured on the
+live content with the headless engine, not read off a doc.
 
 ---
 
@@ -44,9 +46,10 @@ slash is right: 16 offers per character per run is fixed by the map, so the only
 round often enough to be learned is a pool small enough for it to.
 
 The "75 cards per character" yardstick is the wrong one to reason from. Slay the Spire's 75 works because
-its map hands out ≈100 offers from that one pool. Honeycomb's map hands out 16 per pool. The right
-yardstick is offers per card per run, and by that measure the pool needs to be **under 20 per character**,
-whatever Slay the Spire has.
+its map hands out ≈100 offers from that one pool (Noodle: it aims for 51 encounters; at 51 a common is
+shown four or five times a run, and what it leaves unshown is rares). Honeycomb's map hands out 16 per
+pool. The right yardstick is offers per card per run, and by that measure the pool needs to be **under 20
+per character**, whatever Slay the Spire has.
 
 Two smaller things the same measurement shows:
 
@@ -99,6 +102,7 @@ and who reads them:
 | Temporary HP on an ally | Brienne, Clemence, Cinder, Cassadora, Severine (Scar Tissue) | **Brienne only** (Ransom, Tribute, Largesse, Rally, Armament) |
 | A debuff on an enemy | Nettle, Severine, Cassadora, Clemence, Cinder | Nettle (Putrefy, Catharsis), Cassadora (Coven's Curse, Malediction, Spread Misfortune) |
 | Lust on an enemy | Nettle (Venom), Clemence | Nettle (Flushed, Bacchanal, Kiss, Aphrodisiac), Clemence (Heavenly Gaze) |
+| Lust on an ally | Clemence (Abbess), enemies | Clemence (Stay With Me, Sheltering Grace, Sanctify), Nettle (Draw Out), every soother |
 | Health lost by an ally | Severine, enemies | Severine (Blood for Blood, Blood Rite, Scar Tissue), Brienne's Resolve meter |
 | Healing on an ally | Clemence, Severine | **Severine only** (Blood Debt) |
 | Party position | Cinder | **Cinder only** (Vanguard, front / back riders) |
@@ -106,7 +110,9 @@ and who reads them:
 | A card exhausted | Nettle, Cassadora (Fence) | Nettle's Souls |
 
 Three currencies have one reader. That table is the glue audit in one place: a glue card is one that
-adds a reader to a row, or a producer to a row that has readers on other characters.
+adds a reader to a row, or a producer to a row that has readers on other characters. (The "Lust on an
+ally" row is why Heat, §5, is glue: it is a producer for a row that already has readers on three other
+characters.)
 
 **Why glue is structural here and optional in Slay the Spire.** Every Slay the Spire offer comes from the
 one pool you are building. Here two of the three slots on every reward screen belong to characters you
@@ -136,7 +142,8 @@ counts until the 18 alts stop being `unlockedFromStart: true`.
 **Cinder off Sundered.** Right, and for three reasons beyond the art. Sundered decays a stack a turn since
 P7, so her per-debuff payoffs bleed value every turn. Self-Sundered is a multiplier on incoming damage, so
 its cost is illegible and swingy (a 2-stack Cinder at the front eats +50% of whatever the enemy rolled).
-And Sundered is Cassadora's and Severine's enemy debuff, so her identity is borrowed. §5 has the proposal.
+And Sundered is Cassadora's and Severine's enemy debuff, so her identity is borrowed. The first proposal
+(Burn, health damage) was withdrawn on his read; §5 is Heat.
 
 **Cinder and Clemence weakest in team synergy.** Right, and the table in §2 says why. Cinder's currency is
 party position and no other character has a card that cares where anyone stands; her Formation cards
@@ -165,7 +172,7 @@ is offers per card per run, and it says under 20 per character.
 
 ---
 
-## 4. The proposed shape
+## 4. The proposed shape — AGREED 2026-09-25
 
 **Per character: 12 commons + 8 rares = 20** (from 32). Base 6 C + 2 R. Each alt outfit unlocked: +2 C (its
 enablers), +1 R that drops in any pool once unlocked (cross-party by rule), +1 R worn-only (selfish by
@@ -185,15 +192,19 @@ A new player's base pool behaves like Slay the Spire's commons; the unlocks are 
 new thing" true (`characters.md`, Never a Grind).
 
 **The floor if a deeper cut is wanted: 8 C + 6 R = 14.** Demo 1.7 / 0.4, full game 3.4 / 0.8. The cost is
-that sisters have no commons at all and the outfit carries the whole archetype. Workable, but it leans
-everything on B1 and on the signatures being good.
+that sisters have no commons at all and the outfit carries the whole archetype. Not taken.
 
 **Neutrals.** Six cards, never offered (`neutralSlotChance: 0`), below rate (B26). Rebuild as the pure-glue
 tier: about eight cards on rate that read a shared currency and want any party, offered in shops and in
-the boss's fourth slot. Cheap, and it is also what keeps a duo or a solo run fed.
+the boss's fourth slot, not in ordinary rewards. Cheap, and it is also what keeps a duo or a solo run fed.
 
 **Starting deck: 2 + 2 + 1 signature per character = 15, always.** `randomCardCount` goes. Each default
-sister already has a name to sign with (Oath, Timing, Wounded, Lanes, Mercy, Intents).
+sister already has a name to sign with (Oath, Timing, Wounded, Lanes, Mercy, Intents). The six default
+signatures are drafted here for his veto.
+
+**Rewards keep one slot per party member.** The alternative (the player picks which character's pool a
+reward draws from) fixes "two-thirds off-plan" at a stroke and also lets a player starve two characters
+into dead starters. Named so it is a choice and not an accident; not taken.
 
 **Art.** 196 pool cards carry `artOwed` today. This shape owes about 120 plus six default signatures; every
 cut card is a prompt never written. Whether Clemence's per-card broken forms share their standing card's
@@ -206,56 +217,99 @@ game wanted it anyway.
 
 ---
 
-## 5. Burning: Cinder's status, and the fire thread to Clemence
+## 5. Heat: Cinder's status
 
-**Definition.** *Burning* — a debuff, intensity. At the start of the holder's turn, lose health equal to
-the stacks (Temporary HP absorbs it), then the stacks halve, rounded down.
+*The Burn proposal (health damage over time, Clemence as extinguisher) was withdrawn the same day. Noodle's
+constraints, B34 second message: the fire parallel is about Lust; Clemence's space stays solely in Lust and
+she never deals health damage; Cinder is the second character who flirts with Breaking, through
+recklessness; the status must sit in a different design space from Poison and have something to do with
+taking an action; and self-cost from a different angle than Severine's is fine, because players agree
+Lust build-up is more dangerous than damage.*
 
-Every rule is the opposite of Poison's, which is what keeps a second DoT off Nettle's toes
-(`../../reference/MECHANICS-01.md` #92 scored Burning "too close to Poison" — as a copy it would be):
+**Definition.** *Heat* — a debuff, intensity.
 
-| | Poison | Burning |
+> **Heat.** Whenever this fighter plays a card, they gain Lust equal to their Heat. Loses 1 stack at the
+> end of their turn.
+
+An enemy's move is a card in this engine, so the same sentence reads on both sides.
+
+Against Poison, with the halving Noodle wants (`decayMode: "halve"` is already a named alternative in the
+Poison entry; today it is `decrement`):
+
+| | Poison | Heat |
 |---|---|---|
-| Curve | linear: 8 → 8, 7, 6, 5… (36 over 8 turns) | front-loaded: 8 → 8, 4, 2, 1 (15 over 4 turns) |
-| Temporary HP | ignores it | burns through it first |
-| Strategy | Grind: the clock | Burst: the damage is mostly now |
-| Owner | Nettle | Cinder |
+| What it costs | health | Lust |
+| Keyed to | time: one tick a turn | action: every card the holder plays |
+| Curve | collapses: 8 → 8, 4, 2, 1 | holds: 3 Lust per card until vented or cooled |
+| Owner | Nettle, on enemies | Cinder, on herself first and enemies second |
 
-**On Cinder it is the price of recklessness and, unlike Sundered, a shared currency.** A fixed number she
-can read off the bar instead of a multiplier on the enemy's roll. Health she loses feeds Severine's Blood
-for Blood, Blood Rite and Leech Jar, and Brienne's Resolve. Temporary HP from Brienne, Clemence or
-Cassadora is literally a fire blanket, which is the first reason any of them has had to hand Cinder gold.
-Nettle's Last Rites puts her out. Ashen Cloak is the extinguish-for-tHP it already is.
+**On Cinder it is the price of recklessness, paid per swing.** Her reckless cards heat her up. Every card
+she plays while hot costs Lust. Her Ashfall payoffs read Heat. Her vents dump it: onto the enemy (Pass
+the Flame) or into Temporary HP (Ashen Cloak), and moving to the back cools her, which is what her
+Formation cards do. So each card is a decision — stay hot and pay, or vent — and Lust carries between
+fights, so it is a run-level price the party's soothers get to answer. This is "self-damage from a
+different angle": Severine pays health up front per card; Cinder pays Lust per action, deferred, and Lust
+is the resource players fear.
 
-**On an enemy it is a DoT the whole party can handle.** Cassadora doubles it (Malediction) and spreads it
-(Spread Misfortune). Nettle's Quicken Rot and Death Knell, generalised from "Poison acts now" to "DoTs act
-now", set it off. Putrefy and Catharsis count it. Contagion, generalised the same way, carries it. Fire
-spreads, and the pool already has the verbs (`transferStatuses`, `spreadStatus`, `triggerStatus`).
+**On an enemy it is worked up.** An enemy with Heat takes Lust every time it acts, so its own tempo is its
+problem: a boss with two moves a turn pays twice; a dawdler that spends a turn shelling itself still pays.
+Cinder puts it there by venting (Pass the Flame) and with the Charge line's heaviest hits.
 
-**Pass the Flame is her verb:** her fire becomes theirs. The card is already in the pool.
+**Why this is glue where Burn was not.** Heat produces "Lust on an ally" and "Lust on an enemy", two rows of
+the §2 table that already have readers on other characters:
 
-What moves: Lance Thrust and Reckless Swing and Burn Bright give Burning instead of Sundered; Rush and
-Beacon Flame put Burning on the enemy; Trial by Fire becomes *ALL allies gain 3 Burning and 2 Strength*,
-which is a real cross-party card for the first time. Her payoffs (Recede, Ember Skin, Firewalk, Cinders to
-Ash) should read Burning **stacks** so the size of the fire matters, rather than counting debuffs, which
-reads 1 for any size. That gives up the "enemy Weak on Cinder also pays" angle; I would give it up for
-legibility. Stride on gaining a debuff (CARD-POOL-01 §3) is unchanged: every Burning applied is a debuff
-gained.
+- **Clemence.** Stay With Me (tHP equal to their Lust) and Sheltering Grace (more tHP if they have Lust)
+  want a hot ally. The whole Abbess line — Kindled Want and Ordeal give an ally Lust with Strength or tHP,
+  Sanctify keeps her cards while Broken — is anti-synergy with everyone today and a gift to a Cinder whose
+  payoffs read her own Lust. **Abbess Clemence with Ashfall Cinder is the two-character loop the review
+  wanted, and it lives entirely inside Lust:** break her on purpose, Sanctify her so she keeps playing, and
+  carry the party-wide risk of a second Broken body.
+- **Nettle.** Draw Out (an ally loses up to 8 Lust; the front enemy gains that much Poison) turns Cinder's
+  Heat-Lust into poison. Kiss, Flushed and Bacchanal read the enemy Lust Heat put there; Aphrodisiac turns
+  it into Poison; Intoxicated stacks with it.
+- **Everyone's soothe gets a customer:** Alms, Pull Back, Heartsblood, Warded Fate, the campfire.
+- **Sensitive** amplifies Heat on an enemy, so Clemence's Confession and Nettle's Love Bite set it up.
 
-**Engine cost:** one status entry with a `tickHook` (Poison already has the shape), a `halve` decay mode
-(Poison's table already names one), and a `dot` flag on the two statuses so the generalised readers can
-name "any DoT" without naming both.
+**Second closest to Breaking.** Rare payoffs that read her Lust rather than her Heat — "deal damage equal to
+your Lust", "when Cinder Breaks, …" — make her most dangerous the turn before she goes, which is the
+recklessness fantasy, and Sanctified is what lets an Abbess party keep playing her past it. Her broken
+fallback (Stumble: falls to the back, sheds 6 Lust) already reads as cooling off.
 
-**The Clemence half.** Noodle did not ask for it; it is the suggestion this review makes. Two ways, and I
-would build the second first:
+**What the existing cards become** (a sketch; the card pass decides):
 
-- **A.** Her Rapture line is the second source: when she Breaks, or from the Ecstatic outfit, enemies
-  catch fire. It gives the two weakest characters a shared kill track. It breaks one of her rules — no
-  card of hers carries a damage effect (`MECHANICS-01` 7.2, and a test holds it) — so it is his call.
-- **B.** Her healing extinguishes: *whenever Clemence heals an ally, their Burning moves to the front
-  enemy* (a Devotee passive, or the Blessing rare rebuilt). No rule broken. Cinder sets herself alight,
-  Clemence puts her out and the fire lands on the enemy. That is a two-character loop, which is what
-  "team synergy" was missing, and it gives Clemence's healing a job in a four-turn fight.
+| Today | Under Heat |
+|---|---|
+| Lance Thrust: Deal 9. Gain 1 Sundered | Deal 9. Gain 1 Heat |
+| Reckless Swing: Deal 12. Gain 2 Sundered | Deal 12. Gain 2 Heat |
+| Burn Bright: Gain 1 Sundered. Draw 2 | Gain 1 Heat. Draw 2 |
+| Recede (signature): 6 + 3 per debuff on you | 6 + 3 per Heat |
+| Ember Skin: 3 tHP + 3 per debuff | 3 tHP + 3 per Heat |
+| Ashen Cloak: 5 tHP per debuff, remove them all | Vent: 5 tHP per Heat, lose all Heat |
+| Firewalk: 5 per debuff, move to the back | 5 per Heat, move to the back |
+| Pass the Flame: move all her debuffs onto the target, deal 4 | Move all her Heat onto the target. Deal 4 |
+| Phoenix Heart: when Cinder gains a debuff, deal 4 to the front | When Cinder gains Heat, deal 4 to the front |
+| Cinders to Ash: 8 + 5 per debuff to ALL | 8 + 5 per Heat to ALL |
+| Trial by Fire: ALL allies gain 1 Sundered and 2 Strength | ALL allies gain 2 Heat and 2 Strength — the party runs hot |
+| Beacon Flame: 10 to ALL, 1 Sundered to ALL | 10 to ALL, 2 Heat to ALL |
+| Rush (signature): Deal 8. Apply 2 Sundered | Deal 8. Apply 2 Heat |
+
+Reading Heat rather than "debuffs" gives up the angle where an enemy's Weak on her also pays; Stride on
+gaining any debuff (CARD-POOL-01 §3) keeps that angle alive, and the legibility is worth it.
+
+**A harsher variant.** No decay; the back is the only cooling ("when Cinder moves to the back, lose all
+Heat"). It ties the status to her position primitive and makes the vents mandatory. Worth a play, but the
+decaying version first: Sundered and Frail both fade a stack a turn, so the status bar already reads that way.
+
+**Poison halving, priced in.** One field, but 5 Poison is 8 damage under halving where it was 14, so the
+appliers either apply more or the consumers (Reap, Rupture, Burst, Quicken Rot) become the point of the
+character. That is a better Nettle — apply big, cash before it fades — and it is the opposite curve to Heat.
+
+**Engine cost.** One status entry: an `onCardPlayed` reaction on the holder (the entity hook exists) and the
+enemy side through `onMovePlayed`, with the standard `decayTiming`. No new verb.
+
+**Open.** Whether an ability counts as playing a card (I would say no). Whether Heat on an enemy stays
+Cinder's alone or other lust attackers may apply it (Clemence's Confession applying Heat instead of
+Sensitive would be on-theme; I would keep it Cinder's, so the status has one owner).
 
 ---
 
@@ -264,27 +318,30 @@ would build the second first:
 1. **B1: unlock routes** (run-win / shop / tree-end) and the 18 alts off `unlockedFromStart`. Small engine
    job. Then play the 12 C / 5 R base pool as it stands for one session — the cheapest test there is of
    "too big" against "too fragmented", before a card is cut.
-2. **Agree the shape** (§4) and the currency table (§2) — the answers to §7.
-3. **The card list, character by character**, Cinder first (Burning), then Clemence, then the four that
-   work. Each surviving card gets a one-line justification against the currency table; anything that
-   reads only a private meter is a rare, an outfit card, or gone. Written as `CARD-POOL-02.md` in the
-   grid form of `CARD-POOL-01.md` §4, with a `From` column so nothing is rebuilt that already works.
+2. **Heat** as the status (§5), and Poison to `halve`. Settle the status before the list, since half of
+   Cinder's cards read it.
+3. **The card list, character by character**, Cinder first, then Clemence, then the four that work. Each
+   surviving card gets a one-line justification against the currency table; anything that reads only a
+   private meter is a rare, an outfit card, or gone. Written as `CARD-POOL-02.md` in the grid form of
+   `CARD-POOL-01.md` §4, with a `From` column so nothing is rebuilt that already works.
 4. **Starting decks:** six default signatures, `randomCardCount` removed.
-5. **Neutrals** rebuilt as the glue tier and given a slot.
+5. **Neutrals** rebuilt as the glue tier and given the shop and boss slots.
 6. **Rates and numbers last**, then an All the Crunch run before and after (`../../balance_tests/`).
 7. **Cut cards retire** through `honeycomb.retiredCardArray` with definitions in
    `../../Archive/RETIRED-CARDS-S6x.md`, so saves survive.
 
 ---
 
-## 7. Questions for Noodle
+## 7. The questions, and his answers (2026-09-25)
 
-1. **20 per character, or the 14 floor?** (§4)
-2. **Burning as defined** — start of the holder's turn, halving, burns through Temporary HP — yes or no?
-   And which Clemence half, A, B, both or neither?
-3. **Default signatures:** his words, or a draft to veto?
-4. **Rarity 85 / 15**, boss fourth slot always rare?
-5. **Keep one reward slot per character** (recommended), or let the player pick which character's pool a
-   reward draws from? The second fixes "two-thirds off-plan" at a stroke and also lets a player starve two
-   characters into dead starters. Not recommended yet; named so it is a choice and not an accident.
-6. **Neutrals in rewards at all**, or shops and the boss slot only?
+| | Question | Answer |
+|---|---|---|
+| 1 | 20 per character, or the 14 floor? | **20** |
+| 2 | The status | **Not Burn. Heat, in Lust space** (§5); waits on his read of the definition |
+| 3 | Clemence's link to fire | **None.** She stays in Lust and never deals damage; the link is the Abbess line meeting a hot Cinder |
+| 4 | Default signatures | **Drafted for his veto** |
+| 5 | Rarity 85 / 15, boss fourth slot rare | **Yes** |
+| 6 | One reward slot per party member | **Keep** |
+| 7 | Neutrals in rewards | **Shops and the boss slot only** |
+
+Still open: the Heat definition itself, and the two lines under "Open" in §5.

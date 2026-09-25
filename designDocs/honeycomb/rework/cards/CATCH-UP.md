@@ -24,10 +24,13 @@ cross-party count came out Nettle 2 / Severine 2, not Nettle 0; and the draft si
 
 **2026-09-25: Noodle asked for the manual pass (`FEEDBACK.md` B34) and `POOL-REVIEW-02.md` is the review.**
 Measured: about 16 card offers per character per demo run, so the live 21 C / 11 R offers a common 0.57
-times a run and a rare 0.36 — the gradient is flat, which is the memorability problem. Proposed 12 C + 8 R
-per character, 85 / 15 weights, a 15-card starting deck, Burning for Cinder, and a glue rule built on the
-shared-currency table in its §2. **Waits on his answers to its §7; `CARD-POOL-02.md` (the brief) is not
-written yet.** The first job either way is `../starters/` B1, since every alt is still unlocked from run one.
+times a run and a rare 0.36 — the gradient is flat, which is the memorability problem. **He agreed the
+shape the same day:** 12 C + 8 R per character, 85 / 15 weights, a 15-card starting deck, one reward slot
+per member, neutrals in shops and the boss slot, and a glue rule built on the shared-currency table in its
+§2. Burn was withdrawn on his read; **Cinder's status is Heat** (§5: Lust per card played while hot, fades
+a stack a turn) and Poison is to halve. **Waits on his read of the Heat definition; `CARD-POOL-02.md` (the
+brief) is not written yet, and starts with Cinder.** The first job either way is `../starters/` B1, since
+every alt is still unlocked from run one.
 
 ---
 

@@ -297,3 +297,17 @@ behaves are in `../lust_events/IDEAS.md` §3.
   confirmed Jonesy.
 - **He should appear in her scene pictures.** Noodle is inpainting him by hand into the first picture of
   her first venom scene (`characters/necro/lust/v1-1`), because he was left out of it.
+
+### Clemence
+
+- **What her broken state is, in his words** (2026-09-25, `../rework/cards/FEEDBACK.md` B34): *"she's
+  someone who believes in love with sin, her broken state has her ascending and seeing angels blessed with
+  the gift of sight once again"*. Her eyes are veiled; Broken is when she sees. Never stated in a line (see
+  `../lust_events/IDEAS.md` §3), and she never deals health damage: *"Her doing HP damage at all doesn't feel
+  thematic for me."* Her space is Lust alone.
+
+### Cinder
+
+- **Recklessness puts her nearest Clemence's space** (Noodle, same message): *"while 'I want to be broken' is
+  Clement's thing, Cinder is probably the second closest to that space due to her theme of recklessness."*
+  Her status is **Heat**, in Lust, not fire damage (`../rework/cards/POOL-REVIEW-02.md` §5).
