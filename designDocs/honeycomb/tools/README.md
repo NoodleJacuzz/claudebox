@@ -46,6 +46,7 @@ Moved here session 41 from the honeycomb root, which is now four documents and n
 | `progression-dump.js` | Every progression node, expanded. |
 | `progression-sims.js` | Character mechanics driven through real fights. |
 | `exp-model.js` | The EXP curve. |
+| `relic-census.js` | Every relic and piece of equipment by rarity, pool, gate and kind; relic and gold income per demo run over generated maps; how much of the chance pool each party can be offered. **The instrument `../relics/RELIC-REWORK-01.md` is sized on.** Run after any relic-table or reward-tuning change. |
 
 ## Generators
 

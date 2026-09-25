@@ -33,7 +33,7 @@ words; read it and nothing else. Counts are open items, checked by `tools/feedba
 | **Artwork** | 14 | Alt outfit picks (round-5 prompts written), then card art after the pool cut, VFX overlays by Stable Diffusion, the card chrome's three items. | `art_pipeline/ART-PIPELINE.md` |
 | **Events & Writing** | 9 | The docket is Venom, Exposure and Heat for everyone, Torment for Brienne, Penance for Clemence; one bundle per session. The writing groundwork is `../voice_matching/`. Map events have their pictures and want their cast lines. | `events/EVENTS.md` |
 | **Mobile support** | 4 | Landscape sizing, then portrait (the camera pans with the card drag). The phone test path comes first. | `mobile/MOBILE.md` |
-| **Relic & equipment rework** | 6 | B1 the unlock routes; B22 the relic rework, answered and not built; B23 and B4 on the trees. | `relics/RELICS.md` |
+| **Relic & equipment rework** | 7 | S65-1 the rarity model first (`relics/RELIC-REWORK-01.md`, measured, for his veto); B1 the unlock routes; B22 the relic rework, answered and not built; B23 and B4 on the trees. | `relics/RELICS.md` |
 | **Engine** | 24 | The verbs the other pipelines wait for, the shop drag, the rest site audit, the SFX library and assignment, elite and boss songs, five items waiting on his eye, performance as a standing concern. | `engine/ENGINE.md` |
 | **Character and story writing** | — | Bibles for characters, mechanics and story. `designBibles/story.md` §3 is the tone rule, §11 the lust tags. | `designBibles/` |
 
@@ -91,6 +91,7 @@ no other home goes in `Archive/SESSION-LOG.md`.
 
 | # | Date | What landed |
 |---|---|---|
+| 65 (cloud) | 2026-09-25 | **Relic rarity measured and re-modelled** (`relics/RELIC-REWORK-01.md`, `tools/relic-census.js`). Rarity is a price tag today: every relic roll is a uniform pick, 4.3 relics a run from a pool of 15 or 16 for a trio, so 37% of drops are rares. Proposed for his veto: common persists as the collection, uncommon is the gated engine part, rare the swing; boss, shop and event are sources, not weights. The live 36 re-filed; the gap is the boss tier. No game code changed. |
 | 64 (cloud) | 2026-09-25 | **The documentation tree rebuilt from Noodle's pipelines.** Twenty workstream folders became eight pipeline documents plus `desk/`; every open item moved in his words; everything else is frozen at its old path in `Archive/demo1/`. Earlier the same day: 39 closed items archived, the root documents cut, his second-demo message filed as the gate. No game code changed. |
 | 63 (cloud) | 2026-09-25 | The card pool reviewed for the manual pass; `card_pool/CARD-POOL-02.md` drafted whole; the lust tags signed off (E14, B23). |
 | 62 (cloud) | 2026-09-24 | The Quality Lab designed, not built (`tooling/QUALITY-LAB-BRIEF.md`). |

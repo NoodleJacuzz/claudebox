@@ -18,11 +18,14 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
   item of two pipelines**: the card pool's whole shape assumes the alts are gated, and it is the pool's
   first engine job (`../card_pool/CARD-POOL-02.md` §5). Alt outfits are recoloured copies of the default's
   pictures until the art pipeline draws them.
-- **Relics.** Uncommon was retired in session 55d (16 common, 9 rare). B22, answered session 39 and not
-  built: replace Crimson Fang, Votive Candle and Bone Necklace (free per-fight healing undercuts the
-  campfire), and cut starting relics so relics become unlockable. `RELIC-REWARDS.md` lists every relic,
-  where it can come from, and the gap: no relic grants a reroll or a banish except through a tree node.
-  The Dominion Rod and the Lucky Hat (session 55) are the first two that do.
+- **Relics.** Uncommon was retired in session 55d (16 common, 9 rare) and **reopened by Noodle in
+  session 65**: `RELIC-REWORK-01.md` is the brief. Measured, rarity is a price tag (every roll is a
+  uniform pick, so 37% of drops are rares and a given relic turns up in a quarter of a trio's runs); a job
+  per tier is proposed and the live 36 re-filed, all waiting on his veto (S65-1). B22, answered session 39
+  and not built: replace Crimson Fang, Votive Candle and Bone Necklace (free per-fight healing undercuts
+  the campfire), and cut starting relics so relics become unlockable. `RELIC-REWARDS.md` lists every
+  relic, where it can come from, and the gap: no relic grants a reroll or a banish except through a tree
+  node. The Dominion Rod and the Lucky Hat (session 55) are the first two that do.
 - **Progression.** 256 of 256 nodes wired, `../tools/audit-trees.js` green, Fortitude free on every tree
   and total (no weakness, no Lust Events). Open: deck-customization pricing (B23) and distributing
   unlockables through the game (B4), which is where B22's relics go. **`../tools/generate-progression-trees.js`
@@ -34,6 +37,7 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
 |---|---|
 | `RELICS.md` | this file |
 | `STARTER-REWORK-01.md` | **the brief**: Noodle's quotes verbatim on starters, outfits, relics and the progression levers. It wins over any list below it |
+| `RELIC-REWORK-01.md` | **the brief for B22**, session 65: Noodle's rarity message verbatim, what rarity does today (measured), a job per tier, sizing, the live 36 re-filed, engine asks, his eight decisions. Nothing built |
 | `STARTER-LIST.md` | the live working design of the starting decks, kept lean by instruction |
 | `OUTFITS-LIST.md` | all 18 outfit signatures, one line each; outranks `../reference/MECHANICS-01.md` on identity |
 | `RELICS-LIST.md` | common relics and heirlooms |
@@ -51,6 +55,7 @@ node "!designDocs/honeycomb/tools/audit-trees.js"           the trees against TR
 node "!designDocs/honeycomb/tools/progression-dump.js"      every node, expanded
 node "!designDocs/honeycomb/tools/progression-sims.js"      character mechanics driven through real fights
 node "!designDocs/honeycomb/tools/exp-model.js"             the EXP curve
+node "!designDocs/honeycomb/tools/relic-census.js"          every relic by rarity, pool and gate; relic and gold income a run
 ```
 
 ## Rules this pipeline must not break
@@ -104,6 +109,31 @@ hand-ordered lists. **VERIFY** whether one already exists.
 
 His open worry — the simple characters being too simple — is deliberately left unanswered: *"only more
 testing can answer what we need."* Do not act on it.
+
+---
+
+### S65-1. Relic rarity: what each tier is for ⏸ — FILED 2026-09-25, brief drafted the same day
+
+> We depreciated the uncommon rarity because it had no mechanical difference between it and rare to keep
+> the game lean, but the numbers don't lie:
+> Common: 44
+> Uncommon: 58
+> Rare: 37
+> Boss: 34
+> Shop: 20
+> Event: 16
+> Special: 7
+>
+> I think we lose a lot by not having it and other interesting rarities. But we'd need to concretely
+> define what purpose each rarity should serve and not just include them blindly.
+
+`RELIC-REWORK-01.md` is the answer, for his veto. Measured first (§1): rarity's only effect on a relic
+today is its shop price, every roll is a uniform pick, 4.3 relics are given a run, and a trio's pool is
+15 or 16, so rares are 37% of drops and a given relic turns up in a quarter of runs. Then a job per tier
+(§2): common persists as the collection, uncommon is the gated engine part, rare the swing; boss, shop
+and event are sources, never rolled; special and starter are not imported. Sized at ≈ 75 (§3), the live
+36 re-filed (§4), nine engine asks (§5), eight questions (§6). **The design gap is the boss tier.** Comes
+before B22, which it shapes.
 
 ---
 

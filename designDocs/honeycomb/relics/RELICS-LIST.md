@@ -2,6 +2,9 @@
 
 Lean. Brief: `STARTER-REWORK-01.md` §2. Bible: Common Relics & Heirlooms.
 
+**Rarity (session 65):** the two-rank rule in the Slot table is what `RELIC-REWORK-01.md` §2 replaces if
+Noodle confirms it; the verdicts below stand, and §4 there re-files every entry.
+
 Items without `*draft*` are Noodle's pass. `*draft*` / **Potential new effect** = opencode.
 
 ---
