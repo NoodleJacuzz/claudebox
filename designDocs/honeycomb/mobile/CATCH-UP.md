@@ -29,7 +29,7 @@ it shares a pass with `../ui/` B29 (the debug win button).
 
 | File | Holds |
 |---|---|
-| `FEEDBACK.md` | A12. |
+| `FEEDBACK.md` | A12 (the phone test path), the Move button's tap target, and Noodle's 2026-09-25 items: S64-1 landscape size buffs, S64-2 portrait styling (zoomed battlefield, drag to pan, image over text). Both are on the second demo's gate. |
 | `../reference/SCALING-01.md` | The honeycomb pixel, and the landscape parity measurements. |
 
 Parity check: `node "!designDocs/honeycomb/tools/audit-scale-parity.js"` — proves a phone-sized copy

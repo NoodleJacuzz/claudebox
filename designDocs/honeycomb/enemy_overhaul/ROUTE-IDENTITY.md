@@ -19,7 +19,7 @@ out of that route's own roster; the elite fights still borrow, on his instructio
 | Act1-B, Thorn Arbor | 6 of 14 | **12 of 14** | 2 | **1**, elite-only |
 | Act1-C, Pollen Road | 2 of 14 | **12 of 14** | 3 | **1**, elite-only |
 
-**Two findings from doing it**, both in `../playtest_55/READ-ME-3.md`: the Pollen Road has no small
+**Two findings from doing it**, both in `../Archive/playtest_55/READ-ME-3.md`: the Pollen Road has no small
 enemy at all, which is the slot it actually wants filling; and the Mantlewing is its only tank and does
 not fit any native group inside the budget, so `pollenHighDrift` carries it over-budget on purpose.
 

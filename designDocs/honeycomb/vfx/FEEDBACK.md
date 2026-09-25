@@ -25,6 +25,16 @@ Where the work is: `../CATCH-UP.md`. What the project is: `../BASICS.md`.
 Generate and assign vfx to cards. **B21 raises the stakes** — the enemy art plan explicitly assumes
 "vfx will do the rest of the work", so hit feedback now depends on this rather than on sprites.
 
+**Noodle, 2026-09-25**, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the
+second demo):
+
+> - New VFX creation
+
+Two things come before the creation: the in-engine tilt-and-redden hit treatment B21 already spends
+(tuning numbers, no art), and the Quality Lab (`../quality_lab/`), which he lists among the early-stage
+blockers and whose vfx picker and at-once sweep are the assignment half of this item. Creating effects
+before the bench exists means tuning each one by eye twice.
+
 ---
 
 ## Unsorted — drop new reports for this workstream here

@@ -48,7 +48,7 @@ still unlocked from run one.
 
 | File | Holds | Read it before |
 |---|---|---|
-| `CARD-POOL-02.md` | **The second pool pass, the brief**: the agreed shape, Heat in Noodle's words with the edge-case defaults, Poison halving, and the per-character grids — Cinder drafted, five to go. | writing or vetoing any grid |
+| `CARD-POOL-02.md` | **The second pool pass, the brief**: the agreed shape, Heat in Noodle's words with the edge-case defaults, Poison halving, all six grids and the neutral tier drafted for his veto, the engine asks and the housekeeping table (§5). | writing or vetoing any grid |
 | `POOL-REVIEW-02.md` | **The 2026-09-25 review of the session-33 pool**: offers-per-run maths, the shape and glue audit, the proposed 20-card shape, the reasoning behind Heat, the plan and the questions with his answers. | understanding why the brief says what it says |
 | `CARD-POOL-01.md` | The brief: Noodle's corrections verbatim, hard rules, the per-character grids, the verdicts, the status board. | touching the pool at all |
 | `BALANCE-01.md` | The foundational numbers: turns per fight, damage budget, enemy derivation, the healing rule. `tuning.balance` holds them. | pricing any card or enemy |
@@ -68,7 +68,7 @@ Retired definitions: `../../Archive/RETIRED-CARDS-S31.md` and `../../Archive/RET
 ```
 node "!designDocs/honeycomb/tools/budget-audit.js"        every encounter against the damage budget
 node "!designDocs/honeycomb/tools/card-inventory.js"      every card, flat
-node "!designDocs/honeycomb/tools/_dup.js"                cards sharing a name or a rules body
+node "!designDocs/honeycomb/tools/card-duplicates.js"     cards sharing a name or a rules body
 node "!designDocs/honeycomb/tools/audit-card-fit.js"      card text that does not fit its box (browser)
 node "!designDocs/honeycomb/tools/draft-sim/draft-simulation.js"
 node "!designDocs/honeycomb/tools/draft-sim/draft-sim-compare.js"
@@ -85,7 +85,7 @@ Items are `FEEDBACK.md` holds the full quote and annotation for each. The table 
 
 | | Goal | State |
 |---|---|---|
-| **B34** | **The manual pass on the pool.** Shape agreed and Heat locked 2026-09-25; `CARD-POOL-02.md` is the brief with Cinder's grid drafted. | ◐ Cinder ⏸ his veto · five grids to write |
+| **B34** | **The manual pass on the pool.** Shape agreed and Heat locked 2026-09-25; `CARD-POOL-02.md` is the brief, all six grids and the neutrals drafted. Noodle's 2026-09-25 gate calls it *Per-character card overhaul*. | ⏸ his vetoes held · first engine job is B1 |
 | **B1** | **Unlock routes.** Every alt outfit is still open from run one, so the whole 21 C / 11 R pool drops at once. Nothing gates the gated cards. | ☐ the load-bearing one, and B34's first step |
 | **B26** | **The neutral pool missed the overhaul.** It was not rebuilt with the rest. | ☆ new |
 | **B18** | **Clemence's redesign.** | ☐ |

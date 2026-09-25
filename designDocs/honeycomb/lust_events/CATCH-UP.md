@@ -129,7 +129,7 @@ that goal is already reachable on one tag, and that what actually blocks it is t
 
 | File | Holds |
 |---|---|
-| `FEEDBACK.md` | B17, B18, B19, B20; B21 closed s47, B22 closed s48. |
+| `FEEDBACK.md` | B18, and B23 (the signed-off tag set and the demo's writing scope, with his 2026-09-25 event list and the Charm/Exposure question). B17, B19, B20, B21 and B22 are closed, in `_archive/`. |
 | `SCENES-01.md` | **Ten venom scene drafts, waiting on Noodle.** Brienne and Nettle 1-3 complete, plus a rank 1 each for Severine, Cassadora, Cinder and Clemence. Written in image BEATS against Noodle’s own three image plans. Measured with `.claude/skills/syrup-town-scenes/tools/scene-metrics.py`, zero out-of-band flags. **Not in the game.** It also carries the one engine blocker: art is per-event, not per-page, so a scene can only show one image. |
 | `HANDOFF-ENGINE.md` | **Three small engine changes, specced not built** — italics/bold in event prose, per-page art, and the "Later..." continue button. All three block scene work; none was applied because another agent was live in the file. |
 | `PROMPTS-NETTLE-02.txt` | **The combo block for venom 3's two endings**, six images: `v3win-1`–4 and `v3loss-1`–2. Two sets, because the win is in the dungeon and the loss is outdoors. Its comment header records four traps found while checking it, two of which are general: `[act1-flora]`/`[forestDay]` are not real shortcuts, and a named block is global across `//` sets. |

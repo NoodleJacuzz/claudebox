@@ -12,9 +12,11 @@ of the repo with no sound library and no image folder, so the suite could not ru
 statement about the engine in `BRIEF.md` §2 was read from the code, not measured live. The first build
 session should re-run the suite before anything else.
 
-Eight decisions wait on Noodle (`FEEDBACK.md` Q1–Q8). None of them blocks Phase 0 of the build
+Seven decisions wait on Noodle (`FEEDBACK.md` Q1–Q6 and Q8). None of them blocks Phase 0 of the build
 (`BRIEF.md` §5): the named impact, the hit groups, the resolver and the stamps change nothing visible
-and can start on any answer.
+and can start on any answer. **Q7 was answered 2026-09-25:** his housekeeping message lists the *Quality
+tuner* among the second demo's early-stage blockers, so the lab is demo work and comes before the SFX
+assignment and VFX creation it serves (`_archive/FEEDBACK-DONE.md`).
 
 **Next session, in order:** read `BRIEF.md` §2 and §3.10; do P1 if Q5 is answered; build Phase 0 and
 its checks; update this file.
@@ -26,7 +28,7 @@ its checks; update this file.
 | File | Holds |
 |---|---|
 | `BRIEF.md` | the pitch verbatim with annotations, what the engine does today, the design, the build order |
-| `FEEDBACK.md` | Q1–Q8, the decisions the design waits on |
+| `FEEDBACK.md` | Q1–Q6 and Q8, the decisions the design waits on; Q7 is answered and archived |
 | `../Archive/FEEDBACK-07.md` §A2 | the Battle Lab this stands on: its seams, its rulings, its traps |
 | `../Archive/POLISH-01.md` §3–4 | impact and the animation vocabulary as they were settled |
 

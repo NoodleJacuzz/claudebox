@@ -238,47 +238,6 @@ an enemy's plate is unchanged. A touchscreen has no pointer to rest anywhere, so
 **⏸ His call:** whether 0.68 is the right amount of quiet. It is one tuning number, and 1 turns the fade
 off entirely without putting the growth back.
 
-### A-S47f. The forecast's footnotes contradicted each other — FIXED session 47
-
-> Forecasting is broken in terms of footnote messages. "Nothing is about to change it. They break unless something changes." That's me hovering over a pawn forecasted to die to an upcoming attack.
-
-**Two faults with one cause.** The break margin is `standingAfter − lustAfter` (`honeycomb-forecast.js`),
-so LETHAL damage drives `standingAfter` to zero and the margin to zero or less — **on a body holding no
-Lust at all**. `mightBreak` then fired, and the lust panel printed "They break unless something changes."
-directly under a forecast section that was correctly reporting that nothing was about to change the Lust.
-
-Breaking is what happens to somebody still standing; dying is what happens instead. So:
-
-1. `summary.mightBreak` now additionally requires `downed != true`, `certainDowned != true` and
-   `standingAfter > 0`.
-2. The lust panel prints a new line, `lust.breakMoot` — **"They fall before Lust decides anything."** —
-   whenever the mark is lethal or `healthAfter` is 0, instead of the break warning.
-
-Suite block `[119]`.
-
-### A-S47g. A piece's move button sat over its status icons, then over its art — SETTLED session 47
-
-> All pieces, their ability bar covers their status effects.
-
-and, after a first attempt moved it above the health bar:
-
-> Lower the ability, not raise it. It needs to be below debuffs (if any). If it's at the top of the nameplate it blocks the art.
-
-> Pawn intent cards are now flying way above the character sprite, a pawn's "Gnash" intent preview is roughly at Anastasia's eye level.
-
-**The original fault:** `.hcGolemMove` inherited `.hcAbilityMenu`'s `position: absolute; top: 122
-plate-u` — a fixed drop that STARTS inside the first row of status circles (108 plate-u, each circle 104
-tall) and sinks further under them with every status gained. A fixed drop cannot clear a row that wraps.
-
-**Settled arrangement:** the circles and the button share one flow box (`.hcPlateStack`, emitted only for
-a piece), placed where the circles used to sit, so the button always follows whatever they grew to. The
-telegraph lift added by the first attempt is removed entirely and a note left in its place.
-
-**The cost, measured and accepted by him:** a fighter's plate sits near its feet, so at 1280×720 with four
-statuses the button's last few pixels can cross the foot of the battlefield. The three arrangements
-measured were — button under the circles: button 5px past the battlefield; circles under the button:
-icons 38px past it; button above the bar: covers the drawing. He picked the first.
-
 ### A-S47h. Sprites are sized by WIDTH, so a canvas of another shape draws another height — FIXED session 47, one decision left ⏸
 
 Raised by Anastasia's crouch (`chessmaster/`), but it is an engine fault and it can bite any drawing.
@@ -298,57 +257,6 @@ changes. Measured after: all four of her poses draw at 335px.
 **⏸ HIS DECISION, deliberately not taken:** `allySpritePercentHeight` is dead tuning — 100 in the scene
 profile, never applied. Honouring it would make **every ally 14% taller** at a stroke. That is a design
 change, not a bug fix, so the cap was left alone and only the canvas SHAPE is corrected.
-
-### P18. The shop should show party HP and Lust ☑ — DONE SESSION 55
-
-> Shop needs to show party member HP and lust
-
-The shop sells healing and Lust treatment at its counter, and the numbers those prices are worth
-judging against were two screens away: the party window, and then a character inside it.
-
-A row per party member now sits between the shop's tabs and its stock, showing the face, the name,
-health over maximum, any Temporary HP carried in, and Lust. A member who is Broken says so. The rows lie
-side by side and wrap, so three of them cost one line of the panel rather than three.
-
-It reads off the RUN, so the benched roster is not listed, and it uses the same row markup and the same
-`--hc-px` lengths as the panels around it. `honeycomb.shop.partyConditionMarkup` is the whole of it, and
-it returns an empty string outside a run, so the Mail Order shop opened from a rest is unaffected.
-
-**Not done:** buying a treatment still does not say what it will leave a character at. The counter could
-print "Nettle: 22 Lust becomes 12" beside the price. The player can now work that out from the rows
-above it, so this is a convenience rather than a gap.
-
----
-
-### P19. Trip Line's card text is too long ☑ — FIXED SESSION 55, AND IT WAS ELEVEN MOVES
-
-> Trip Line card text too long
-
-**Trip Line is an enemy move, and a flavour line was being printed onto its intent card.** The `message`
-effect exists to put a line into the combat LOG — its own comment in `honeycomb-effects.js` says so —
-but it also described itself as that sentence, so the sentence went onto the card beside the rules.
-
-What the card said, at 151 characters against a median enemy move of 44:
-
-> Deal 4 damage to the party member in front. The party member in front moves to the back. A vine loop
-> whips around an ankle and somebody sits down hard.
-
-What it says now, at 88:
-
-> Deal 4 damage to the party member in front. The party member in front moves to the back.
-
-**Eleven moves append a flavour line this way**, so eleven cards got shorter, not one: the Matriarch's
-Brood, Wail and Seed, Big Bomb, Wild Balm, Tarnished Locket, Plant, Overgrow, Trip Line, Windfall and
-Lost the Thread. The longest enemy move in the game went from 158 characters to 136.
-
-**A twelfth card is a message and nothing else.** Befuddled, the card a cancelled intent telegraphs,
-carries its own `text: "Does nothing."`, so it still reads. Checked: no card in the game now prints an
-empty rules box.
-
-**The remaining long ones are long for a real reason.** Crush at 136 is three separate effects on one
-target, not flavour. Whether those want shortening is a different question and it is his.
-
----
 
 ### S58-1. A proper Honeycomb play button on Syrup Town's title screen ⏸ (built session 58 — waits on Noodle's eye)
 
@@ -383,6 +291,22 @@ an invisible 48px square in the title's top-left corner, which still works.
 
 **What his eye is needed for:** whether it should be bigger or more like the Syrup Town buttons, and
 whether "HONEYCOMB CATACOMBS" is the label he wants while the name is a placeholder.
+
+---
+
+### S64-1. Shop enhancement: dragging to assign neutral ownership ☆ — FILED 2026-09-25
+
+Noodle, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the second demo):
+
+> - Shop enhancement (dragging to assign neutral ownership)
+
+**Depends on the neutral tier landing.** `../rework/cards/CARD-POOL-02.md` §3.7 puts one neutral in every
+shop and none in an ordinary reward, so the shop is where a neutral is bought and where its owner has to be
+chosen. Before designing the drag, measure how a neutral card is owned today, since the card's owner is
+what decides whose hand it is played from and whose poses and sounds it uses. The drop targets already
+exist: P18 (archived) put a row per party member between the shop's tabs and its stock. The drag itself
+follows the hand's rule, pointer capture on the element and no document listener (`../REQUIREMENTS.md`
+§8), and a touch phone needs a tap-to-assign fallback (`../mobile/` S64-1).
 
 ---
 

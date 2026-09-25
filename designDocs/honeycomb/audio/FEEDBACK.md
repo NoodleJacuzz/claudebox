@@ -31,6 +31,18 @@ Where the work is: `../CATCH-UP.md`. What the project is: `../BASICS.md`.
   the suite's one standing failure. **It was NOT assigned to the Cinder movement cards**: session 21's
   lesson is that a filename is not a reason, and only Noodle knows what he made it for. ⏸
 
+**Noodle, 2026-09-25**, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the
+second demo):
+
+> - New SFX collection
+> - SFX assignment
+
+Read as two jobs in that order: a new library from him, replacing the borrowed Syrup Town stems and the
+too-quiet files above, then the assignment pass through one table. Which table is `../quality_lab/`
+Q5's question (35 cards carry an `sfx` field that disagrees with `cardSfxMap`), and the Quality Lab's
+grid is the tool he wants to assign with, which is why the lab is listed among his early-stage blockers.
+Enemies and descent are the unassigned half today; `../tools/sfx-report.js` is the audit.
+
 ---
 
 ### B12. Music ⏸ built session 50 — waits on Noodle's ear
@@ -62,6 +74,15 @@ is outside the cuts.
 
 Elite and boss tracks were named in the original item and are not built: three songs were supplied and
 three cues specified. A fourth track is one row in `trackArray` and one in a cue map.
+
+**Noodle, 2026-09-25**, in the second demo's needs list (`../BASICS.md`, the second demo):
+
+> - Elite music
+> - Boss music
+
+Two songs from him, each cut to his listening notes as the first three were, each one row in
+`trackArray` and one cue (an elite fight and a boss fight are already distinct encounter tiers). The
+three existing tracks still wait on his ear, above.
 
 ---
 

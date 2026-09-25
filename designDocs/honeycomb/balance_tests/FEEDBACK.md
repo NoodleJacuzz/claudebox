@@ -37,6 +37,16 @@ On who builds it:
 
 `BRIEF.md` is that handoff. Steps 1–3 and 8.
 
+**Noodle, 2026-09-25**, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the
+second demo), among the early-stage blockers:
+
+> - Balance suites A and B
+
+Basic Bite and All the Crunch. What is not done is in `CATCH-UP.md`: the full-size overnight run, the
+calibration against his own play (T3), and Steps 5 to 7's own checks. It is a blocker because
+`../rework/cards/CARD-POOL-02.md` §6 wants a Crunch run before and after the pool lands, and
+`../rework/enemies/` S64-1's turn-target question wants one either side too.
+
 ### T2 — All the Crunch should prove the game's content can be reached
 
 > if we should make All the Crunch so thorough it makes sure all of the game's content is actually

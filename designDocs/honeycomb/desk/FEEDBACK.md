@@ -8,6 +8,14 @@ The Status line under each item says where it stands. Phases 1 to 4 were built o
 tested on a copy of the desk. They reach your phone when the desk is restarted; until then the phone
 shows the old page.
 
+**Noodle, 2026-09-25**, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the
+second demo), listing this among the early-stage blockers:
+
+> - Finish Desk app
+> I had to stop at phase 4 due to release approaching and needing to preserve usage limits, I'll likely need to start a new session to tackle it.
+
+So phases 5 to 11 below are a session of their own, and nothing in the game waits on them.
+
 ---
 
 ## Answered already

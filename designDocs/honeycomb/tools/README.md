@@ -42,7 +42,7 @@ Moved here session 41 from the honeycomb root, which is now four documents and n
 |---|---|
 | `card-inventory.js` | Every card, flat. Also the canonical `FILES` load order the other tools import. |
 | `save-text.js` | **A save Noodle sends, made readable** (2026-09-23). Copy / Load Save and `.noodle` files hold the save compressed (`HC1~...`); `unpack <file> [out.json]` turns one back into JSON, `pack` goes the other way, `check` is the round trip suite block [140] runs. |
-| `_dup.js` | Cards sharing a name, or sharing a rules body across owners. |
+| `card-duplicates.js` | Cards sharing a name, or sharing a rules body across owners. (was _dup.js until 2026-09-25) |
 | `progression-dump.js` | Every progression node, expanded. |
 | `progression-sims.js` | Character mechanics driven through real fights. |
 | `exp-model.js` | The EXP curve. |

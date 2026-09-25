@@ -96,20 +96,6 @@ the asset or template.
 
 ---
 
-### Q7. Whether any of this is demo work ⏸
-
-> Final goal: A game-feel standardization system, allowing us to quantify previously untranslatable
-> gaps, and creating templates an agent creating cards can pick from that carry proven relationships.
-
-The pitch names no priority. Tooling is off the demo gate,
-as the Battle Lab is. But Phase 0 and the Performance Delay Test are the missing instrument for the
-top demo goal (`../performance/` B16) and the phone test path `../mobile/` A12 asks for, and the vfx
-picker and the at-once sweep are the assignment half of `../vfx/` B13, which is on the gate. The
-recommendation is that Phase 0 and the performance half are demo work and the rest rides with VFX.
-**Needs:** his call, since the gate is his.
-
----
-
 ### Q8. The device profile and the hitch log in telemetry ⏸
 
 > When finished, this should be saved to call upon outside of the quality lab as well, in case there are

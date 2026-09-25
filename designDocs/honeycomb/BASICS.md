@@ -270,109 +270,148 @@ percentages in `tuning.art.cardFrame`, so a future frame with a different window
 > - Any time it is determined that existing Syrup Town code should be changed rather than honeycomb's
 >   code working around it.
 
-Status: **MVP checkpoint reached and reported. Demo scope settled session 38, amended session 39
-(below).** No Syrup Town logic has been changed — only additive wiring (script tags, a stylesheet link,
-two `devPreviewBoot` cases).
+Status: **the MVP checkpoint was reported; the first demo shipped as the Public Test Release on
+2026-09-23; the second demo's gate is below (2026-09-25).** Syrup Town logic is unchanged apart from
+additive wiring: the loader line in each page, two `devPreviewBoot` cases, and the title-screen button
+(`REQUIREMENTS.md` §4b, signed off).
 
-### The demo scope (Noodle, session 38; amended session 39)
+### The demo scope — the second demo (Noodle, 2026-09-25)
 
-> The Proof of Concept is well past completed and testing. We're working on a beta demo, and the goals
-> are explicitly:
+The first demo shipped as the Public Test Release on 2026-09-23; its session-38 scope list and the
+amendments are `Archive/DEMO-1-SCOPE.md`. On 2026-09-25 Noodle set the second demo's scope in a
+housekeeping message, in three lists. **The lists are the gate.** Each line is also filed, in his words, in
+the workstream that owns it; the table under the lists says which, and that folder's `FEEDBACK.md` is
+the queue. The two blockers with a paragraph behind them are quoted in full in `test_suite/FEEDBACK.md`
+and `desk/FEEDBACK.md`.
+
+> I know what's needed for the next demo release of honeycomb and I have it mostly mapped out in separate pipelines:
+> - Engine
+> - Artwork
+> - Events & Writing
+> - Mobile support
+> - Card pool rework
+> - Enemy rework
+> - Relic & equipment rework
 >
-> - Sprite pass (ongoing)
-> - Card pool rework (ongoing)
-> - Card frame redesign (finished?)
-> - Enemy rework (needs testing)
-> - Progression rework (finished?)
-> - Anastasia (ongoing, currently in debt, next session starts by going backwards, her being shown as
->   secret is also bad if she doesn't make it, I don't need 10k emails asking how to unlock her)
-> - VFX (ongoing)
-> - Looping Music (unstarted)
-> - Act 1-1 and Act 1-2
-> - Mobile portrait (We're way closer than expected due to healthy design habits)
+> Each one is mostly independent of each other, so each productive day I spend working on honeycomb I'll try and focus on one of these until the next demo build is ready. I tried to single out the ones where leaving them for later would create a ton of headaches:
+>
+> Early Stage Work Blockers
+> - Test Suite Overhaul [...]
+> - Finish Desk app [...]
+> - Quality tuner
+> - Balance suites A and B
+>
+> And this is a list of I think everything the second demo build really needs. I'm confident I want everything on here, even stuff like mobile portrait support, since that's actually a hugely loyal part of my playerbase.
+> - Per-character card overhaul
+> - Give alt outfits actual images
+> - Card art first pass (blocked by picking alt outfits since alt outfits in art is a great way to make them distinct and identify archetypes)
+> - Mobile landscape size buffs (Make the game more playable on mobile.)
+> - Mobile portrait styling (Zoomed in battlefield view, drag to pan across screen, events with images over the text instead of to the side of it, actually much closer than expected)
+> - New SFX collection
+> - SFX assignment
+> - New VFX creation
+> - Venom events
+> - Charm events
+> - Heat events
+> - Char specific Penance and Torment events
+> - Elite music
+> - Boss music
+> - Thoughtful overhaul of common map events
+> - Per-character map events (mainly as ways to raise lust weakness faster for players who want the H)
+> - Shop enhancement (dragging to assign neutral ownership)
+> - Rest site audit (I know it needs more complex image picking to show multiple party members, but it's quite close to fine already due to work we did with rest site upgrades)
+> - Common enemy encounter rework & additions
+> - Elite enemy encounter rework & additions
+> - Boss enemy encounter rework
 
-**Session 42 defined what "Act 1-2" covers:** it is the catch-all for the sub-acts that follow
-Act1-1 — **Act1-A (Mushroom Frontier, live), Act1-B (Flora, empty), Act1-C (Pollen Road, empty)** —
-and Noodle confirmed *"the demo ships with act 1-1 and act1-2, so all three routes are in scope."*
-Two of the three have no enemies yet. See `designBibles/story.md` §4 and `enemy_overhaul/`.
+**Where each line lives.** Codes are the item numbers in that folder's `FEEDBACK.md`.
 
-**This list is the demo.** Work that is not on it does not block the demo, however loud it is in the
-feedback round — each workstream’s `FEEDBACK.md` is the queue, this is the gate. Items that are larger or
-smaller than they look are called out here so no session mistakes them:
+| His line | Pipeline | Folder and item | Where it stands, and what it waits on |
+|---|---|---|---|
+| Test Suite Overhaul | blocker | `test_suite/` S64-1 | Measured, not started. A two-stage order is proposed there, because the card pool cut turns the content-pinned checks red on the day it lands |
+| Finish Desk app | blocker | `desk/` phases 5 to 11 | Phases 1 to 4 built, waiting on a desk restart and his eye. A session of its own; nothing in the game waits on it |
+| Quality tuner | blocker | `quality_lab/` | Designed. Phase 0 needs none of the seven open decisions. Comes before the SFX and VFX assignment it serves |
+| Balance suites A and B | blocker | `balance_tests/` T1 to T6 | Built. Owed: the full-size overnight run, the calibration against his play, Steps 5 to 7's checks. The pool wants a Crunch run either side |
+| Per-character card overhaul | Card pool rework | `rework/cards/` B34, `rework/cards/CARD-POOL-02.md` | All six grids and the neutral tier drafted; his vetoes held. First engine job is `rework/starters/` B1 |
+| Give alt outfits actual images | Artwork | `art_pipeline/` B26 | Round-5 prompts for four characters written; his picks come first |
+| Card art first pass | Artwork | `art_pipeline/` B3, B2 | Blocked by the alt picks AND by the pool cut: about 70 cards leave, so the order is pool, outfits, art |
+| Mobile landscape size buffs | Mobile support | `mobile/` S64-1 | The sizing pass A12 deferred. Wants the phone test path first |
+| Mobile portrait styling | Mobile support | `mobile/` S64-2 | Zoomed battlefield, drag to pan, image over text. Re-measure, do not re-scale |
+| New SFX collection, SFX assignment | Engine (audio) | `audio/` B9 to B11 | His library first, then assignment through one table (`quality_lab/` Q5 asks which) |
+| New VFX creation | Engine (vfx) | `vfx/` B13 | Tilt-and-redden in-engine first; the lab's picker is the assignment half |
+| Venom, Charm, Heat, Penance and Torment events | Events & Writing | `lust_events/` B23 | Venom and Penance can start now; Exposure after the E14 retag; Heat after the status exists; Torment after Brienne's Bastion strand. **"Charm" is read as Exposure; his word is owed** |
+| Elite music, Boss music | Engine (audio) | `audio/` B12 | Two songs from him; one row and one cue each. The three built tracks still wait on his ear |
+| Thoughtful overhaul of common map events | Events & Writing | `map_events/` S64-1 | New folder. Pictures done; the cast lines, the run-dependent choices and the prose are open, and the prose is his |
+| Per-character map events | Events & Writing | `map_events/` S64-2 | The Weeping Bloom is the model. Which tag each raises is his, against the scene docket |
+| Shop enhancement | Engine | `ui/` S64-1 | After the neutral tier lands in shops |
+| Rest site audit | Engine | `map/` S64-1 | A browser pass; B30's whole-party picture is the one decision in it |
+| Common, Elite and Boss encounter rework and additions | Enemy rework | `rework/enemies/` S64-1; `enemy_overhaul/` E14, E11, E13, E7-DEFERRED, E9 | E14's retag first, a signed-off MUST. The five previewed designs are the route-native elites. The turn-target question needs the Crunch |
+| Relic & equipment rework | Relic & equipment rework | `rework/starters/` B22, B1; `rework/progression/` B4 | Answered session 39, not built: replace three relics, cut starting relics, distribute unlockables |
+| Engine | Engine | cross-cutting | The verbs the other pipelines need: `rework/cards/CARD-POOL-02.md` §5 (Heat, Poison halving, unlock routes, reward weights, a discover verb, an exact-damage hook), the unplayed-card hook (`rework/cards/` A1), the Bastion hooks, the Charm scrub |
 
-- **Act 1-1 and Act 1-2 are LIVE** (corrected session 39 — the session-38 reading below was wrong).
-  Act 1-1 is the wide automated map on a simple background; act 1-2 is the one overlaid on a more
-  complex background. The branching landed in session 55: act 1-1 ends in three boss nodes, one per
-  route, and a boss the profile has met before is named on its node along with the route it leads to.
-  Anastasia's chess gauntlet is a one-time act 1-2, and **act 1-2 is the demo's stopping point**.
+**The order the dependencies force**, whichever pipeline a day is spent on:
 
-  **THE LIVE ACT 1-2 IS THE MUSHROOM FRONTIER, NOT MYCONID NAVEL** (Noodle, session 55). BASICS carried
-  *Myconid Navel* from session 38 and he settled it when the two were put side by side: *"Both have
-  their charm, but Mushroom Frontier is better suited for the direction we actually went for. We'll
-  save 'X's Navel' for a future area."* Anything still naming Myconid Navel as this region's title is
-  stale; the name is kept for somewhere later. *(Session 38 read `tuning.map` as one 9-row map with no act table — reconcile that
-  reading with the live behaviour before building the branching.)*
-- **Mobile portrait** is a different target from the one the scaling pass was measured against —
-  "Presentation rules" below names mobile LANDSCAPE, and `reference/SCALING-01.md`'s parity numbers are
-  landscape numbers. The honeycomb-pixel work carries over; the layouts have to be re-measured.
-  In practice this is blocked on the game being painful to drive on a phone (small buttons, deliberate
-  — mobile sizing comes after the UI is done), so it needs a large-hit-target test path first.
+1. **The retag, `enemy_overhaul/` E14, and the `heat` tag.** Enemies, the Exposure scenes and the card
+   grids all sit on it, and it touches saves (`reconcileWeaknessLedger`). Two more lines behave like
+   blockers and are not on his list: this one, and the next.
+2. **Unlock routes, `rework/starters/` B1.** The pool's shape assumes the alts are gated; nothing gates them.
+3. **The suite's stage one** (`test_suite/`): guard the disk reads, tag the blocks, so the cut can land
+   without the suite going dark.
+4. **The card pool**, one character at a time, the content blocks muted, the warning report as the gate,
+   the Crunch before and after.
+5. **Art**: the alt picks, then card art on the surviving 120 plus 12 neutrals.
+6. **The Quality Lab's Phase 0**, then SFX and VFX assignment through it.
+7. **Events** as their engine pieces arrive; Venom and Penance from day one.
+8. **Mobile**, once the UI it sizes has stopped moving; the phone test path first.
+
+**What this reading leaves for him.** Each is filed in the folder named, with an assumption written beside it
+so no work stops on it.
+
+1. **"Charm events."** The 2026-09-25 sign-off makes the fey Exposure and leaves Charm for act 2. Read as
+   Exposure events (`lust_events/` B23).
+2. **Performance and telemetry** were the top demo goal on 2026-09-19 and are absent from the list. Read as a
+   standing concern, not a gate item; the telemetry endpoint is still unpicked (`performance/` B16, A8).
+3. **The suite's order**: the two stages proposed in `test_suite/`, or the rebuild after the cut with the
+   suite red in between.
+4. **Card art** is blocked by the pool cut as much as by the outfits (`art_pipeline/` B3).
+5. **Two enemy folders for one pipeline.** `rework/enemies/` (numbers, encounters) and `enemy_overhaul/`
+   (fiction, tags, names) each cost an enemy session a catch-up. Merging them is proposed for the first
+   enemy session, not done in the housekeeping.
+6. **Off the gate by this reading:** Anastasia (`chessmaster/`, outside the card pass in his words), the
+   Event Gallery's G6 to G11, the card frame's A2, A3 and B27, and the Battle Lab. Say if any belongs on it.
+
+#### Standing rules kept from the first demo
+
+- **Act 1-1 and act 1-2 are LIVE, and act 1-2 is the demo's stopping point.** Act 1-2 is the catch-all for
+  the three routes (Act1-A the Mushroom Frontier, Act1-B the Thorn Arbor, Act1-C the Pollen Road), chosen
+  by the Act1-1 boss the run beats. Noodle: *"the demo ships with act 1-1 and act1-2, so all three routes
+  are in scope."* Anastasia's chess gauntlet is a one-time act 1-2.
+- **The live region 1 is the Mushroom Frontier, not Myconid Navel** (Noodle, session 55): *"Both have their
+  charm, but Mushroom Frontier is better suited for the direction we actually went for. We'll save 'X's
+  Navel' for a future area."*
 - **Anastasia must not be advertised if she is cut.** She is `inDevelopment: true`, and the roster, the
-  teambuilding screen and the compendium must all leave her out entirely — no "???" tile promising a
-  secret character, not even an anonymous one. Any screen that lists characters, and any screen that
-  COUNTS them, asks `honeycomb.shippedCharacterArray()`; never `honeycomb.characterArray` directly, and
-  never its own copy of the filter. Any future unlock UI must keep that property until she ships.
-  *(Corrected session 40: this section previously asserted the property was held. It was not — the
-  teambuilding roster sized its locked slots off the unfiltered table and drew a phantom tile. The gate
-  above is the fix; the history is `chessmaster/FEEDBACK.md` A4.)*
+  teambuilding screen and the compendium leave her out entirely: no "???" tile, not even an anonymous one.
+  Any screen that lists characters, and any screen that COUNTS them, asks `honeycomb.shippedCharacterArray()`,
+  never `honeycomb.characterArray` and never its own copy of the filter. (Session 40 found the teambuilding
+  roster drawing a phantom tile off the unfiltered table; the gate is the fix.)
+- **The floor under act 1** (Noodle, session 55), a hard floor that outranks "a run is meant to be lost
+  more often than won":
 
-#### The floor under act 1 (Noodle, session 55)
+  > A run ending in the first 1/3rd of act 1 should be astronomically unlucky, or the result of purposeful
+  > self-sabotage. As long as the first third of the act is possible, a devoted player has a chance no
+  > matter how unskilled they are.
 
-> A run ending in the first 1/3rd of act 1 should be astronomically unlucky, or the result of purposeful
-> self-sabotage. As long as the first third of the act is possible, a devoted player has a chance no
-> matter how unskilled they are.
+  > if the player is hard stuck at the start due to a low skill level, they can't get EXP for the
+  > progression nodes or unlock commons, and their lust weaknesses build, so both of our self-balancing
+  > tools fail catastrophically
 
-**This is a hard floor, and it outranks "a run is meant to be lost more often than won".** The reason he
-gives is that losing early breaks both of the game's self-correcting systems at once:
-
-> if the player is hard stuck at the start due to a low skill level, they can't get EXP for the
-> progression nodes or unlock commons, and their lust weaknesses build, so both of our self-balancing
-> tools fail catastrophically
-
-A player who cannot clear the first third never earns the experience that would make them stronger, and
-their Lust weaknesses rise while they fail. **He also said which way to err:** *"I'd rather have the data
-point of 'you went too far in the other direction' than 'the spot you knew felt bad does, in fact, feel
-bad'."*
-
-What session 55 did about it: an `opening` encounter tier for the first three rows, act 1's ordinary
-fight cut from 10% of party health to 8%, more combat nodes per map, and every map starting on a rest.
-
-#### Amendments (Noodle, session 39)
-
-Three changes to the list above. Full quotes and annotations are in the workstream feedback files indexed by `FEEDBACK.md`.
-
-> High priority, most important demo goal is better performance. Why are players saying the game runs
-> poorly? Are they experiencing different things than on my machine?
-
-**Performance is now the top demo goal** (`performance/FEEDBACK.md` B16). It has a diagnostic half that cannot
-be answered from Noodle's machine — his hardware is not player hardware — which is why telemetry is
-promoted with it.
-
-> Add to the demo's scope we need at least a few actual lust events, to reduce the number of lust tags
-> such that we can get lust events done for all ranks of the 2-3 tags we keep for every character.
-
-**Lust events are added to the demo** (B17): cut to 2–3 tags per character, then author every rank of
-what survives. The cut is what makes full coverage reachable.
-
-> Might be a demo goal. It would turn thousands of lurker players into real datapoints.
-
-**Telemetry is promoted** from demoted to a candidate goal (A8). It is the instrument for the
-performance question above. An endpoint still needs picking.
-
-> But aside from these, this project mainly exists as a low-user-attention project for you to work on
-> while I am working on other non-coding tasks.
-
-Work independently. Batch questions to the checkpoints above rather than interrupting.
+  Which way to err: *"I'd rather have the data point of 'you went too far in the other direction' than 'the
+  spot you knew felt bad does, in fact, feel bad'."* Session 55 built the `opening` encounter tier (rows 0
+  to 5), cut act 1's ordinary fight from 10% to 8% of party health, and started every map on a rest.
+- **Mobile portrait is a different aspect ratio, not a smaller one.** `reference/SCALING-01.md`'s parity
+  numbers are LANDSCAPE numbers; the layouts want re-measuring, not re-scaling.
+- **Work independently.** Noodle: *"this project mainly exists as a low-user-attention project for you to
+  work on while I am working on other non-coding tasks."* Batch questions to the checkpoints above.
 
 ---
 

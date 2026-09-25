@@ -70,10 +70,11 @@ Re-measure coverage whenever the roster changes.
 | — | **Play testing.** The demo gate's "needs testing" is Noodle's, and it is not a suite run. | ☐ |
 | **B21** | **Enemy art scope**, cut hard. It leans on VFX: tilt and redden in-engine, and the VFX pass does the rest. | ☐ |
 | **B2** | **13 of 36 enemies still `artOwed`.** Sidecars exist; the art does not. Work happens in `../../art_pipeline/`. | ◐ |
+| **S64-1** | **The second demo's encounter rework: common, elite and boss additions** (Noodle, 2026-09-25). Carries P14's open half, whether act 1 fights should last longer. The E14 retag comes first. | ☆ |
 | **B31** | **Sporelings should be fought in bulk.** | ☆ |
-| **B32** | **Enemy titles are hard to read.** | ☆ |
-| **B28** | **Map generation: too many chests, not enough encounters.** Adjacent — it decides how often these enemies are met. | ☆ |
-| **B33** | **Boss and elite rare drop rate.** | ☆ |
+| **B36** | **A two-Fencer elite** would close `../../enemy_overhaul/` E11 for the Pollen Road at the same time. | ☆ |
+| **B37** | **Twelve sprites leave the screen** at his window shape; the Head Gardener's scale is settled, the height cap is not. | ☆ |
+| — | **Enemy titles** (`../../ui/` B32, built, waits on his eye) and **the rare drop rate** (`../cards/` B33) are tracked in their own folders. | |
 
 ---
 

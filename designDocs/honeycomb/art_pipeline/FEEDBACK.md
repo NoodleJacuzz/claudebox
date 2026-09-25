@@ -58,6 +58,17 @@ sidecars keep real art safe from the generator.
 Brienne is hand-authored in `../tools/card-prompts.js` `OVERRIDE` and compiles clean through the webui engine.
 Nettle, Severine, Cinder, Clemence, Cassadora and neutral are still the table-derived first pass.
 
+**Noodle, 2026-09-25**, in the second demo's needs list (`../BASICS.md`, the second demo):
+
+> - Card art first pass (blocked by picking alt outfits since alt outfits in art is a great way to make them distinct and identify archetypes)
+
+**A second blocker he did not list: the pool itself.** `../rework/cards/CARD-POOL-02.md` cuts the pool
+from 192 pool cards (plus 31 Clemence broken forms) to 120 plus 12 neutrals, and renames or rewrites
+many of the survivors. Drawing the live pool spends about 70 cards' art on cards that are leaving, so the
+order is: his vetoes on the grids, then the alt outfit picks (B26), then this pass, with the prompts
+regenerated from the new tables by `../tools/card-prompts.js` and every card's outfit named in its prompt
+as he asks.
+
 ---
 
 ### B24. Anastasia's charactersDB entry and her three alt outfits (session 42) ◐
@@ -110,25 +121,6 @@ same four as before the session and the same four with her entry removed.
 
 `outfits-generate.js` gained **`--save`**, which asks Forge to keep its own copy in `output\txt2img-images`
 so a run can be looked at from a phone. Off by default, since the runner writes the PNG itself.
-
----
-
-### B25. OUTFITS.md is GENERATED, and it was eating Noodle's notes ☑
-
-`OUTFITS.md` is written wholesale by `build-outfits-doc.js`. Two of Noodle's hand-written notes were
-living in the generated file:
-
-> Note from noodle: What on earth were you cooking, deepseek? "animated weapons"? "heat"? "burial"?! Throw all these out!
-
-> Note from noodle: Try moving closer to what's actually likely to be recognized by the AI.
-
-The first rebuild of that document destroyed both, which is what happened in session 42 before it was
-caught. **Both are now in `build-outfits-doc.js` itself**, inside the `out.push()` blocks, so a rebuild
-carries them; and the generator's header says so, so the next person does not put a note back in the
-generated file. Rebuilt and confirmed present.
-
-The wider point for this folder: **a generated document cannot hold feedback.** If a note must survive,
-it belongs in the generator or in this file.
 
 ---
 
@@ -211,6 +203,18 @@ Written to `outfits-round5/` (four `PROMPTS-*.txt`, one paste each, and `outfits
 All 72 compile headlessly to 18 variants a block. Every tag was checked with `webui2-inspect.js`; two things it
 turned up in round 04's data are recorded in that README (`moss` aliases to Nettle's identity, `bare shoulders`
 compiles to nothing). Round 04's entries for these four stay in `outfit-designs.js` until he picks.
+
+**Noodle, 2026-09-25**, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the
+second demo), the second line of what the demo needs:
+
+> - Give alt outfits actual images
+
+Today every alt outfit is a recoloured copy of the default's pictures (`../rework/starters/` S59-1,
+archived), so *"actual images"* means the full picture set per alt: the tiers in `../reference/ART-GUIDE.md`
+§1, for 18 alts. The pick comes first: round 05's prompts for Cassadora, Cinder, Clemence and Anastasia are
+written and his to choose from; Brienne, Nettle and Severine stand on round 04's `outfit-designs.js`. His
+own card pool brief hangs on this too: `../rework/starters/` B1 gates the alts, and the alt's cards are
+what the gate protects.
 
 ### B27. A drop-in sprite import with a declared size (session 43) ☐ DEFERRED
 

@@ -189,7 +189,7 @@ to offers per card per run:
 | Base common, three defaults (a new player) | 6 | 2.3 | — |
 
 A new player's base pool behaves like Slay the Spire's commons; the unlocks are what make "every run one
-new thing" true (`characters.md`, Never a Grind).
+new thing" true (`../../designBibles/characters.md`, Never a Grind).
 
 **The floor if a deeper cut is wanted: 8 C + 6 R = 14.** Demo 1.7 / 0.4, full game 3.4 / 0.8. The cost is
 that sisters have no commons at all and the outfit carries the whole archetype. Not taken.
@@ -337,7 +337,7 @@ never inflict it. The remaining defaults are `CARD-POOL-02.md` §2.1.
 5. **Neutrals** rebuilt as the glue tier and given the shop and boss slots.
 6. **Rates and numbers last**, then an All the Crunch run before and after (`../../balance_tests/`).
 7. **Cut cards retire** through `honeycomb.retiredCardArray` with definitions in
-   `../../Archive/RETIRED-CARDS-S6x.md`, so saves survive.
+   a new retired-cards file in `../../Archive/`, so saves survive.
 
 ---
 

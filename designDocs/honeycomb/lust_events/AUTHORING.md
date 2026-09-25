@@ -16,11 +16,11 @@ somebody takes; a slot with nothing written for it **stays empty**, `resultText`
 
 ---
 
-## Tone rules — ☐ PENDING NOODLE'S PLACEMENT
+## Tone rules — a working copy; `../designBibles/story.md` §3 is the authority
 
 These are Noodle's, session 42, verbatim. They are recorded here because these scenes are where they
-bite hardest. **They have not been written into `../designBibles/story.md`** — that placement is
-Noodle's call and is still open.
+bite hardest. The bible carries them in §3, marked as outranking everything around them (B19, closed
+2026-09-25).
 
 > Please, no death or gore.
 

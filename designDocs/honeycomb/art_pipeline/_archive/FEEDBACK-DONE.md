@@ -4,6 +4,25 @@ Closed items from `../FEEDBACK.md`, moved byte for byte with their annotations.
 
 ---
 
+### B25. OUTFITS.md is GENERATED, and it was eating Noodle's notes ☑
+
+`OUTFITS.md` is written wholesale by `build-outfits-doc.js`. Two of Noodle's hand-written notes were
+living in the generated file:
+
+> Note from noodle: What on earth were you cooking, deepseek? "animated weapons"? "heat"? "burial"?! Throw all these out!
+
+> Note from noodle: Try moving closer to what's actually likely to be recognized by the AI.
+
+The first rebuild of that document destroyed both, which is what happened in session 42 before it was
+caught. **Both are now in `build-outfits-doc.js` itself**, inside the `out.push()` blocks, so a rebuild
+carries them; and the generator's header says so, so the next person does not put a note back in the
+generated file. Rebuilt and confirmed present.
+
+The wider point for this folder: **a generated document cannot hold feedback.** If a note must survive,
+it belongs in the generator or in this file.
+
+---
+
 ### B40. `artOwed` is stale on 23 enemies ☑ — FOUND SESSION 51, CLOSED 2026-09-22
 
 `artOwed: true` on an enemy means *"it stands on another enemy's drawing until its own is drawn"*, and

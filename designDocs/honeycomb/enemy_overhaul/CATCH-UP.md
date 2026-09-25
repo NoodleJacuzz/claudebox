@@ -242,8 +242,8 @@ session 42, and re-measured by `../tools/lust-share.js` in session 44:
 **The rule that made it affordable — frequency is free, vocabulary is expensive.** Twenty more Venom
 moves across the roster cost **zero** authored scenes; one more lust *tag* costs 7 characters × 3 ranks
 = **21 scenes**. So the overhaul's lever was how *often* enemies deal Lust, not how many kinds — and
-Torment is still deliberately at zero, because whether it survives at all is `../lust_events/` B20's
-call.
+Torment is still deliberately at zero on the roster: Noodle's 2026-09-25 sign-off leaves it to act 2,
+with Brienne's Bastion strand as its only demo source (`../lust_events/FEEDBACK.md` B23, `FEEDBACK.md` E14).
 
 Two findings that shaped it, both still standing:
 
@@ -253,7 +253,7 @@ Two findings that shaped it, both still standing:
   Lust spread thin erodes itself; a tight vocabulary per act advances faster than a wide one.
 
 Full arithmetic, including what one run can raise and the sim that would confirm it:
-`../lust_events/RATE.md`. Which tags go where: `../lust_events/FEEDBACK.md` B20.
+`../lust_events/RATE.md`. Which tags go where: `../lust_events/FEEDBACK.md` B23 and `FEEDBACK.md` E14.
 
 **The next enemies written must not undo this.** Re-run the tool after any enemy content edit:
 

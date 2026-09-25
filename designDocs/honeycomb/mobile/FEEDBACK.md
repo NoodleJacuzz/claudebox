@@ -61,6 +61,34 @@ appears on touch — so on a phone a dim Move gives no reason at all.
 
 ---
 
+### S64-1. Mobile landscape size buffs ☆ — FILED 2026-09-25
+
+Noodle, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the second demo),
+where he calls mobile *"a hugely loyal part of my playerbase"*:
+
+> - Mobile landscape size buffs (Make the game more playable on mobile.)
+
+**This is the sizing pass A12 said comes after the UI is done**, now scheduled. Every length is a
+honeycomb pixel, so the pass is a per-viewport size table in tuning rather than a restyle; the 57 x 16
+Move button above is the first number to work against, and 44 x 44 is the floor to aim at. It still
+wants the large-hit-target test path first, or the measuring is done on a desktop pretending.
+
+---
+
+### S64-2. Mobile portrait styling ☆ — FILED 2026-09-25
+
+> - Mobile portrait styling (Zoomed in battlefield view, drag to pan across screen, events with images over the text instead of to the side of it, actually much closer than expected)
+
+Three pieces, in his order: **a zoomed battlefield** with **drag to pan** (a viewport over the board;
+the pan is a drag on Honeycomb's own root, pointer capture and no document listener, and it must not
+fight the card drag or the aim drag), and **the event window re-flowed** with the image above the text.
+The event window is one overlay that every event kind renders through, so the third piece serves
+`../lust_events/`, `../map_events/` and the rest node at once, and the desk previews it. *"Actually much
+closer than expected"* matches `../reference/SCALING-01.md`: the honeycomb-pixel foundation carries
+over, the layouts are re-measured.
+
+---
+
 ## Unsorted — drop new reports for this workstream here
 
 *(a report that does not clearly belong to this workstream goes in `../FEEDBACK.md` instead)*

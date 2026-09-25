@@ -47,10 +47,10 @@ Live content: `honeycomb-content-characters.js` (characters, outfits, equipment,
 
 | | Goal | State |
 |---|---|---|
-| **B1** | **Unlock routes.** Nothing gates the alternate outfits, so nothing gates the cards they carry. Shared with `../cards/`. | ☐ the load-bearing one |
-| **B22** | **Relic rework** — and with it **A5**, free per-fight healing in the heirlooms undercutting the campfire. | ☐ answered session 39 |
-| **B8** | **Broken character art per outfit.** | ☐ |
+| **B1** | **Unlock routes.** Nothing gates the alternate outfits, so nothing gates the cards they carry. Shared with `../cards/`, and **the first engine job of `../cards/CARD-POOL-02.md`**: the 18 alts come off `unlockedFromStart`. | ☐ the load-bearing one |
+| **B22** | **Relic rework** — and with it **A5**, free per-fight healing in the heirlooms undercutting the campfire. Noodle's 2026-09-25 list names this pipeline *Relic & equipment rework*. | ☐ answered session 39 |
 | **B19** | **Character order.** | ☐ |
+| — | B8 (Broken art per outfit) closed in session 56; P1 to P4, P25 and P26 are in `_archive/FEEDBACK-DONE.md`. | |
 
 ---
 
