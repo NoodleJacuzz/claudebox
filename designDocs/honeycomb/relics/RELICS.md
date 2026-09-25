@@ -133,7 +133,9 @@ today is its shop price, every roll is a uniform pick, 4.3 relics are given a ru
 (§2): common persists as the collection, uncommon is the gated engine part, rare the swing; boss, shop
 and event are sources, never rolled; special and starter are not imported. Sized at ≈ 75 (§3), the live
 36 re-filed (§4), nine engine asks (§5), eight questions (§6). **The design gap is the boss tier.** Comes
-before B22, which it shapes.
+before B22, which it shapes. Later the same morning he drafted 29 relic ideas in four lists (boss Energy
+bargains, build-arounds, mechanical shake-ups, EXTREME shake-ups): filed verbatim in §7 and read against
+the model in §8, where they close most of the boss gap.
 
 ---
 

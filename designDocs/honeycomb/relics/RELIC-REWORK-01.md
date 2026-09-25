@@ -16,6 +16,8 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noodle · ☑ d
 | §4 the live 36, re-filed | ⏸ for veto; his verdicts kept |
 | §5 engine asks | ☐ none built |
 | §6 his decisions | ⏸ eight questions |
+| §7 his relic lists | ☑ filed verbatim 2026-09-25 |
+| §8 the lists read against the model | ⏸ for him |
 
 ---
 
@@ -277,3 +279,130 @@ Totals: Common 11 · Uncommon 16 · Rare 3 · Boss 1 · Shop 2 · plot 1 · off 
 7. **Names.** Every draft name is a placeholder; naming is his.
 8. **The suite quotes his 55d line** (*"I only designed common and rare…"*). Confirm §0 supersedes it, so
    block [16269] §5 can be rewritten.
+
+---
+
+## 7. His relic lists, verbatim (2026-09-25, later the same morning)
+
+> Honeycomb Relics
+> (drafted while you were brainstorming, many of these may be things you have considered already, ruminate
+> on these while I ponder the questions)
+>
+> Boss Energy Relics
+> Faustian bargain type offerings. Each offers more energy, the most powerful and valuable resources in
+> the game. They absolutely must come at a cost big enough to alter the macro-strategy of the game.
+> Notably, they should also instantly lock the player down the grind/burst path.
+> - You can no longer heal hp at rest sites (resting only reduces lust).
+> - All characters gain 1 lust at the end of every turn.
+> - You cannot play more than 6 cards per turn.
+> - Card reward choices offer 1 choice instead of 3
+> - The shop is replaced with "Midnight Bliss", which sells more negative items and cards you purchase
+>   come with curses.
+>
+> Build-Arounds
+> These are run-defining rares. The moment the player obtains them, a specific strategy has begun to
+> form, they may even instantly start to pivot their decks.
+> - Unspent energy carries over between turns.
+> - Unplayed cards are not discarded at the end of your turn.
+> - When you exhaust a card, add a random card to your hand (from the drop pool's legal options).
+> - Temporary HP does not reduce at the start of your turn.
+> - All damage that would be dealt to party members is ALWAYS dealt to the front-most party member
+>   instead.
+> - Characters deal 1 more damage for each 20 points of lust they have.
+> - Characters deal 50% more damage with single-target attacks. Single target attacks now always hit the
+>   front-most enemy.
+> - All characters permanently gain Sanctified.
+>
+> Mechanical Shake-ups
+> Important relics that set a precedent and open up wide swaths of future design space.
+> - When acquired, choose a card. That card always starts in your hand.
+> - When acquired, each character gains a weakness rank of [lust type, doesn't matter which]. While you
+>   carry [relic name], reduce lust inflicted by [lust type] cards by 90%.
+> - When acquired, reduce the cost of every card in your deck by 1. Playing cards now deals 6 damage to
+>   their owner.
+> - Whenever a character would be dealt 5 or less damage, they take exactly 1 damage.
+> - Anytime you would have 0 cards in hand, draw a card.
+> - The card reward pool now includes neutral cards. (They can replace a character's card in a reward
+>   slot, handily handling the problem of ownership assignment)
+> - At the end of each battle, gain 15 gold. Remove this relic when you purchase something from the shop.
+> - Permanently upgrade the first non-starter card you play each battle.
+> - During your turn you may manually drag party members between positions. This does not count as
+>   movement for the purposes of Heat or Stride.
+> - At the end of each turn, if you played at least 1 card belonging to each party member, soothe 10
+>   lust from each of them.
+>
+> EXTREME mechanical shakeups
+> I really want to take advantage of the fact that we built this engine from scratch. These are PURELY
+> theoretical at this stage, but making the player say "What?! How is that even possible?!" makes them
+> extremely appealing and exciting.
+> - The HP, lust, and status effects of every character is now merged into a single bar. They are now
+>   effectively one character.
+> - When acquired, choose a character not in the party. Add them to the party. Max party size is 5.
+> - Once per battle, drag a card onto this relic's icon to seal it inside the relic. When the relic is
+>   clicked, play every card sealed inside.
+> - Instead of drawing cards, you choose which cards to add from your deck to hand. (Mechanically, you get
+>   'draw points', click on the deck, then click on cards inside it to move cards from the deck to the
+>   hand, similar to the battle lab)
+> - Anytime you would gain lust, you lose gold instead. The run ends if you hit 0 gold.
+> - When acquired, once per character, each party member gains an additional, permanent, free rank of the
+>   Vigor progression node. (They gain +6 max hp, even if the node is already maxed, like if the node
+>   itself gained another max rank and was leveled up for free.)
+
+---
+
+## 8. The lists read against the model ⏸
+
+**His four buckets are the model's loud tiers under their own names.** *Boss Energy* is the boss pool
+with a sharper rule than §2.2's: the price does not merely tax, it **picks a path**. *Build-Arounds* is
+the rare tier's definition and reads better than "the swing": *"the moment the player obtains them, a
+specific strategy has begun to form."* *Mechanical Shake-ups* sort across uncommon, shop, rare, boss and
+event. *EXTREME* is a **source, not a weight**: met, never rolled, one a run at most, so that every
+expensive one is seen by every player who wants it. No common appears in any list, which is right: the
+collection is the quiet tier.
+
+**Three things fall out of the boss list.** The offer should be **stratified by lean**: a `lean` field
+(`burst` / `grind` / `either`) and the three offered are one of each, or a boss could hand a Grind party
+three Burst prices and nothing to take. Not every boss relic needs Energy: 12, 16 and 24 below make the
+choice "Energy with a price, or a different price", which is what makes the Spire's boss screen a
+decision. And the act-1 floor is structurally safe: a boss relic arrives after the act 1-1 boss, so no
+drawback ever touches the first third of the run.
+
+Engine sizes: small is a hook or a flag on a seam that exists; medium is a verb or a screen; large is
+a structural change.
+
+| # | His line | Tier | Lean | Engine | Watch |
+|---|---|---|---|---|---|
+| 1 | No healing at rest sites | Boss, +1 Energy | Burst | a rest-option gate; small | Clemence's kit and the per-fight heals (A5) hollow the price out; upgrades and removal stay at the fire |
+| 2 | 1 Lust to everyone each turn end | Boss, +1 Energy | Burst | one hook; small | untagged Lust feeds no weakness; 13 blunts it |
+| 3 | At most 6 cards a turn | Boss, +1 Energy | Grind | a play counter and a gate; small | the two 0-cost neutrals and stolen cards count; the hand must show the count |
+| 4 | One card choice, not three | Boss, +1 Energy | commitment, no lean | `choiceCount` as a run field; small | freezes the path rather than choosing one; rerolls and banishes buy it back, which makes them worth more |
+| 5 | Midnight Bliss | Boss, +1 Energy | unknown until its stock is written | a second shop table and curses on purchase; medium, after `../card_pool/CARD-POOL.md` B24 | the most flavourful; a home for "negative items" and B24's curses both |
+| 6 | Energy carries over | Rare | Grind | a retain flag at turn end; small | Leech Jar and Prayer Beads stack into it |
+| 7 | Unplayed cards stay | Rare | Grind | `retain` on every card is one flag; small | the hand cap of 10 bounds it, and Honeycomb's hand-biting curses make it self-limiting where the Spire's Pyramid is not |
+| 8 | Exhaust: a random legal card | Rare | Burst | Possibility's `discoverCard` plumbing; medium until that lands | Nettle's Souls and Fence feed it; the card's owner is whoever's pool it came from |
+| 9 | Temporary HP never decays | Rare | Grind, pivoting to Burst through the Gauntlet | one decay modifier; small | Bastion's passive is this rule at a quarter; the Almoner precedent allows the party-wide version if the numbers differ |
+| 10 | All damage to the front | Rare | either | a permanent Taunt-style redirect on rank 0; small | a sweep lands three times on one body: the price is built in; Broken at the front passes it back |
+| 11 | +1 damage per 20 Lust | Uncommon, party-wide | Burst | one modifier; small | modest at 60 Lust; multi-hit attackers get the most; exactly the uncommon gap's shape |
+| 12 | +50% single-target, always the front | **Boss, no Energy** | Burst | a targeting override and a modifier; small | a bargain, not a swing: losing the back line is a real price, so it belongs on the boss screen |
+| 13 | Sanctified for all | Rare | Grind | apply at combat start; small | Broken keeps only its bleed (Sanctified's text); pairs with 2; the Reliquary still fires |
+| 14 | Choose a card, always in hand | Uncommon, party-wide | either | `innate` on a deck instance and the pick verb, both existing; small | the Spire's Bottled relics; fills the uncommon gap |
+| 15 | A weakness rank for 90% less Lust | **Event**, one per act-1 tag | Grind | a resistance modifier keyed by tag; the rank is a profile write; small | Fortitude pays nothing, so it is gated to those who can pay; the reading taken is resistance to Lust the ENEMY inflicts with that tag (confirm) |
+| 16 | Cost −1, 6 damage per card | **Boss, no Energy** | Burst | a cost modifier and a self-damage hook; small | the damage must ignore Temporary HP or Brienne makes it free; Bloodletting turns it into fuel |
+| 17 | 5 or less becomes 1 | Rare | Grind | `modifyDamageTaken`; small | the Spire's Torii; Poison ticks are not attacks |
+| 18 | Empty hand: draw | Rare | Burst | one hook; small | the Spire's Unceasing Top; the Bone Pendant draft was the once-a-combat version |
+| 19 | Neutrals in rewards, in a member's slot | **Shop** | either | `neutralSlotChance` as a run field; small | the Spire's Prismatic Shard is shop-only too; **the slot's owner owns the neutral**, which answers S64-1's ownership question for rewards |
+| 20 | 15 gold a fight, gone on purchase | **Common** | either | an `onShopPurchase` hook and `removeRelic`, which exists; small | the Spire's Maw Bank; this is the Ledger's fix and keeps it in the chance pool |
+| 21 | Permanent upgrade, first non-starter played | Rare | either | an `onCardPlayed` hook and the upgrade verb; small | starters excluded as the rule says; twelve fights upgrade twelve cards, near boss power |
+| 22 | Drag party members freely | Shop | either | a fighter drag is new UI and touches mobile; medium | cheaper as an ability the relic grants (`abilityAdditionArray`, `swapParty`): same design, no new UI; Cinder's movement cards lose value |
+| 23 | All owners played: soothe 10 each | Uncommon, party-wide | Grind | a per-owner play tally; small | a solo party satisfies it for free, so it wants two owners at least or a party-size scale |
+| 24 | One merged bar | Event or Boss | Grind | a rewrite of the ally side; **large** | compose it instead: damage to the front (10), Lust to one body (Bastion's strand hook), healing shared. Same fantasy on existing seams |
+| 25 | Recruit a fourth, at most five | Event | either | `partySizeMaximum` is tuning (3, debug 6) and the scaling exists; the battlefield and mobile layouts are the cost; medium to large | the recruit's basics flood the deck mid-run: the price is built in |
+| 26 | Seal cards in the relic, play them all | Rare | Burst | a drop target on the relic icon, a list on the relic's run state, a play loop; medium | sealing thins the deck, so it is Grind value too; the stolen-card plumbing plays a card as its owner |
+| 27 | Choose your draws | Boss with a price, or Event | either | the Battle Lab's deck picker and a draw-points resource; medium | beyond boss power without a price (draw one fewer, or chosen cards cost 1 more); every turn becomes a menu, which phones will feel |
+| 28 | Lust becomes gold loss, 0 gold ends the run | not for the demo | — | a new loss condition; small | it switches the game's second axis off (no Broken, no Lust Events), and 780 gold a run against Lust hits of 6 to 20 is a death sentence; a halved form ("half your Lust is taken as gold") keeps the axis |
+| 29 | A free Vigour rank each, forever | Event | either | a profile bonus-rank field the rank reader adds; small | the first relic to write to the profile without being equipment: a precedent worth having |
+
+**What the lists do to §3's gaps.** Boss: his five Energy prices plus 12, 16 and 24 or 27 make eight or
+nine, and the gap closes. Uncommon party-wide: 11, 14 and 23 are three of the six. Shop: 19 and 22 join
+the Ledger's slot, which 20 hands back to the commons. Event: 15 (three relics, one per act-1 tag), 25
+and 29 give the tier its first content and its shape: a price paid outside the fight.
