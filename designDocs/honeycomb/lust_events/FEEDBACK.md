@@ -189,7 +189,7 @@ This supersedes nothing in B17 — it says *where* the surviving tags go once B1
 - **Restraint** is in neither list and is read as cut; `RATE.md` and B20's per-act budget want re-reading
   against the four.
 - **Heat's weakness ranks up and fires events like any tag but never multiplies its Lust** — an engine flag,
-  named in `CARD-POOL-02.md` §5.
+  named in `../rework/cards/CARD-POOL-02.md` §5.
 
 **The writing scope of the second demo, his seventh message the same day:**
 

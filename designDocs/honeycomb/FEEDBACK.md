@@ -162,6 +162,27 @@ Restraint moves) and **`lust_events/` B23** (the tag set and what each represent
 `rework/cards/CARD-POOL-02.md` §2.3 and §5. His Brienne masochism idea is proposed as her Bastion strand
 in that brief's §3.3 and waits on his yes.
 
+**For the cleanup session Noodle asked for next (found 2026-09-25, not done — he asked that this session
+only wrap up):**
+
+- `rework/cards/FEEDBACK.md` carries six closed items (S47, S47b, P5, P6, P7, P21) and three marked
+  waiting (P22, P23, P24) that `playtest_55/READ-ME-2.md` shows were decided and built in session 55b
+  (Clemence's broken healing cut to a 15% uplift; Taunt unchanged; Frail rebuilt). Archive them to
+  `rework/cards/_archive/FEEDBACK-DONE.md` and take the index row from 21 to 12.
+- `map/` row says 13, the folder has 14, and eight closed items sit unarchived in `map/FEEDBACK.md`.
+- `chessmaster/` is indexed but its folder is not in the cloud copy, so the audit reports it there only.
+- `tools/doc-links.js` lists 16 bare `.md` names not beside their doc that predate this session, and 61
+  missing pointers in the cloud copy, most of them to `.claude/`, `chessmaster/` and image folders that
+  are not uploaded here; it runs on his machine, or here through a `!designDocs` link to `designDocs`,
+  and the desktop run is the real number.
+- `rework/cards/POOL-REVIEW-02.md` §5 still narrates Burn-to-Heat; the brief holds the locked rule, so the
+  review can be cut to its reasoning, or archived once the veto session starts.
+- Lines the brief supersedes and that should carry a pointer until his veto: `rework/starters/OUTFITS-LIST.md`
+  (Cinder's Sundered and Ashfall passive, Bastion's passive, the Abbess and Devotee lines),
+  `rework/starters/STARTER-LIST.md` (Cinder "+1 Vulnerable to herself"), `lust_events/IDEAS.md` §3 (the
+  charm rules are act 2), `designBibles/story.md` §4 (the Pollen Road is Exposure, not charm),
+  `enemy_overhaul/ROUTE-IDENTITY.md` (charm wording).
+
 The batches below are routing tables for reports that have already been filed; they are kept because
 they say which workstream to open for each one.
 

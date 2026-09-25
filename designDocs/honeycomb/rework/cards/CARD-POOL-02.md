@@ -3,7 +3,7 @@
 2026-09-25. The brief for rebuilding the six pools on the shape Noodle agreed in `POOL-REVIEW-02.md` §4.
 His words are `FEEDBACK.md` **B34**; the reasoning is the review; this file holds the rules and the grids.
 Read the review first, then `../starters/OUTFITS-LIST.md` (outranks `../../reference/MECHANICS-01.md`),
-`../../designBibles/mechanics.md` and `characters.md`. **The bibles win any conflict.**
+`../../designBibles/mechanics.md` and `../../designBibles/characters.md`. **The bibles win any conflict.**
 
 Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noodle
 
@@ -37,7 +37,7 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | Neutrals | **the colourless tier** (§3.7): 7 C / 5 R, agnostic by construction, priced above rate, never in an ordinary reward; every shop stocks one, the boss's fourth slot rolls a neutral rare half the time; the tier may pilot a mechanic a future character will own |
 | Gates | alts stop being `unlockedFromStart` (run-win / shop / tree-end, `../starters/` B1). Gated cards keep `offerCondition` `outfitUnlocked` / `wearsOutfit` |
 | Choose One | exactly one per character, in the base pool, cashing the mechanic |
-| Retirement | cut cards go to `honeycomb.retiredCardArray`, definitions to `../../Archive/RETIRED-CARDS-S6x.md` |
+| Retirement | cut cards go to `honeycomb.retiredCardArray`, definitions to a new retired-cards file in `../../Archive/` |
 
 ## 2. Statuses
 
@@ -714,7 +714,7 @@ different axes, and unplayed by anyone who has given feedback. Her 13 C / 7 R st
 ## 4. Verdicts
 
 Cinder's are in §3.1. The other five follow their grids. Retired definitions go to
-`../../Archive/RETIRED-CARDS-S6x.md` with the replacement named, as `RETIRED-CARDS-S33.md` did.
+a new retired-cards file in `../../Archive/` with the replacement named, as `../../Archive/RETIRED-CARDS-S33.md` did.
 
 ## 5. Engine asks, and the Friday housekeeping list
 
@@ -741,7 +741,7 @@ unblocks the most. Each is a table edit and a suite check; none needs a design d
 
 | # | Job | Where | Size |
 |---|---|---|---|
-| 1 | **The lust tags — SIGNED OFF (§2.3).** Demo: Venom, Exposure, Heat, Penance. **The fey move to Exposure** (15 Charm moves retagged); every old Charm reference and weakness scrubbed; act-1 enemies use only Venom, Exposure and Heat (8 Restraint and 0 Torment moves retagged); Charm and Torment stay defined for act 2. The charm writing rules in `lust_events/IDEAS.md` become act-2 material. Measured with `tools/lust-share.js`. Verbatim in `../../enemy_overhaul/FEEDBACK.md` E14 and `../../lust_events/FEEDBACK.md` B23. | `honeycomb-content-cards.js` (`cardTagArray`), `honeycomb-content-enemies.js`, saves (`reconcileWeaknessLedger` drops the dead tags), `lust_events/` B17 and B20 | the retag is 23 moves |
+| 1 | **The lust tags — SIGNED OFF (§2.3).** Demo: Venom, Exposure, Heat, Penance. **The fey move to Exposure** (15 Charm moves retagged); every old Charm reference and weakness scrubbed; act-1 enemies use only Venom, Exposure and Heat (8 Restraint and 0 Torment moves retagged); Charm and Torment stay defined for act 2. The charm writing rules in `../../lust_events/IDEAS.md` become act-2 material. Measured with `../../tools/lust-share.js`. Verbatim in `../../enemy_overhaul/FEEDBACK.md` E14 and `../../lust_events/FEEDBACK.md` B23. | `honeycomb-content-cards.js` (`cardTagArray`), `honeycomb-content-enemies.js`, saves (`reconcileWeaknessLedger` drops the dead tags), `lust_events/` B17 and B20 | the retag is 23 moves |
 | 2 | `heat` added to `cardTagArray` with `lustTag: true` | content-cards | one entry |
 | 3 | `../starters/` B1: the three unlock routes, and the 18 alts off `unlockedFromStart` | content-characters, progression | the one engine job |
 | 4 | `tuning.reward`: 85 / 15, elite 60 / 40, boss fourth slot rare, held-card weight | tuning, combat | small |

@@ -644,7 +644,7 @@ rewritten); **enemies never inflict Heat** (the Pollen Road hook is withdrawn, d
 is the first row of the Friday housekeeping table in its §5. What the roster teaches today, measured:
 Venom 15 moves, Charm 15, Restraint 8, Exposure 6, Torment 0 — so Torment costs nothing to cut, Restraint
 (not on his list of four) is 8 moves, and Exposure is 6 moves plus Clemence's 5 outgoing cards. **⏸ One
-word from him decides the fey:** keep **Charm** (his list; the charm writing rules in `lust_events/IDEAS.md`
+word from him decides the fey:** keep **Charm** (his list; the charm writing rules in `../../lust_events/IDEAS.md`
 survive) or move them to **Exposure** (his afterthought; 15 moves retagged and those rules orphaned).
 Recommended: Charm, on cost, unless the charm scenes are the bundle he dreads writing.
 
@@ -763,6 +763,22 @@ cards for his veto: Possibility draws its three from the rares the party could b
 pick is a this-fight copy owned by its character on the stolen-card plumbing; Devil's Number counts the
 number the forecast prints on the hit, never a tick, each hit of a multi-hit on its own. Engine asks are
 in §5 (a discover verb, an exact-damage hook).
+
+His twelfth and thirteenth messages, closing the session:
+
+> Review and vetos will need to come in a future session, likely many steps down the line in a dedicated character-by-character session after the return to the desktop. There's too much to go over, and this isn't the ideal format for noticing issues like cards feeling to samey when laid out next to each other. I'll probably ask you to build an ingame card gallery down the line so I can get the best possible view of the card pool on my phone instead of my eyes glazing over so much text.
+>
+> Because we're working off of cloud credits I can properly ask for a real cleanup step for once. Anything need resolving left?
+
+> Sorry, no, I want general cleanup to have it's own session, that's coming next. I mean wrapping up here in a bow.
+
+**Where B34 stands at the close of 2026-09-25.** The brief is complete as a draft and every grid waits on a
+desktop, character-by-character veto session. Before that session he intends to ask for **an in-game card
+gallery** so the pool can be read on a phone laid out as cards, which is a `../../ui/` or `../../gallery/`
+job when he raises it, and which is also the right instrument for "cards feeling too samey next to each
+other". A general cleanup session comes first; the doc-debt this session found is listed in the root
+`../../FEEDBACK.md` inbox for it. The measurements behind `POOL-REVIEW-02.md` §1 and §2 are reproducible
+with `../../tools/pool-measure.js`. Nothing in the game changed in this session.
 
 ---
 

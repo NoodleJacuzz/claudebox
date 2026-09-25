@@ -41,6 +41,7 @@ Moved here session 41 from the honeycomb root, which is now four documents and n
 | Tool | Prints |
 |---|---|
 | `card-inventory.js` | Every card, flat. Also the canonical `FILES` load order the other tools import. |
+| `pool-measure.js` | **The numbers behind the second pool pass** (`../rework/cards/POOL-REVIEW-02.md` §1–2): card rewards a run pays, read off generated maps; each character's pool by rarity and how often a card is offered per run under given weights (`--weights 85,15`); same-shape groups, the measure behind "cards feel samey"; ally-aimed cards. Re-run after any pool change. |
 | `save-text.js` | **A save Noodle sends, made readable** (2026-09-23). Copy / Load Save and `.noodle` files hold the save compressed (`HC1~...`); `unpack <file> [out.json]` turns one back into JSON, `pack` goes the other way, `check` is the round trip suite block [140] runs. |
 | `_dup.js` | Cards sharing a name, or sharing a rules body across owners. |
 | `progression-dump.js` | Every progression node, expanded. |

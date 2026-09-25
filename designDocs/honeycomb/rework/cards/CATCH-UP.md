@@ -42,6 +42,18 @@ draw engine).** He is holding his vetoes; **the brief is complete as a draft**, 
 read it, it becomes the build list. The first engine job either way is `../starters/` B1, since every alt is
 still unlocked from run one.
 
+**What comes next, in his order (2026-09-25, close of session):**
+
+1. A **general cleanup session** first; the doc-debt found here is in the root `../../FEEDBACK.md` inbox.
+2. **An in-game card gallery** he intends to ask for, so the pool can be reviewed on a phone as cards rather
+   than as text — the instrument for "too samey side by side". A `../../ui/` or `../../gallery/` job.
+3. **The veto session**, on the desktop, character by character: statuses first (Heat's defaults, the
+   Devotee and Sporemother passives), then Cinder and Brienne, then the rest and the neutrals.
+4. Then `CARD-POOL-02.md` becomes the build list, and its §5 table is the Friday housekeeping.
+
+`../../tools/pool-measure.js` re-runs this session's measurements (offers per run, pool counts, same-shape
+groups, ally-touching) against whatever the pool is at the time.
+
 ---
 
 ## Files
