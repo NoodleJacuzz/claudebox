@@ -733,7 +733,19 @@ as the Huntress common, and `marked` is orphaned and deleted. She applies Weak a
 amplifier; her per-hit riders come from teammates now. **Clemence's grid is drafted (§3.2)**, the sixth:
 Mercy graduates to the default signature, Miracle becomes "restore an ally to full", the Abbess cards apply
 Heat, Absolution is rebuilt, the Devotee passive is flagged (it makes every Lust rider free), eleven cuts,
-and her broken forms go from 35 to 23 with the cards. **All six are drafted; neutrals next.**
+and her broken forms go from 35 to 23 with the cards. **All six are drafted.**
+
+His tenth message, the same day:
+
+> I'll hold off on vetoes. For neutral, let's follow Slay the Spire's precedent here as well. Neutral cards being above rate makes sense. Given they're so rare, are generally agnostic enough to play nice with each character's pool, a random neutral card ends up being mechanically more valuable than plenty of the rares, at least that's my experience.
+
+**The neutral tier is drafted on that precedent (`CARD-POOL-02.md` §3.7):** twelve cards, 8 C / 4 R,
+agnostic by construction (no private meter or status; every card reads a shared row), priced above rate
+(commons at the rare rate, rares as engines or one-shots), and rare to see (every shop stocks one, the
+boss's fourth slot rolls a neutral rare half the time, never an ordinary reward). Whetted Edge lands here
+as the renamed rare A6 asked for; Ashen Cloak and Fence arrive from the Cinder and Cassadora cuts; Shared
+Resolve comes onto rate (B26). **Vetoes are held by his choice; the brief is complete as a draft.** What
+remains before Friday is his read of it, and the housekeeping table in §5.
 
 ---
 

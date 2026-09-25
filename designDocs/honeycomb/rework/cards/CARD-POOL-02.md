@@ -13,8 +13,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 |---|---|
 | 1. Shape and rules (§1) | ☑ agreed 2026-09-25 |
 | 2. Heat, Poison, the lust tags (§2) | ☑ Heat locked in his words; Poison halving and the tag set signed off; the §2.1 defaults are his to veto |
-| 3. Grids: all six (§3.1–3.6) | ⏸ **all drafted**, wait on his veto; Severine revised on his read (no Marked, no Sundered) |
-| 3. Neutrals (§3.7) | ☐ candidates listed; next |
+| 3. Grids: all six (§3.1–3.6) | ⏸ **all drafted**; he is holding his vetoes for now; Severine revised on his read (no Marked, no Sundered) |
+| 3. Neutrals (§3.7) | ⏸ drafted on the colourless precedent, 8 C / 4 R |
 | 4. Default signatures, `randomCardCount` removed | ◐ Cinder's drafted (Sortie) |
 | 5. Neutrals as the glue tier | ☐ |
 | 6. Verdicts and retirements (§4) | ◐ Cinder's cut list |
@@ -34,7 +34,7 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ⏸ waiting on Noo
 | Rates | unchanged from `CARD-POOL-01.md` §1.2: starter 6 / common 9 / rare 12+ per energy |
 | Reward weights | **85 / 15** (elite 60 / 40; the boss's fourth slot always rare). One slot per party member, kept. A card the deck already holds is weighted down |
 | Starting deck | 2 aggressive + 2 defensive basics + 1 signature per character = **15**. `randomCardCount` removed; the default outfit gets a signature |
-| Neutrals | about 8, on rate, pure glue; shops and the boss slot only |
+| Neutrals | **the colourless tier** (§3.7): 8 C / 4 R, agnostic by construction, priced above rate, never in an ordinary reward; every shop stocks one, the boss's fourth slot rolls a neutral rare half the time |
 | Gates | alts stop being `unlockedFromStart` (run-win / shop / tree-end, `../starters/` B1). Gated cards keep `offerCondition` `outfitUnlocked` / `wearsOutfit` |
 | Choose One | exactly one per character, in the base pool, cashing the mechanic |
 | Retirement | cut cards go to `honeycomb.retiredCardArray`, definitions to `../../Archive/RETIRED-CARDS-S6x.md` |
@@ -654,12 +654,46 @@ Within, fallback Blinded.
 | Enfeeble | Weak is on Curse, Bad Luck, Hamstring and Miasma already |
 | Witch's Brew | Bad Luck plus Malediction is the same board |
 
-### 3.7 Neutrals ☐ — candidates so far
+### 3.7 Neutrals — the colourless tier ⏸ draft for veto
 
-About eight, on rate, pure glue, shops and the boss slot only (§1). Candidates the character cuts threw
-up: **Cool Head** (lose all your Heat; gain 3 tHP per stack lost), **Fence** (exhaust a card; gain 2
-Energy), plus the live Shared Resolve, Field Tonic and Hedge Your Bet brought onto rate (B26). Written
-after Clemence.
+**The precedent is Slay the Spire's colourless cards** (Noodle, B34 tenth message): rarely seen, agnostic
+enough to sit in any deck, and above rate, so that a random neutral is worth more than plenty of a
+character's rares. Three rules follow:
+
+1. **Agnostic by construction.** No private meter (Souls, Resolve, Stride, Devotion, Thirst, the Orb), no
+   private status. Every neutral reads a currency the whole party shares: tHP, Heat, debuffs, health, the
+   party's order, the hand, curses.
+2. **Above rate.** A neutral common is priced at the rare rate (12+ per energy); a neutral rare is an engine
+   or a one-shot any deck is glad to draw. Two ranks, as Slay the Spire has uncommon and rare colourless.
+3. **Rare to see.** Never in an ordinary reward (`neutralSlotChance` stays 0). **Every shop stocks one**, the
+   **boss's fourth slot rolls a neutral rare half the time**, and events may hand one out (`map/`'s call).
+   A 0-cost neutral still needs a real price; the tier has one, and it exhausts.
+
+Twelve cards, 8 C / 4 R. Names are placeholders except where kept.
+
+| Card | R | E | F | Effect | From | Why |
+|---|---|---|---|---|---|---|
+| Shared Resolve | C | 1 | G | ALL allies gain 6 tHP. | RW (B26: it was 2 + living allies) | the party wall anyone can buy; Brienne's readers read it |
+| Cool Head | C | 1 | G | Remove all Heat from an ally. They gain 3 tHP per stack removed. | new (was Cinder's Ashen Cloak) | the vent, for a hot Cinder, a heated Abbess party, or enemy Heat |
+| Fence | C | 1 | T | Exhaust a card in your hand. Gain 2 Energy. | new (was Cassadora's) | curse and junk removal that pays; Nettle's Souls read the exhaust |
+| Field Tonic | C | 1 | G | An ally heals 12. Exhaust. | RW 10→12 | the agnostic heal, exhausting as the bible asks; Blood Debt reads it |
+| Low Blow | C | 1 | B | Apply 2 Weak and 2 Sundered to an enemy. | new | the setup every debuff reader in the game pays: Putrefy, Catharsis, Coven's Curse, Spread Misfortune, Malediction |
+| Improvise | C | 1 | T | Return a card from your discard pile to your hand. Gain 1 Energy. | K | recursion that pays for itself |
+| Regroup | C | 1 | G | Move an ally to the front or the back. They gain 5 tHP. | new | reads the position row: cools Heat going back, triggers Formation Drill, sets Vanguard, Longspear and Ember Watch |
+| Hedge Your Bet | C | 1 | — | **Choose one:** gain 9 tHP; draw 2; or deal 11 to a random enemy. | K (was R) | the flexible one; a common at the neutral rate |
+| Tempering *(name: his)* | R | 0 | T | Upgrade a card in your hand. It costs 1 less this fight. Exhaust. | K (Whetted Edge, per A6: rare, renamed, reflavoured) | the tier's one 0-cost; its price is the exhaust and the slot |
+| Flourish | R | 1 | B | Power. Every fourth card you play in a turn deals 8 to ALL enemies. | new | an engine any deck feeds; a hot Cinder feeds it fastest |
+| Clean Slate | R | 1 | G | Remove every debuff from ALL allies. Each gains 3 tHP per debuff removed. | new | the party cleanse; Heat, Weak, Frail, Sundered, enemy poison all count |
+| Opening Salvo | R | 1 | B | Innate. Deal 10 to ALL enemies. Exhaust. | new | turn-one tempo for any deck; the Innate primitive exists |
+
+Totals **8 C / 4 R** · Burst 3, Grind 5, Tempo 3, Choose 1 · every card reads a shared row.
+
+**Cut:** Focused Mind (draw 2 for 1: under rate and says nothing).
+
+**Where they come from, as tuning:** `shop` stocks one neutral per visit (rank rolled 75 / 25); the boss
+reward's fourth slot is a character rare or a neutral rare on a coin flip; `neutralSlotChance` 0. Shop price
+sits a tier above the character card of the same rank (`honeycomb.shopTuning.cardPriceArray` gains a
+neutral column). Numbers are the audit's.
 
 **Anastasia is outside this pass** (his eighth message): a secret, effectively a playable boss, balanced on
 different axes, and unplayed by anyone who has given feedback. Her 13 C / 7 R stay as they are.
