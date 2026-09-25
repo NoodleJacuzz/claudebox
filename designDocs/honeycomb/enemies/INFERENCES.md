@@ -200,3 +200,67 @@ Act 3's tidiness if handled carelessly, which the guardrail forbids).
 **To pivot:** both are additive. A sixth normal is a table entry plus a line-up; neither displaces
 anything already written, and `tophatfairy-c` is the obvious first elite for the route if it ever wants
 one.
+
+---
+
+## I13. The two bodies with no drawing left act 1-1's pool
+
+**Chosen session 66**, drafting the common pool (`COMMON-ENCOUNTERS-01.md`). Sixteen fights over eleven
+enemies is where each body is met two or three times and remembered; act 1-1 had thirteen. The two that
+left are the two with no drawing of their own and a role the act already fielded twice: **Witch's
+Butter** (the third support) and the **Glowcap** (the fourth caster, and the body that put Moth Light over
+the Lust cap). Both entries and all their cards stay in the table; no fight fields them.
+
+**To pivot:** a line-up each. Their kits are also spare parts for a drawing that fits nothing else (§8 of
+the brief), which is the flexibility rule's own use for them.
+
+## I14. Both Fencers left the commons together
+
+**Chosen session 66.** B36 says the Argent Fencer was to be saved for a two-enemy elite with the Sable
+Fencer, and the assignment note says the pair reads as one enemy met separately. Pulling only the Argent
+would have left the Sable as a common body that then reappears in the elite pair. Both went, and the Road
+gained a lighter duelist in their place (the Courtier, from `beenoble-a`).
+
+**To pivot:** the Sable Fencer is a soldier at 67, exactly the weight the Road's early pairs are short of;
+one line-up puts him back. The elite pair is S64-2's to build either way.
+
+## I15. `tophatfairy-c` came back as a common single fight, not an elite
+
+**Chosen session 66.** I12 called it *"the obvious first elite for the route if it ever wants one"*; E13
+records it assigned as **a normal on the Pollen Road**, in his words. The draft reads E13 over I12 and
+makes it the Road's `lone`: one body at 128 health, elite-sized and common-priced, met alone at the end of
+the route. That is the most an ordinary fight can make of the most characterful drawing in the folder.
+
+**To pivot:** cheap. Its entry moves to `role: "elite"`, its fight to `isElite: true`, and the Road's late
+band wants another single body.
+
+## I16. Grapples carry Heat rather than nothing
+
+**Chosen session 66.** E14 retags eight Restraint moves *"by region"*. Three of them are grapples on
+bodies the drafted pools keep (Cap Brute's Pin, the Bark Sentinel's Shield Bash, the Cagecap's Cage), and
+none reads as Venom or Exposure. The draft tags them `heat` (*"the character's growing sex drive in
+general"*), keeps their numbers, and notes that the Heat status does not exist yet, so they deal their
+direct Lust until it does. The alternative was converting the Lust to damage one for one (I3), which on the
+health-damage route is defensible and on act 1-1 is not.
+
+**To pivot:** a `tagArray` each, or an amount each. E14 owns the final word.
+
+## I17. The Mold Leech became the act's single fight
+
+**Chosen session 66**, closing E7-DEFERRED's first half the way it was written: *"reconceptualise rather
+than cut"*. The plan there was another growth stage of an existing myconid; the draft took the other
+reading of the same instruction and made it **the Glutton**, act 1-1's `lone` body, keeping the leech's
+index, its cards' indices and its lifesteal identity, and adding a charged Gulp. Its drawing was a
+recoloured Wisp, so nothing drawn was spent.
+
+**To pivot:** a `role`, a `baseHealth` and one move. Or cut it, which costs the act its single fight.
+
+## I18. The block rule is read as entry-time, not generation-time
+
+**Chosen session 66.** *"When an encounter is won, it's blocked from appearing for the next 2 encounters"*
+is a statement about the run's history, so the draft's engine ask keeps that history on the run and
+re-rolls a blocked fight when its node is entered. Generation-time exclusion along every ancestor path is
+the other reading; it is stronger than his sentence, needs larger pools to hold, and changes nothing the
+player can see, since the map shows tiers and never fights.
+
+**To pivot:** the pool arithmetic in §3 of the brief holds for either; only the verb differs.

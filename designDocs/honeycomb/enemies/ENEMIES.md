@@ -57,6 +57,8 @@ training; every recast enemy's table entry carries an ART note saying what its s
 - **First job: E14, the retag** he signed off 2026-09-25 (15 Charm moves to Exposure, 8 Restraint moves
   retagged, every old Charm reference scrubbed, saves reconciled on load). Every addition after it is
   tagged once instead of twice.
+- **The common pool is drafted** (session 66, `COMMON-ENCOUNTERS-01.md`, `COMMON-DRAFT-01.js`): 40 fights
+  over 27 commons, graded and measured, waiting on the frame. S64-1 above says what it holds.
 
 ## Files
 
@@ -64,7 +66,9 @@ training; every recast enemy's table entry carries an ART note saying what its s
 |---|---|
 | `ENEMIES.md` | this file |
 | `ROUTE-IDENTITY.md` | how far each route is from its own enemies, measured (sessions 55b and 55c) |
-| `INFERENCES.md` | twelve choices made without him during the overhaul, each with the cost of reversing it |
+| `COMMON-ENCOUNTERS-01.md` | the common pool, draft 01 (session 66): his rules, the audit, the math, the roster and the fights, measured |
+| `COMMON-DRAFT-01.js` | that pool in the live tables' shape, applied over a headless engine by `../tools/common-draft-audit.js`; nothing loads it |
+| `INFERENCES.md` | eighteen choices made without him, each with the cost of reversing it (I13 to I18 are session 66's) |
 | `ARCHIVE.md` | closed items from this file |
 | `../Archive/demo1/enemy_overhaul/` | `../Archive/demo1/enemy_overhaul/RECAST-01.md` (the session-44 recasts, per enemy), the E7 build briefs and verification, the old catch-up, closed items before 2026-09-25 |
 | `../Archive/demo1/rework/enemies/` | `../Archive/demo1/rework/enemies/ENEMIES-01.md` (the session-34 numbers brief and roster), the before-picture, closed items |
@@ -81,6 +85,7 @@ node "!designDocs/honeycomb/tools/enemy-template.js"        every enemy and enco
 node "!designDocs/honeycomb/tools/lust-share.js"            which tags the roster teaches, and anything teaching the ledger nothing
 node "!designDocs/honeycomb/tools/budget-audit.js"          every encounter against the damage budget
 node "!designDocs/honeycomb/tools/encounter-coverage.js"    which encounters a run can actually reach
+node "!designDocs/honeycomb/tools/common-draft-audit.js"    the drafted common pool: template, shape, tags, coverage; --bite fights it
 node "!designDocs/honeycomb/tools/audit-sprite-fit.js"      sprites off the screen, at a given window shape (browser)
 ```
 
@@ -101,17 +106,31 @@ node "!designDocs/honeycomb/tools/audit-sprite-fit.js"      sprites off the scre
 
 ## The queue
 
-### S64-1. Common enemy encounter rework & additions ☆ — FILED 2026-09-25
+### S64-1. Common enemy encounter rework & additions ◐ — DRAFTED SESSION 66, VERDICTS IN THE FRAME
 
 > - Common enemy encounter rework & additions
 
-**What stands, so the session starts from the measurement:** every ordinary fight on all three routes is
-built from its own enemies (12 of 16, 12 of 14, 12 of 14; `ROUTE-IDENTITY.md`); the Pollen Road has no
-small enemy and the Mantlewing fits no native group; the `opening` tier holds rows 0 to 5; Moth Light
-sits 3% over the Lust cap (below); B31 wants sporelings fought in bulk. **P14's open half lands here:**
-whether act 1 fights should last longer. The turn target is 3 to 4; raising it restats every region-1
-enemy and needs an All the Crunch run either side (`../Archive/demo1/Archive/playtest_55/READ-ME-2.md` §6).
-His word first. **E14 first, whatever the order after it.**
+**Drafted 2026-09-25 (session 66, cloud), his ten rules for it filed verbatim in `COMMON-ENCOUNTERS-01.md`
+§1.** The pool is `COMMON-DRAFT-01.js`, written in the live tables' shape and graded by
+`../tools/common-draft-audit.js`: 40 common encounters (16 in act 1-1, 8 a route) against 61, every one
+distinct, one or two enemy types each, sizes one to five in every route; 27 commons, with the Glutton (the
+Mold Leech reconceived as act 1-1's single fight), the Doorward, the Dustmote, the Courtier (`beenoble-a`)
+and The Dandy (`tophatfairy-c`) in and the Glowcap, Witch's Butter and both Fencers out (the Fencers to
+S64-2's pair). Two roles, `swarm` and `lone`. His math answered: four fights a band satisfies the block
+rule with a real roll every time; the rule itself is an engine verb (`../engine/ENGINE.md` S66-1). Measured
+by Basic Bite against the shipped ceiling per band: four drafts came in over it and were cut down the same
+session; the bulk-Sporeling fights wait on E14's Poison halving. **Nothing in the game changed.** Left for
+him: every name, the bench, the Fencers, `tophatfairy-c` as a common, Heat on grapples, and the questions in
+§10. Noodle: *"We'll have a full session on redesigning to match art once we are back on desktop, and
+rebalancing after the balance tests are completed."*
+
+**What stood before the draft, kept for the measurement:** every ordinary fight on all three routes was
+native (`ROUTE-IDENTITY.md`); the Pollen Road had no small enemy; the `opening` tier holds rows 0 to 5;
+Moth Light sat 3% over the Lust cap (below; the draft fields no Glowcap, so it goes when the draft lands);
+B31 wanted sporelings fought in bulk. **P14's open half still lands here:** whether act 1 fights should
+last longer. The turn target is 3 to 4; raising it restats every region-1 enemy and needs an All the
+Crunch run either side (`../Archive/demo1/Archive/playtest_55/READ-ME-2.md` §6). His word first. **E14
+first, whatever the order after it.**
 
 ---
 
@@ -160,6 +179,9 @@ be play-tested before the demo shipped.
 The plan stands: reconceptualise rather than cut. Cutting costs a body against the Variety law and it
 is a striker, a role Act1-1 is thin on. Make it **another growth stage of an existing myconid**, so
 sharing a silhouette becomes a species fact instead of a shortcut, and no new art is needed.
+**Session 66's draft reconceives it as the Glutton, act 1-1's single fight** (`COMMON-ENCOUNTERS-01.md`
+§5, `INFERENCES.md` I17): same index, same cards, lifesteal kept, a charged Gulp added, 70 health, the
+`lone` role. Its drawing is owed either way.
 
 **The intruder elite.** Noodle, on the Scrap Salvager's partner:
 
@@ -352,6 +374,11 @@ whether a deck can handle several bodies at once. `../Archive/demo1/chessmaster/
 5 and never reads the ally-side cap, so the engine side is already there. This is an encounter-table
 entry plus a look at whether the sporeling's own numbers suit being one of four.
 
+**Measured session 66** (`COMMON-ENCOUNTERS-01.md` §7): four Sporelings cost 33% of party health under
+today's Poison and 22% under E14's halving; three and an Earthstar 44% and 25%. Both are `candidate` rows
+in `COMMON-DRAFT-01.js`, held until the halving lands, and the ×2 opening fight and the ×4 late one share
+a type set, which his repetition rule would read as one fight twice. His call.
+
 ---
 
 ### Moth Light sits just over the Lust-to-damage cap ☆ — FOUND SESSION 44, NOT CAUSED BY IT
@@ -397,6 +424,9 @@ Act1-B and Act1-C have no elite pool of their own. A two-Fencer elite would clos
 this item at the same time. What it costs is one encounter-table entry at `tier: "elite"` and removing
 her from some of the six fights above; how many of the six she should keep is a design call, not a
 measurement.
+
+**Session 66's draft takes both Fencers out of every ordinary fight** (`COMMON-ENCOUNTERS-01.md` §5,
+`INFERENCES.md` I14); the pair elite is S64-2's to build.
 
 ---
 
