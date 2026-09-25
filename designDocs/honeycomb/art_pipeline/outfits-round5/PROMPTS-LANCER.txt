@@ -1,0 +1,39 @@
+//lancer outfits -- Cinder, round 5 (2026-09-25). One paste = one character. Her eyes stay under a hat, a visor or her hair in every design.
+cinder, simple white background, standing, full body
+
+- VanguardPlume-A  Hussar: the cavalry charge in a fur pelisse, busby and plume down over her eyes, high ponytail behind
+!medium hair, high ponytail, busby, hat over eyes, red plume, hat feather, red military jacket, gold-trim jacket, aiguillette, jacket on shoulders, fur trim, white blouse, white pants, tight pants, black thighboots, riding boots, spurs, white gloves, flaming lance
+- VanguardPlume-B  recoloured teal and silver; the lance gives way to a halberd and a pennant
+busby, hat over eyes, hair over eyes, teal plume, hat feather, teal military jacket, silver-trim jacket, aiguillette, jacket on shoulders, fur trim, white blouse, black pants, tight pants, black thighboots, riding boots, spurs, white gloves, halberd, pennant
+- VanguardPlume-C  the Comet (original): full jousting plate, visor down, a plume like a tail of fire, the lance already burning
+plate armor, full armor, plumed helmet, visor down, red plume, jousting, cuirass, pauldrons, gauntlets, armored boots, red tabard, gold trim, red cape, flaming lance, fire, embers, motion lines
+- VanguardPlume-D  lewd A: the pelisse on her shoulders and nothing under it
+!medium hair, high ponytail, busby, hat over eyes, red plume, hat feather, naked jacket, red military jacket, jacket on shoulders, fur trim, black thighboots, riding boots, spurs, white gloves, flaming lance, nipples, navel, cleavage
+- VanguardPlume-E  lewd B: the teal dolman cut with a heart over the sternum
+busby, hat over eyes, hair over eyes, teal plume, hat feather, teal military jacket, silver-trim jacket, cleavage cutout, cleavage, aiguillette, black pants, tight pants, black thighboots, spurs, white gloves, halberd, pennant
+- VanguardPlume-F  lewd C: the jousting plate reduced to an armored leotard, the helm and the plume kept
+armored leotard, highleg leotard, highleg, plumed helmet, visor down, red plume, pauldrons, gauntlets, armored boots, red cape, flaming lance, fire, embers, cleavage, skindentation
+- Marshal-A  Drum Major: gold-and-white parade jacket, shako and plume over the eyes, short hair, baton up
+!medium hair, short hair, shako, hat over eyes, white plume, hat feather, gold military jacket, cropped jacket, white-trim jacket, aiguillette, epaulettes, gold buttons, white sash, white gloves, white pleated skirt, white tights, black knee boots, holding baton, baton
+- Marshal-B  recoloured blue and silver; the baton gives way to a bugle and the regiment's banner
+shako, hat over eyes, silver plume, hat feather, blue military jacket, cropped jacket, silver-trim jacket, aiguillette, epaulettes, silver buttons, white sash, white gloves, blue pleated skirt, white tights, black knee boots, trumpet, banner
+- Marshal-C  the Matador (original): the suit of lights, montera low over the eyes, a red cape to make the other side charge
+matador, bullfighter, montera, hat over eyes, gold bolero jacket, embroidery, sequins, white dress shirt, red necktie, red sash, gold pants, tight pants, pink thighhighs, black shoes, red cape
+- Marshal-D  lewd A: the parade jacket open, the sash the only thing across her chest
+!medium hair, short hair, shako, hat over eyes, white plume, hat feather, gold military jacket, cropped jacket, open jacket, no bra, cleavage, nipples, white sash, aiguillette, epaulettes, white gloves, white pleated skirt, white tights, black knee boots, holding baton, baton
+- Marshal-E  lewd B: the blue jacket stops above the bust
+shako, hat over eyes, silver plume, hat feather, blue military jacket, cropped jacket, underboob, silver-trim jacket, epaulettes, white sash, white gloves, blue pleated skirt, white tights, black knee boots, trumpet, banner
+- Marshal-F  lewd C: the suit of lights worn over a bodystocking and nothing else
+matador, montera, hat over eyes, black bodystocking, bodystocking, gold bolero jacket, sequins, red sash, red cape, nipples, navel, cleavage
+- Ashfall-A  Scorched: the knight after the fire, blackened plate still smouldering, long messy hair down over her eyes
+!medium hair, long hair, messy hair, hair over eyes, blackened armor, black armor, burnt clothes, tattered cloak, black cloak, ash, embers, glowing cracks, pauldrons, gauntlets, greaves, spear
+- Ashfall-B  recoloured rust and bone; the spear gives way to a torch and a flail
+hair over eyes, rusted armor, brown armor, burnt clothes, tattered cloak, white cloak, ash, embers, pauldrons, gauntlets, greaves, holding torch, torch, flail
+- Ashfall-C  the Scullery (original): Cinder in rags and soot, kerchief and hair over her eyes, one glass slipper still on
+grey dress, torn dress, rags, white apron, head kerchief, hair over eyes, soot, dirty face, single shoe, glass slipper, holding broom, broom, bucket on floor, ash
+- Ashfall-D  lewd A: the plate burnt off her, ash the only cover left
+!medium hair, long hair, messy hair, hair over eyes, mostly nude, ash, soot, embers, glowing cracks, single pauldron, single gauntlet, greaves, tattered cloak, black cloak, spear, nipples, navel
+- Ashfall-E  lewd B: the rust plate burnt through at the side, torch held close
+hair over eyes, rusted armor, brown armor, side cutout, sideboob, burnt clothes, tattered cloak, white cloak, ash, embers, gauntlets, greaves, holding torch, torch, flail
+- Ashfall-F  lewd C: the scullery girl in the apron and the slipper and nothing else
+naked apron, white apron, head kerchief, hair over eyes, soot, dirty face, single shoe, glass slipper, holding broom, broom, bucket on floor, ash, sideboob, navel

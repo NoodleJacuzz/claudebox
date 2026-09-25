@@ -197,6 +197,21 @@ than two that are stark and half-wrong.
 saved his favourites from that line, so the images are his, but the tag lists that produced them are worth
 keeping until he has picked.
 
+**Round 05, 2026-09-25 — four characters, as combo blocks.** Noodle asked for a fresh A–F set for Cassadora,
+Cinder, Clemence and Anastasia, in the paste-in format rather than `outfit-designs.js`:
+
+> I need a full new A-F set for all four of them following the outfit design rules. I'll let them cook
+> overnight and pick out the favorites.
+
+> Note that clement is blind and both she and Cinder should always have her eyes obscured by something.
+> Cinder's can be her hair, but Clement's must be something that can be destroyed/burn away. It's also
+> noting that an upcoming rework will add more fire theming to Clement's broken state attacks.
+
+Written to `outfits-round5/` (four `PROMPTS-*.txt`, one paste each, and `outfits-round5/README.md` with the media table).
+All 72 compile headlessly to 18 variants a block. Every tag was checked with `webui2-inspect.js`; two things it
+turned up in round 04's data are recorded in that README (`moss` aliases to Nettle's identity, `bare shoulders`
+compiles to nothing). Round 04's entries for these four stay in `outfit-designs.js` until he picks.
+
 ### B27. A drop-in sprite import with a declared size (session 43) ☐ DEFERRED
 
 Raised while sizing Anastasia's chess pieces, where ten of twelve had no scale and every one rendered at

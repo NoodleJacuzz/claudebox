@@ -20,6 +20,9 @@ engine → Forge with ControlNet reference → hand paint-over → injected into
   per character. Source data `outfit-designs.js`, test runner `outfits-generate.js`, doc builder `build-outfits-doc.js`.
   Round-1 and round-2 lineups archived in `_archive/outfits-AF-round1/` and `_archive/outfits-AF-round2/`. Not
   written into `charactersDB.js` yet.
+- **Alt outfits, round 5 (2026-09-25)** → `outfits-round5/`: a fresh A–F for Cassadora, Cinder, Clemence and
+  Anastasia as paste-in combo blocks (`PROMPTS-SEER/LANCER/PRIEST/CHESS.txt`, 18 variants each), with the
+  media table and the eye rules in `outfits-round5/README.md`. Waits on Noodle's picks (`FEEDBACK.md` B26).
 - **Where game art goes** → `!designDocs/honeycomb/reference/ART-GUIDE.md` §1 (paths), §5 (fallback)
 
 ## Status as of 2026-09-14 (session 5: step 6 done)
