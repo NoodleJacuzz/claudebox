@@ -576,4 +576,16 @@ healing.
 
 ## Unsorted — drop new reports for this workstream here
 
+**One broken card design per rarity, per character (Noodle, 2026-09-25).** Said while settling how a
+Broken owner's cards transform once ownership leaves the card's entry
+(`../../ownerless_cards/_archive/FEEDBACK-DONE.md` D2 and D3):
+
+> so long as broken behaviors are updated for general cases on rarity and specific exceptions are allowed (to allow Clement to have a full alt deck while most characters just get one broken card design per rarity).
+
+The engine's lookup already has that shape (a card's own form, then the character's per-rarity
+row, then the character's catch-all). What is missing is content: only Anastasia has
+`brokenCardByRarity` rows; Brienne, Nettle, Severine, Cassadora, Cinder and Clemence each have one
+catch-all. Until each character has a starter, common and rare design, a neutral card owned by a
+Broken member breaks into the catch-all. Not an item yet; it belongs with B18 and the pool's next pass.
+
 *(a report that does not clearly belong to this workstream goes in `../../FEEDBACK.md` instead)*

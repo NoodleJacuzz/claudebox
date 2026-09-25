@@ -109,7 +109,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 | **`vfx/`** | Card and combat visual effects. **B21 made hit feedback depend on this.** | **1** | never started |
 | **`desk/`** | The phone desk: Noodle's page for editing events, notes, drafts and image requests from his phone. Second round planned in eleven phases in its `FEEDBACK.md`. | **41** | 2026-09-23 (plan only) |
 | **`quality_lab/`** | The Quality Lab: a bench for tuning how an attack looks and sounds, and the timing data it exports. Designed from Noodle's pitch and revised on his answers; nothing open until something is built. | **0** | 2026-09-25 (design only) |
-| **`ownerless_cards/`** | Owners assigned in the run, never on a card's entry; pools as a shareable content table. Planned from Noodle's direction; the open items are the decisions the plan waits on. | **7** | 2026-09-25 (plan only) |
+| **`ownerless_cards/`** | Owners assigned in the run, never on a card's entry; pools as a shareable content table. Planned from Noodle's direction and every decision answered; nothing open until something is built. | **0** | 2026-09-25 (plan only) |
 | — | Cross-cutting, below | 1 | s41 |
 
 **97 items open across 17 workstreams** (session 54 added `balance_tests/` T6), plus one that belongs to no single folder and two still

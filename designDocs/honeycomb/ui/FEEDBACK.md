@@ -388,4 +388,13 @@ whether "HONEYCOMB CATACOMBS" is the label he wants while the name is a placehol
 
 ## Unsorted — drop new reports for this workstream here
 
+**Selections should be standardised further (Noodle, 2026-09-25).** Said while deciding how a bought
+card is given an owner (`../ownerless_cards/_archive/FEEDBACK-DONE.md` D1), where the answer is a drag
+onto the member rather than a window:
+
+> Opening a window to ask would get old real quick, and we started standardizing selections between abilities and cards, selections in general could stand to be standardized more.
+
+Not an item yet; it is a direction for whoever next touches a selection. The reward take and the
+shop purchase are the first two to move onto the combat aim machinery, in that plan's Step 3.
+
 *(a report that does not clearly belong to this workstream goes in `../FEEDBACK.md` instead)*

@@ -1,16 +1,18 @@
 # Ownerless cards — BRIEF (the plan)
 
-Written 2026-09-25 from Noodle's direction (quoted in `FEEDBACK.md`) and a read of the code. **Nothing
-is built.** This is a standing brief: the goal, the map of ownership as it is today, the target model,
-the steps in order with the check each ends on, and the rules. Progress goes in `CATCH-UP.md`; the
-decisions it leaves him are `FEEDBACK.md` D1–D7; guesses a build session makes go in an inferences file
-(INFERENCES.md) that this folder does not have yet.
+Written 2026-09-25 from Noodle's direction (quoted in `FEEDBACK.md`) and a read of the code, and
+revised the same day on his answers to the seven questions it asked. **Nothing is built.** This is a
+standing brief: the goal, the map of ownership as it is today, the target model, the steps in order
+with the check each ends on, and the rules. Progress goes in `CATCH-UP.md`; his answers are in
+`_archive/FEEDBACK-DONE.md`; the choices he left to the builder are `INFERENCES.md`.
 
 | File in this folder | Holds |
 |---|---|
 | `BRIEF.md` | this file |
 | `CATCH-UP.md` | where the build is. Update it as each step lands |
-| `FEEDBACK.md` | Noodle's words, and the seven decisions the plan waits on |
+| `FEEDBACK.md` | Noodle's words; the open items (none while nothing is built) |
+| `INFERENCES.md` | I1–I4, choices made without him and how to pivot each |
+| `_archive/FEEDBACK-DONE.md` | D1–D7 with his answers of 2026-09-25 |
 
 Read `../BASICS.md` first. The card pool's own workstream is `../rework/cards/`; this plan changes
 where ownership lives, not what the pools contain, and it does not touch a card's numbers.
@@ -182,8 +184,12 @@ Helpers, all in a content-side file the suite loads: `honeycomb.poolCardArray(po
 `honeycomb.cardIsShared(cardIndex)` (listed by a shared pool).
 
 **The generated pools reproduce today's scans exactly**, card for card, and a check proves it
-before any reader changes (Step 1). Splitting a character's pool into finer pools, or letting two
-characters share one, is then a table edit (D5).
+before any reader changes (Step 1). Splitting a character's pool into finer pools is then a table
+edit. **A card in two character pools is a warning**, not an error (Noodle, D5: *"not a single card
+in the entire pool should be shared between two player characters"*, and *"not an absolute hard
+rule"*): the rule `cardInTwoCharacterPools` reports it, and a deliberate exception is listed in
+`tuning.warnings.ignoredArray`, where it stays visible. The neutral pool is shared by design and is
+outside the rule.
 
 ### 4.2 Every granting site names the owner
 
@@ -194,9 +200,8 @@ ownerInstanceId)` refuse a null owner: they throw in the suite and log a warning
 | Site | Owner |
 |---|---|
 | Run start (`memberCardPool`) | the member whose entry list produced the card (unchanged) |
-| Card reward (`rollCardReward`) | every offer row carries an owner: a slot dealt for a member owns its card, shared-pool cards included; a shared-pool card in a party slot gets the owner the take screen shows, default by `tuning.deck.sharedCardOwnerRule` (D1) |
-| Shop (`buyCard`) | a character's card goes to that member; a shared-pool card to the member chosen on the shelf (a portrait row, default by the same rule) |
-| Map event (`addCardToDeck`) | the entry's `owner` field: `"subject"` (the event's subject or leader, the default when the event has one), `"front"`, `"choose"`, or a member; curses included (D2) |
+| Card reward (`rollCardReward`) and shop (`buyCard`) | **the card is dragged onto the member who takes it.** Taking a reward and buying from the shelf are one gesture: the card face is picked up and dropped on a member's portrait in a popup of the party, on the machinery a card is aimed with in combat (pointer capture, legal marks, tap then tap on touch); no window ever asks. The legal targets are the member whose pool the card came from, or every member for a shared-pool card (`tuning.deck.crossOwnerAcquisition`, `INFERENCES.md` I2, widens it); the drop is the purchase or the take. Offer rows and stock rows carry the pool they came from so the targets can be marked |
+| Map event (`addCardToDeck`) | the entry's `owner` field: `"subject"` (the event's subject or leader, the default when the event has one), `"front"`, `"choose"`, or a member; curses included (`INFERENCES.md` I1) |
 | Mid-fight (`addCardToPile` effect, `nettleBroken`, enemy curse adds) | `honeycomb.ownerForCreatedCard(context, entry)`: the entry's `owner`, else the effect's target if a party member, else its source if a party member, else the front member. A Wisp an enemy slips into the party's discard is owned by the member it was aimed at |
 | Stolen move (`giveStolenCard`) | the thief (unchanged); the persist path keeps `userSide`, `exhausts` and `artEnemyIndex` |
 | Duplication, transform, removal logs | the original's owner (unchanged, and never null once the above holds) |
@@ -207,8 +212,8 @@ ownerInstanceId)` refuse a null owner: they throw in the suite and log a warning
 **Save migration.** Format 11: on load, every instance in `run.deckArray` and
 `combat.temporaryCardArray` with a null owner gets one, through `honeycomb.legacyCardOwnerMap`
 (card index → the character it named before this change, generated by the migration tool and kept
-only for this step): that member if present, else the front member (D7). `save.afterLoad` already
-exists as the seam.
+only for this step): that member if present, else the front member (confirmed, D7). `save.afterLoad`
+already exists as the seam.
 
 ### 4.3 At play time, the owner is the only answer
 
@@ -223,7 +228,7 @@ hand renders and draws no randomness.
 
 | Question | Today | After |
 |---|---|---|
-| Which Broken form? | `brokenFormIndexFor(definition)`: the card's `brokenCard`, then the DEFINITION's character | `brokenFormIndexFor(definition, ownerCharacter)`: the card's `brokenCard`, then the OWNER's `brokenCardByRarity[rarity]`, then the OWNER's `brokenCard`. A neutral card owned by a Broken Brienne becomes her catch-all; an enemy owner has no character and its cards never break, as today (D3) |
+| Which Broken form? | `brokenFormIndexFor(definition)`: the card's `brokenCard`, then the DEFINITION's character | `brokenFormIndexFor(definition, ownerCharacter)`: the card's `brokenCard`, then the OWNER's `brokenCardByRarity[rarity]`, then the OWNER's `brokenCard`. **The order is what keeps Clemence whole (D3):** a card's own form is tier one and every one of her cards names its own, so her alt deck is untouched; the owner's rows are read only for a card with no form of its own, a neutral card or a stolen move. The general case Noodle wants, *"one broken card design per rarity"* per character with per-card forms as the exception, is exactly this order; what the content lacks is the per-rarity rows themselves (only Anastasia has them, the other six have one catch-all), which is card-pool work outside this plan. An enemy owner has no character and its cards never break, as today |
 | Which owner-down policy? | the definition's character | the owner's character, then tuning |
 | How long is the pose held? | `card.characterIndex` → `poseHoldMs` | the wielder's definition (character or enemy), which is what a pose hold is |
 | What does Fortune Telling transform into? | the definition's character's pool | the owner's pools |
@@ -237,9 +242,10 @@ lists before Step 5 and derives it from the enemy tables instead.
 ### 4.5 Enemies
 
 Nothing changes in Step 1–5 except that move cards lose `enemyIndex`. A move list stays the
-enemy-side declaration it already is. **Later** (Step 6, D6): a move-list entry may name a pool
-instead of a card (`{ pool: "sporeBasics", weight: 30 }`), expanded at pick time, so two enemies
-share a pool of moves by naming it, and a character's card can sit in an enemy's pool.
+enemy-side declaration it already is. **Later** (Step 6, the builder's choice on D6,
+`INFERENCES.md` I3): a move-list entry may name a pool instead of a card
+(`{ pool: "sporeBasics", weight: 30 }`), expanded at pick time, so two enemies share a pool of moves
+by naming it, and a character's card can sit in an enemy's pool.
 
 ### 4.6 What this plan does not do
 
@@ -252,8 +258,8 @@ carries it.
 
 ## 5. Rules for the builder
 
-1. **Every number is in tuning.** `tuning.deck.sharedPoolArray`, `sharedCardOwnerRule` and the save
-   format version are the new ones.
+1. **Every number is in tuning.** `tuning.deck.sharedPoolArray`, `crossOwnerAcquisition` and the
+   save format version are the new ones.
 2. **Content is data.** A pool is a table row; a character's pools are a field; the granting site's
    choice of owner is a field on the effect entry or a tuning rule. No engine code decides who a
    card belongs to.
@@ -272,8 +278,12 @@ carries it.
    and each check is made to fail before it is recorded as passing.
 10. **Comments are lean and quote nobody.** His words are in `FEEDBACK.md`.
 11. **Stop and ask Noodle** before: changing which cards any character is offered; changing a
-    rarity; touching the Anastasia gate; deleting the four orphans (D4); anything that changes what
-    a player sees in the compendium.
+    rarity; touching the Anastasia gate; anything that changes what a player sees in the compendium.
+    The four orphans are his to delete and he said delete (D4); that is not a question.
+12. **The drag is the only selection.** Taking a reward and buying a card never open a window that
+    asks who; the card is dropped on the member. Build it on the combat aim machinery rather than a
+    second drag (`INFERENCES.md` I4), because he asked for selections to be standardised, not
+    multiplied.
 
 ---
 
@@ -294,8 +304,11 @@ face, plus the two warning rules and the Battle Lab picker. Checks: the existing
 **Step 3 — Every granting site names an owner.** §4.2 in full: offer rows, the shelf, the event
 field, `ownerForCreatedCard`, the banish fallback, the throw view, the stolen-card persist fields;
 `defaultOwnerFor`, `assignOwnerFromCharacter` and `ownerlessFallback` deleted; `cardActingEntity`
-owner-only; save format 11 with the fill on load; the portrait row on the take screen and the shelf.
-Checks: after each of a run start, a reward take (a shared-pool card included), a shop purchase of a
+owner-only; save format 11 with the fill on load; the drag onto a member's portrait as the take and
+the purchase, with the legal members marked and the shelf's old buy press gone. Checks: the drop on a
+legal member takes or buys and the drop elsewhere does nothing, on mouse and by tap-then-tap; a
+character's card cannot be dropped on another member while `crossOwnerAcquisition` is off and can
+when it is on; after each of a run start, a reward take (a shared-pool card included), a shop purchase of a
 neutral card, an event's curse, a mid-fight Wisp, a steal and its persist, a duplicate, a banish and a
 format-10 save load, every instance has an owner; the forecast and the play path agree on the actor
 for every card in a party's deck; `cardActingEntity` never returns anyone but the owner.
@@ -303,25 +316,29 @@ for every card in a party's deck; `cardActingEntity` never returns anyone but th
 **Step 4 — The owner answers what the entry answered.** §4.4: Broken form, owner-down policy, pose
 hold, transform pool, offer gating. Checks: **the reported bug's regression**, a Broken Brienne who
 bought Hedge Your Bet plays Brienne's catch-all form, and a Broken Cassadora's stolen move transforms
-too; Anastasia's by-rarity forms still apply to her own cards; a card of hers owned by Brienne
-breaks into Brienne's catch-all; any card in `cardArray` played by any party member and by any enemy
+too; every one of Clemence's cards still breaks into its own named form; Anastasia's by-rarity forms
+still apply to her own cards; a neutral card owned by a Broken member with per-rarity rows takes the
+row for its rarity and one owned by a member without them takes the catch-all; any card in
+`cardArray` played by any party member and by any enemy
 resolves without error, without touching the party's hand or energy from an enemy source, and with
 every self-effect landing on the wielder (this is the Quality Lab's P0 block, written once).
 
 **Step 5 — Take the fields off the entries.** The tool's `--strip` removes `characterIndex` and
 `enemyIndex` from every card entry by index-anchored slicing; `cardNaturalSide` and the discovery
 exclusion read rarity; `summonableEnemyArray` reads the enemy tables; `cardShiftLabel` reads the
-preview character; three warning rules added as table rows: `cardOwnerField` (an entry carrying
+preview character; the four orphans deleted (`nettleStrike`, `gloomWispFade`, `alchemistDraught`,
+`sentinelRetort`; D4); four warning rules added as table rows: `cardOwnerField` (an entry carrying
 either field), `cardInNoPool` (a non-enemy, non-fallback card in no pool), `enemyMoveUnlisted` (an
-enemy move in no move list, phase list or throw list); tools repointed: `card-inventory.js:104`,
+enemy move in no move list, phase list or throw list), `cardInTwoCharacterPools` (§4.1, a
+preference rather than a law, so its exceptions go in `ignoredArray`); tools repointed: `card-inventory.js:104`,
 `card-prompts.js:273, 313`, `_dup.js:6, 14`, `draft-sim/draft-simulation.js:287, 468, 577`; docs:
 the file map in `../reference/ARCHITECTURE.md`, and a note in `../rework/cards/CATCH-UP.md` that
 pools are a table now. Checks: a grep of the cards file for `characterIndex` finds only the 24
-archetype rows; the enemies file has no `enemyIndex` on a card; the warning report is unchanged
-except for the orphans until D4 is answered; suite green; `honeycomb.warnings.report()` lists the
-three new rules.
+archetype rows; the enemies file has no `enemyIndex` on a card; the warning report is unchanged;
+suite green; `honeycomb.warnings.report()` lists the four new rules and none of them fires.
 
-**Step 6 — Later, on D6.** Pools in enemy move lists; a shared enemy pool; a character's card in an
+**Step 6 — Later** (`INFERENCES.md` I3), when the Quality Lab's picker is built or an enemy design
+first wants a shared pool. Pools in enemy move lists; a shared enemy pool; a character's card in an
 enemy pool; the Quality Lab's picker listing by pool.
 
 Steps 1 and 2 are one session. Step 3 is one session and is the one that changes what a player sees:
@@ -341,7 +358,8 @@ a new card from carrying one.
 - **Owner-down policies stay near-dead.** Characters break instead of going down, so the policy
   path is exercised only by summoned allies and party-side pieces. It is kept, moved to the owner's
   character, and left otherwise alone.
-- **A card in two pools.** Nothing prevents it after Step 1 and nothing today needs it; the
-  `cardInNoPool` rule reports zero pools, not two. The compendium lists such a card under each.
+- **A card in two character pools.** Nothing prevents it after Step 1 and Noodle does not want it
+  for player characters; `cardInTwoCharacterPools` reports it and the compendium lists such a card
+  under each pool until it is resolved.
 - **Tools that read the field will break loudly, not quietly**, because the tool strips the field and
   the suite loads the content; the four tools named in Step 5 are the census's complete list.
