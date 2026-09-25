@@ -226,12 +226,20 @@ recklessness; the status must sit in a different design space from Poison and ha
 taking an action; and self-cost from a different angle than Severine's is fine, because players agree
 Lust build-up is more dangerous than damage.*
 
-**Definition.** *Heat* — a debuff, intensity.
+**Definition — LOCKED, in Noodle's words (B34, fourth message):**
 
-> **Heat.** Whenever this fighter plays a card, they gain Lust equal to their Heat. Loses 1 stack at the
-> end of their turn.
+> Heat: Inflicts 1 lust per stack of heat whenever the character plays a card. Players lose 1 heat
+> whenever they are shifted towards the back of the party, or end their turn behind all other party
+> members.
 
-An enemy's move is a card in this engine, so the same sentence reads on both sides.
+He chose the harsher variant below over the fading one, for reasons that are now requirements: it is the
+incentive for Cinder to move back, the mechanical way a player holds Clemence back from Breaking,
+positioning that matters the whole turn, a home for Anastasia's golems in a party of three, a status
+players interact with on their own terms unlike Poison, an ability that moves Cinder back made as useful as
+any other, and something that can be built on a character with no guaranteed payoff without reading as
+delayed damage. **The rule, the defaults for its edge cases and Cinder's list on it are `CARD-POOL-02.md`
+§2.1 and §3.1.** The paragraphs below are the reasoning that led there; where they say the status fades,
+the locked rule wins. An enemy's move is a card in this engine, so the same sentence reads on both sides.
 
 Against Poison, with the halving Noodle wants (`decayMode: "halve"` is already a named alternative in the
 Poison entry; today it is `decrement`):
@@ -296,9 +304,11 @@ fallback (Stumble: falls to the back, sheds 6 Lust) already reads as cooling off
 Reading Heat rather than "debuffs" gives up the angle where an enemy's Weak on her also pays; Stride on
 gaining any debuff (CARD-POOL-01 §3) keeps that angle alive, and the legibility is worth it.
 
-**A harsher variant.** No decay; the back is the only cooling ("when Cinder moves to the back, lose all
-Heat"). It ties the status to her position primitive and makes the vents mandatory. Worth a play, but the
-decaying version first: Sundered and Frail both fade a stack a turn, so the status bar already reads that way.
+**The harsher variant, which he took.** No decay; the back is the only cooling — one stack per shift toward
+the back, one more for ending the turn last. It ties the status to her position primitive, makes the vents
+and Backflip matter, and gives an enemy shove an upside. What it changes in the sketch above: Firewalk,
+Relieve, Pull Back, Turn the Line and Stumble all cool as they move; the Ashfall passive ("attacks move her
+to the back") would cool her on every swing and is replaced by "1 Heat at the start of her turn".
 
 **Poison halving, priced in.** One field, but 5 Poison is 8 damage under halving where it was 14, so the
 appliers either apply more or the consumers (Reap, Rupture, Burst, Quicken Rot) become the point of the
@@ -337,11 +347,12 @@ Sensitive would be on-theme; I would keep it Cinder's, so the status has one own
 | | Question | Answer |
 |---|---|---|
 | 1 | 20 per character, or the 14 floor? | **20** |
-| 2 | The status | **Not Burn. Heat, in Lust space** (§5); waits on his read of the definition |
+| 2 | The status | **Heat, in Lust space, the harsher variant, in his own words** (§5, `CARD-POOL-02.md` §2.1) |
 | 3 | Clemence's link to fire | **None.** She stays in Lust and never deals damage; the link is the Abbess line meeting a hot Cinder |
 | 4 | Default signatures | **Drafted for his veto** |
 | 5 | Rarity 85 / 15, boss fourth slot rare | **Yes** |
 | 6 | One reward slot per party member | **Keep** |
 | 7 | Neutrals in rewards | **Shops and the boss slot only** |
 
-Still open: the Heat definition itself, and the two lines under "Open" in §5.
+Still open: the nine edge-case defaults in `CARD-POOL-02.md` §2.1 and Cinder's grid in its §3.1, both
+drafted for his veto.

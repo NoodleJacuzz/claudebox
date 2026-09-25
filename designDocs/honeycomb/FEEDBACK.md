@@ -85,7 +85,7 @@ Counts are OPEN items. All rows reconciled **session 41**.
 
 | Workstream | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. **B34: the manual pass, reviewed 2026-09-25 in `rework/cards/POOL-REVIEW-02.md`, waits on Noodle.** | **21** | 2026-09-25 (design only) |
+| **`rework/cards/`** | What a card costs, does and is worth. Rarity balance, the removal/add economy, curses. **B34: the manual pass — shape agreed and Heat locked 2026-09-25; `rework/cards/CARD-POOL-02.md` is the brief, Cinder's grid drafted for his veto, five to go.** | **21** | 2026-09-25 (design only) |
 | **`rework/starters/`** | Starting decks, outfit unlock routes, **relics and heirlooms**, roster order. | **10** | s25 |
 | **`rework/progression/`** | The six trees: node effects, EXP pricing, what a node hands out. | **4** | s30 |
 | **`rework/enemies/`** | Enemy numbers, identities, roles, encounter composition. | **6** | s51 |

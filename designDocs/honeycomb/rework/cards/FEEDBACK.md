@@ -619,7 +619,17 @@ boss slot, default signatures drafted for veto). Burn withdrawn.** `POOL-REVIEW-
 turn* — the price of recklessness paid per action, a producer for the "Lust on an ally" row the Abbess
 line and Nettle's Draw Out already read, and worked-up enemies when vented onto them. Poison to
 `decayMode: "halve"` is his standing instruction and is not yet applied (it reprices Nettle's appliers).
-**Waits on his read of the Heat definition.** Then `CARD-POOL-02.md`, Cinder first.
+
+His fourth message, choosing the harsher variant and writing the rule himself:
+
+> That harsher variant, that's it, I think that's exactly what it needs. It's the incentive for cinder to move back, it's the mechanical way players forcibly hold back Clement from breaking, it makes positioning matter the entire turn instead of just the end, it gives anastasia's golems a home in a party of 3, it lets players interact with it on their own terms unlike poison, it'd make an ability for cinder to move to the back of the party as useful as other abilities, it can be built up on characters without guarenteed payoff that would just make it feel like delayed damage. And it's even straightforward to explain. Heat: Inflicts 1 lust per stack of heat whenever the character plays a card. Players lose 1 heat whenever they are shifted towards the back of the party, or end their turn behind all other party members.
+
+**Heat is LOCKED in his words** — `CARD-POOL-02.md` §2.1 carries the rule verbatim, his seven reasons as
+requirements, and nine one-line defaults for the edge cases (paid before the card resolves; per card, not
+per hit; abilities are not cards; broken forms are; per shift whatever the distance; golems count as party
+members; enemies read the same sentence; it is a debuff; its Lust carries Torment). **`CARD-POOL-02.md`
+§3.1 is Cinder's full list on it, drafted for his veto**: 12 C / 8 R, Sortie as the default signature, the
+Ashfall passive swapped to "1 Heat at the start of her turn", twelve cuts each with a reason. Clemence next.
 
 ---
 
