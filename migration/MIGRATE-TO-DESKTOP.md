@@ -1,7 +1,8 @@
 # Carrying the cloud sessions home
 
 Written 2026-09-26, the last cloud session. Everything the cloud sessions produced is documentation
-under `designDocs/honeycomb/`. Measured against the upload of 2026-09-24:
+under `designDocs/honeycomb/`, plus one report file and a README line in `designDocs/playtest_notes/`
+from the final day. Measured against the upload of 2026-09-24:
 
 | What | Count |
 |---|---|
@@ -56,6 +57,10 @@ whole-file diffs on the rewritten ones. Harmless.
   `BASICS.md` ("Design review happens on the desktop, in the frame"). If `.claude/CLAUDE.md` is where he
   meant, add the one line there too.
 
+- **Noodle's batch of 2026-09-26**, verbatim and tiered, is waiting in two places: the Honeycomb half in
+  `!designDocs/honeycomb/FEEDBACK.md` (inbox IN-10 to IN-24), the Syrup Town, memory-leak and WebUI half
+  in `!designDocs/playtest_notes/REPORTS-2026-09-26.md`. Tier 1 is the first work after the checks pass.
+
 ## The prompt for Desktop Claude
 
 > Honeycomb. The cloud sessions ended; their work is documentation only, and it is in the unzipped
@@ -65,4 +70,6 @@ whole-file diffs on the rewritten ones. Harmless.
 > run it with `-Apply`, then run the three checks the document lists and show me the numbers. Then
 > read the new `!designDocs\honeycomb\BASICS.md` and `CATCH-UP.md` and reconcile your own
 > `.claude\CLAUDE.md` and the honeycomb-session skill with the new layout, as the document's
-> "After the copy" section says. Commit when the checks pass.
+> "After the copy" section says. Commit when the checks pass. Then read my batch of 2026-09-26 in
+> `FEEDBACK.md`'s inbox and `!designDocs\playtest_notes\REPORTS-2026-09-26.md`, file each Honeycomb
+> item into its pipeline, and start on tier 1.

@@ -7,6 +7,7 @@ What it does, in order:
   2. Removes the old workstream folders that are empty afterwards, and reports any that are not.
   3. Copies designDocs\honeycomb\ from the cloud copy over !designDocs\honeycomb\ (additive: files
      that exist only on the desktop are left alone).
+  3b. Copies designDocs\playtest_notes\ the same way (one new file, one README line, 2026-09-26).
   4. Moves chessmaster\ to Archive\demo1\chessmaster\, where every live document already points.
 
 What it never touches: scripts\, .claude\, CLAUDE.md, desk\data\ (the phone's live database),
@@ -137,6 +138,16 @@ if (-not $Apply) { $roboArgs += "/L" }
 & robocopy @roboArgs
 $rc = $LASTEXITCODE
 if ($rc -ge 8) { throw "robocopy reported a failure (exit $rc)." }
+
+# ---- Step 3b: playtest_notes gained one file and one README line on 2026-09-26 ----------------------
+$notesSrc = Join-Path $cloudCopy "designDocs\playtest_notes"
+$notesDst = Join-Path $SyrupTown "!designDocs\playtest_notes"
+Say ""
+Say "Step 3b: copy $notesSrc -> $notesDst (additive)"
+$roboArgs = @($notesSrc, $notesDst, "/E", "/NJH", "/NJS", "/NDL", "/NP")
+if (-not $Apply) { $roboArgs += "/L" }
+& robocopy @roboArgs
+if ($LASTEXITCODE -ge 8) { throw "robocopy reported a failure (exit $LASTEXITCODE)." }
 
 # ---- Step 4: Anastasia's folder was frozen on paper only; the cloud copy never had it --------------
 # Session 64 wrote every live pointer as ../Archive/demo1/chessmaster/ but could not move the folder.
