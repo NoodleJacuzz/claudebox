@@ -157,8 +157,9 @@ Salvager off the bench as half of it, the **Kobold Gleaner** from `demikobold-c`
 through the `weakestEnemy` target mode, `bellhead-a` read as the Salvager's new drawing); the Arbor fields
 **The Lush** from `feralbeast-b`; the Road fields the **Fencer pair** B36 asked for and the **Longshade**
 from `spookytall-a`, kin to the Longwing. One role, `eliteHalf`, the elite twin of `bossHalf`. Four
-retags (E14). Measured by Basic Bite against the shipped elite ceiling per region: three fights came in
-over and were retuned the same session (§7 there). **Nothing in the game changed.** Left for him: every
+retags (E14). Measured by Basic Bite against the shipped elite ceiling per region: six fights were measured
+over the ceiling or off the target and changed the same session, two of them held as candidates (§7
+there); nothing stands over the ceiling, and Poison halving is not the lever for elites. **Nothing in the game changed.** Left for him: every
 name, `bellhead-a`'s reading, one pool a region, act 1-1's elites unchanged at 30–40% against a 22%
 target, and the finding that a quarter of route maps generate no elite node at all (§10 there).
 

@@ -111,15 +111,17 @@
 
 		//--- The Lush (elite, Arbor, from `feralbeast-b`). A beast that got into the arbor and is drunk on
 		//--- the windfalls. It staggers, it wallows, it slavers, and every third turn or so it rampages. ---
+		//Third pass (Bite, session 68): with company the fight ran 15 to 17 turns and broke two members to
+		//Lust, so Slaver's Lust is 1 and Stagger carries the difference (16 to 18).
 		{ index: "lushStagger", name: "Stagger", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "frontEnemy",
-			effectArray: [{ index: "damage", amount: 16 }] },
+			effectArray: [{ index: "damage", amount: 18 }] },
 		//Wallow was a heal of 10; beside the Wellspring's Regeneration the fight ran 17 turns and cost 56% of
 		//party health (Bite, session 68), so it is Temporary HP now and the Well is the only healing in the fight.
 		{ index: "lushWallow", name: "Wallow", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "self",
 			animationArray: [{ animation: "rise" }],
 			effectArray: [{ index: "temporaryHealth", amount: 10 }, { index: "applyStatus", status: "strength", stacks: 1 }] },
 		{ index: "lushSlaver", name: "Slaver", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "allEnemies", tagArray: ["venom"],
-			effectArray: [{ index: "lust", amount: 2 }, { index: "applyStatus", status: "poison", stacks: 1 }] },
+			effectArray: [{ index: "lust", amount: 1 }, { index: "applyStatus", status: "poison", stacks: 1 }] },
 		{ index: "lushRampage", name: "Rampage", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "allEnemies", chargeCost: 3,
 			animationArray: [{ animation: "rise" }],
 			effectArray: [{ index: "damage", amount: 12 }] },
@@ -224,8 +226,12 @@
 
 		//===== ACT1-B, THE THORN ARBOR (region 2): the Lush =====
 		{ index: "arborLush", name: "The Lush", tier: "middle", weight: 50, isElite: true, regionIndexArray: [2], enemyIndexArray: ["lush"] },
-		//The beast in front, the bloom behind that Envenoms it: kill the bloom first or fight a poisoned beast.
-		{ index: "arborLushWell", name: "The Lush at the Well", tier: "middle", weight: 50, isElite: true, regionIndexArray: [2], enemyIndexArray: ["lush", "wellspring"] },
+		//The duelist in front with reach to the back rank, the beast behind him.
+		{ index: "arborLushFencer", name: "The Lush and the Fencer", tier: "middle", weight: 50, isElite: true, regionIndexArray: [2], enemyIndexArray: ["thornFencer", "lush"] },
+		//MEASURED OUT (Bite, session 68): the beast in front of the bloom that Envenoms it and regenerates
+		//it cost 56% then 59% of party health at 63% wins over 16 to 17 turns, the Arbor's shipped elites'
+		//territory (62 to 70%). Kept as a candidate so the desktop can re-measure it under E14's Poison.
+		{ index: "arborLushWell", name: "The Lush at the Well", tier: "middle", weight: 0, candidate: true, isElite: true, regionIndexArray: [2], enemyIndexArray: ["lush", "wellspring"] },
 		//Two brats tripping the front rank, and the beast behind them.
 		{ index: "arborLushBrats", name: "Brats and the Lush", tier: "middle", weight: 50, isElite: true, regionIndexArray: [2], enemyIndexArray: ["thornSprite", "thornSprite", "lush"] },
 
@@ -233,11 +239,11 @@
 		//B36: the two-enemy elite she was meant to be saved for. The sealed one in front, the open one behind.
 		{ index: "pollenDuel", name: "Sable and Argent", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["sableFencer", "argentFencer"] },
 		{ index: "pollenLongshade", name: "The Longshade", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["longshade"] },
-		//Kin from one source family: the tall one in front, the swaying one behind.
-		{ index: "pollenKin", name: "Longshade and Longwing", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["longshade", "longwing"] },
-		//The other company for the tall one, kept as a candidate so the desktop can measure both: two motes in
-		//front shedding dust, the Longshade behind them.
-		{ index: "pollenLongshadeDrift", name: "The Longshade in the Drift", tier: "middle", weight: 0, candidate: true, isElite: true, regionIndexArray: [3], enemyIndexArray: ["dustmote", "dustmote", "longshade"] },
+		//Two motes in front shedding dust, the Longshade behind them: 37% of party health at 100% wins (Bite).
+		{ index: "pollenLongshadeDrift", name: "The Longshade in the Drift", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["dustmote", "dustmote", "longshade"] },
+		//Kin from one source family, the tall one in front and the swaying one behind: the better read and
+		//the dearer fight (44% at 75% wins, 10.6 Lust a turn), so it waits as a candidate for the frame.
+		{ index: "pollenKin", name: "Longshade and Longwing", tier: "middle", weight: 0, candidate: true, isElite: true, regionIndexArray: [3], enemyIndexArray: ["longshade", "longwing"] },
 	];
 
 	//---------------------------------------------------------------------------------------------------

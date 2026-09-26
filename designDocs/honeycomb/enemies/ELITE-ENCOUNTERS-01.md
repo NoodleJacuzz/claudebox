@@ -137,7 +137,7 @@ mitigation and disrupts the formation (Grind), she punishes a slow kill (Burst).
 
 | Enemy | Role | HP / dmg | Identity | Tag | Art |
 |---|---|---|---|---|---|
-| **The Lush** (new, `feralbeast-b`) | elite | 160 / 17.8 | *"The route's elite"*, demoted from boss when the Sisters took the slot. A beast that got into the arbor and is drunk on the windfalls: Stagger (16 to the front), Wallow (heals 10, Strength; the Grind test), Slaver (Venom over everyone, a Poison), a charged Rampage over the party every third turn or so. | Venom (Slaver) | assigned, undrawn |
+| **The Lush** (new, `feralbeast-b`) | elite | 160 / 17.6 | *"The route's elite"*, demoted from boss when the Sisters took the slot. A beast that got into the arbor and is drunk on the windfalls: Stagger (18 to the front), Wallow (Temporary HP and Strength; it dawdles with a payoff), Slaver (a little Venom and a Poison over everyone), a charged Rampage over the party every third turn or so. Wallow was a heal and Slaver dealt twice the Lust on the first pass; both came down after Bite (§7). | Venom (Slaver) | assigned, undrawn |
 
 Written at 160 of the 195 elite line so the same body fights alone and with company inside one budget:
 alone it is the route's single guy; fed by the Wellspring or fronted by two Brats it is a whole elite fight.
@@ -148,7 +148,7 @@ alone it is the route's single guy; fed by the Wellspring or fronted by two Brat
 |---|---|---|---|---|---|
 | **Sable Fencer** | **eliteHalf** (was soldier 67) | 97 / 15.1 | The sealed half, in front: Straight Thrust 20, Bind (Weak and Lust), Hold the Line over everyone, Cup Guard (Temporary HP and Thorns). Amounts lifted in proportion. | Exposure (Bind) | own drawing |
 | **Argent Fencer** | **eliteHalf** (was striker 45) | 97 / 15.6 | The open half, behind him: the Long Lunge reaches the back rank, Remise and Wing Flare carry the Road's Lust, Appel is Strength. She never steps back. | Exposure (Remise, Wing Flare) | own drawing |
-| **Longshade** (new, `spookytall-a`) | elite | 160 / 17.0 | *"Can fit into a lot of places."* Kin of the Longwing (`spookytall-d`, the same source family). A tall thing in the bloom that looms: Stoop on the front, Loom (Temporary HP, Weak over the party), Whisper to the back rank (Lust), a charged Unfurl over everyone (damage, Lust, Sensitive). | Exposure (Whisper, Unfurl) | assigned, undrawn |
+| **Longshade** (new, `spookytall-a`) | elite | 160 / 18.5 | *"Can fit into a lot of places."* Kin of the Longwing (`spookytall-d`, the same source family). A tall thing in the bloom that looms: Stoop on the front (20), Loom (Temporary HP, Weak over the party), Whisper to the back rank (damage and Lust), a charged Unfurl over everyone (damage, Lust, Sensitive). Measured alone at 19% on the first pass, so a share of its Lust became damage. | Exposure (Whisper, Unfurl) | assigned, undrawn |
 
 **Out of every elite pool:** nothing. The Dandy stays a common lone (I15); if he wants `tophatfairy-c` as
 the Road's elite instead, the pivot is that entry's.
@@ -183,17 +183,19 @@ is tier `middle` (§3).
 
 | Fight | Formation | Size | The read | B / G | Static | Bite |
 |---|---|---|---|---|---|---|
-| **The Lush** | The Lush | 1 | the route's elite alone | B race the Rampage / G heal and poison | ✓ ✓ | BITE_arborLush |
-| **The Lush at the Well** | The Lush, Wellspring | 2 | the beast in front, the bloom behind that Envenoms it: kill the bloom first or fight a poisoned beast | B kill order / G Envenomed | ✓ ▼ | BITE_arborLushWell |
-| **Brats and the Lush** | Briar Brat, Briar Brat, The Lush | 3 | two brats tripping the front rank, the beast behind them | B AoE then the beast / G | ✓ ✓ | BITE_arborLushBrats |
+| **The Lush** | The Lush | 1 | the route's elite alone | B race the Rampage / G Strength and poison | ✓ ✓ | 36.6% (42.0% before Slaver's Lust came down) |
+| **The Lush and the Fencer** | Thorn Fencer, The Lush | 2 | the duelist in front with reach to the back rank, the beast behind him | B thorns / G Venom | ✓ ✓ | 57.6%, 88%, 1.9 Broken; the dearest fight in the draft (§7) |
+| The Lush at the Well (candidate) | The Lush, Wellspring | 2 | the beast in front, the bloom behind that Envenoms it and regenerates it: kill the bloom first or fight a poisoned beast | B kill order / G Envenomed | ✓ ▼ | 56–66%, 63%, 3.0 Broken, 16–17 turns; measured out |
+| **Brats and the Lush** | Briar Brat, Briar Brat, The Lush | 3 | two brats tripping the front rank, the beast behind them | B AoE then the beast / G | ✓ ✓ | 40.9% |
 
 ### Act1-C, the Pollen Road (budget 195; solo 21.8, group 32.7; target 30%)
 
 | Fight | Formation | Size | The read | B / G | Static | Bite |
 |---|---|---|---|---|---|---|
-| **Sable and Argent** | Sable Fencer, Argent Fencer | 2 | B36's pair: the sealed one in front with thorns up, the open one lunging past him to the back | B thorns / G Lust and Weak | ✓ ✓ | BITE_pollenDuel |
-| **The Longshade** | Longshade | 1 | the tall one alone | B race the Unfurl / G Lust | ✓ ✓ | BITE_pollenLongshade |
-| **Longshade and Longwing** | Longshade, Longwing | 2 | kin from one source family: the tall one in front, the swaying one behind | Lust / G Sensitive | ✓ ✓ | BITE_pollenKin |
+| **Sable and Argent** | Sable Fencer, Argent Fencer | 2 | B36's pair: the sealed one in front with thorns up, the open one lunging past him to the back | B thorns / G Lust and Weak | ✓ ✓ | 36.9%, 75%, 2.3 Broken (61.4%, 63% before the cut) |
+| **The Longshade** | Longshade | 1 | the tall one alone | B race the Unfurl / G Lust | ✓ ✓ | 30.0% (18.7% before the Lust-to-damage shift) |
+| **The Longshade in the Drift** | Dustmote, Dustmote, Longshade | 3 | two motes in front shedding dust, the tall one behind them | B AoE / Lust | ✓ ✓ | 37.1% |
+| Longshade and Longwing (candidate) | Longshade, Longwing | 2 | kin from one source family: the tall one in front, the swaying one behind; the better read and the dearer fight | Lust / G Sensitive | ✓ ✓ | 44.5%, 75%, 10.6 Lust a turn (27.3%, 63% before the shift) |
 
 ---
 
@@ -202,7 +204,34 @@ is tier `middle` (§3).
 The ceiling is the costliest elite fight that shipped in each region (Basic Bite, same bot, same decks);
 the target is `tuning.balance.netDamageFractionArray`'s elite row.
 
-BITE_CEILING_TABLE
+| Region | Shipped ceiling (Basic Bite) | Target | Draft, highest live | Over the ceiling? |
+|---|---|---|---|---|
+| act 1-1 | 40.4% (The Scavenger's Cache, late) | 22% | 37.4% (The Champion's Guard) | no; the four sit 30–37%, unchanged bodies |
+| Frontier | 61.5% at 50% wins (The Cage Duel); 49.5% (The Champion's Line) | 30% | 41.3% (The Intruders) | no; 39–41%, near the shipped Salvage Boss (38.4%) |
+| Arbor | 69.7% at 63% wins (The Stripped Bower); 62.5% at 75% (The Root Cache) | 30% | 57.6% at 88% wins (The Lush and the Fencer) | no, but the dearest fight in the draft; the other two 37% and 41% |
+| Road | 53.1% (Something Worth Taking); 33.2% (The Roadside Cache) | 30% | 37.1% (The Longshade in the Drift) | no; 30–37% |
+
+**Six fights were measured over the ceiling or far over the target and changed the same session**; what was
+cut stays in the file as `candidate` rows (`weight: 0`) so the desktop can re-measure it:
+
+| Drafted | Measured | Became | Measured again |
+|---|---|---|---|
+| Sable and Argent at Thrust 20 / Line 8 / Lunge 24 / Remise 12+6 | 61.4%, 63% wins | Thrust 17 / Line 6 / Lunge 20 / Remise 10+4 | 36.9%, 75% wins |
+| The Longshade alone, Lust-heavy | 18.7% | a share of its Lust became damage (Stoop 20, Whisper 6+4, Unfurl 7+4) | 30.0%, on the target |
+| Longshade and Longwing | 27.3%, 63% wins, 11.1 Lust a turn | the Longwing's Lust is the loss; the Drift (two Dustmotes) stands live at 37.1%, 100% wins | Kin as a candidate: 44.5%, 75% |
+| The Lush at the Well, Wallow a heal of 10 | 55.9%, 88% wins, 17 turns | Wallow to Temporary HP; then Slaver's Lust 2 to 1 and Stagger 16 to 18 | 59.3% then 66.3%, 63% wins: **measured out**, a candidate |
+| The Lush and the Fencer (its replacement) | 59.2%, 88% | after the Lush's third pass | 57.6%, 88%; live, and flagged |
+| The Scavenger's Cache with the Scavenger in front | 40.4% (shipped) | the Puffcap in front | 35.8% |
+
+**Poison halving is not the lever here.** The common draft's bulk-poison fights fall by a third under E14's
+halving; the Arbor's elite fights do not (`--halve`: The Lush alone 45.7% against 42.0%, The Lush and the
+Fencer 63.6% against 59.2%, the same run). What makes the Lush dear in company is length: a 160-health body
+beside an engine body runs 15 to 17 turns on this bot, and by then two members have Broken to a little Lust
+a turn. The Brats fight, whose company dies in two turns, costs 41%. The number that moves it is the
+bot's or the party's damage output, which is the Crunch's calibration (S65-1), not a kit change.
+
+**Every elite fight, shipped and drafted, runs 10 to 16 turns against a 6 to 7 turn target.** That is the
+elite half of P14 and the same finding the commons carry; no fight here was written to fix it.
 
 ---
 
@@ -232,8 +261,8 @@ Each is a table entry or one verb.
 1. **One role**: `eliteHalf` in `tuning.balance.enemyRoleArray` before `elite`; a compendium heading for it
    in `enemyGroupHeadingArray` or it lands in "Other" (I10).
 2. **The block rule** (`../engine/ENGINE.md` S66-1), unchanged: elite nodes are combat nodes to it.
-3. **Retired fight indices.** Ten live elite indices leave the table (the Frontier's five, the Arbor's
-   two, the Road's two, the benched pair). A save whose map names one re-rolls that node on load, the
+3. **Retired fight indices.** Ten elite indices leave the table (the Frontier's four and the benched
+   pair, the Arbor's two, the Road's two); act 1-1's four keep theirs. A save whose map names one re-rolls that node on load, the
    same handling S64-1 §9 asks for.
 4. **Unbenching** is the deletion of two `benched: true` rows, which the draft replaces outright.
 5. **`weakestEnemy`** already exists as a target mode; nothing new. The desktop should watch one Gleaner
@@ -249,6 +278,11 @@ Each is a table entry or one verb.
 - **`bellhead-a`.** Whether it is the Salvager's new drawing (this draft) or a third intruder body (§8).
 - **Longshade beside Longwing.** The shared stem is the kinship; if the two names collide in the mouth
   the way The Pall and The Pale Dray did, the elite is the one to rename.
+- **The Longshade's company.** Two Dustmotes stand live (37%, every fight won); the Longwing, the better
+  read, waits as a candidate (44% at 75% wins, most of it Lust). His call which one the frame keeps.
+- **The Lush's company.** An engine body beside it (the Fencer, the Wellspring) runs the fight to 15
+  turns and 58–66% on this bot; the Brats do not (§7). The Fencer fight stands live under the shipped
+  ceiling; whether it should stand at all is his, and the Crunch's calibration is where the number moves.
 - **The Dandy** as a common lone against `tophatfairy-c` as the Road's elite (I15).
 - **One pool a region** at tier `middle` (I19), against the shipped two-tier split.
 - **Act 1-1's elites unchanged** at 30–40% of party health against a 22% target; the Crunch's calibration
