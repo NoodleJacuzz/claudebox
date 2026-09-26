@@ -40,6 +40,10 @@ function newEngine() {
 	sandbox.window = sandbox;
 	vm.createContext(sandbox);
 	for (const f of FILES) vm.runInContext(fs.readFileSync(path.join(ROOT, f), "utf8"), sandbox, { filename: f });
+	//The sprite metrics are generated from the image folder and say which drawings are stand-ins; the
+	//tools' shared file list leaves them out, so the art column loads them here.
+	const metricsFile = "honeycomb/honeycomb-sprite-metrics.js";
+	if (fs.existsSync(path.join(ROOT, metricsFile))) vm.runInContext(fs.readFileSync(path.join(ROOT, metricsFile), "utf8"), sandbox, { filename: metricsFile });
 	vm.runInContext(fs.readFileSync(DRAFT, "utf8"), sandbox, { filename: "COMMON-DRAFT-01.js" });
 	return sandbox.honeycomb;
 }
@@ -108,6 +112,14 @@ function regionOfEnemy(enemyIndex) {
 	return null;
 }
 
+//What is on disk for an enemy's combat sprite, read from honeycomb-sprite-metrics.js (generated from the
+//image folder): its own drawing, a generated stand-in, or nothing yet. `artFolder` redirects the look-up.
+function artState(enemy) {
+	const folder = enemy.artFolder || enemy.index;
+	const metric = hc.spriteMetricMap == null ? null : hc.spriteMetricMap["enemies/" + folder + "/default/1-combat"];
+	if (metric == null) return "NONE YET" + (enemy.artFolder ? " (" + folder + ")" : "");
+	return (metric[2] === 1 ? "stand-in" : "own drawing") + (enemy.artFolder ? " (" + folder + ")" : "");
+}
 console.log("COMMON POOL DRAFT 01 -- graded against tuning.balance. ✓ within ±" + Math.round(balance.varianceFraction * 100) + "%.\n");
 console.log("ENEMIES fielded by the drafted pools (dmg = expected damage + Lust per turn at full strength)");
 console.log(pad("enemy", 16) + pad("name", 18) + pad("role", 9) + pad("reg", 10) + pad("HP (tgt)", 14) + pad("dmg (tgt)", 16) + pad("lust", 6) + "moves");
@@ -125,7 +137,7 @@ for (const enemy of enemyRows) {
 		pad(threat.total.toFixed(1) + " (" + target.damage.toFixed(1) + ") " + mark(threat.total, target.damage), 16) +
 		pad(Math.round(100 * threat.lust / Math.max(0.1, threat.total)) + "%", 6) +
 		enemy.moveArray.length + (enemy.startingStatusArray ? "  passive: " + enemy.startingStatusArray.map((s) => s.status).join(",") : "") +
-		(enemy.artOwed ? "  ART OWED" : ""));
+		"  art: " + artState(enemy));
 }
 
 console.log("\nENCOUNTERS (bodies = size, types = distinct enemies; lust% = static Lust share of threat, cap " + Math.round(balance.lustToDamageRatioMaximum * 100) + "%)");

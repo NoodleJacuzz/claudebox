@@ -44,7 +44,7 @@ Scrap Salvager.
 | Difficulty (Basic Bite, 2 seeds, 4 parties, fresh-save decks) | Act 1-1 commons cost 2–25% of party health against an 8% target and never lose. Route commons cost 15–69% against 15% and win 50–100%: the Bell Choir (69%) and the Briar Line (62%) cost more than the Juggernaut (62%) or the Sisters (67%). His sentence, measured. |
 | Route identity | Every ordinary fight is native (session 55c); every elite node still borrows. The Road has no small body. Both Fencers stand in twelve ordinary fights that B36 says should have been one elite. |
 | Tags | 15 Charm and 8 Restraint moves still to retag (E14). |
-| Art | Sporeling, Cap Brute, Gloom Wisp, Hollow Knight, Earthstar, Bracket Elder, Spore Alchemist, Bark Sentinel stand on their older own drawings; Puffcap, Sporeguard, Shieldcap, Cagecap, Foxfire on stand-ins; the Mold Leech is a recoloured Wisp (`../art_pipeline/ART-PIPELINE.md` B38). |
+| Art (read from `honeycomb-sprite-metrics.js`, which is generated from the image folder) | Twenty commons have their own drawing. Eight act 1-1 bodies stand on generated stand-ins of their older art (Sporeling, Cap Brute, Gloom Wisp, Hollow Knight, Earthstar, Bracket Elder, Spore Alchemist, Bark Sentinel; `../art_pipeline/ART-PIPELINE.md` B38's redo list). The Mold Leech is a recoloured Wisp. |
 
 The full baseline table is in `../tools/balance/basic-bite.js`'s output; the per-band ceilings it sets are in §7.
 
@@ -124,23 +124,25 @@ factor over the group one). Nothing else in the template moves.
 | Bracket Elder | caster | 30 / 7.3 | Frail on the party, Artifact on herself, a curse in the deck. The Grind test. | Venom | own drawing |
 | Spore Alchemist | support | 28 / 4.9 | Strength to the whole line; the tone reference, unchanged. | Heat (Sweet Vapour) | own drawing |
 | Bark Sentinel | tank | 44 / 4.5 | Thorns; guards the line. Stands in front of things that should be killed through it. | Heat (Shield Bash) | own drawing |
-| Puffcap | minion | 14 / 10.0 | A three-turn fuse. Two behind a wall, or five at once. | Venom | stand-in |
-| Sporeguard | soldier | 32 / 8.8 | Seeded: a Sporeling bursts out when it falls. Two of them are a one-type fight. | Venom | stand-in |
-| **Glutton** (was Mold Leech) | **lone** | 70 / 12.5 | **The act's single guy.** Every bite feeds it; a charged Gulp feeds it more; Strength climbs. Race it or out-block it. | Venom (Siphon) | none; see §8 |
+| Puffcap | minion | 14 / 10.0 | A three-turn fuse. Two behind a wall, or five at once. | Venom | own drawing |
+| Sporeguard | soldier | 32 / 8.8 | Seeded: a Sporeling bursts out when it falls. Two of them are a one-type fight. | Venom | own drawing |
+| Glowcap | caster | 22 / 6.8 | Lust and nothing else; stands behind the Brute, the one act 1-1 pair that keeps her under the Lust cap. | Exposure | own drawing |
+| **Glutton** (was Mold Leech) | **lone** | 70 / 12.5 | **The act's single guy.** Every bite feeds it; a charged Gulp feeds it more; Strength climbs. Race it or out-block it. | Venom (Siphon) | **the Witch's Butter drawing** (`artFolder: "moldshaper"`): a slime mould with no fixed outline is the maw the kit asks for |
 
-Retired to the bench (entries kept, no fight fields them): **Witch's Butter** and **Glowcap**. Neither has
-a drawing; both were the third support and the fourth caster of an act that needed neither; the Glowcap
-was also the body that put Moth Light over the Lust cap. Their kits are spare parts for whatever drawing
-turns up (§8).
+**Corrected 2026-09-26.** The first draft benched the Glowcap and Witch's Butter as undrawn; the sprite
+metrics say both have their own drawings from the 2026-09-21 pass. So the Glowcap keeps one fight (The
+Lamp and the Brute) and the Witch's Butter drawing becomes the Glutton's, which takes one new drawing off
+act 1-1's bill. The Witch's Butter *entry* stays in the table with no fight, its kit a spare (§8). Twelve
+commons in act 1-1, then, and seventeen fights.
 
 ### Act1-A, the Mushroom Frontier — 5 enemies, health damage
 
 | Enemy | Role | HP / dmg | Identity | Tag | Art |
 |---|---|---|---|---|---|
-| Shieldcap | **swarm** (was minion 36) | 25 / 5.5 | Plated, and it comes in fives: a sweep is the wrong answer, one big hit the right one. Always in front. | none | stand-in (`bellhead-b` assigned) |
+| Shieldcap | **swarm** (was minion 36) | 25 / 5.5 | Plated, and it comes in fives: a sweep is the wrong answer, one big hit the right one. Always in front. | none | own drawing |
 | **Doorward** (new) | soldier | 67 / 10.3 | **Shield Wall**: a three-step loop, walked in order — Taunt + Temporary HP, Mace, Rim Sweep. One turn in three the party's single-target hits go into it; a sweep still reaches past. Stands in front of whatever the fight wants protected. | none | owed; see §8 |
-| Cagecap | striker | 44 / 10.4 | Folds in behind Temporary HP and comes up with Strength; the Frontier's hard hitter. Stands behind. | Heat (Cage) | stand-in (`butterflyknight-d`) |
-| Foxfire | caster | 52 / 9.8 | The hot lamp: Thorns, and the Lure. Stands behind. | Exposure | stand-in |
+| Cagecap | striker | 44 / 10.4 | Folds in behind Temporary HP and comes up with Strength; the Frontier's hard hitter. Stands behind. | Heat (Cage) | own drawing (`butterflyknight-d`) |
+| Foxfire | caster | 52 / 9.8 | The hot lamp: Thorns, and the Lure. Stands behind. | Exposure | own drawing |
 | Bolete Hook | **lone** (was tank 84) | 120 / 13.3 | **The Frontier's single guy.** Drags the back rank to the front, and a charged Heave. Slow and wide. | none | own drawing (the tentacled mushroom he kept) |
 
 The Scrap Salvager stays benched and stays an elite (I2); S64-2 owns him.
@@ -189,6 +191,7 @@ party health lost, four parties × two seeds, fresh-save decks, and the win rate
 | early | Hollow Patrol | Hollow Knight, Bracket Elder | 2 | two anti-defence bodies | G walls and Frail | ✓ ✓ | 11.6% |
 | early | Puffcap Patch | Puffcap, Puffcap, Earthstar | 3 | two fuses and the one mulching them | B a clock / G bodies | ✓ ▲ | 5.3% |
 | early | **Guard Post** | Sporeguard, Sporeling | 2 | the soldier falls and a third body climbs out | B two fights in one | ✓ ✓ | 3.5% |
+| early | **The Lamp and the Brute** | Cap Brute, Glowcap | 2 | the Lust caster behind the bruiser: the act's Lust lesson | Lust / G the loop | ✓ ✓ | 0.7% health, 5.4 Lust a turn |
 | middle | Guard Detail | Sporeguard, Sporeguard | 2 | one type; four bodies by the end | B | ✓ ✓ | 6.1% |
 | middle | Brute and Spores | Cap Brute, Sporeling, Sporeling | 3 | the loop with company | G / B | ✓ ✓ | 13.8% |
 | middle | Elder and Wisps | Gloom Wisp, Bracket Elder, Gloom Wisp | 3 | the deck under attack from three | G | ✓ ✓ | 12.4% |
@@ -304,7 +307,7 @@ drawing that turns up is something else, the kit stays and the words move.
 
 | Kit | Needs from the drawing | Anything else is free |
 |---|---|---|
-| **Glutton** (act 1-1 lone) | one big round body, wide and low, something that reads as a mouth or a maw; stands at 1.3 | species, colour, whether it is a puffball, a toad-cap or a grub |
+| **Glutton** (act 1-1 lone) | one big round body, wide and low, something that reads as a mouth or a maw; stands at 1.3 | **taken by the Witch's Butter drawing** unless he would rather it stayed a support; then any blob |
 | **Doorward** (Frontier soldier) | one broad upright figure behind a shield as tall as itself; visibly heavier than the Shieldcap and unlike the Bark Sentinel's rooted bark | the helm, the weapon, whether it is a myconid at all |
 | **Dustmote** (Road swarm) | small, round, fuzzy, wings; five on stage at 0.55 without covering a health bar | colour, whether it is a moth, a pollen-puff or a fairy |
 | **Courtier** (Road striker) | a slight figure with a thin blade, lighter than the Fencers' plate | `beenoble-a` as assigned, or any duelist drawing |
@@ -314,9 +317,9 @@ drawing that turns up is something else, the kit stays and the words move.
 | **Bolete Hook** as lone | wide; it already is (B37 owns its scale) | unchanged |
 | **Windfall Alraune** as lone | big; she already is | unchanged |
 
-Two spare kits sit on the bench for a drawing that fits nothing above: the **Glowcap** (a Lust-only
-caster) and **Witch's Butter** (a Regeneration-and-cleanse support). The Mold Leech's kit is gone into the
-Glutton.
+One spare kit sits on the bench for a drawing that fits nothing above: **Witch's Butter** (a
+Regeneration-and-cleanse support), whose own drawing the Glutton now wears. The Mold Leech's kit is gone
+into the Glutton; the Glowcap kept its fight.
 
 ---
 
@@ -350,7 +353,7 @@ Each is a table entry or one verb (`../BASICS.md`, "adding content is a table en
 ## 10. Left for him
 
 - **Names.** Every one: Glutton, Doorward, Dustmote, Courtier, The Dandy, and the seventeen fight names.
-- **The bench.** Glowcap and Witch's Butter out of act 1-1; both Fencers out of the commons for the elite pair.
+- **The bench.** Both Fencers out of the commons for the elite pair; the Witch's Butter drawing on the Glutton, its support kit spare.
 - **`tophatfairy-c` as a common lone** rather than an elite (I12 called it the route's first elite). As a
   128-health single fight it is elite-sized and common-priced; if he wants it as the elite, the Road's late
   band wants another single body.
@@ -363,3 +366,28 @@ Each is a table entry or one verb (`../BASICS.md`, "adding content is a table en
   profile state, and the act 1-1 boss row is his choice anyway.
 - **The Road's health numbers.** Light by design (Lust route); if he wants it to hurt, the Courtier is the
   body to raise.
+
+---
+
+## 11. Uniqueness, and what the art pipeline needs
+
+**Every common stands in exactly one region's ordinary pool.** The audit prints the map; no body is
+shared. The only cross-region enemies left are the elites S64-2 owns: the Kobold Scavenger on every
+route's skull nodes and the Hollow Champion on two.
+
+| Region | Commons in the pool | Own drawing | Older stand-in (B38 redo, his call) | New sprite pairs to make |
+|---|---|---|---|---|
+| Act 1-1 | 12 | Puffcap, Sporeguard, Glowcap, Glutton (the Witch's Butter drawing) | Sporeling, Cap Brute, Gloom Wisp, Hollow Knight, Earthstar, Bracket Elder, Spore Alchemist, Bark Sentinel | **0** |
+| Act1-A Frontier | 5 | Shieldcap, Cagecap, Foxfire, Bolete Hook | — | **1**: Doorward (new design) |
+| Act1-B Arbor | 5 | all five | — | **0** |
+| Act1-C Road | 6 | Mantlewing, Longwing, Soakcap | — | **3**: Dustmote (new design); Courtier from `beenoble-a` and The Dandy from `tophatfairy-c` (assigned sources, run through the pipeline) |
+
+Four sprite pairs (`1-combat` and `1-offense` each) ship the whole common pool; two of them are new
+designs. The Glutton and the Doorward are the only kits with no picture behind them at all, and the
+Glutton has a candidate.
+
+**Nothing he named is cut.** Of the five previewed designs (E13): `tophatfairy-c` is The Dandy and
+`beenoble-a` the Courtier, both in this pool; `feralbeast-b`, `spookytall-a`, `demikobold-c` and
+`bellhead-a` are the elite jobs E11 and E7-DEFERRED already hold for S64-2, untouched. Of the drawn
+bodies, the draft leaves only the two Fencers without an ordinary fight, and they are waiting for the
+pair elite he asked for (B36). The Scrap Salvager was benched before this session and stays an elite.

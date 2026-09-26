@@ -57,8 +57,8 @@ training; every recast enemy's table entry carries an ART note saying what its s
 - **First job: E14, the retag** he signed off 2026-09-25 (15 Charm moves to Exposure, 8 Restraint moves
   retagged, every old Charm reference scrubbed, saves reconciled on load). Every addition after it is
   tagged once instead of twice.
-- **The common pool is drafted** (session 66, `COMMON-ENCOUNTERS-01.md`, `COMMON-DRAFT-01.js`): 40 fights
-  over 27 commons, graded and measured, waiting on the frame. S64-1 above says what it holds.
+- **The common pool is drafted** (session 66, `COMMON-ENCOUNTERS-01.md`, `COMMON-DRAFT-01.js`): 41 fights
+  over 28 commons, each in one region, graded and measured, waiting on the frame. S64-1 says what it holds.
 
 ## Files
 
@@ -113,10 +113,10 @@ node "!designDocs/honeycomb/tools/audit-sprite-fit.js"      sprites off the scre
 **Drafted 2026-09-25 (session 66, cloud), his ten rules for it filed verbatim in `COMMON-ENCOUNTERS-01.md`
 §1.** The pool is `COMMON-DRAFT-01.js`, written in the live tables' shape and graded by
 `../tools/common-draft-audit.js`: 40 common encounters (16 in act 1-1, 8 a route) against 61, every one
-distinct, one or two enemy types each, sizes one to five in every route; 27 commons, with the Glutton (the
-Mold Leech reconceived as act 1-1's single fight), the Doorward, the Dustmote, the Courtier (`beenoble-a`)
-and The Dandy (`tophatfairy-c`) in and the Glowcap, Witch's Butter and both Fencers out (the Fencers to
-S64-2's pair). Two roles, `swarm` and `lone`. His math answered: four fights a band satisfies the block
+distinct, one or two enemy types each, sizes one to five in every route; 28 commons, each in exactly one
+region, with the Glutton (the Mold Leech reconceived as act 1-1's single fight, wearing the Witch's Butter
+drawing), the Doorward, the Dustmote, the Courtier (`beenoble-a`) and The Dandy (`tophatfairy-c`) in and
+both Fencers out (to S64-2's pair). Four sprite pairs ship it, two of them new designs (§11 there). Two roles, `swarm` and `lone`. His math answered: four fights a band satisfies the block
 rule with a real roll every time; the rule itself is an engine verb (`../engine/ENGINE.md` S66-1). Measured
 by Basic Bite against the shipped ceiling per band: four drafts came in over it and were cut down the same
 session; the bulk-Sporeling fights wait on E14's Poison halving. **Nothing in the game changed.** Left for
@@ -181,7 +181,7 @@ is a striker, a role Act1-1 is thin on. Make it **another growth stage of an exi
 sharing a silhouette becomes a species fact instead of a shortcut, and no new art is needed.
 **Session 66's draft reconceives it as the Glutton, act 1-1's single fight** (`COMMON-ENCOUNTERS-01.md`
 §5, `INFERENCES.md` I17): same index, same cards, lifesteal kept, a charged Gulp added, 70 health, the
-`lone` role. Its drawing is owed either way.
+`lone` role, and the Witch's Butter drawing on it, so nothing new is owed.
 
 **The intruder elite.** Noodle, on the Scrap Salvager's partner:
 

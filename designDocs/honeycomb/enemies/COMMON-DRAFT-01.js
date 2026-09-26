@@ -13,7 +13,8 @@
 //  1. two roles join tuning.balance.enemyRoleArray: `swarm` (a body that comes in fives) and `lone` (a
 //     body that fights alone);
 //  2. five bodies are retuned to those roles (Shieldcap, Briar Brat -> swarm; Bolete Hook, Windfall
-//     Alraune, Glutton -> lone) and four are added (Doorward, Dustmote, Courtier, The Dandy);
+//     Alraune, Glutton -> lone), the Glutton wears the Witch's Butter drawing, and four bodies are added
+//     (Doorward, Dustmote, Courtier, The Dandy);
 //  3. the ordinary encounters of act 1-1 and the three routes are REPLACED by the drafted pools; elites,
 //     bosses, fixtures and the gauntlet are untouched;
 //  4. the pooled enemies' Lust moves are tagged to the act-1 set (venom, exposure, heat) as E14 asks; a
@@ -38,6 +39,8 @@
 	//---------------------------------------------------------------------------------------------------
 	draft.retagArray = [
 		{ card: "gloomWispBeguile", tagArray: ["exposure"] },   //a light in the dark that finds you
+		{ card: "mothKiss", tagArray: ["exposure"] },           //lamplit
+		{ card: "mothDust", tagArray: ["exposure"] },
 		{ card: "alchemistBrew", tagArray: ["heat"] },          //her fumes are catching
 		{ card: "capBrutePin", tagArray: ["heat"] },            //a grapple, blood up
 		{ card: "sentinelBash", tagArray: ["heat"] },
@@ -88,6 +91,10 @@
 			//Act 1-1's lone, and the Mold Leech reconceived (E7-DEFERRED: reconceptualise, not cut). One big
 			//round body that eats: every bite feeds it, and a party that dawdles watches it grow.
 			enemy: "moldLeech", name: "Glutton", role: "lone", baseHealth: 70, healthVariance: 4,
+			//ART: the Witch's Butter drawing (enemies/moldshaper, 1011x1300, a real drawing on disk), which the
+			//draft leaves without a fight of its own. A slime mould with no fixed outline IS one big round
+			//body with a maw; its own folder held a recoloured Wisp. `artOwed` comes off with it.
+			artFolder: "moldshaper", artOwed: false,
 			presentation: { scale: 1.3 },
 			cardAmountArray: [{ card: "leechLatch", path: "effectArray.0.amount", amount: 12 }],
 			cardNameArray: [{ card: "leechLatch", name: "Bite" }],
@@ -246,6 +253,9 @@
 		{ index: "hollowPatrol", name: "Hollow Patrol", tier: "early", weight: 30, regionIndexArray: [0], enemyIndexArray: ["hollowKnight", "sage"] },
 		{ index: "puffPatch", name: "Puffcap Patch", tier: "early", weight: 30, regionIndexArray: [0], enemyIndexArray: ["puffcap", "puffcap", "gardener"] },
 		{ index: "guardPost", name: "Guard Post", tier: "early", weight: 30, regionIndexArray: [0], enemyIndexArray: ["cordycepsHusk", "sporeling"] },
+		//The Glowcap has a real drawing (enemies/glowMoth, 889x1300), so it keeps a fight: the Lust-only
+		//caster behind the bruiser, the one act 1-1 pair whose Lust share sits under the cap with her in it.
+		{ index: "lampAndBrute", name: "The Lamp and the Brute", tier: "early", weight: 30, regionIndexArray: [0], enemyIndexArray: ["capBrute", "glowMoth"] },
 		//middle (74)
 		{ index: "huskShamble", name: "Guard Detail", tier: "middle", weight: 30, regionIndexArray: [0], enemyIndexArray: ["cordycepsHusk", "cordycepsHusk"] },
 		{ index: "bruteAndSpore", name: "Brute and Spores", tier: "middle", weight: 30, regionIndexArray: [0], enemyIndexArray: ["capBrute", "sporeling", "sporeling"] },
@@ -337,7 +347,7 @@
 		for (var retuneIndex = 0; retuneIndex < draft.retuneArray.length; retuneIndex++) {
 			var retune = draft.retuneArray[retuneIndex];
 			var enemy = honeycomb.requireDefinition(honeycomb.enemyArray, retune.enemy, "honeycomb.enemyArray");
-			var fieldArray = ["name", "role", "baseHealth", "healthVariance", "presentation", "moveArray"];
+			var fieldArray = ["name", "role", "baseHealth", "healthVariance", "presentation", "moveArray", "artFolder", "artOwed"];
 			for (var fieldIndex = 0; fieldIndex < fieldArray.length; fieldIndex++) {
 				if (retune[fieldArray[fieldIndex]] != null) enemy[fieldArray[fieldIndex]] = retune[fieldArray[fieldIndex]];
 			}

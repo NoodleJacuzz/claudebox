@@ -203,16 +203,17 @@ one.
 
 ---
 
-## I13. The two bodies with no drawing left act 1-1's pool
+## I13. ~~The two bodies with no drawing left act 1-1's pool~~ — WRONG PREMISE, CORRECTED 2026-09-26
 
-**Chosen session 66**, drafting the common pool (`COMMON-ENCOUNTERS-01.md`). Sixteen fights over eleven
-enemies is where each body is met two or three times and remembered; act 1-1 had thirteen. The two that
-left are the two with no drawing of their own and a role the act already fielded twice: **Witch's
-Butter** (the third support) and the **Glowcap** (the fourth caster, and the body that put Moth Light over
-the Lust cap). Both entries and all their cards stay in the table; no fight fields them.
+**Chosen session 66** and undone the next day. The bench was argued from the enemy table's comments,
+which still say the Glowcap and Witch's Butter have no drawing; `honeycomb-sprite-metrics.js`, generated
+from the image folder, says both have their own since the 2026-09-21 pass. The flexibility rule makes
+drawn art the fixed point, so the draft now fields the Glowcap (The Lamp and the Brute) and puts the
+Witch's Butter drawing on the Glutton (`artFolder: "moldshaper"`), leaving only the Butter's *kit* on the
+bench. **The lesson:** the sprite metrics are the record of what is drawn; a table comment is a note from
+the session that wrote it.
 
-**To pivot:** a line-up each. Their kits are also spare parts for a drawing that fits nothing else (§8 of
-the brief), which is the flexibility rule's own use for them.
+**To pivot:** one line-up and one `artFolder`.
 
 ## I14. Both Fencers left the commons together
 
