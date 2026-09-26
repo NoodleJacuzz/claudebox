@@ -533,6 +533,21 @@ three are card chrome, so do them in one pass, and the size threshold is a numbe
 
 ---
 
+### S68-1. Outfits: his favourites assembled into sorted collages, early ☆ — FILED 2026-09-26, A BLOCKER BY HIS WORD
+
+Added to the early-stage blockers at the close of the cloud sessions (`../BASICS.md`, the gate table):
+
+> - Outfits. I will do an early session where I'll have desktop claude help me assemble my favorite outfits into sorted collages, done early so I can post the assembled lists on subscribestar and get user feedback, maybe even do polls.
+
+A desktop session with him, not a cloud one: the pictures are on his machine. It sits in front of B26's
+picks and B3's card art (*"Card art first pass (blocked by picking alt outfits ...)"*), so the order in
+"Where it stands" becomes collages, his picks and the poll, then card art. What the session needs from
+this folder: round 04's `outfit-designs.js` and the round-5 prompts (`outfits-round5/`) as the list of
+candidates; the sort is his (by character, then by his favourites), the layout a contact sheet per
+character at a size SubscribeStar shows whole. Nothing here decides which outfits; that is the poll's job.
+
+---
+
 ## Unsorted — drop new reports for this pipeline here
 
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*

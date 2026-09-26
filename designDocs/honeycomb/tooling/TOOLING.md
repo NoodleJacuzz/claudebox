@@ -311,7 +311,7 @@ picked, and whether players get a control.
 
 ---
 
-### S65-1. Review grids: cards and relics rendered in the frame ☆ — FILED 2026-09-25
+### S65-1. Review grids: cards and relics rendered in the frame ☆ — FILED 2026-09-25, A BLOCKER BY HIS WORD SINCE 2026-09-26
 
 > Sure. HOWEVER. This came up in the last two sessions. I cannot judge cards or relics as lists in txt
 > files. I want visual grids. They can be dummies using the game's card art, but I must be able to see a
@@ -326,6 +326,15 @@ rarity, pool and text, fed from a JS or JSON list so a draft can be dropped in w
 table. Desktop only: the cloud copy has placeholder rasters, and a screenshot against placeholders lies
 (`../reference/TRAPS.md`). Waiting on it today: `../card_pool/CARD-POOL-02.md` §3's six grids and the
 neutrals, `../relics/RELIC-REWORK-01.md` §4 and §8.
+
+**Added to the early-stage blockers 2026-09-26**, with the enemy side settled in his words:
+
+> - The in-frame review grids (enemies should probably be a text blurb describing them rather than trying to list all their moves)
+
+So the bench has three panes: cards in the frame, relics as icon, name, rarity, pool and text, and enemies
+as the sprite with one blurb each (the identity column of `../enemies/COMMON-ENCOUNTERS-01.md` §5 and
+`../enemies/ELITE-ENCOUNTERS-01.md` §5 is written to be that blurb), never a move list. Waiting on it now:
+both enemy drafts as well.
 
 ---
 

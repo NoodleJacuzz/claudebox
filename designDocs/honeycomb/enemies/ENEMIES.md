@@ -110,6 +110,13 @@ node "!designDocs/honeycomb/tools/audit-sprite-fit.js"      sprites off the scre
 - **Two files per common enemy** (`1-combat`, `1-offense`), enforced by the engine (`../reference/ART-GUIDE.md` §2). Never put an archived pose back.
 - **Tone rules in full** (`../designBibles/story.md` §3): no death or gore, horror only as fridge horror, never state the mechanism.
 - **Numbers beat descriptions.** A budget claim without the tool's output is not a finding.
+- **Every region's commons and elites are its own** (Noodle, 2026-09-26): *"We will be at a fully unique
+  common and elite enemy lineup between each current act. act1-1, act1-fey, act1-frontier, and act1-flora
+  will not be re-using enemies between us."* Both drafts hold this; `../tools/common-draft-audit.js` and
+  `../tools/elite-draft-audit.js` print the map and fail a body that stands in two regions.
+- **Nothing he liked stays on the floor** (Noodle, 2026-09-26): *"All of the enemy designs I liked that ended
+  up on the cutting room floor will be used in demo 2."* The five previewed designs (E13) are all in the two
+  drafts; anything else he names goes into a kit before it goes anywhere else.
 
 ---
 
@@ -343,6 +350,8 @@ held back together. E7-DEFERRED already owns it.
 which he thinks are weak. Both were built: `longwing` is the Longwing, drawn from `spookytall-d`, and
 `butterflyknight-d` is the Cagecap. The Longwing sits beside `spookytall-a` in the same source family,
 so the `-d` variant was built and the `-a` variant was not.
+
+**All five are in the two drafts** (2026-09-26): `tophatfairy-c` and `beenoble-a` as commons (session 66), `feralbeast-b`, `spookytall-a`, `demikobold-c` and `bellhead-a` as elites (session 68). His word the same day: *"All of the enemy designs I liked that ended up on the cutting room floor will be used in demo 2."*
 
 **What is not measured here** is whether any of the five were shown publicly, which only he can confirm.
 If demo players are expecting them, that is an argument for promoting E11 and E7-DEFERRED above their

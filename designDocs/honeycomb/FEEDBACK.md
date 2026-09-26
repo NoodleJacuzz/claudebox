@@ -22,17 +22,17 @@ Counts are OPEN items, one per `###` heading in the pipeline's document. Re-coun
 
 | Pipeline | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8). All blockers on his list. S65-1 the in-frame review grids. | **15** | 2026-09-25 (filed) |
+| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8). All blockers on his list. S65-1 the in-frame review grids, a blocker by his word since 2026-09-26. | **15** | 2026-09-26 (filed) |
 | **`desk/`** | The phone desk's eleven-phase plan. A blocker on his list; a session of its own. | **41** | 2026-09-23 (phases 1 to 4 built) |
 | **`card_pool/`** | What a card costs, does and is worth. B34 the manual pass: `card_pool/CARD-POOL-02.md` drafted whole, vetoes held. S65-1 the starter broken-card rule, measured. | **13** | 2026-09-25 (design only) |
-| **`enemies/`** | Who an enemy is and what it costs. E14 the retag first; S64-1 drafted (`enemies/COMMON-ENCOUNTERS-01.md`), S64-2 and S64-3 the other two gate sessions; E9 every name for veto; S65-1 the act-1 difficulty standard they are graded on. | **13** | 2026-09-25 (S64-1 drafted) |
-| **`art_pipeline/`** | Alt outfits, card art, enemy art, card chrome, VFX overlays. | **14** | 2026-09-25 (filed) |
+| **`enemies/`** | Who an enemy is and what it costs. E14 the retag first; S64-1 and S64-2 drafted (`enemies/COMMON-ENCOUNTERS-01.md`, `enemies/ELITE-ENCOUNTERS-01.md`), S64-3 the boss session; E9 every name for veto; S65-1 the act-1 difficulty standard they are graded on; his two lineup rules of 2026-09-26. | **13** | 2026-09-26 (S64-2 drafted) |
+| **`art_pipeline/`** | Alt outfits, card art, enemy art, card chrome, VFX overlays. S68-1 the outfit collages, a blocker by his word. | **15** | 2026-09-26 (filed) |
 | **`events/`** | Lust Events by tag, map events, the writing groundwork. B23 is the docket. S65-1 event relics priced in a weakness rank. | **10** | 2026-09-25 (filed) |
 | **`mobile/`** | Landscape sizing, portrait styling, the phone test path. | **4** | 2026-09-25 (filed) |
 | **`relics/`** | Starters, outfits and their unlock routes, relics, the trees. B1 is the load-bearing item; S65-1 the rarity model, for his veto. | **7** | 2026-09-25 (design only) |
 | **`engine/`** | The verbs the other pipelines wait for, the screens, audio, performance. S66-1 the encounter block rule and two enemy roles. | **25** | 2026-09-25 (filed) |
 
-**142 items open across nine documents.** Forty-one of them are the desk's plan. Anastasia's eleven
+**143 items open across nine documents.** Forty-one of them are the desk's plan. Anastasia's eleven
 (`chessmaster/`) are off the gate and frozen in `Archive/demo1/` on Noodle's machine.
 
 Three of these are wired together and should not be tuned one at a time: `relics/` B22 (no starting
@@ -158,3 +158,30 @@ a check to the suite. His Syrup Town, WebUI and image-workbox reports from the s
 **IN-24.** Owner: `art_pipeline/`. A reminder for him, not a task for a session.
 
 > REMIND NOODLE LATER: Part of trumpet bell's leaf hair was accidentally made transparent.
+
+### His second batch of 2026-09-26 — added at the close of session 68, the same tiers
+
+His words, verbatim: *"I have this list of things for you to please add to the bug reports you created last
+session."* The two blocker lines from the same message are in `BASICS.md` (the gate table) and filed as
+`tooling/TOOLING.md` S65-1 and `art_pipeline/ART-PIPELINE.md` S68-1; his two design assumptions from it
+are rules in `enemies/ENEMIES.md`.
+
+**IN-25.** Owner: `art_pipeline/`. Reminders for him, beside IN-24, not tasks for a session.
+
+> REMIND NOODLE:
+> Back of hair of seer's 1-basic, background still present
+> Edge of spear's flame in lancer's 1-combat, background still present
+> Center of fireball in seer's 1-combat, too much white removed
+
+**IN-26.** Tier 1. Owner: `engine/` (the card text fit), with a check in the warning report. The card is
+`cinderSwitch`, a horizontal starter whose text is *"Swap places with an ally. Whoever is left in front
+gains 4 Temporary HP."*; `honeycomb.warnings` already audits the name box for overflow, and the fix he asks
+for is the same rule on the text box, for every card. `changePlaces.jpg` is on his machine, not in the cloud copy.
+
+> Change Places text too long, bottom line is mostly invisible, needs not only to be fixed but also a check to ensure this doesn't happen elsewhere. (Also, it actually looks like there should be enough space on the card for the text, see changePlaces.jpg
+
+**IN-27.** Tier 2. Owner: `engine/` (the tag registry, `honeycomb-tags.js`). In the cloud copy of
+2026-09-24 the six characters carry `woman`, not `female`; whichever the desktop's tables say, the ask is
+the same: the tag stays registered and stops showing.
+
+> Female tag redundant, dummy it for now since the cast is all female
