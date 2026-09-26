@@ -535,6 +535,30 @@ suite check for each thing found.
 
 ---
 
+### S66-1. The encounter block rule, and two enemy roles ☆ — FILED 2026-09-25 FROM `enemies/`
+
+Noodle, opening the common-enemy session (the whole message is `../enemies/COMMON-ENCOUNTERS-01.md` §1):
+
+> - Repetition prevention. The same encounter should never happen twice in a row. This should actually extend to elites and bosses as well. So a new rule; when an encounter is won, it's blocked from appearing for the next 2 encounters. And this reflects our design as well. If we have two encounters, one with 5 sporecaps, one with 4 sporecaps and a gloom wisp, those are so similar we have effectively bypassed the rule.
+
+**Today there is no rule**: every node's fight is rolled when the map is generated
+(`honeycomb.map.fillNodeContents`), so a path can serve the same fight twice running. **The verb asked
+for** (`../enemies/COMMON-ENCOUNTERS-01.md` §9): the run keeps `recentEncounterArray`, the last two fights
+won; entering a combat or elite node whose generated fight is on it re-rolls from the same pool without
+those two, from the encounter stream, and writes the result back to the node. The map shows a tier and
+never a fight, so nothing promised changes; determinism holds because the stream saves as `(seed, calls)`.
+A suite block walks 200 generated runs and asserts no fight index repeats inside any two-fight window. The
+pool arithmetic the rule needs (four fights a band) is in the brief's §3 and is the content side's job.
+Inside a run bosses satisfy it by structure; whether he means it across runs is his (§10 there).
+
+**With it, two rows for `tuning.balance.enemyRoleArray`**: `swarm` (0.20 / 0.20, five make a fight) and
+`lone` (1.00 / 0.67, one is a fight), inserted where `COMMON-DRAFT-01.js` puts them, since
+`enemyDifficultyRank` reads position; the compendium's `enemyGroupHeadingArray` wants a heading for each or
+they land in "Other". And a load-time guard: a save whose map names a fight index the table no longer has
+must re-roll that node rather than throw in `combat.begin`, because the draft retires twenty-one indices.
+
+---
+
 ### B9–B11. Sound ☐
 
 - **No short movement stem.** The five Cinder movement cards stand in with `miscCreak` (1.0s). A
