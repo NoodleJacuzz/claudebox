@@ -68,11 +68,13 @@
 			//67-health soldier to a 97-health half-elite in the same proportions.
 			enemy: "sableFencer", role: "eliteHalf", baseHealth: 97, healthVariance: 5,
 			goldReward: { minimum: 18, maximum: 26 },
+			//MEASURED DOWN (Bite, session 68): at Thrust 20 / Line 8 / Lunge 24 / Remise 12+6 the pair cost 61% of
+			//party health at a 63% win rate, over the Road's shipped elite ceiling (53%). These are the second pass.
 			cardAmountArray: [
-				{ card: "sableThrust", path: "effectArray.0.amount", amount: 20 },
+				{ card: "sableThrust", path: "effectArray.0.amount", amount: 17 },
 				{ card: "sableBind", path: "effectArray.0.amount", amount: 8 },
 				{ card: "sableBind", path: "effectArray.2.amount", amount: 5 },
-				{ card: "sableLine", path: "effectArray.0.amount", amount: 8 },
+				{ card: "sableLine", path: "effectArray.0.amount", amount: 6 },
 				{ card: "sableGuard", path: "effectArray.0.amount", amount: 12 },
 			],
 		},
@@ -81,9 +83,9 @@
 			enemy: "argentFencer", role: "eliteHalf", baseHealth: 97, healthVariance: 5,
 			goldReward: { minimum: 18, maximum: 26 },
 			cardAmountArray: [
-				{ card: "argentLunge", path: "effectArray.0.amount", amount: 24 },
-				{ card: "argentRemise", path: "effectArray.0.amount", amount: 12 },
-				{ card: "argentRemise", path: "effectArray.1.amount", amount: 6 },
+				{ card: "argentLunge", path: "effectArray.0.amount", amount: 20 },
+				{ card: "argentRemise", path: "effectArray.0.amount", amount: 10 },
+				{ card: "argentRemise", path: "effectArray.1.amount", amount: 4 },
 				{ card: "argentFlare", path: "effectArray.0.amount", amount: 3 },
 			],
 		},
@@ -111,9 +113,11 @@
 		//--- the windfalls. It staggers, it wallows, it slavers, and every third turn or so it rampages. ---
 		{ index: "lushStagger", name: "Stagger", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "frontEnemy",
 			effectArray: [{ index: "damage", amount: 16 }] },
+		//Wallow was a heal of 10; beside the Wellspring's Regeneration the fight ran 17 turns and cost 56% of
+		//party health (Bite, session 68), so it is Temporary HP now and the Well is the only healing in the fight.
 		{ index: "lushWallow", name: "Wallow", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "self",
 			animationArray: [{ animation: "rise" }],
-			effectArray: [{ index: "heal", amount: 10 }, { index: "applyStatus", status: "strength", stacks: 1 }] },
+			effectArray: [{ index: "temporaryHealth", amount: 10 }, { index: "applyStatus", status: "strength", stacks: 1 }] },
 		{ index: "lushSlaver", name: "Slaver", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "allEnemies", tagArray: ["venom"],
 			effectArray: [{ index: "lust", amount: 2 }, { index: "applyStatus", status: "poison", stacks: 1 }] },
 		{ index: "lushRampage", name: "Rampage", enemyIndex: "lush", rarity: "enemy", costArray: {}, targetMode: "allEnemies", chargeCost: 3,
@@ -122,16 +126,19 @@
 
 		//--- The Longshade (elite, Road, from `spookytall-a`). A tall thing in the bloom that looms. It
 		//--- stoops on the front, whispers to the back, and unfurls over everyone at once. ---
+		//Second pass (Bite, session 68): alone it cost 19% against a 30% target, and beside the Longwing the pair
+		//lost a third of fights to Lust, so a share of its Lust became damage (Stoop 18 to 20, Whisper 4+6 to
+		//6+4, Unfurl 5+5 to 7+4).
 		{ index: "longshadeStoop", name: "Stoop", enemyIndex: "longshade", rarity: "enemy", costArray: {}, targetMode: "frontEnemy",
-			effectArray: [{ index: "damage", amount: 18 }] },
+			effectArray: [{ index: "damage", amount: 20 }] },
 		{ index: "longshadeLoom", name: "Loom", enemyIndex: "longshade", rarity: "enemy", costArray: {}, targetMode: "allEnemies",
 			animationArray: [{ animation: "rise" }],
 			effectArray: [{ index: "temporaryHealth", amount: 14, targetOverride: "self" }, { index: "applyStatus", status: "weak", stacks: 1 }] },
 		{ index: "longshadeWhisper", name: "Whisper", enemyIndex: "longshade", rarity: "enemy", costArray: {}, targetMode: "backEnemy", tagArray: ["exposure"],
-			effectArray: [{ index: "damage", amount: 4 }, { index: "lust", amount: 6 }] },
+			effectArray: [{ index: "damage", amount: 6 }, { index: "lust", amount: 4 }] },
 		{ index: "longshadeUnfurl", name: "Unfurl", enemyIndex: "longshade", rarity: "enemy", costArray: {}, targetMode: "allEnemies", tagArray: ["exposure"], chargeCost: 3,
 			animationArray: [{ animation: "rise" }],
-			effectArray: [{ index: "damage", amount: 5 }, { index: "lust", amount: 5 }, { index: "applyStatus", status: "sensitive", stacks: 1 }] },
+			effectArray: [{ index: "damage", amount: 7 }, { index: "lust", amount: 4 }, { index: "applyStatus", status: "sensitive", stacks: 1 }] },
 	];
 
 	//---------------------------------------------------------------------------------------------------
@@ -228,6 +235,9 @@
 		{ index: "pollenLongshade", name: "The Longshade", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["longshade"] },
 		//Kin from one source family: the tall one in front, the swaying one behind.
 		{ index: "pollenKin", name: "Longshade and Longwing", tier: "middle", weight: 50, isElite: true, regionIndexArray: [3], enemyIndexArray: ["longshade", "longwing"] },
+		//The other company for the tall one, kept as a candidate so the desktop can measure both: two motes in
+		//front shedding dust, the Longshade behind them.
+		{ index: "pollenLongshadeDrift", name: "The Longshade in the Drift", tier: "middle", weight: 0, candidate: true, isElite: true, regionIndexArray: [3], enemyIndexArray: ["dustmote", "dustmote", "longshade"] },
 	];
 
 	//---------------------------------------------------------------------------------------------------

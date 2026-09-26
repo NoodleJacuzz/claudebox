@@ -49,7 +49,9 @@ training; every recast enemy's table entry carries an ART note saying what its s
   enemies (session 55c); **every elite node on every route is borrowed** (E11), and the five designs he
   previewed publicly are the route-native elites and an intruder pair, assigned and undrawn (E13,
   E7-DEFERRED). The Pollen Road has no small enemy; the Mantlewing fits no native group
-  (`ROUTE-IDENTITY.md`). The Scrap Salvager is benched with two written encounters.
+  (`ROUTE-IDENTITY.md`). The Scrap Salvager is benched with two written encounters. **Session 68's elite
+  draft answers all of that on paper**: every route elite native, all four assigned pictures in a kit,
+  the Salvager off the bench; it waits on the frame like the common draft.
 - **The numbers.** A template per role in `tuning.balance`; `opening` tier rows 0 to 5; act 1's ordinary
   fight costs 8% of party health; Lust share 28% of enemy moves. Whether act 1 fights should last longer
   (the turn target is 3 to 4) is P14's open half and needs his word and an All the Crunch run either side.
@@ -59,6 +61,10 @@ training; every recast enemy's table entry carries an ART note saying what its s
   tagged once instead of twice.
 - **The common pool is drafted** (session 66, `COMMON-ENCOUNTERS-01.md`, `COMMON-DRAFT-01.js`): 41 fights
   over 28 commons, each in one region, graded and measured, waiting on the frame. S64-1 says what it holds.
+- **The elite pool is drafted** (session 68, `ELITE-ENCOUNTERS-01.md`, `ELITE-DRAFT-01.js`, on top of the
+  common draft): 13 fights, one pool of three or four a region, every route elite native, all four
+  assigned elite pictures in a kit, the Fencer pair built, measured against the shipped elite ceiling.
+  S64-2 says what it holds.
 
 ## Files
 
@@ -68,7 +74,9 @@ training; every recast enemy's table entry carries an ART note saying what its s
 | `ROUTE-IDENTITY.md` | how far each route is from its own enemies, measured (sessions 55b and 55c) |
 | `COMMON-ENCOUNTERS-01.md` | the common pool, draft 01 (session 66): his rules, the audit, the math, the roster and the fights, measured |
 | `COMMON-DRAFT-01.js` | that pool in the live tables' shape, applied over a headless engine by `../tools/common-draft-audit.js`; nothing loads it |
-| `INFERENCES.md` | eighteen choices made without him, each with the cost of reversing it (I13 to I18 are session 66's) |
+| `ELITE-ENCOUNTERS-01.md` | the elite pool, draft 01 (session 68): his words on elites, the audit, the math, the roster and the fights, measured |
+| `ELITE-DRAFT-01.js` | that pool in the live tables' shape, applied over the common draft by `../tools/elite-draft-audit.js`; nothing loads it |
+| `INFERENCES.md` | twenty-two choices made without him, each with the cost of reversing it (I13 to I18 are session 66's, I19 to I22 session 68's) |
 | `ARCHIVE.md` | closed items from this file |
 | `../Archive/demo1/enemy_overhaul/` | `../Archive/demo1/enemy_overhaul/RECAST-01.md` (the session-44 recasts, per enemy), the E7 build briefs and verification, the old catch-up, closed items before 2026-09-25 |
 | `../Archive/demo1/rework/enemies/` | `../Archive/demo1/rework/enemies/ENEMIES-01.md` (the session-34 numbers brief and roster), the before-picture, closed items |
@@ -86,6 +94,7 @@ node "!designDocs/honeycomb/tools/lust-share.js"            which tags the roste
 node "!designDocs/honeycomb/tools/budget-audit.js"          every encounter against the damage budget
 node "!designDocs/honeycomb/tools/encounter-coverage.js"    which encounters a run can actually reach
 node "!designDocs/honeycomb/tools/common-draft-audit.js"    the drafted common pool: template, shape, tags, coverage; --bite fights it
+node "!designDocs/honeycomb/tools/elite-draft-audit.js"     the drafted elite pool over the common one, the same five sections
 node "!designDocs/honeycomb/tools/audit-sprite-fit.js"      sprites off the screen, at a given window shape (browser)
 ```
 
@@ -134,11 +143,26 @@ first, whatever the order after it.**
 
 ---
 
-### S64-2. Elite enemy encounter rework & additions ☆ — FILED 2026-09-25
+### S64-2. Elite enemy encounter rework & additions ◐ — DRAFTED SESSION 68, VERDICTS IN THE FRAME
 
 > - Elite enemy encounter rework & additions
 
-**Every elite node on every route is borrowed** (the Kobold Scavenger or the Hollow Champion). The
+**Drafted 2026-09-26 (session 68, cloud), his words on elites gathered in `ELITE-ENCOUNTERS-01.md` §1.**
+The pool is `ELITE-DRAFT-01.js`, written in the live tables' shape over the common draft and graded by
+`../tools/elite-draft-audit.js`: **13 elite fights against 14, one pool a region** (four in act 1-1, three
+a route, every fight at tier `middle` so an elite node on any row rolls the same pool and the block rule
+never forces a pick), one or two types each, sizes one to four. **Every route elite is native**: the
+Scavenger goes back to act 1-1 with the Champion; the Frontier fields the intruder pair (the Scrap
+Salvager off the bench as half of it, the **Kobold Gleaner** from `demikobold-c` who preys on the weak
+through the `weakestEnemy` target mode, `bellhead-a` read as the Salvager's new drawing); the Arbor fields
+**The Lush** from `feralbeast-b`; the Road fields the **Fencer pair** B36 asked for and the **Longshade**
+from `spookytall-a`, kin to the Longwing. One role, `eliteHalf`, the elite twin of `bossHalf`. Four
+retags (E14). Measured by Basic Bite against the shipped elite ceiling per region: three fights came in
+over and were retuned the same session (§7 there). **Nothing in the game changed.** Left for him: every
+name, `bellhead-a`'s reading, one pool a region, act 1-1's elites unchanged at 30–40% against a 22%
+target, and the finding that a quarter of route maps generate no elite node at all (§10 there).
+
+**What stood before the draft, kept for the measurement.** Every elite node on every route was borrowed (the Kobold Scavenger or the Hollow Champion). The
 route-native elites are drawn, assigned and unbuilt: `feralbeast-b` for the Arbor, `spookytall-a` for the
 Road, `tophatfairy-c` as a Road normal (E11, E13), the Scrap Salvager's intruder pair held back on purpose
 (E7-DEFERRED), and B36's two-Fencer elite for the Pollen Road. Building them is additive: nothing written has
@@ -195,6 +219,9 @@ Salvager plus a new elite built from `demikobold-c`, redesigned to **prey on the
 low-health or isolated party members) rather than to collect scrap, with `bellhead-a` as her partner
 image. **Drop the fire** — it says arsonist, not salvager. A new elite with a new targeting mechanic is
 exactly the thing that needs play before it ships.
+**Session 68's draft builds it** (`ELITE-ENCOUNTERS-01.md` §5, `INFERENCES.md` I20): the Kobold Gleaner,
+whose every attack lands on the party member with the least health, and the Salvager as the other half
+of the pair, wearing `bellhead-a`; three Frontier elite fights, measured at 39–41% of party health.
 
 ---
 
@@ -212,6 +239,9 @@ in any single run.
 The intended bodies are already picked in `v13 spire images/_source/enemy inspo variants/assigned/ASSIGNED.md` and both need drawings that do not exist:
 **`feralbeast-b`** for the Thorn Arbor (*"the route's elite"*, demoted from boss when the sisters took
 the slot) and **`spookytall-a`** for the Pollen Road (*"can fit into a lot of places"*).
+
+**Session 68's draft fills both** (`ELITE-ENCOUNTERS-01.md` §5): The Lush for the Arbor and the Longshade
+for the Road, three fights each, and the Scavenger out of every route. Closes when the draft lands.
 
 ---
 
@@ -426,7 +456,8 @@ her from some of the six fights above; how many of the six she should keep is a 
 measurement.
 
 **Session 66's draft takes both Fencers out of every ordinary fight** (`COMMON-ENCOUNTERS-01.md` §5,
-`INFERENCES.md` I14); the pair elite is S64-2's to build.
+`INFERENCES.md` I14); **session 68's builds the pair** (`ELITE-ENCOUNTERS-01.md` §6, "Sable and Argent"):
+both at the half-elite line, the sealed one in front, measured and retuned once. Closes when the draft lands.
 
 ---
 
