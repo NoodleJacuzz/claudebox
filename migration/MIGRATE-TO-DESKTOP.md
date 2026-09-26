@@ -2,7 +2,8 @@
 
 Written 2026-09-26, the last cloud session. Everything the cloud sessions produced is documentation
 under `designDocs/honeycomb/`, plus one report file and a README line in `designDocs/playtest_notes/`
-from the final day. Measured against the upload of 2026-09-24:
+and the seed `designDocs/SIMPLE-CHANGELOG.md`, all from the final day. Measured against the upload of
+2026-09-24:
 
 | What | Count |
 |---|---|
@@ -61,6 +62,14 @@ whole-file diffs on the rewritten ones. Harmless.
   `!designDocs/honeycomb/FEEDBACK.md` (inbox IN-10 to IN-24), the Syrup Town, memory-leak and WebUI half
   in `!designDocs/playtest_notes/REPORTS-2026-09-26.md`. Tier 1 is the first work after the checks pass.
 
+- **A standing rule to add to `.claude/CLAUDE.md`**, in Noodle's words: *"I need desktop claude to know
+  to make me bug report lists for updates, I'm very forgetful."* The line to add:
+
+  > `!designDocs/SIMPLE-CHANGELOG.md` is the draft of the next `writeChangelog` entry. Every change a
+  > player can see in the next public build gets one line there the moment it lands, in the voice of
+  > `writeChangelog` (`scripts/gameplay/scenewriting.js`). Nothing else goes in it. When a build ships,
+  > its lines move into `writeChangelog` and the file starts over.
+
 ## The prompt for Desktop Claude
 
 > Honeycomb. The cloud sessions ended; their work is documentation only, and it is in the unzipped
@@ -72,4 +81,6 @@ whole-file diffs on the rewritten ones. Harmless.
 > `.claude\CLAUDE.md` and the honeycomb-session skill with the new layout, as the document's
 > "After the copy" section says. Commit when the checks pass. Then read my batch of 2026-09-26 in
 > `FEEDBACK.md`'s inbox and `!designDocs\playtest_notes\REPORTS-2026-09-26.md`, file each Honeycomb
-> item into its pipeline, and start on tier 1.
+> item into its pipeline, and start on tier 1. From now on, every player-facing change you land gets
+> one line in `!designDocs\SIMPLE-CHANGELOG.md`, per the rule in the "After the copy" section; add
+> that rule to your `.claude\CLAUDE.md` so it survives this conversation.

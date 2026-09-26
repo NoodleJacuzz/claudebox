@@ -8,6 +8,7 @@ What it does, in order:
   3. Copies designDocs\honeycomb\ from the cloud copy over !designDocs\honeycomb\ (additive: files
      that exist only on the desktop are left alone).
   3b. Copies designDocs\playtest_notes\ the same way (one new file, one README line, 2026-09-26).
+  3c. Copies designDocs\SIMPLE-CHANGELOG.md to the !designDocs root, unless one is already there.
   4. Moves chessmaster\ to Archive\demo1\chessmaster\, where every live document already points.
 
 What it never touches: scripts\, .claude\, CLAUDE.md, desk\data\ (the phone's live database),
@@ -148,6 +149,18 @@ $roboArgs = @($notesSrc, $notesDst, "/E", "/NJH", "/NJS", "/NDL", "/NP")
 if (-not $Apply) { $roboArgs += "/L" }
 & robocopy @roboArgs
 if ($LASTEXITCODE -ge 8) { throw "robocopy reported a failure (exit $LASTEXITCODE)." }
+
+# ---- Step 3c: the simple changelog, one new file at the !designDocs root -------------------------
+$logSrc = Join-Path $cloudCopy "designDocs\SIMPLE-CHANGELOG.md"
+$logDst = Join-Path $SyrupTown "!designDocs\SIMPLE-CHANGELOG.md"
+Say ""
+Say "Step 3c: SIMPLE-CHANGELOG.md -> !designDocs\"
+if (Test-Path -LiteralPath $logDst) {
+	Say "  already exists on the desktop; left alone."
+} else {
+	Say "  copy  SIMPLE-CHANGELOG.md"
+	if ($Apply) { Copy-Item -LiteralPath $logSrc -Destination $logDst }
+}
 
 # ---- Step 4: Anastasia's folder was frozen on paper only; the cloud copy never had it --------------
 # Session 64 wrote every live pointer as ../Archive/demo1/chessmaster/ but could not move the folder.
