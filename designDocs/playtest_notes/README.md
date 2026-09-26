@@ -8,6 +8,9 @@ split by size, so small fixes never get buried under big projects:
 - Big projects don't live here. They go in `!designDocs/project_ideas/IDEAS.md`, and this folder only
   points at them.
 
+- `REPORTS-2026-09-26.md` holds Noodle's own bug reports and requests from the last cloud session,
+  verbatim and tiered: Syrup Town, the memory leak, the WebUI.
+
 ## Round 1: 2026-09-23
 
 Played at a 1280x720 desktop size only, with no phone sizes. The browser pane caps animation at
