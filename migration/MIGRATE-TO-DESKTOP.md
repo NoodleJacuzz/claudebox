@@ -66,9 +66,10 @@ whole-file diffs on the rewritten ones. Harmless.
   to make me bug report lists for updates, I'm very forgetful."* The line to add:
 
   > `!designDocs/SIMPLE-CHANGELOG.md` is the draft of the next `writeChangelog` entry. Every change a
-  > player can see in the next public build gets one line there the moment it lands, in the voice of
-  > `writeChangelog` (`scripts/gameplay/scenewriting.js`). Nothing else goes in it. When a build ships,
-  > its lines move into `writeChangelog` and the file starts over.
+  > player will notice going from the last release to the next gets one line there the moment it lands,
+  > in the voice of `writeChangelog` (`scripts/gameplay/scenewriting.js`). Nothing else goes in it: no
+  > tooling, no docs, and no fix for a bug in something that never shipped, since players never saw it.
+  > When a build ships, its lines move into `writeChangelog` and the file starts over.
 
 ## The prompt for Desktop Claude
 
