@@ -265,3 +265,48 @@ the other reading; it is stronger than his sentence, needs larger pools to hold,
 player can see, since the map shows tiers and never fights.
 
 **To pivot:** the pool arithmetic in §3 of the brief holds for either; only the verb differs.
+
+## I19. Every elite fight is one pool a region, at tier `middle`
+
+**Chosen session 68.** The shipped table splits each region's elites into `middle` and `late` rows, one
+fight a row on the routes, so a path with two elite nodes in one band of a route served the same fight
+twice. The draft writes every elite fight at `middle`: `honeycomb.rollEncounter` steps an early-row
+elite node down to it and drops a late-row one through to it, so a region's elites are one pool of three
+or four and the block rule always leaves a real roll (0 forced picks over 300 runs). The enemy template
+already grades elite bodies at the middle stage. The cost is that act 1-1's late-row elites are written
+to the middle budget (137 health against 156), which is the direction S65-1 asks for.
+
+**To pivot:** a `tier` field on each fight; nothing else reads it for an elite except the drafted-deck
+size in Basic Bite.
+
+## I20. `bellhead-a` is the Scrap Salvager's new drawing, not a third body
+
+**Chosen session 68.** E7-DEFERRED reads *"the Salvager plus a new elite built from `demikobold-c` [...]
+with `bellhead-a` as her partner image"*, and ROUTE-IDENTITY files `bellhead-a` as *"that elite's
+partner"*. Her partner is the Salvager, and the one thing that benched him was his hue-shifted Scavenger
+sprite (*"the fix that makes that worth doing is one drawing"*). So the draft puts `bellhead-a` on the
+Salvager and builds the pair as two bodies. The other reading, a third intruder body, would need a third
+kit and would put three elite types in one region.
+
+**To pivot:** cheap. Give the third body the Salvage Gate's slot beside the Doorward, and the Salvager
+keeps the brief already written for him.
+
+## I21. The two solo elites are written under the elite line
+
+**Chosen session 68.** The Lush and the Longshade stand at 160 health against a 195 solo line (18%
+under, inside the template's 25%), so one body fights alone AND with company inside one budget: alone it
+is the route's single guy, with a support or two swarm bodies it is a whole elite fight. Written to the
+line, every fight with company would land 25% over, and the shipped answer to that was two whole bodies
+at the budget and never a solo.
+
+**To pivot:** a `baseHealth` each, and drop the fights with company.
+
+## I22. Both Fencers and the Salvager are halves, not elites with a common
+
+**Chosen session 68.** B36 asks for *"a two-enemy elite encounter"* of the two Fencers, and E7-DEFERRED
+for the Salvager beside a new elite; a pair of whole elites is 270 health against a 195 budget. `bossHalf`
+is the precedent (I10), so `eliteHalf` is half the elite health and 0.75 of the solo damage line (which is
+half the group line). The Salvager keeps his whole kit at 97 health instead of 135.
+
+**To pivot:** the role row and three `role` fields; the fights then read ▲ on the template until they are
+rebuilt as elite-plus-common.
