@@ -566,4 +566,27 @@ rewritten when its card is.
 
 ## Unsorted — drop new reports for this pipeline here
 
+**One broken card design per rarity, per character (Noodle, 2026-09-25).** Said while settling how a Broken
+owner's cards transform once ownership leaves the card's entry (`../engine/ARCHIVE.md`, ownerless cards D2 and D3):
+
+> so long as broken behaviors are updated for general cases on rarity and specific exceptions are allowed (to allow Clement to have a full alt deck while most characters just get one broken card design per rarity).
+
+The engine's lookup already has that shape (a card's own form, then the character's per-rarity row, then the
+character's catch-all). What is missing is content: only Anastasia has `brokenCardByRarity` rows; the other six
+have one catch-all each. Until each character has a starter, common and rare design, a neutral card owned by a
+Broken member breaks into the catch-all. Not an item yet; it belongs with the pool pass.
+
+**Closing the card pool session (his twelfth and thirteenth messages, 2026-09-25):**
+
+> Review and vetos will need to come in a future session, likely many steps down the line in a dedicated character-by-character session after the return to the desktop. There's too much to go over, and this isn't the ideal format for noticing issues like cards feeling to samey when laid out next to each other. I'll probably ask you to build an ingame card gallery down the line so I can get the best possible view of the card pool on my phone instead of my eyes glazing over so much text.
+>
+> Because we're working off of cloud credits I can properly ask for a real cleanup step for once. Anything need resolving left?
+
+> Sorry, no, I want general cleanup to have it's own session, that's coming next. I mean wrapping up here in a bow.
+
+The brief is complete as a draft and every grid waits on a desktop, character-by-character veto session; before it
+he intends to ask for an in-game card gallery so the pool can be read on a phone as cards (the review grids,
+`../tooling/TOOLING.md` S65-1, are the same instrument). `../tools/pool-measure.js` re-runs that session's
+measurements (offers per run, pool counts, same-shape groups, ally-touching) against whatever the pool is.
+
 *(a report that does not clearly belong to this pipeline goes in `../FEEDBACK.md` instead)*

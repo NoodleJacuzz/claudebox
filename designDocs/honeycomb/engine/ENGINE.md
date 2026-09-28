@@ -30,6 +30,12 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
   Added session 65, the relic rarity verbs (`../relics/RELIC-REWORK-01.md` §5): a rarity table with weights
   and persistence, one weighted `rollRelic` for every source, the boss relic choice, relic owners, and the
   switch that keeps the run's final boss from paying a relic.
+- **Ownerless cards** (`OWNERLESS-CARDS-BRIEF.md`, planned 2026-09-25, every decision answered, not built): a
+  card's owner is assigned in the run and never a field on the card's entry; pools become a generated content
+  table on the owner's side; every granting site names an owner (a reward or a purchase is a drag onto the
+  member who takes it, which is S64-1) and the ownerless fallback goes, which fixes his reported bug where a
+  bought neutral card lets a Broken character attack. Six steps, the first two behaviour-preserving; start at
+  Step 1. The builder's choices are `OWNERLESS-CARDS-INFERENCES.md`; his answers are `ARCHIVE.md`.
 - **Loading.** Both pages carry one loader line; a new Honeycomb file is a line in
   `honeycomb-loader.js`, never a page edit (suite block [142]); every request carries an hourly `?v=`.
 - **Performance.** Measured session 47: the rules engine is under 2 ms a turn; `repaint()` is 13 ms with
@@ -53,6 +59,8 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
 | File | Holds |
 |---|---|
 | `ENGINE.md` | this file |
+| `OWNERLESS-CARDS-BRIEF.md` | the ownerless-cards plan: ownership as it is today, the bug traced, the target model, six steps with checks |
+| `OWNERLESS-CARDS-INFERENCES.md` | I1 to I4, choices made without him during that plan |
 | `MUSIC.md` | the music build: what was measured in his three songs, where each was cut and why, the gapless lap, how Syrup Town's music is set aside and handed back, what is not done |
 | `TELEMETRY-01.md` | whether telemetry can be collected at all (yes, from both hosts, never by them), the two endpoint options, the volume model. Nothing is built until he picks an endpoint |
 | `ARCHIVE.md` | closed items from this file |
@@ -378,7 +386,7 @@ whether "HONEYCOMB CATACOMBS" is the label he wants while the name is a placehol
 
 ---
 
-### S64-1. Shop enhancement: dragging to assign neutral ownership ☆ — FILED 2026-09-25
+### S64-1. Shop enhancement: dragging to assign neutral ownership ☐ — FILED 2026-09-25, DESIGNED IN `OWNERLESS-CARDS-BRIEF.md`
 
 Noodle, in the housekeeping message that set the second demo's gate (`../BASICS.md`, the second demo):
 
@@ -391,6 +399,15 @@ what decides whose hand it is played from and whose poses and sounds it uses. Th
 exist: P18 (archived) put a row per party member between the shop's tabs and its stock. The drag itself
 follows the hand's rule, pointer capture on the element and no document listener (`../REQUIREMENTS.md`
 §8), and a touch phone needs a tap-to-assign fallback (`../mobile/` S64-1).
+
+**Designed 2026-09-25 as Step 3 of `OWNERLESS-CARDS-BRIEF.md` §4.2**, on his answer to that plan's D1 (`ARCHIVE.md`):
+
+> Very difficult question. It'd require a UI change but I think the best way to handle it is that in order to buy a card you grab and drag over to a popup of each of your party members. Opening a window to ask would get old real quick, and we started standardizing selections between abilities and cards, selections in general could stand to be standardized more.
+
+Taking a reward and buying a card become one gesture, the card dropped on the member in a popup of the party,
+on the combat aim machinery; no window ever asks. A card from a character's pool may be dropped only on that
+character unless `tuning.deck.crossOwnerAcquisition` widens it (`OWNERLESS-CARDS-INFERENCES.md` I2). His wider
+wish, that selections be standardised further, is the standing note for whoever next touches a selection.
 
 ---
 
@@ -627,7 +644,12 @@ three existing tracks still wait on his ear, above.
 
 ---
 
-### A8. Telemetry — PROMOTED, endpoint still unpicked ⏸
+### A8. Telemetry — SHELVED (Noodle, 2026-09-25) ⏸
+
+> Telemetry was a failure project that never got off the ground due to being lower priority than first demo playability, and there are at least a dozen major completely game-reshaping projects still higher on the priority list. I have my hands overflowing with issues I can already see, I don't consider it valuable to search for invisible ones at this stage.
+
+**Do not build this.** Said while answering the Quality Lab's Q8 (`../tooling/ARCHIVE.md`); nothing the lab
+records leaves the device. Everything below is the item as it stood before, kept for when he reopens it.
 
 > I wanted to know if obtaining telemetry data when the game was hosted on itch.io and neocities was
 > possible, manual copy-out does not do that and the scale would be frankly horrible.

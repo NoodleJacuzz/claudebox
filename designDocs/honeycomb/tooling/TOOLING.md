@@ -34,11 +34,14 @@ annotation. Status key: ☐ not started · ◐ in progress · ⏸ waiting on Noo
   the full-size overnight run, and **his hour of fixed-seed play for calibration**, without which every
   absolute number is a number about the bot. `../card_pool/CARD-POOL-02.md` §6 wants a Crunch run before
   and after the pool.
-- **The Quality Lab** (`QUALITY-LAB-BRIEF.md`): designed 2026-09-24 from his pitch, not built. Every action
-  gets a named impact, every target is scheduled from it through one resolver, overrides go through the
-  same resolver, a fixed cycle replays from a snapshot and exports timing. Phase 0 needs none of the seven
-  open decisions (Q1 to Q6, Q8). Q7 was answered 2026-09-25: it is demo work, and it comes before the SFX
-  assignment and VFX assignment it serves. 34 of 35 card `sfx` fields disagree with `cardSfxMap` (Q5).
+- **The Quality Lab** (`QUALITY-LAB-BRIEF.md`): designed 2026-09-24 from his pitch, revised 2026-09-25 on his
+  answers to all eight questions (`ARCHIVE.md`), not built. Its own scene on a battlefield lifted out of the
+  combat screen, with a GO LIVE button into a real fight and the Performance Delay Test usable in every scene;
+  every actor plays every card; every target scheduled from a named impact or the action's start through one
+  resolver that overrides also go through; a fixed cycle replayed from a snapshot; timing exported. Phase 0
+  changes nothing visible and needs no decision. Its P0 is three engine fixes that
+  `../engine/OWNERLESS-CARDS-BRIEF.md` Steps 3 and 4 also contain. 34 of 35 card `sfx` fields disagree with
+  `cardSfxMap`; both stay as priorities and the report reads the resolved value (Q5).
 - **The desk** (`../desk/`): phases 1 to 4 built 2026-09-23 and waiting on a desk restart and his eye;
   phases 5 to 11 are a session of their own. All eleven stand: *"Right, but having one purpose-built for
   Honeycomb has advantages."* Its 41-item plan is `../desk/FEEDBACK.md` and is indexed separately.
@@ -220,94 +223,10 @@ not at 150.
 
 ---
 
-### Q1. Two sentences of the pitch end mid-thought ⏸
-
-> The scope of the first build of the quality lab is limited to sfx and, but the full list that will
-> eventually need to be handled is defined above.
-
-> Independent targets are primarily measured to help us find the impact timing of actions, as well as
-> how far off
-
-Both were written from a phone. The brief reads the first as "sfx first" and recommends **sfx and
-screen shake** for the first build, since both are pure timing and need no art. It reads the second as
-"how far off each target is from it". **Needs:** the missing word or words in each.
-
----
-
-### Q2. A scene, or a mode on the combat screen ⏸
-
-> Quality Lab, a test scene that assembles a battle scene of 1-5x dummy allies and enemies
-
-The brief builds it as a MODE on the real combat screen with its own boot target and one debug button
-(`QUALITY-LAB-BRIEF.md` §3.3), because the Battle Lab's window version was rejected once already for blocking the
-board and hiding the pictures, and because the mode reuses every Battle Lab seam. "Scene" in the pitch
-may only mean "somewhere to test". **Needs:** a yes, or the reason a separate screen is wanted.
-
----
-
-### Q3. How an enemy plays a player's card ⏸
-
-> the same amount of enemies play the current action in sequence
-
-When the current action is a player card, an enemy can play it only through a new verb that builds an
-intent from the card's effects (`QUALITY-LAB-BRIEF.md` §3.4). The alternative for a first build is the enemy move
-the tester picks from the Battle Lab's intent picker, which exists today. The recommendation is the
-verb, because the enemy side is where a player feels a hit and the timings there are the ones that
-matter most; the picker is the fallback if the verb turns out to be larger than it looks. **Needs:**
-which, or both.
-
----
-
-### Q4. Who the dummy allies are ⏸
-
-> 1-5x dummy allies and enemies, each assigned a single card
-
-The brief stands N copies of the literal card's owner on the party line, so owner-relative effects and
-the owner's own poses are the real ones. That means five Briennes for a Brienne card, which the engine
-may or may not allow on one line (`honeycomb.summonCombatant` refuses past `tuning.scaling.enemyLimit`
-and the party-duplicate rule is unchecked). The other reading is the five shipped characters each
-holding the card, which tests a mixed line but plays the card off the wrong owner for four of them.
-**Needs:** copies, or the roster, or copies with a roster toggle.
-
----
-
-### Q5. One source of truth for a card's sound ⏸ (prerequisite P1)
-
-> Changing assigned animations and sfx per card requires active searching through the database.
-
-Measured: 35 cards carry an `sfx` field and 34 of them disagree with their `tuning.audio.cardSfxMap`
-row; the field wins at play time, and `../tools/sfx-report.js` audits the row. The field is recent
-Anastasia work. An assignment grid needs one place to write. The recommendation is the map (it is the
-bulk table and the report already reads it), with the field deleted, or kept only as an override the
-report also reads. **Needs:** which one is the table.
-
----
-
-### Q6. Where a measured result is allowed to land ⏸
-
-> A truly robust system must allow for individual targets to be micro-managed for extremely specific
-> edge cases, but for the majority of cases an assumed relationship between each target and the impact
-> should be found and directly codified as a default.
-
-The brief writes results to the highest tier that explains the measurement: a sound's windup to the
-file, a shake's trail to the template, and to a single card only when the tester asks (`QUALITY-LAB-BRIEF.md`
-§3.7). The compare tool lists every card carrying its own override so that number stays visible.
-**Needs:** confirmation that per-card overrides are the exception and the default toggle points at
-the asset or template.
-
----
-
-### Q8. The device profile and the hitch log in telemetry ⏸
-
-> When finished, this should be saved to call upon outside of the quality lab as well, in case there are
-> instances of player-perceived lag that cannot be measured by your systems.
-
-Inside the game this is a `quick` debug action usable in any fight (`QUALITY-LAB-BRIEF.md` §3.5). Outside it, the
-device profile and a hitch log are the two fields the telemetry beacon (`../engine/` A8) lacks
-for the "are players seeing something I am not" question, and they would fall under his neocities-only
-rule like everything else in it. Whether a PLAYER ever sees a "report lag" control is a product
-decision and is not assumed. **Needs:** whether the two fields join the beacon once an endpoint is
-picked, and whether players get a control.
+**The Quality Lab's eight questions (Q1 to Q8) were all answered on 2026-09-25 and are in `ARCHIVE.md` with his
+answers.** The brief was revised on them: the lab is its own scene on the battlefield lifted out of the combat
+screen, with a GO LIVE button into a real fight; every actor plays every card, enemies included; timeline entries
+anchor to the action's start or its impact. The fourth answer grew into `../engine/OWNERLESS-CARDS-BRIEF.md`.
 
 ---
 

@@ -22,7 +22,7 @@ Counts are OPEN items, one per `###` heading in the pipeline's document. Re-coun
 
 | Pipeline | Holds | Open | Last work landed |
 |---|---|---|---|
-| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8). All blockers on his list. S65-1 the in-frame review grids, a blocker by his word since 2026-09-26. | **15** | 2026-09-26 (filed) |
+| **`tooling/`** | The suite's overhaul (S64-1), the balance tests (T1 to T6), the Quality Lab (Q1 to Q8 answered, in its archive). All blockers on his list. S65-1 the in-frame review grids, a blocker by his word since 2026-09-26. | **8** | 2026-09-26 (filed) |
 | **`desk/`** | The phone desk's eleven-phase plan. A blocker on his list; a session of its own. | **41** | 2026-09-23 (phases 1 to 4 built) |
 | **`card_pool/`** | What a card costs, does and is worth. B34 the manual pass: `card_pool/CARD-POOL-02.md` drafted whole, vetoes held. S65-1 the starter broken-card rule, measured. | **13** | 2026-09-25 (design only) |
 | **`enemies/`** | Who an enemy is and what it costs. E14 the retag first; S64-1 and S64-2 drafted (`enemies/COMMON-ENCOUNTERS-01.md`, `enemies/ELITE-ENCOUNTERS-01.md`), S64-3 the boss session; E9 every name for veto; S65-1 the act-1 difficulty standard they are graded on; his two lineup rules of 2026-09-26. | **13** | 2026-09-26 (S64-2 drafted) |
@@ -30,7 +30,7 @@ Counts are OPEN items, one per `###` heading in the pipeline's document. Re-coun
 | **`events/`** | Lust Events by tag, map events, the writing groundwork. B23 is the docket. S65-1 event relics priced in a weakness rank. | **10** | 2026-09-25 (filed) |
 | **`mobile/`** | Landscape sizing, portrait styling, the phone test path. | **4** | 2026-09-25 (filed) |
 | **`relics/`** | Starters, outfits and their unlock routes, relics, the trees. B1 is the load-bearing item; S65-1 the rarity model, for his veto. | **7** | 2026-09-25 (design only) |
-| **`engine/`** | The verbs the other pipelines wait for, the screens, audio, performance. S66-1 the encounter block rule and two enemy roles. | **25** | 2026-09-25 (filed) |
+| **`engine/`** | The verbs the other pipelines wait for, the screens, audio, performance. S66-1 the encounter block rule and two enemy roles. Ownerless cards planned and settled (`engine/OWNERLESS-CARDS-BRIEF.md`). | **25** | 2026-09-25 (filed) |
 
 **143 items open across nine documents.** Forty-one of them are the desk's plan. Anastasia's eleven
 (`chessmaster/`) are off the gate and frozen in `Archive/demo1/` on Noodle's machine.
