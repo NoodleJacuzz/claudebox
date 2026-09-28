@@ -224,6 +224,18 @@ pipeline document that owns it (the table under the lists says which), and that 
 
 > I forgot about writing and style matching, that's another blocker since I'd want your help laying the groundwork for the events.
 
+Two more blockers, added 2026-09-26 at the close of the cloud sessions:
+
+> Finally, please add to the early stage blockers the things I forgot:
+> - The in-frame review grids (enemies should probably be a text blurb describing them rather than trying to list all their moves)
+> - Outfits. I will do an early session where I'll have desktop claude help me assemble my favorite outfits into sorted collages, done early so I can post the assembled lists on subscribestar and get user feedback, maybe even do polls.
+
+And two assumptions he stated the same day, which the enemy drafts were checked against and which
+`enemies/ENEMIES.md` holds as rules:
+
+> We will be at a fully unique common and elite enemy lineup between each current act. act1-1, act1-fey, act1-frontier, and act1-flora will not be re-using enemies between us.
+> All of the enemy designs I liked that ended up on the cutting room floor will be used in demo 2.
+
 > And this is a list of I think everything the second demo build really needs. I'm confident I want everything on here, even stuff like mobile portrait support, since that's actually a hugely loyal part of my playerbase.
 > - Per-character card overhaul
 > - Give alt outfits actual images
@@ -262,6 +274,8 @@ it's actually functional, and their feedback would be worth more than just our o
 | Quality tuner | blocker | `tooling/TOOLING.md` Q1 to Q8 | Designed. Phase 0 needs no decision. Comes before SFX and VFX assignment |
 | Balance suites A and B | blocker | `tooling/TOOLING.md` T1 to T6 | Built. Owed: the full-size run, his hour of fixed-seed play, Steps 5 to 7's checks |
 | Writing and style matching | blocker | `events/EVENTS.md` S64-7, `../voice_matching/` | Eight of thirteen items built 2026-09-21 |
+| The in-frame review grids | blocker | `tooling/TOOLING.md` S65-1 | Designed, not built; desktop only. Cards and relics in the frame, enemies as a text blurb each |
+| Outfits, the sorted collages | blocker | `art_pipeline/ART-PIPELINE.md` S68-1 | An early desktop session with him; the collages go to SubscribeStar for feedback and polls |
 | Per-character card overhaul | Card pool rework | `card_pool/CARD-POOL.md` B34, `card_pool/CARD-POOL-02.md` | All six grids and the neutrals drafted; vetoes held. First engine job `relics/RELICS.md` B1 |
 | Give alt outfits actual images | Artwork | `art_pipeline/ART-PIPELINE.md` B26 | Round-5 prompts written for four characters; his picks first |
 | Card art first pass | Artwork | `art_pipeline/ART-PIPELINE.md` B3, B2 | After the alt picks AND the pool cut (about 70 cards leave) |
@@ -278,8 +292,8 @@ it's actually functional, and their feedback would be worth more than just our o
 | Per-character map events | Events & Writing | `events/EVENTS.md` S64-2 | The Weeping Bloom is the model; which tag each raises is his |
 | Shop enhancement | Engine | `engine/ENGINE.md` S64-1 | After the neutral tier lands in shops |
 | Rest site audit | Engine | `engine/ENGINE.md` S64-2 | A browser pass; B30's whole-party picture is the one decision |
-| Common enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-1 | After E14; carries the turn-target question |
-| Elite enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-2 | The five previewed designs are the route-native elites |
+| Common enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-1 | Drafted and measured session 66 (`enemies/COMMON-ENCOUNTERS-01.md`); after E14; carries the turn-target question |
+| Elite enemy encounter rework & additions | Enemy rework | `enemies/ENEMIES.md` S64-2 | Drafted and measured session 68 (`enemies/ELITE-ENCOUNTERS-01.md`); verdicts in the frame |
 | Boss enemy encounter rework | Enemy rework | `enemies/ENEMIES.md` S64-3 | All placeholders but the Juggernaut, his words |
 | Relic & equipment rework | Relic & equipment rework | `relics/RELICS.md` S65-1, B22, B1, B4 | The rarity model answered session 65 (`relics/RELIC-REWORK-01.md`); his MUST: *"an expanded and robust set of relic rarities"*. Safe pool first, his lists second; verdicts in the frame |
 | Engine | Engine | `engine/ENGINE.md`, "Where it stands" | The verbs the other pipelines wait for |
